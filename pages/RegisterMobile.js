@@ -1,17 +1,26 @@
 
 import React ,{useState} from 'react';
-import { TextInput,Picker, View, Image, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { TextInput, View, Image, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import AppStorage from '../storage/AppStorage';
 import AppConstant from '../misc/AppConstant';
 import commonStyling from '../styling/commonStyle';
-import PhoneInput from "react-native-phone-input";
-
+import RNPickerSelect from 'react-native-picker-select';
+import countries from "../storage/Countries.json";
+import commonStyles from "../styling/commonStyle";
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 export default class RegisterMobile extends React.Component {
 
-    PhoneNumberPickerChanged(country, callingCode, phoneNumber) {
-        this.setState({countryName: country.name, callingCode: callingCode, phoneNo:phoneNumber});
-     }
+  state = {
+    selectedCountryCode: "AG",
+    selectedCountryDialCode: "+1268"
+  }
+
+  onCountryValueChange = (value, index) =>{    
+    //console.log(value  + " - "+ key +"  "+ label)    
+    this.setState({selectedCountryCode: countries[index-1].key, selectedCountryDialCode: value});
+  }
+    
     render() {   
         return (
             <View style={{ flexDirection: "column" }}>
@@ -27,15 +36,23 @@ export default class RegisterMobile extends React.Component {
                 </View>
                 <View style={{ alignItems: "center" , marginVertical: 30, marginHorizontal:30}}>
                     <Text style={commonStyling.appLabelInout}>Enter your mobile number</Text>
-                    <PhoneInput style={styles.phoneInput} 
-                        ref={ref => {
-                            this.phone = ref;
-                        }}
-                        
+                    <View style={commonStyling.appPhoneNumberInputView}>
+                    <TextInput style={commonStyles.phoneCountryCode}> {this.state.selectedCountryCode} </TextInput>
+                    <RNPickerSelect                            
+                           onValueChange ={(value, key) => {this.onCountryValueChange(value, key)}}
+                            items={countries}  
+                            style={pickerSelectStyles}  
+                            Icon={() => {
+                              return <Ionicons  style={{marginVertical: 10, marginRight:6}} family={"Ionicons"}  name={"md-arrow-dropdown"}  color={"#OOOOOO"} size={30} />;
+                            }}             
+                            value={this.state.selectedCountryDialCode}
                     />
+                    <TextInput style={commonStyles.phoneLoginInput}  placeholder="Enter your mobile number">  </TextInput>
+                    </View>
+                                        
                 </View>
                 <View style={{ alignItems: "center" }} >
-                    
+                
                 </View>
                 <View style={{ alignItems: "center" ,  marginVertical: 30}} >
                     <TouchableOpacity
@@ -107,6 +124,27 @@ const styles = StyleSheet.create({
         fontFamily:"roboto-regular"
     }   
 
+    
+
 });
 
+const pickerSelectStyles = StyleSheet.create({
+  inputIOS: {
+    fontSize: 20,
+    paddingVertical: 12,
+    paddingHorizontal: 1,
+    borderTopLeftRadius:0,
+    borderBottomLeftRadius:0,    
+    width:90,
+    //borderWidth: 1,
+    borderLeftWidth:0,
+    borderRightWidth:0,
+    borderTopWidth:1,
+    borderBottomWidth:1,
+    borderColor: 'gray',    
+    color: 'black',
+    paddingRight: 5, // to ensure the text is never behind the icon
+    textAlign:'center'
+  }
 
+});
