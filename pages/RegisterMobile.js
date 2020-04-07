@@ -1,27 +1,39 @@
 
-import React ,{useState} from 'react';
+import React ,{useState, useContext} from 'react';
 import { TextInput, View, Image, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import AppStorage from '../storage/AppStorage';
 import AppConstant from '../misc/AppConstant';
+import AppStringContext from '../misc/AppStringContext';
 import commonStyling from '../styling/commonStyle';
 import RNPickerSelect from 'react-native-picker-select';
 import countries from "../storage/Countries.json";
 import commonStyles from "../styling/commonStyle";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import translate from 'react-native-i18n';
+
 
 export default class RegisterMobile extends React.Component {
-
+    constructor(){
+        super();
+    }
+            
   state = {
-    selectedCountryCode: "AG",
-    selectedCountryDialCode: "+1268"
+    languages: [],
+    selectedCountryCode: "IN",
+    selectedCountryDialCode: "+91"    
   }
 
-  onCountryValueChange = (value, index) =>{    
+
+  onCountryValueChange = (value, index) =>{         
     //console.log(value  + " - "+ key +"  "+ label)    
     this.setState({selectedCountryCode: countries[index-1].key, selectedCountryDialCode: value});
+    
+    
   }
     
     render() {   
+        
+
         return (
             <View style={{ flexDirection: "column" }}>
                 <View style={{ alignItems: "center", marginVertical: 60 }}>
@@ -35,7 +47,8 @@ export default class RegisterMobile extends React.Component {
                     </View>
                 </View>
                 <View style={{ alignItems: "center" , marginVertical: 30, marginHorizontal:30}}>
-                    <Text style={commonStyling.appLabelInout}>Enter your mobile number</Text>
+                    <Text style={commonStyling.appLabelInout}>{translate.t('Enter_your_mobile_number')}</Text>
+        
                     <View style={commonStyling.appPhoneNumberInputView}>
                     <TextInput style={commonStyles.phoneCountryCode}> {this.state.selectedCountryCode} </TextInput>
                     <RNPickerSelect                            
@@ -47,7 +60,7 @@ export default class RegisterMobile extends React.Component {
                             }}             
                             value={this.state.selectedCountryDialCode}
                     />
-                    <TextInput style={commonStyles.phoneLoginInput}  placeholder="Enter your mobile number">  </TextInput>
+                    <TextInput style={commonStyles.phoneLoginInput}  placeholder={translate.t('Enter_your_mobile_number')}>  </TextInput>
                     </View>
                                         
                 </View>
@@ -80,7 +93,7 @@ export default class RegisterMobile extends React.Component {
                                 color: "#FFFFFF"
     
                             }}
-                        >Login / Signup</Text>
+                        >{translate.t("Login_Sign_Up")}}</Text>
                     </TouchableOpacity>                    
 
                 </View>

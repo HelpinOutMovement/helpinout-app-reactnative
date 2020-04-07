@@ -4,20 +4,23 @@ import { View, Image, Text, TouchableOpacity, Linking } from 'react-native';
 import AppStorage from '../storage/AppStorage';
 import AppConstant from '../misc/AppConstant';
 import commonStyling from '../styling/commonStyle';
-import AppStringContext from '../misc/AppStringContext';
 import { appLabelKey } from '../misc/AppStrings';
-
-
+import translate from 'react-native-i18n';
 
 function OnBoardingInfoScreen({ navigation }) {
-    const { translate } = useContext(AppStringContext);
 
+    const getLocalAsync =  () => {  
+        let data =   AppStorage.getAppInfo("locale");   
+        console.log(data)
+        return data;
+      };  
+    
     const onContinueClicked = () => {
         navigation.navigate(AppConstant.APP_PAGE.REGISTER_MOBILE);
     }
 
-    const onAppLinkClicked = (lang) => {
-        console.log(' Language Selected', lang);
+    const onAppLinkClicked = (lang) => {        
+        
         Linking.openURL(AppConstant.APP_SITE);
     }
 
@@ -53,7 +56,7 @@ function OnBoardingInfoScreen({ navigation }) {
                             marginLeft: 35,
                             color: "#4F5065CC"
                         }}
-                    >{translate(appLabelKey.app_website)}</Text>
+                    >{translate.t(appLabelKey.app_website)}</Text>
                 </TouchableOpacity>
 
             </View>
@@ -71,17 +74,8 @@ function OnBoardingInfoScreen({ navigation }) {
                         marginLeft: 35,
                         color: "#EE6B6B"
                     }}
-                >{translate(appLabelKey.app_onboarding_text_red)}</Text>
-                <Text
-                    style={{
-                        textAlign: "center",
-                        fontFamily: "Roboto-Medium",
-                        fontSize: 16,
-
-                        marginLeft: 35,
-                        color: "#4F5065CC"
-                    }}
-                >{translate(appLabelKey.app_onboarding_text_normal)}</Text>
+                >{translate.t("Ask_for_Help_Offer_Help")}</Text>
+                
 
 
 
@@ -99,7 +93,7 @@ function OnBoardingInfoScreen({ navigation }) {
                         marginLeft: 35,
                         color: "#4F5065CC"
                     }}
-                >{translate(appLabelKey.app_onboarding_text)}</Text>
+                >{translate.t("wherever_you_are") + " " + translate.t("Search_for_help-providers_and_help-requesters_around_you")}</Text>
             </View>
 
             <View style={{ alignItems: "center" }} >
@@ -128,7 +122,7 @@ function OnBoardingInfoScreen({ navigation }) {
                             color: "#FFFFFF"
 
                         }}
-                    >{translate(appLabelKey.continue_btn_label)}</Text>
+                    >{translate.t("Login_Sign_Up")}</Text>
                 </TouchableOpacity>
 
             </View>

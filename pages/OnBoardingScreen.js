@@ -7,14 +7,16 @@ import commonStyling from '../styling/commonStyle';
 import AppStringContext from '../misc/AppStringContext';
 import{appLabelKey} from '../misc/AppStrings';
 
-
-
-function OnBoardingScreen({ navigation }) {
+function  OnBoardingScreen({ navigation }) {
     const {translate} = useContext(AppStringContext);
-
-    const onLanguageClicked = (lang) => {
-        console.log(' Language Selected',lang);
-        navigation.navigate(AppConstant.APP_PAGE.ON_BOARDING_INFO);
+    const {setLanguage} = useContext(AppStringContext);
+    
+    const onLanguageClicked =  (lang) => {        
+        AppStorage.storeAppInfo("locale", lang).then(function(value) {
+            setLanguage(lang);
+            navigation.navigate(AppConstant.APP_PAGE.ON_BOARDING_INFO);
+          });
+        
     }
 
 
@@ -81,7 +83,33 @@ function OnBoardingScreen({ navigation }) {
                         marginLeft:35,
                         color:"#4F5065CC"
                      }}
-                    >{translate(appLabelKey.lang_hindi_label)}</Text>
+                    >{ translate(appLabelKey.lang_hindi_label)}</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                    style={{
+                        marginVertical:15,
+                        alignItems: "flex-start",
+                        backgroundColor: "#FFFFFF",
+                        height: 56,
+                        width:"92%",
+                        shadowOpacity: 0.9,
+                        shadowOffset:{height:3},
+                        shadowColor: '#2328321F'
+                    }}
+                    onPress={() =>
+                        onLanguageClicked(AppConstant.APP_LANGUAGE.TAMIL)
+                    }>
+                    <Text
+                     style={{
+                        textAlign: "center",
+                        fontFamily: "Roboto-Medium",
+                        fontSize: 20,
+                        lineHeight: 56,
+                        marginLeft:35,
+                        color:"#4F5065CC"
+                     }}
+                    >{ translate(appLabelKey.lang_tamil_label)}</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
@@ -107,7 +135,7 @@ function OnBoardingScreen({ navigation }) {
                         marginLeft:35,
                         color:"#4F5065CC"
                      }}
-                    >{translate(appLabelKey.lang_marathi_label)}</Text>
+                    >{ translate(appLabelKey.lang_marathi_label)}</Text>
                 </TouchableOpacity>
 
 
@@ -134,7 +162,7 @@ function OnBoardingScreen({ navigation }) {
                         marginLeft:35,
                         color:"#4F5065CC"
                      }}
-                    >{translate(appLabelKey.lang_kanada_label)}</Text>
+                    >{ translate(appLabelKey.lang_kanada_label)}</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
@@ -160,7 +188,7 @@ function OnBoardingScreen({ navigation }) {
                         marginLeft:35,
                         color:"#4F5065CC"
                      }}
-                    >{translate(appLabelKey.lang_gujarathi_label)}</Text>
+                    >{ translate(appLabelKey.lang_gujarathi_label) }</Text>
                 </TouchableOpacity>
 
             </View>

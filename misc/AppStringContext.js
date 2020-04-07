@@ -1,24 +1,41 @@
 import React from 'react'
-import AppStrings from './AppStrings';
+//import AppStrings from './AppStrings';
 
 const AppStringContext = React.createContext()
 
 // export const AppStringProvider = AppStringContext.Provider
 export const AppStringConsumer = AppStringContext.Consumer
+import I18n, { getLanguages } from 'react-native-i18n';
+
+
+I18n.fallbacks = true;
+
+// Available languages
+
+I18n.translations = {
+  'en': require('../locale/en'),
+  'ta': require('../locale/ta'),  
+  'hi': require('../locale/hi'),
+  'gu': require('../locale/gu'),
+};
 
 class AppStringProvider extends React.Component {
     // Context state
     state = {
-      language: 'english',
+      language: 'en',
     }
   
     // Method to update state
     setLanguage = language => {
+      console.log(language);
       this.setState(prevState => ({ language }))
     }
     translate = (stringLabelKey, selectedLanguage)  => {
         const currentLang = selectedLanguage ?  selectedLanguage : this.state.language;
-        return (AppStrings && AppStrings[currentLang] &&  AppStrings[currentLang][stringLabelKey] ) ? AppStrings[currentLang][stringLabelKey]: '_####_'
+        I18n.locale = currentLang;
+        //return (AppStrings && AppStrings[currentLang] &&  AppStrings[currentLang][stringLabelKey] ) ? AppStrings[currentLang][stringLabelKey]: '_####_'
+        return I18n.t(stringLabelKey);
+        
     }
   
     render() {
@@ -40,7 +57,7 @@ class AppStringProvider extends React.Component {
     }
 }
 
-export {AppStringProvider};
+export {AppStringProvider, I18n};
 
 export default AppStringContext
 

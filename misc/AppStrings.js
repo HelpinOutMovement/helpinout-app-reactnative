@@ -27,6 +27,7 @@ const appLabelKey = {
     lang_kanada_label:"lang_kanada_label",
     lang_gujarathi_label:"lang_gujarathi_label",
     lang_hindi_label:"lang_hindi_label",
+    lang_tamil_label:"lang_tamil_label",
     app_website:"app_website",
     continue_btn_label:"continue_btn_label",
     app_onboarding_text:'app_onboarding_text',

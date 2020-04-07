@@ -32,6 +32,7 @@ const Stack = createStackNavigator();
 function App() {
 
   const [appState, setAppState] = useState(AppConstant.APP_STATE.IS_LOADING);
+  AppStorage.storeAppInfo("locale", "en");
   useEffect(() => {
     AppStorage.getAppInfo(AppConstant.IS_LOGGED_IN)
       .then((resp) => {

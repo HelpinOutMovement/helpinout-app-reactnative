@@ -7,17 +7,27 @@ const AppConstant = {
         IS_NOT_AUTENTICATED : 'IS_NOT_AUTENTICATED'
     },
     APP_LANGUAGE:{
-        ENGLISH: 'ENGLISH',
-        HINDI: 'HINDI',
-        MARATHI : 'MARATHI',
-        KANNADA:'KANNADA',
-        GUJARATHI:'GUJARATHI'
+        ENGLISH: 'en',
+        HINDI: 'hi',
+        MARATHI : 'mr',
+        KANNADA:'ka',
+        GUJARATHI:'gu',
+        TAMIL:'ta'
     },
     APP_PAGE:{
         SPLASH:'Splash',
         ON_BOARDING:'OnBoarding',
         ON_BOARDING_INFO:'OnBoardingInfo',
         REGISTER_MOBILE:'RegisterMobile'
+    },
+
+    APP_LOCALE:{
+        ENGLISH: 'en',
+        HINDI: 'hi',
+        MARATHI : 'mr',
+        KANNADA:'ka',
+        GUJARATHI:'gu',
+        TAMIL:'ta'       
     }
 }
 
