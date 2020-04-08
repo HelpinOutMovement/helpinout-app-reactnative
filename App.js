@@ -26,6 +26,7 @@ import AppStorage from './storage/AppStorage';
 import AppConstant from './misc/AppConstant';
 import MyDrawer from './pages/SideDrawer';
 import AskForHelpScreen from './pages/AskForHelp';
+import Dashboard from './pages/Dashboard';
 
 
 
@@ -63,13 +64,14 @@ function App() {
         break;
       case AppConstant.APP_STATE.IS_NOT_AUTENTICATED:
         stackedScreen.push((
-          <Stack.Navigator key= 'a_authen' initialRouteName={AppConstant.APP_PAGE.ON_BOARDING}>
+          <Stack.Navigator headerMode="none" key= 'a_authen' initialRouteName={AppConstant.APP_PAGE.ON_BOARDING}>
             <Stack.Screen key= {`a_${AppConstant.APP_PAGE.SPLASH}`} name={AppConstant.APP_PAGE.SPLASH} component={SplashScreen} /> 
             <Stack.Screen key= {`a_${AppConstant.APP_PAGE.ON_BOARDING}`} name={AppConstant.APP_PAGE.ON_BOARDING} component={OnBoardingScreen} />
             <Stack.Screen key= {`a_${AppConstant.APP_PAGE.ON_BOARDING_INFO}`} name={AppConstant.APP_PAGE.ON_BOARDING_INFO}  component={OnBoardingInfoScreen} />
             <Stack.Screen key= {`a_${AppConstant.APP_PAGE.REGISTER_MOBILE}`} name={AppConstant.APP_PAGE.REGISTER_MOBILE}  component={RegisterMobile} />
             <Stack.Screen key= {`a_${AppConstant.APP_PAGE.SCREEN_WITH_SIDE_DRAWER}`} name={AppConstant.APP_PAGE.SCREEN_WITH_SIDE_DRAWER}  component={MyDrawer} />
             <Stack.Screen key= {`a_${AppConstant.APP_PAGE.ASK_FOR_HELP}`} name={AppConstant.APP_PAGE.ASK_FOR_HELP}  component={AskForHelpScreen} />
+            <Stack.Screen key= {`a_${AppConstant.APP_PAGE.DASHBOARD}`} name={AppConstant.APP_PAGE.DASHBOARD}  component={Dashboard} />
           </Stack.Navigator>
         ));
 
