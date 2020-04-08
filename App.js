@@ -9,7 +9,6 @@
 import React, { useState, useEffect } from 'react';
 import { NavigationContainer, } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { createDrawerNavigator } from '@react-navigation/drawer';
 
 
 import LoginScreen from './pages/LoginScreen';
@@ -26,6 +25,7 @@ import { AppStringProvider } from './misc/AppStringContext';
 import AppStorage from './storage/AppStorage';
 import AppConstant from './misc/AppConstant';
 import MyDrawer from './pages/SideDrawer';
+import AskForHelpScreen from './pages/AskForHelp';
 
 
 
@@ -69,6 +69,7 @@ function App() {
             <Stack.Screen key= {`a_${AppConstant.APP_PAGE.ON_BOARDING_INFO}`} name={AppConstant.APP_PAGE.ON_BOARDING_INFO}  component={OnBoardingInfoScreen} />
             <Stack.Screen key= {`a_${AppConstant.APP_PAGE.REGISTER_MOBILE}`} name={AppConstant.APP_PAGE.REGISTER_MOBILE}  component={RegisterMobile} />
             <Stack.Screen key= {`a_${AppConstant.APP_PAGE.SCREEN_WITH_SIDE_DRAWER}`} name={AppConstant.APP_PAGE.SCREEN_WITH_SIDE_DRAWER}  component={MyDrawer} />
+            <Stack.Screen key= {`a_${AppConstant.APP_PAGE.ASK_FOR_HELP}`} name={AppConstant.APP_PAGE.ASK_FOR_HELP}  component={AskForHelpScreen} />
           </Stack.Navigator>
         ));
 

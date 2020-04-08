@@ -11,36 +11,29 @@ const Drawer = createDrawerNavigator();
 const SideMenuOptions = {
     primay: [{
         label: "Home",
-        pageName: AppConstant.APP_PAGE.DASHBOARD,
-        componentName: Dashboard
+        pageName: AppConstant.APP_PAGE.DASHBOARD
+        
     }, {
         label: "Ask",
-        pageName: AppConstant.APP_PAGE.REGISTER_MOBILE,
-        componentName: Dashboard
+        pageName: AppConstant.APP_PAGE.ASK_FOR_HELP
     }, {
         label: "Help",
-        pageName: AppConstant.APP_PAGE.SCREEN_WITH_SIDE_DRAWER,
-        componentName: Dashboard
+        pageName: AppConstant.APP_PAGE.SCREEN_WITH_SIDE_DRAWER
     }, {
         label: "Offer",
-        pageName: AppConstant.APP_PAGE.SCREEN_WITH_SIDE_DRAWER,
-        componentName: Dashboard
+        pageName: AppConstant.APP_PAGE.SCREEN_WITH_SIDE_DRAWER
     }, {
         label: "My requests",
-        pageName: AppConstant.APP_PAGE.SCREEN_WITH_SIDE_DRAWER,
-        componentName: Dashboard
+        pageName: AppConstant.APP_PAGE.SCREEN_WITH_SIDE_DRAWER
     }, {
         label: "My Offers",
-        pageName: AppConstant.APP_PAGE.SCREEN_WITH_SIDE_DRAWER,
-        componentName: Dashboard
+        pageName: AppConstant.APP_PAGE.SCREEN_WITH_SIDE_DRAWER
     }, {
         label: "Profile",
-        pageName: AppConstant.APP_PAGE.SCREEN_WITH_SIDE_DRAWER,
-        componentName: Dashboard
+        pageName: AppConstant.APP_PAGE.SCREEN_WITH_SIDE_DRAWER
     }, {
         label: "About",
-        pageName: AppConstant.APP_PAGE.SCREEN_WITH_SIDE_DRAWER,
-        componentName: Dashboard
+        pageName: AppConstant.APP_PAGE.SCREEN_WITH_SIDE_DRAWER
     }],
     secondary: [{
         label: "English",
