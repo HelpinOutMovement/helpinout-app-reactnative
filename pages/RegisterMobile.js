@@ -33,6 +33,7 @@ export default class RegisterMobile extends React.Component {
   }
     
     render() {   
+        const {navigation} = this.props;
         
 
         return (
@@ -73,7 +74,7 @@ export default class RegisterMobile extends React.Component {
     
                         }}
                         onPress={() =>
-                            console.log('AAA')
+                            navigation.navigate(AppConstant.APP_PAGE.SCREEN_WITH_SIDE_DRAWER)
                         }>
                         <Text
                             style={{

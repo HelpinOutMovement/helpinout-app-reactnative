@@ -9,6 +9,8 @@
 import React, { useState, useEffect } from 'react';
 import { NavigationContainer, } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+
 
 import LoginScreen from './pages/LoginScreen';
 import DetailsScreen from './pages/DetailsScreen';
@@ -17,12 +19,14 @@ import OnBoardingScreen from './pages/OnBoardingScreen';
 import RegisterMobile from './pages/RegisterMobile';
 import OnBoardingInfoScreen from './pages/OnBoardingInfoScreen';
 
-import ScreenWithSideOption from './pages/ScreenWithSideOption';
+
 import AppTheme from './styling/AppTheme';
 import { UserProvider } from './misc/UserContext';
 import { AppStringProvider } from './misc/AppStringContext';
 import AppStorage from './storage/AppStorage';
 import AppConstant from './misc/AppConstant';
+import MyDrawer from './pages/SideDrawer';
+
 
 
 const Stack = createStackNavigator();
@@ -53,7 +57,6 @@ function App() {
         stackedScreen.push((
           <Stack.Navigator  key= 'n_authen'  initialRouteName="Dashboard">
                <Stack.Screen key= 'n_login' name="Login" component={LoginScreen} />
-            <Stack.Screen key= 'n_dashboard' name="Dashboard" component={ScreenWithSideOption} />
             <Stack.Screen key= 'n_details' name="Details" component={DetailsScreen} />
           </Stack.Navigator>
         ));
@@ -64,8 +67,8 @@ function App() {
             <Stack.Screen key= {`a_${AppConstant.APP_PAGE.SPLASH}`} name={AppConstant.APP_PAGE.SPLASH} component={SplashScreen} /> 
             <Stack.Screen key= {`a_${AppConstant.APP_PAGE.ON_BOARDING}`} name={AppConstant.APP_PAGE.ON_BOARDING} component={OnBoardingScreen} />
             <Stack.Screen key= {`a_${AppConstant.APP_PAGE.ON_BOARDING_INFO}`} name={AppConstant.APP_PAGE.ON_BOARDING_INFO}  component={OnBoardingInfoScreen} />
-            
             <Stack.Screen key= {`a_${AppConstant.APP_PAGE.REGISTER_MOBILE}`} name={AppConstant.APP_PAGE.REGISTER_MOBILE}  component={RegisterMobile} />
+            <Stack.Screen key= {`a_${AppConstant.APP_PAGE.SCREEN_WITH_SIDE_DRAWER}`} name={AppConstant.APP_PAGE.SCREEN_WITH_SIDE_DRAWER}  component={MyDrawer} />
           </Stack.Navigator>
         ));
 

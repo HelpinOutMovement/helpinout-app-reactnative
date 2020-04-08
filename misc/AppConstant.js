@@ -18,7 +18,10 @@ const AppConstant = {
         SPLASH:'Splash',
         ON_BOARDING:'OnBoarding',
         ON_BOARDING_INFO:'OnBoardingInfo',
-        REGISTER_MOBILE:'RegisterMobile'
+        REGISTER_MOBILE:'RegisterMobile',
+        SCREEN_WITH_SIDE_DRAWER:'Home',
+        SIDE_DRAWER_SCREEN:'Side Menu',
+        DASHBOARD:'Dashboard'
     },
 
     APP_LOCALE:{
