@@ -6,6 +6,7 @@ import AppConstant from '../misc/AppConstant';
 import commonStyling from '../styling/commonStyle';
 import { appLabelKey } from '../misc/AppStrings';
 import translate from 'react-native-i18n';
+import LogoComponent from './components/LogoComponent';
 
 function OnBoardingInfoScreen({ navigation }) {
 
@@ -27,16 +28,7 @@ function OnBoardingInfoScreen({ navigation }) {
 
     return (
         <View style={{ flexDirection: "column" }}>
-            <View style={{ alignItems: "center", marginVertical: 60 }}>
-                <Image
-                    style={commonStyling.splashSmallImage}
-                    source={require('../images/logo.png')}
-                />
-                <View style={commonStyling.appLabelView}>
-                    <Text style={commonStyling.appLabelHelp}>Helpin</Text>
-                    <Text style={commonStyling.appLabelInout}>Out</Text>
-                </View>
-            </View>
+            <LogoComponent />
             <View style={{ alignItems: "center" }}>
                 <TouchableOpacity
                     style={{
