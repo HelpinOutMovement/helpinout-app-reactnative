@@ -1,15 +1,11 @@
 
 import React, { useContext } from 'react';
-import { StatusBar, StyleSheet, Image } from "react-native";
 import { Container, Header, Grid, Row, Col, Title, Left, Icon, Right, Button, Body, Content, Text, Card, CardItem } from "native-base";
 import UserContext from '../misc/UserContext';
 import AppStringContext from '../misc/AppStringContext';
-import HeaderComponent from './components/HeaderComponent';
-import other from '../images/other.svg'
-import AppConstant from '../misc/AppConstant';
-import commonStyling from '../styling/commonStyle';
 import StaticImage from '../styling/StaticImage';
 import CardComponent from './components/CardComponent';
+import HeaderComponent from './components/HeaderComponent';
 
 const optionsOnScreen = [
   {
@@ -68,28 +64,28 @@ function AskForHelpScreen(props) {
     const cardListView = [];
     let twoColGrid = [];
     optionsOnScreen.forEach((singleOption, index) => {
-        twoColGrid.push((<Col>
-          <CardComponent {...singleOption}/>
-        </Col>));
-      
-      if (  index % 2 != 0) {
+      twoColGrid.push((<Col>
+        <CardComponent {...singleOption} />
+      </Col>));
+
+      if (index % 2 != 0) {
         cardListView.push(
-         ( <Row>
+          (<Row>
             {twoColGrid}
           </Row>)
         );
-        twoColGrid = [];  
+        twoColGrid = [];
       }
     });
 
-    if(twoColGrid.length > 0) {
+    if (twoColGrid.length > 0) {
       cardListView.push(
-        ( <Row>
+        (<Row>
           <Col>
-           {twoColGrid}
-           </Col>
-         </Row>)
-       );
+            {twoColGrid}
+          </Col>
+        </Row>)
+      );
     }
 
     return cardListView;
@@ -97,22 +93,10 @@ function AskForHelpScreen(props) {
   }
   return (
     <Container>
-      <Header style={{ backgroundColor: "#EE6B6B" }}>
-        <Left>
-          <Button
-            transparent
-            onPress={() => props.navigation.goBack()}>
-            <Icon name="ios-arrow-back" />
-          </Button>
-        </Left>
-        <Body>
-          <Title style={{color:"#ffffff"}}> Need help with </Title>
-        </Body>
-        <Right />
-      </Header>
+      <HeaderComponent {...props} />
       <Content padder  >
         <Grid>
-            
+
           {getHelpOptionsView()}
         </Grid>
 

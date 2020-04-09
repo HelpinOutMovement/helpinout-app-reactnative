@@ -1,39 +1,29 @@
 import React  from 'react';
-import {Container, Header, Left, Body, Right,Icon, Button, Title, Text , View} from 'native-base';
+import { Header, Left, Body, Right,Icon, Button, Title} from 'native-base';
 import commonStyling from '../../styling/commonStyle';
 
 
 const HeaderComponent = (props)=>{
     // backgroundColor:props.bgColor? props.bgColor: ""
     return (
-        <Header style={{
-        backgroundColor: props.bgColor? props.bgColor: "",
-        width: "100%",
-        padding: "1%"
-            
-        }}>
-          <Left >
-          <Button transparent onPress={() => {
-                console.log("navigation ", props.navigation)
-                        props.navigation.goBack()
-                    }}>
-              <Icon name='arrow-back' />
-            </Button>
-          </Left>
-          <View style={{
-              width: "70%",
-              paddingTop: "4%",
-              marginLeft: "3%"
-          }}>
-              <Title style={{
-                  textAlign: "center",
-                  fontFamily: "Roboto-Medium",
-                  fontSize: 20,
-                  color:"#ffffff"
-              }}>  {props.title}</Title>
-            <Title> </Title>
-          </View>
-        </Header>
+      <Header style={{ backgroundColor: "#EE6B6B" }}>
+      <Left>
+        <Button
+          transparent
+          onPress={() => props.navigation.goBack()}>
+          <Icon name="ios-arrow-back" style={{color:"#ffffff"}} />
+        </Button>
+      </Left>
+      <Body>
+        <Title style={{ 
+          color: "#ffffff",
+      fontFamily: "Roboto-Medium",
+      fontSize: 18 
+      }}> Need help with </Title>
+      </Body>
+      <Right />
+    </Header>
+    
     )
 };
 
