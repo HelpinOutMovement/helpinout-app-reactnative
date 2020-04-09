@@ -64,20 +64,12 @@ export default class RegisterMobile extends React.Component {
   }
     
     render() {   
+        const {navigation} = this.props;
         
         const { navigate } = this.props.navigation;
         return (
             <View style={{ flexDirection: "column" }}>
-                <View style={{ alignItems: "center", marginVertical: 60 }}>
-                    <Image
-                        style={commonStyling.splashSmallImage}
-                        source={require('../images/logo.png')}
-                    />
-                    <View style={commonStyling.appLabelView}>
-                        <Text style={commonStyling.appLabelHelp}>Helpin</Text>
-                        <Text style={commonStyling.appLabelInout}>Out</Text>
-                    </View>
-                </View>
+                <LogoComponent />
                 <View style={{ alignItems: "center" , marginVertical: 30, marginHorizontal:30}}>
 
 
