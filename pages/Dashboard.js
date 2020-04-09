@@ -1,5 +1,5 @@
 
-import React, { useContext }  from 'react';
+import React, { useContext , useEffect }  from 'react';
 import { StatusBar, StyleSheet } from "react-native";
 import { Container, Header, Title, Left, Icon, Right, Button, Body, Content,Text, Card, CardItem } from "native-base";
 import UserContext from '../misc/UserContext';
@@ -9,6 +9,11 @@ import MapComponent from './MapComponent'
 function Dashboard({ navigation }) {
     const user = useContext(UserContext);
     const {translate} = useContext(AppStringContext);
+
+    useEffect(() => {
+      return () => { navigation.closeDrawer(); }
+    }, [] );
+
    /*
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>

@@ -91,9 +91,11 @@ const CustomSideBarView = ({ navigation }) => {
                             shadowColor: '#2328321F',
 
                         }}
-                        onPress={() =>
-                            navigation.navigate(singleMenu.pageName)
-                        }>
+                        onPress={() => {
+                            navigation.closeDrawer();
+                            navigation.navigate(singleMenu.pageName);
+                        }}
+                        >
                         <Text
                             style={{
                                 textAlign: "center",

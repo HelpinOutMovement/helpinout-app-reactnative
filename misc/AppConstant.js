@@ -33,6 +33,17 @@ const AppConstant = {
         GUJARATHI:'gu',
         TAMIL:'ta'       
     },
+    APP_IMAGE : {
+        FOOD: "../images/food.png",
+        AMBULANCE: "../images/ambulance.png",
+        MED_EQUIPMENT: "../images/med-equipment.png",
+        MEDICINE: "../images/medicine.png",
+        MED_PPE: "../images/medppe.png",
+        OTHER: "../images/other.png",
+        PEOPLE: "../images/ppl.png",
+        SHELTER: "../images/shelter.png",
+        TESTING: "../images/testing.png"
+    },
 
     API_SERVER: {
         baseURL:"http://dummy.restapiexample.com/api/v1",
