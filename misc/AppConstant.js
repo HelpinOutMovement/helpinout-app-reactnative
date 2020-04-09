@@ -19,7 +19,10 @@ const AppConstant = {
         ON_BOARDING:'OnBoarding',
         ON_BOARDING_INFO:'OnBoardingInfo',
         REGISTER_MOBILE:'RegisterMobile',
-        MAP_COMPONENT:'MapComponent'
+        MAP_COMPONENT:'MapComponent',
+        DASHBOARD:'Dashboard',
+        SCREEN_WITH_SIDE_DRAWER:'Home',
+        ASK_FOR_HELP:'Need Help With'
     },
 
     APP_LOCALE:{

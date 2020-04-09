@@ -132,7 +132,7 @@ const CustomSideBarView = ({ navigation }) => {
 function MyDrawer(props) {
     return (
         <Drawer.Navigator drawerContent={(props) => (<CustomSideBarView  {...props} />)}>
-            <Drawer.Screen name="Feed" component={Dashboard} />
+            <Drawer.Screen name="Feed" {...props} component={Dashboard} />
         </Drawer.Navigator>
     );
 }

@@ -113,7 +113,7 @@ export default class RegisterMobile extends React.Component {
     
                         }}
                         onPress={() =>{ //this.findCoordinates()
-                            navigate(AppConstant.APP_PAGE.MAP_COMPONENT);
+                            navigate(AppConstant.APP_PAGE.DASHBOARD);
                         }
                         }>
                         <Text

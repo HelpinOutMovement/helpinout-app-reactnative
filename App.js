@@ -70,7 +70,8 @@ function App() {
             <Stack.Screen key= {`a_${AppConstant.APP_PAGE.ON_BOARDING}`} name={AppConstant.APP_PAGE.ON_BOARDING} component={OnBoardingScreen} />
             <Stack.Screen key= {`a_${AppConstant.APP_PAGE.ON_BOARDING_INFO}`} name={AppConstant.APP_PAGE.ON_BOARDING_INFO}  component={OnBoardingInfoScreen} />
             <Stack.Screen key= {`a_${AppConstant.APP_PAGE.REGISTER_MOBILE}`} name={AppConstant.APP_PAGE.REGISTER_MOBILE}  component={RegisterMobile} />
-
+            <Stack.Screen key= {`a_${AppConstant.APP_PAGE.ASK_FOR_HELP}`} name={AppConstant.APP_PAGE.ASK_FOR_HELP}  component={AskForHelpScreen} />
+             <Stack.Screen key= {`a_${AppConstant.APP_PAGE.DASHBOARD}`} name={AppConstant.APP_PAGE.DASHBOARD}  component={MyDrawer} />
             <Stack.Screen key= {`a_${AppConstant.APP_PAGE.MAP_COMPONENT}`} name={AppConstant.APP_PAGE.MAP_COMPONENT}  component={MapComponent} />
           </Stack.Navigator>
         ));

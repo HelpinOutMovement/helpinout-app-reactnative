@@ -89,6 +89,7 @@ import {
   Text,
   Dimensions,
   TouchableOpacity,
+  Button
 } from 'react-native';
 import DeviceInfo from 'react-native-device-info';
 
@@ -102,7 +103,7 @@ const LONGITUDE = -122.4324;
 const LATITUDE_DELTA = 0.0922;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
-class MapComponents extends React.Component {
+class MapComponent extends React.Component {
   constructor(props) {
     super(props);
 
@@ -164,8 +165,10 @@ class MapComponents extends React.Component {
 
   render() {
       console.log(DeviceInfo.getUniqueId());
+      const { navigation} = this.props;
     return (
       <View style={styles.container}>
+       
         <MapView
           provider={this.props.provider}
           ref={ref => {
@@ -216,15 +219,17 @@ class MapComponents extends React.Component {
             <Text style={styles.buttonText}>Animate (View Angle)</Text>
           </TouchableOpacity>
         </View>
+       
       </View>
     );
   }
 }
 
+/*
 MapComponents.propTypes = {
   provider: ProviderPropType,
 };
-
+*/
 const styles = StyleSheet.create({
   container: {
     ...StyleSheet.absoluteFillObject,
@@ -263,4 +268,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default MapComponents;
+export default MapComponent;
