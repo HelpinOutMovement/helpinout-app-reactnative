@@ -18,7 +18,8 @@ const AppConstant = {
         SPLASH:'Splash',
         ON_BOARDING:'OnBoarding',
         ON_BOARDING_INFO:'OnBoardingInfo',
-        REGISTER_MOBILE:'RegisterMobile'
+        REGISTER_MOBILE:'RegisterMobile',
+        MAP_COMPONENT:'MapComponent'
     },
 
     APP_LOCALE:{
@@ -28,6 +29,10 @@ const AppConstant = {
         KANNADA:'ka',
         GUJARATHI:'gu',
         TAMIL:'ta'       
+    },
+
+    API_SERVER: {
+        baseURL:"http://dummy.restapiexample.com/api/v1",
     }
 }
 

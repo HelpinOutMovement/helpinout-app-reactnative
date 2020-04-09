@@ -16,6 +16,7 @@ import SplashScreen from './pages/SplashScreen';
 import OnBoardingScreen from './pages/OnBoardingScreen';
 import RegisterMobile from './pages/RegisterMobile';
 import OnBoardingInfoScreen from './pages/OnBoardingInfoScreen';
+import MapComponent from './pages/MapComponent';
 
 import ScreenWithSideOption from './pages/ScreenWithSideOption';
 import AppTheme from './styling/AppTheme';
@@ -66,6 +67,8 @@ function App() {
             <Stack.Screen key= {`a_${AppConstant.APP_PAGE.ON_BOARDING_INFO}`} name={AppConstant.APP_PAGE.ON_BOARDING_INFO}  component={OnBoardingInfoScreen} />
             
             <Stack.Screen key= {`a_${AppConstant.APP_PAGE.REGISTER_MOBILE}`} name={AppConstant.APP_PAGE.REGISTER_MOBILE}  component={RegisterMobile} />
+
+            <Stack.Screen key= {`a_${AppConstant.APP_PAGE.MAP_COMPONENT}`} name={AppConstant.APP_PAGE.MAP_COMPONENT}  component={MapComponent} />
           </Stack.Navigator>
         ));
 

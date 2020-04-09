@@ -1,4 +1,3 @@
-
 import React ,{useState, useContext} from 'react';
 import { TextInput, View, Image, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import AppStorage from '../storage/AppStorage';
@@ -10,8 +9,9 @@ import countries from "../storage/Countries.json";
 import commonStyles from "../styling/commonStyle";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import translate from 'react-native-i18n';
-
-
+import geolocation from '@react-native-community/geolocation';
+import APIClient from "../APIClient/API";
+import LoginObject from '../APIClient/RequestResponseObjects/RequestObjects';
 export default class RegisterMobile extends React.Component {
     constructor(){
         super();
@@ -24,6 +24,38 @@ export default class RegisterMobile extends React.Component {
   }
 
 
+  componentDidMount() {
+
+  }
+  findCoordinates = () => {
+      console.log("before getCurrentPosition");
+    geolocation.getCurrentPosition(
+        position => {
+            const location = JSON.stringify(position);
+            console.log("after getCurrentPosition");
+            console.log(location);
+            this.setState({ location });
+        },
+        error => Alert.alert(error.message),
+            { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+    );
+
+        let  registerObject = new LoginObject();
+        
+       
+        console.log(registerObject.getRequestData("12"))
+        var myAPI = new APIClient()
+        var postdata = {"name":"test","salary":"123","age":"23"}
+        let apicall = 'create';
+        apicall = myAPI.createEntity(apicall)
+        //let data = myAPI.endpoints[apicall].getAll({});        
+        let data = myAPI.endpoints[apicall].post(postdata);        
+        data.then(({data})=> console.log(data))
+        .catch(err => console.log(err))
+        
+
+    };
+
   onCountryValueChange = (value, index) =>{         
     //console.log(value  + " - "+ key +"  "+ label)    
     this.setState({selectedCountryCode: countries[index-1].key, selectedCountryDialCode: value});
@@ -33,7 +65,7 @@ export default class RegisterMobile extends React.Component {
     
     render() {   
         
-
+        const { navigate } = this.props.navigation;
         return (
             <View style={{ flexDirection: "column" }}>
                 <View style={{ alignItems: "center", marginVertical: 60 }}>
@@ -47,6 +79,13 @@ export default class RegisterMobile extends React.Component {
                     </View>
                 </View>
                 <View style={{ alignItems: "center" , marginVertical: 30, marginHorizontal:30}}>
+
+
+
+                    <Text style={styles.welcome}>Find My Coords?</Text>
+					<Text>Location: {this.state.location}</Text>
+
+
                     <Text style={commonStyling.appLabelInout}>{translate.t('Enter_your_mobile_number')}</Text>
         
                     <View style={commonStyling.appPhoneNumberInputView}>
@@ -80,8 +119,9 @@ export default class RegisterMobile extends React.Component {
                             shadowColor: '#2328321F',
     
                         }}
-                        onPress={() =>
-                            console.log('AAA')
+                        onPress={() =>{ //this.findCoordinates()
+                            navigate(AppConstant.APP_PAGE.MAP_COMPONENT);
+                        }
                         }>
                         <Text
                             style={{

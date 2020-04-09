@@ -31,6 +31,8 @@
 		70899ED9443448588EB59338 /* Roboto-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A3C7097F24EB40AFBC5D2732 /* Roboto-LightItalic.ttf */; };
 		74BCE5A549165F083F43F0A0 /* libPods-helpinout-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9871CC53C07790F946BD68FF /* libPods-helpinout-tvOS.a */; };
 		7DFC94A48523452BAC1F5E91 /* Roboto-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7E6521122BDD4482BC2298C0 /* Roboto-Thin.ttf */; };
+		8A75C2FC243DBACE00ACCB50 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A75C2FB243DBACE00ACCB50 /* MapKit.framework */; };
+		8A75C359243DD5B900ACCB50 /* libRNDeviceInfo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A75C358243DD5B900ACCB50 /* libRNDeviceInfo.a */; };
 		A10E17F7DC2C4CB9BE7DD91C /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6EAB73EBBA5A4FA0BB546BAC /* Roboto-Medium.ttf */; };
 		C11EA3B18C644CC8B1BA3BF5 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0C737D6B27F04049937B5A28 /* Roboto-Regular.ttf */; };
 		CE91A5FEBF3C440180449D88 /* Roboto-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 57C955B688274D04AACAC27E /* Roboto-MediumItalic.ttf */; };
@@ -90,6 +92,8 @@
 		7E6521122BDD4482BC2298C0 /* Roboto-Thin.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Thin.ttf"; path = "../assets/fonts/Roboto-Thin.ttf"; sourceTree = "<group>"; };
 		8137295E378A4E8AB77C66D8 /* Roboto-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Black.ttf"; path = "../assets/fonts/Roboto-Black.ttf"; sourceTree = "<group>"; };
 		82761FC127FA406496E9AE2A /* Roboto-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-BoldItalic.ttf"; path = "../assets/fonts/Roboto-BoldItalic.ttf"; sourceTree = "<group>"; };
+		8A75C2FB243DBACE00ACCB50 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		8A75C358243DD5B900ACCB50 /* libRNDeviceInfo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRNDeviceInfo.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A98B548243C8349007FC0B1 /* ta */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ta; path = ta.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		9871CC53C07790F946BD68FF /* libPods-helpinout-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-helpinout-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A089AC13364D378F7C605C68 /* Pods-helpinout-helpinoutTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-helpinout-helpinoutTests.release.xcconfig"; path = "Target Support Files/Pods-helpinout-helpinoutTests/Pods-helpinout-helpinoutTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -119,6 +123,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8A75C359243DD5B900ACCB50 /* libRNDeviceInfo.a in Frameworks */,
+				8A75C2FC243DBACE00ACCB50 /* MapKit.framework in Frameworks */,
 				DD3EF52D101CA994B0CC272E /* libPods-helpinout.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -176,6 +182,8 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8A75C358243DD5B900ACCB50 /* libRNDeviceInfo.a */,
+				8A75C2FB243DBACE00ACCB50 /* MapKit.framework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
 				BB84C09138EAF987601140D0 /* libPods-helpinout.a */,
@@ -356,6 +364,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
+						DevelopmentTeam = U7YZJ899N6;
 						LastSwiftMigration = 1120;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
@@ -810,6 +819,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = U7YZJ899N6;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -826,6 +836,7 @@
 				PRODUCT_NAME = helpinout;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -837,6 +848,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = U7YZJ899N6;
 				INFOPLIST_FILE = helpinout/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -847,6 +859,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = helpinout;
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;

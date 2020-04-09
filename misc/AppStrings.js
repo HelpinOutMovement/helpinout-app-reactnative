@@ -35,6 +35,7 @@ const appLabelKey = {
     app_onboarding_text_normal:"app_onboarding_text_normal"
 }
 
+
 export {
     appLabelKey
 }
