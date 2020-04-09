@@ -135,7 +135,7 @@ export default class RegisterMobile extends React.Component {
                     fontFamily: "Roboto-Medium",
                     fontSize: 20,
                     lineHeight: 36,
-                    color: "Grey"
+                    color: "#4F5065B8"
 
                 }}> By Signing up you  agree to {"\n"} Terms of service | Privacy  Policy </Text>
     
@@ -187,8 +187,8 @@ const pickerSelectStyles = StyleSheet.create({
     borderRightWidth:0,
     borderTopWidth:1,
     borderBottomWidth:1,
-    borderColor: 'gray',    
-    color: 'black',
+    borderColor: '#4F5065B8',    
+    color: '#000000',
     paddingRight: 5, // to ensure the text is never behind the icon
     textAlign:'center'
   }

@@ -22,7 +22,8 @@ const AppConstant = {
         MAP_COMPONENT:'MapComponent',
         DASHBOARD:'Dashboard',
         SCREEN_WITH_SIDE_DRAWER:'Home',
-        ASK_FOR_HELP:'Need Help With'
+        ASK_FOR_HELP:'Need Help With',
+        OFFER_HELP_SCREEN:'Offer Help Screen'
     },
 
     APP_LOCALE:{

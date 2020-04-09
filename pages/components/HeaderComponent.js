@@ -6,7 +6,7 @@ import commonStyling from '../../styling/commonStyle';
 const HeaderComponent = (props)=>{
     // backgroundColor:props.bgColor? props.bgColor: ""
     return (
-      <Header style={{ backgroundColor: "#EE6B6B" }}>
+      <Header style={{ backgroundColor: props.bgColor? props.bgColor: "#EE6B6B" }}>
       <Left>
         <Button
           transparent
@@ -19,7 +19,7 @@ const HeaderComponent = (props)=>{
           color: "#ffffff",
       fontFamily: "Roboto-Medium",
       fontSize: 18 
-      }}> Need help with </Title>
+      }}> {(props.title? props.title : 'Need help with' )} </Title>
       </Body>
       <Right />
     </Header>

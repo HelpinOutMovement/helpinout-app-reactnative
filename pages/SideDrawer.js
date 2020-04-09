@@ -21,7 +21,7 @@ const SideMenuOptions = {
         pageName: AppConstant.APP_PAGE.SCREEN_WITH_SIDE_DRAWER
     }, {
         label: "Offer",
-        pageName: AppConstant.APP_PAGE.SCREEN_WITH_SIDE_DRAWER
+        pageName: AppConstant.APP_PAGE.OFFER_HELP_SCREEN
     }, {
         label: "My requests",
         pageName: AppConstant.APP_PAGE.SCREEN_WITH_SIDE_DRAWER
