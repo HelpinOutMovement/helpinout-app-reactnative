@@ -12,6 +12,7 @@ import translate from 'react-native-i18n';
 import geolocation from '@react-native-community/geolocation';
 import APIClient from "../APIClient/API";
 import LoginObject from '../APIClient/RequestResponseObjects/RequestObjects';
+import LogoComponent from './components/LogoComponent';
 export default class RegisterMobile extends React.Component {
     constructor(){
         super();
