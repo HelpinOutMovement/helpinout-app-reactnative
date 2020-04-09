@@ -23,9 +23,13 @@ const AppConstant = {
         DASHBOARD:'Dashboard',
         SCREEN_WITH_SIDE_DRAWER:'Home',
         ASK_FOR_HELP:'Need Help With',
-        OFFER_HELP_SCREEN:'Offer Help Screen'
+        OFFER_HELP_SCREEN:'Offer Help Screen',
+        ASK_FOR_HELP_DETAILS:' Ask for Help Details'
     },
 
+    APP_TEXT_INPUT : {
+        MAX_LENGTH: 256
+    },
     APP_LOCALE:{
         ENGLISH: 'en',
         HINDI: 'hi',
@@ -34,16 +38,16 @@ const AppConstant = {
         GUJARATHI:'gu',
         TAMIL:'ta'       
     },
-    APP_IMAGE : {
-        FOOD: "../images/food.png",
-        AMBULANCE: "../images/ambulance.png",
-        MED_EQUIPMENT: "../images/med-equipment.png",
-        MEDICINE: "../images/medicine.png",
-        MED_PPE: "../images/medppe.png",
-        OTHER: "../images/other.png",
-        PEOPLE: "../images/ppl.png",
-        SHELTER: "../images/shelter.png",
-        TESTING: "../images/testing.png"
+    APP_OPTIONS : {
+        FOOD: "FOOD",
+        AMBULANCE: "AMBULANCE",
+        MED_EQUIPMENT: "MED_EQUIPMENT",
+        MEDICINE: "MEDICINE",
+        MED_PPE: "MED_PPE",
+        OTHER: "OTHER",
+        PEOPLE: "PEOPLE",
+        SHELTER: "SHELTER",
+        TESTING: "TESTING"
     },
 
     API_SERVER: {

@@ -1,76 +1,94 @@
 
-import React, { useContext } from 'react';
-import { Container, Header, Grid, Row, Col, Title, Left, Icon, Right, Button, Body, Content, Text, Card, CardItem } from "native-base";
+import React, { useContext, useState } from 'react';
+import { Image, TouchableOpacity } from 'react-native';
+import { Container, Header, Grid, Row, Col, Form, Title, Item, Input, Label, Left, Icon, Right, Button, Body, Content, Text, Card, CardItem } from "native-base";
 import UserContext from '../misc/UserContext';
 import AppStringContext from '../misc/AppStringContext';
 import StaticImage from '../styling/StaticImage';
 import CardComponent from './components/CardComponent';
 import HeaderComponent from './components/HeaderComponent';
+import AppConstant from '../misc/AppConstant';
 
 const optionsOnScreen = [
   {
     label: "Food",
     path: StaticImage.FOOD,
-    pageName: ""
+    code: AppConstant.APP_OPTIONS.FOOD
   },
   {
     label: "People",
     path: StaticImage.PEOPLE,
-    pageName: ""
+    code: AppConstant.APP_OPTIONS.PEOPLE
   },
   {
     label: "Shelter",
     path: StaticImage.SHELTER,
-    pageName: ""
+    code: AppConstant.APP_OPTIONS.SHELTER
   },
   {
     label: "Med PPE",
     path: StaticImage.MED_PPE,
-    pageName: ""
+    code: AppConstant.APP_OPTIONS.MED_PPE
   },
   {
     label: "Testing",
     path: StaticImage.TESTING,
-    pageName: ""
+    code: AppConstant.APP_OPTIONS.TESTING
   },
   {
     label: "Medicine",
     path: StaticImage.MEDICINE,
-    pageName: ""
+    code: AppConstant.APP_OPTIONS.MEDICINE
   },
   {
     label: "Ambulance",
     path: StaticImage.AMBULANCE,
-    pageName: ""
+    code: AppConstant.APP_OPTIONS.AMBULANCE
   },
   {
     label: "Medical Equipment",
     path: StaticImage.MED_EQUIPMENT,
-    pageName: ""
+    code: AppConstant.APP_OPTIONS.MED_EQUIPMENT
   },
   {
     label: "Other",
     path: StaticImage.OTHER,
-    pageName: ""
+    code: AppConstant.APP_OPTIONS.OTHER
   }
 ]
 
-function AskForHelpScreen(props) {
-  const user = useContext(UserContext);
-  const { translate } = useContext(AppStringContext);
 
+function AskForHelpScreen(props) {
+  // const [selectedOption, setSelectedOption] = useState("");
+  // const [selectedOptionComponent, setSelectedOptionComponent] = useState();
+  // const user = useContext(UserContext);
+  // const { translate } = useContext(AppStringContext);
+
+
+  const onAskForHelpSelection = (optionCode, optionImage) => {
+    //setSelectedOption(optionCode);
+    // setSelectedOptionComponent(optionImage);
+    props.navigation.navigate(AppConstant.APP_PAGE.ASK_FOR_HELP_DETAILS, {
+      code: optionCode,
+      optionImage:optionImage
+    })
+  }
 
   const getHelpOptionsView = () => {
     const cardListView = [];
     let twoColGrid = [];
     optionsOnScreen.forEach((singleOption, index) => {
-      twoColGrid.push((<Col>
-        <CardComponent {...singleOption} />
+      twoColGrid.push((<Col key={singleOption.code}>
+        <TouchableOpacity onPress={() => {
+          onAskForHelpSelection(singleOption.code, singleOption.path);
+        }} >
+          <CardComponent {...singleOption} />
+        </TouchableOpacity>
       </Col>));
 
       if (index % 2 != 0) {
         cardListView.push(
-          (<Row>
+          (<Row key={"i_" + cardListView.length}>
             {twoColGrid}
           </Row>)
         );
@@ -87,32 +105,80 @@ function AskForHelpScreen(props) {
         </Row>)
       );
     }
-
     return cardListView;
+  }
+
+
+  const helpOptionDetails = () => {
+    return (
+      <Form>
+        <Item inlineLabel>
+          <Grid>
+            <Row style={{ marginBottom: 20 }}>
+              <Col>
+                <Image
+                  style={{ alignSelf: "center" }}
+                  source={selectedOptionComponent} />
+
+              </Col>
+            </Row>
+            <Row>
+              <Col style={{ width: "60%" }}>
+                <Input
+                  placeholder="Enter Items"
+                  maxLength={4}
+                  style={{
+
+                    fontSize: 20,
+                    borderWidth: 1,
+                    borderColor: 'gray',
+                    borderRadius: 9,
+                    color: 'black',
+
+                  }} />
+              </Col>
+              <Col style={{ width: "30%", marginLeft: 10 }}>
+                <Input
+                  placeholder="Qty"
+                  keyboardType={'numeric'}
+                  style={{
+                    fontSize: 20,
+                    borderWidth: 1,
+                    borderColor: 'gray',
+                    borderRadius: 9,
+                    color: 'black',
+                  }} />
+              </Col>
+            </Row>
+          </Grid>
+
+
+
+        </Item>
+
+      </Form>
+    );
+  }
+
+  const getOptionGridView = () => {
+    return (<Grid>
+      {getHelpOptionsView()}
+    </Grid>)
 
   }
+
+
   return (
-    <Container>
-      <HeaderComponent {...props} />
-      <Content padder  >
-        <Grid>
+      <Container>
+        <HeaderComponent {...props} />
+        <Content padder  >
 
-          {getHelpOptionsView()}
-        </Grid>
+          {getOptionGridView()}
 
-      </Content>
-    </Container>
+
+        </Content>
+      </Container>
+   
   );
 }
-/**
- * 
- * <Text> AskForHelpScreen  {user.name} {translate('loginLabel','marathi')}</Text>
-        <Button onPress={() => navigation.openDrawer()} title="Open Drawer" />
-        <Button onPress={() => navigation.closeDrawer()} title="Close Drawer" />
-        <Button
-          title="Go to Details"
-          onPress={() => navigation.navigate('Details')}
-        />
-
- */
 export default AskForHelpScreen;

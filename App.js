@@ -27,6 +27,7 @@ import AppStorage from './storage/AppStorage';
 import AppConstant from './misc/AppConstant';
 import MyDrawer from './pages/SideDrawer';
 import AskForHelpScreen from './pages/AskForHelp';
+import AskForHelpDetailsScreen from './pages/AskForHelpDetails';
 import Dashboard from './pages/Dashboard';
 import OfferHelpScreen from './pages/OfferHelpScreen';
 
@@ -75,6 +76,8 @@ function App() {
              <Stack.Screen key= {`a_${AppConstant.APP_PAGE.DASHBOARD}`} name={AppConstant.APP_PAGE.DASHBOARD}  component={MyDrawer} />
             <Stack.Screen key= {`a_${AppConstant.APP_PAGE.MAP_COMPONENT}`} name={AppConstant.APP_PAGE.MAP_COMPONENT}  component={MapComponent} />
             <Stack.Screen key= {`a_${AppConstant.APP_PAGE.OFFER_HELP_SCREEN}`} name={AppConstant.APP_PAGE.OFFER_HELP_SCREEN}  component={OfferHelpScreen} />
+            <Stack.Screen key= {`a_${AppConstant.APP_PAGE.ASK_FOR_HELP_DETAILS}`} name={AppConstant.APP_PAGE.ASK_FOR_HELP_DETAILS}  component={AskForHelpDetailsScreen} />
+            
             
           </Stack.Navigator>
         ));
