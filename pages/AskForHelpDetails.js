@@ -118,7 +118,7 @@ function AskForHelpDetailsScreen(props) {
     const { code, optionImage } = props.route.params;
 
     const onDeleteAction = (code)=> {
-        let tempTotal = totalInput;
+        let tempTotal = [...totalInput];
         const index = tempTotal.indexOf(code);
         if(index != -1) {
             tempTotal.splice(index,1);
@@ -190,7 +190,7 @@ function AskForHelpDetailsScreen(props) {
 
                                 }}
                                 onPress={() => { //this.findCoordinates()
-                                    let totalInputTemp =  totalInput;
+                                    let totalInputTemp =  [...totalInput];
                                     totalInputTemp.push(getID());
                                     console.log(totalInputTemp);
                                     setTotalInput(totalInputTemp);
