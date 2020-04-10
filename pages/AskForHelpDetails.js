@@ -160,7 +160,19 @@ function AskForHelpDetailsScreen(props) {
 
     const showAmbulanceOption = () => {
         return (
-            <Text> Ambulance  </Text>
+            <Row>
+                <Col style={{ alignItems: "center" }}>
+
+                    <Input
+                        placeholder="How many people ?"
+                        style={{
+                            width: "80%",
+                            borderColor: "#2328323D",
+                            borderWidth: 2,
+                            borderRadius: 10
+                        }} />
+                </Col>
+            </Row>
         );
     }
     const showPeopleOption = () => {
@@ -245,7 +257,7 @@ function AskForHelpDetailsScreen(props) {
                 {}
 
             </Content>
-            <Footer style={{ height: (optionCode !== AppConstant.APP_OPTIONS.PEOPLE && optionCode !== AppConstant.APP_OPTIONS.AMBULANCE) ?150: 60, width: "100%" }} >
+            <Footer style={{ height: (optionCode !== AppConstant.APP_OPTIONS.PEOPLE && optionCode !== AppConstant.APP_OPTIONS.AMBULANCE) ? 150 : 60, width: "100%" }} >
                 <Grid>
 
                     {getAddMoreOption()}
