@@ -60,7 +60,9 @@ const appLabelKey = {
     my_Requests:"My_Requests",
     my_Offers:"My_Offers",
     profile:"Profile",
-    about_Us:"About_Us"
+    about_Us:"About_Us",
+    yes:"Yes",
+    no:"No"
 }
 
 

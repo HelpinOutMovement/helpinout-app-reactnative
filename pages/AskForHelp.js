@@ -59,12 +59,7 @@ const optionsOnScreen = [
 
 
 function AskForHelpScreen(props) {
-  // const [selectedOption, setSelectedOption] = useState("");
-  // const [selectedOptionComponent, setSelectedOptionComponent] = useState();
-  // const user = useContext(UserContext);
-  // const { translate } = useContext(AppStringContext);
-
-
+  
   const onAskForHelpSelection = (optionCode, optionImage) => {
     //setSelectedOption(optionCode);
     // setSelectedOptionComponent(optionImage);

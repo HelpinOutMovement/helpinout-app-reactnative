@@ -32,8 +32,16 @@ const needHelpWithModalContent = (props) => {
                     </Col>
                 </Row>
                 <Row>
-                    <ButtonComponent setShowModal={() => { props.closePopUp(AppConstant.APP_CONFIRMATION.YES) }} label="Yes" />
-                    <ButtonComponent containerStyle={{ marginLeft: 10 }} setShowModal={() => { props.closePopUp(AppConstant.APP_CONFIRMATION.NO) }} unfilled={true} label="No" />
+                    <ButtonComponent 
+                        setShowModal={() => { props.closePopUp(AppConstant.APP_CONFIRMATION.YES) }} 
+                        label={translate.t(appLabelKey.yes)}
+                        colorTheme={props.colorTheme}  />
+                    <ButtonComponent 
+                        containerStyle={{ marginLeft: 10 }} 
+                        setShowModal={() => { props.closePopUp(AppConstant.APP_CONFIRMATION.NO) }} 
+                        unfilled={true} 
+                        label={translate.t(appLabelKey.no)}
+                        colorTheme={props.colorTheme}  />
                 </Row>
             </Grid>
         </View>

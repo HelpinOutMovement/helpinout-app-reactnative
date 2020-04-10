@@ -8,7 +8,7 @@ const ButtonComponent = (props) => {
     let buttonFilledStyle = {
         marginLeft: 10,
         alignItems: "center",
-        backgroundColor: props.color ? props.color : "#EE6B6B",
+        backgroundColor: props.colorTheme ? props.colorTheme : "#EE6B6B",
         height: 56,
         borderRadius: 10
 
@@ -16,7 +16,7 @@ const ButtonComponent = (props) => {
     if (props.unfilled) {
         buttonFilledStyle = {
             alignItems: "center",
-            borderColor: props.color ? props.color : "#EE6B6B",
+            borderColor: props.colorTheme ? props.colorTheme : "#EE6B6B",
             height: 56,
             borderWidth: 2,
             borderRadius: 10
@@ -38,7 +38,7 @@ const ButtonComponent = (props) => {
                         fontFamily: "Roboto-Regular",
                         fontSize: 16,
                         lineHeight: 56,
-                        color: (props.unfilled) ? (props.color ? props.color : "#EE6B6B") : "#ffffff"
+                        color: (props.unfilled) ? (props.colorTheme ? props.colorTheme : "#EE6B6B") : "#ffffff"
                     }}
                 > {props.label}</Text>
             </TouchableOpacity>

@@ -6,11 +6,6 @@ import { Body, Text, Card, CardItem, Grid, Row, Col } from "native-base";
 const CardComponent = (props) => {
   if (props.singleRow) {
     return (
-      <TouchableOpacity onPress={() => {
-        if (props.onClicked) {
-          props.onClicked(props.code);
-        }
-      }} >
         <Card style={{ alignItems: "center" }}>
           <CardItem bordered >
             <Body>
@@ -47,7 +42,6 @@ const CardComponent = (props) => {
             </Body>
           </CardItem>
         </Card>
-      </TouchableOpacity>
     )
   }
   return (

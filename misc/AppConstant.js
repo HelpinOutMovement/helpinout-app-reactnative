@@ -28,7 +28,8 @@ const AppConstant = {
         SCREEN_WITH_SIDE_DRAWER:'Home',
         ASK_FOR_HELP:'Need Help With',
         OFFER_HELP_SCREEN:'Offer Help Screen',
-        ASK_FOR_HELP_DETAILS:' Ask for Help Details'
+        ASK_FOR_HELP_DETAILS:' Ask for Help Details',
+        OFFER_HELP_SCREEN_DETAILS:"Offer Help Screen Details"
     },
 
     APP_TEXT_INPUT : {

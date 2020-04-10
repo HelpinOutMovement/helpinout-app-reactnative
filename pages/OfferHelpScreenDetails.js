@@ -3,7 +3,6 @@ import React, { useContext, useState } from 'react';
 import { Image, TouchableOpacity, StyleSheet, View } from 'react-native';
 import { Container, Textarea, Grid, CheckBox, Row, Col, Form, Title, Item, Input, Label, Left, Right, Button, Body, Content, Text, Card, CardItem, Footer } from "native-base";
 import { default as EntypoIcon } from 'react-native-vector-icons/AntDesign';
-import { default as MaterialCommunityIcon } from 'react-native-vector-icons/MaterialCommunityIcons';
 import translate from 'react-native-i18n';
 import {appLabelKey} from '../misc/AppStrings';
 import HeaderComponent from './components/HeaderComponent';
@@ -15,8 +14,8 @@ import InputRowComponent from './components/InputRowComponent';
 import Utilities from '../misc/Utils';
 
 
-function AskForHelpDetailsScreen(props) {
-    const colorTheme = "#EE6B6B";
+function OfferHelpScreenDetails(props) {
+    const colorTheme = "#4F5065";
     const firstId = Utilities.getID();
     const [totalInput, setTotalInput] = useState([firstId]);
     const [volunteers, setVolunteers] = useState(false);
@@ -165,7 +164,9 @@ function AskForHelpDetailsScreen(props) {
 
     return (
         <Container>
-            <HeaderComponent {...props} />
+            <HeaderComponent {...props} 
+                    title="Offer help with " bgColor={colorTheme}
+                     />
             <Content padder  >
                 {defaultHelpOptionDetails()}
                 {decideWhichViewToMake()}
@@ -177,19 +178,23 @@ function AskForHelpDetailsScreen(props) {
                     <ButtonComponent 
                         setShowModal={setShowModal} 
                         label={translate.t(appLabelKey.we_can_pay)}
-                        color={colorTheme} />
+                        colorTheme={colorTheme} />
                     <ButtonComponent 
                         containerStyle={{marginLeft:10}} 
                         setShowModal={setShowModal} 
                         unfilled={true} 
                         label={translate.t(appLabelKey.we_cannot_pay)}
-                        color={colorTheme} />
+                        colorTheme={colorTheme} />
                     </Row>
                 </Grid>
             </Footer>
-            <ModalComponent showModal={showModal} closePopUp={closePopUp} />
+            <ModalComponent 
+                showModal={showModal} 
+                closePopUp={closePopUp} 
+                colorTheme={colorTheme}
+                />
         </Container>
     );
 }
 
-export default AskForHelpDetailsScreen;
+export default OfferHelpScreenDetails;

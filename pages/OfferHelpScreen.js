@@ -1,72 +1,83 @@
 
 import React, { useContext } from 'react';
+import { TouchableOpacity } from 'react-native';
 import { Container, Header, Grid, Row, Col, Title, Left, Icon, Right, Button, Body, Content, Text, Card, CardItem } from "native-base";
-import UserContext from '../misc/UserContext';
-import AppStringContext from '../misc/AppStringContext';
+import translate from 'react-native-i18n';
+import { appLabelKey } from '../misc/AppStrings';
+import AppConstant from '../misc/AppConstant';
 import StaticImage from '../styling/StaticImage';
 import CardComponent from './components/CardComponent';
 import HeaderComponent from './components/HeaderComponent';
 
 const optionsOnScreen = [
     {
-        label: "Food",
+        label: translate.t(appLabelKey.food),
         path: StaticImage.FOOD,
-        pageName: ""
+        code: AppConstant.APP_OPTIONS.FOOD
     },
     {
-        label: "People",
+        label: translate.t(appLabelKey.people),
         path: StaticImage.PEOPLE,
-        pageName: ""
+        code: AppConstant.APP_OPTIONS.PEOPLE
     },
     {
-        label: "Shelter",
+        label: translate.t(appLabelKey.shelter),
         path: StaticImage.SHELTER,
-        pageName: ""
+        code: AppConstant.APP_OPTIONS.SHELTER
     },
     {
-        label: "Med PPE",
+        label: translate.t(appLabelKey.medical_PPE),
         path: StaticImage.MED_PPE,
-        pageName: ""
+        code: AppConstant.APP_OPTIONS.MED_PPE
     },
     {
-        label: "Testing",
+        label: translate.t(appLabelKey.testing),
         path: StaticImage.TESTING,
-        pageName: ""
+        code: AppConstant.APP_OPTIONS.TESTING
     },
     {
-        label: "Medicine",
+        label: translate.t(appLabelKey.medicines),
         path: StaticImage.MEDICINE,
-        pageName: ""
+        code: AppConstant.APP_OPTIONS.MEDICINE
     },
     {
-        label: "Ambulance",
+        label: translate.t(appLabelKey.ambulance),
         path: StaticImage.AMBULANCE,
-        pageName: ""
+        code: AppConstant.APP_OPTIONS.AMBULANCE
     },
     {
-        label: "Medical Equipment",
+        label: translate.t(appLabelKey.medical_Equipment),
         path: StaticImage.MED_EQUIPMENT,
-        pageName: ""
+        code: AppConstant.APP_OPTIONS.MED_EQUIPMENT
     },
     {
-        label: "Other",
+        label: translate.t(appLabelKey.other),
         path: StaticImage.OTHER,
-        pageName: ""
+        code: AppConstant.APP_OPTIONS.OTHER
     }
 ]
 
-function OfferHelpScreen(props) {
-    const user = useContext(UserContext);
-    const { translate } = useContext(AppStringContext);
 
+function OfferHelpScreen(props) {
+
+    const onAskForHelpSelection = (optionCode, optionImage) => {
+        props.navigation.navigate(AppConstant.APP_PAGE.OFFER_HELP_SCREEN_DETAILS, {
+            optionCode: optionCode,
+            optionImage: optionImage
+        })
+    }
 
     const getHelpOptionsView = () => {
         const cardListView = [];
         optionsOnScreen.forEach((singleOption, index) => {
             cardListView.push((
-                <Row key={singleOption.label}>
+                <Row key={singleOption.code}>
                     <Col>
-                        <CardComponent {...singleOption} singleRow={true}/>
+                        <TouchableOpacity onPress={() => {
+                            onAskForHelpSelection(singleOption.code, singleOption.path);
+                        }} >
+                            <CardComponent {...singleOption} singleRow={true} />
+                        </TouchableOpacity>
                     </Col></Row>));
 
 
