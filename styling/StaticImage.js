@@ -7,6 +7,7 @@ const OTHER = require("../images/other.png");
 const PEOPLE = require("../images/ppl.png");
 const SHELTER = require("../images/shelter.png");
 const TESTING = require("../images/testing.png");
+const STAR = require('../images/star.png')
 class StaticImage {
     static FOOD = FOOD;
     static AMBULANCE = AMBULANCE;
@@ -17,6 +18,7 @@ class StaticImage {
     static PEOPLE = PEOPLE;
     static SHELTER = SHELTER;
     static TESTING = TESTING;
+    static STAR = STAR;
 }
 
 export default StaticImage;

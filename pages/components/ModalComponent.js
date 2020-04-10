@@ -1,13 +1,104 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Image, TouchableOpacity, StyleSheet, View } from 'react-native';
 import { Container, Textarea, Grid, CheckBox, Row, Col, Form, Title, Item, Input, Label, Left, Right, Button, Body, Content, Text, Card, CardItem, Footer } from "native-base";
+import { Rating, AirbnbRating } from 'react-native-ratings';
 import Modal from 'react-native-modal';
+import { default as EvilIcon } from 'react-native-vector-icons/EvilIcons';
 import AppConstant from '../../misc/AppConstant';
-import ButtonComponent from './ButtonComponent';
+import ButtonComponent, { BasicFilledButton } from './ButtonComponent';
+import StaticImage from '../../styling/StaticImage';
+
 import translate from 'react-native-i18n';
-import {appLabelKey} from '../../misc/AppStrings';
+import { appLabelKey } from '../../misc/AppStrings';
+
+const rateAndReviewModalContent = (props) => {
+    const ratingCompleted = (val) => {
+        console.log(val)
+    }
+    return (
+        <View style={{
+            backgroundColor: 'white',
+            padding: 22,
+            height: 490,
+            justifyContent: 'center',
+            alignItems: 'center',
+            borderRadius: 4,
+            borderColor: 'rgba(0, 0, 0, 0.1)',
+
+        }}>
+            <Grid style={{ width: "100%" }}>
+                <Row style={{ borderColor: "green", borderWidth: 2 }}>
+                    <Col style={{ width: "80%" }}>
+                        <Text style={{ color: "#000000" }}>{translate.t(appLabelKey.rate_Report)}   </Text>
+                    </Col>
+                    <Col style={{ width: "20%" }}>
+                        <TouchableOpacity
+                            onPress={() => {
+                                props.closePopUp(true)
+                            }
+                            }>
+                            <EvilIcon name="close" style={{
+                                color: "#4F5065",
+                                fontSize: 34
+                            }} />
+                        </TouchableOpacity>
+                    </Col>
+                </Row>
+                <Row style={{ borderColor: "green", borderWidth: 2 }} >
+                    <Col style={{ width: "90%" }}>
+                        <Text style={{
+                            textAlign: "left",
+                            fontFamily: "Roboto-Medium",
+                            fontSize: 16,
+                            color: "#232832"
+                        }}>
+                            {props.name}  </Text>
+                    </Col>
+                </Row>
+                <Row><Col style={{ borderColor: "green", borderWidth: 2 }}>
+                    <AirbnbRating
+                        reviews={[]}
+                        ratingCount={5}
+                        fractions={1}
+                        startingValue={1.57}
+                        imageSize={40}
+                        onFinishRating={ratingCompleted}
 
 
+                    />
+                </Col></Row>
+                <Row>
+                    <Col>
+                        <Text style={{ color: "#4F5065CC" }}>{translate.t(appLabelKey.should_others_take_help_from_them)}   </Text>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col style={{
+                        flexDirection: 'row',
+                        flexWrap: 'wrap'
+                    }} >
+                        <CheckBox checked={props.checked} color="#4F5065" style={{ marginRight: 20 }} />
+                        <Text style={{ color: "#4F5065CC" }}>{translate.t(appLabelKey.yes)}   </Text>
+                    </Col>
+                    <Col style={{
+                        flexDirection: 'row',
+                        flexWrap: 'wrap'
+                    }}>
+                        <CheckBox checked={props.checked} color="#4F5065" style={{ marginRight: 20 }} />
+                        <Text style={{ color: "#4F5065CC" }}>{translate.t(appLabelKey.no)}   </Text>
+                    </Col>
+                </Row>
+                <Row>
+                    <BasicFilledButton
+                        clickHandler={() => { props.closePopUp() }}
+                        label={translate.t(appLabelKey.submit)}
+                        colorTheme={props.colorTheme} />
+                </Row>
+            </Grid>
+        </View>
+    );
+
+}
 const needHelpWithModalContent = (props) => {
     return (
         <View style={{
@@ -32,16 +123,16 @@ const needHelpWithModalContent = (props) => {
                     </Col>
                 </Row>
                 <Row>
-                    <ButtonComponent 
-                        setShowModal={() => { props.closePopUp(AppConstant.APP_CONFIRMATION.YES) }} 
+                    <ButtonComponent
+                        setShowModal={() => { props.closePopUp(AppConstant.APP_CONFIRMATION.YES) }}
                         label={translate.t(appLabelKey.yes)}
-                        colorTheme={props.colorTheme}  />
-                    <ButtonComponent 
-                        containerStyle={{ marginLeft: 10 }} 
-                        setShowModal={() => { props.closePopUp(AppConstant.APP_CONFIRMATION.NO) }} 
-                        unfilled={true} 
+                        colorTheme={props.colorTheme} />
+                    <ButtonComponent
+                        containerStyle={{ marginLeft: 10 }}
+                        setShowModal={() => { props.closePopUp(AppConstant.APP_CONFIRMATION.NO) }}
+                        unfilled={true}
                         label={translate.t(appLabelKey.no)}
-                        colorTheme={props.colorTheme}  />
+                        colorTheme={props.colorTheme} />
                 </Row>
             </Grid>
         </View>
@@ -53,6 +144,9 @@ const ModalComponent = (props) => {
     const getModalContent = () => {
         let modalContent;
         switch (props.viewName) {
+            case AppConstant.APP_ACTION.RATE_REPORT:
+                modalContent = rateAndReviewModalContent(props)
+                break;
             default:
                 modalContent = needHelpWithModalContent(props)
                 break;

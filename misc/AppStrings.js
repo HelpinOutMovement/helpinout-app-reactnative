@@ -66,7 +66,10 @@ const appLabelKey = {
     offers_Received:"Offers_Received",
     requests_Sent:"Requests_Sent",
     requests_Received:"Requests_Received",
-    offers_Sent:"Offers_Sent"
+    offers_Sent:"Offers_Sent",
+    rate_Report:"Rate_Report",
+    submit:"Submit",
+    should_others_take_help_from_them:"Should_others_take_help_from_them"
 }
 
 

@@ -46,6 +46,37 @@ const ButtonComponent = (props) => {
     );
 };
 
+const BasicFilledButton = (props) => {
+    let buttonFilledStyle = {
+        marginVertical: 30,
+        alignItems: "center",
+        backgroundColor: "#4F5065",
+        height: 56,
+        width: "92%",
+        shadowOpacity: 0.9,
+        shadowOffset: { height: 3 },
+        shadowColor: '#2328321F',
+
+    };
+    return (
+        <TouchableOpacity
+        style={buttonFilledStyle}
+        onPress={() => {
+            props.clickHandler(true)
+        }
+        }>
+        <Text
+            style={{
+                textAlign: "center",
+                                fontFamily: "Roboto-Medium",
+                                fontSize: 20,
+                                lineHeight: 56,
+                                color: "#FFFFFF"
+            }}
+        > {props.label}</Text>
+    </TouchableOpacity>
+    );
+}
 
 const BasicButton = (props) => {
     let buttonFilledStyle = {
@@ -76,7 +107,8 @@ const BasicButton = (props) => {
 }
 
 export {
-    BasicButton
+    BasicButton,
+    BasicFilledButton
 }
 
 export default ButtonComponent;
