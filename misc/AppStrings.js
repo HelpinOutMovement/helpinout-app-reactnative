@@ -52,7 +52,8 @@ const appLabelKey = {
     medical_Equipment:"Medical_Equipment",
     other:"Other",
     need_help_with:"Need_help_with",
-    qty:"Qty"
+    qty:"Qty",
+    details_optional:"Details_optional"
 }
 
 
