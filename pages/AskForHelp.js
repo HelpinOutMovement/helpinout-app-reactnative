@@ -69,7 +69,7 @@ function AskForHelpScreen(props) {
     //setSelectedOption(optionCode);
     // setSelectedOptionComponent(optionImage);
     props.navigation.navigate(AppConstant.APP_PAGE.ASK_FOR_HELP_DETAILS, {
-      code: optionCode,
+      optionCode: optionCode,
       optionImage:optionImage
     })
   }

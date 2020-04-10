@@ -94,8 +94,8 @@ const InputRowComponent = (props) => {
                         alignItems: "center"
 
                     }}
-                    onPress={() => { 
-                        if(props.onDelete){
+                    onPress={() => {
+                        if (props.onDelete) {
                             props.onDelete(props.code)
                         }
                     }}>
@@ -115,13 +115,12 @@ const getID = function () {
 function AskForHelpDetailsScreen(props) {
     const firstId = getID();
     const [totalInput, setTotalInput] = useState([firstId]);
-    const { code, optionImage } = props.route.params;
-
-    const onDeleteAction = (code)=> {
+    const { optionCode, optionImage } = props.route.params;
+    const onDeleteAction = (code) => {
         let tempTotal = [...totalInput];
         const index = tempTotal.indexOf(code);
-        if(index != -1) {
-            tempTotal.splice(index,1);
+        if (index != -1) {
+            tempTotal.splice(index, 1);
             setTotalInput(tempTotal);
         }
     }
@@ -129,22 +128,18 @@ function AskForHelpDetailsScreen(props) {
         const dynamicInput = [];
         totalInput.forEach(singleInstance => {
             dynamicInput.push((
-                <InputRowComponent 
-                    key={"input_r"+singleInstance} 
-                    showDelete={singleInstance == firstId ? false : true} 
+                <InputRowComponent
+                    key={"input_r" + singleInstance}
+                    showDelete={singleInstance == firstId ? false : true}
                     code={singleInstance}
-                    onDelete={()=>{
+                    onDelete={() => {
                         onDeleteAction(singleInstance);
                     }}
-                    />
+                />
             ))
         })
-            
         return dynamicInput;
     }
-
-
-
     const defaultHelpOptionDetails = () => {
         return (
 
@@ -160,16 +155,40 @@ function AskForHelpDetailsScreen(props) {
         );
     }
 
+    const showAmbulanceOption = () => {
+        return (
+            <Text> Ambulance  </Text>)
+    }
+    const showPeopleOption = () => {
+        return (
+            <Text> People  </Text>)
+    }
 
+    const decideWhichViewToMake = () => {
+        let outputView ;
+        switch (optionCode) {
+            case AppConstant.APP_OPTIONS.PEOPLE:
+                outputView =  showPeopleOption();
+                break;
+            case AppConstant.APP_OPTIONS.AMBULANCE:
+                outputView =  showAmbulanceOption();
+                break;
+            default:
+                outputView =  showDynamicallyAddedInput();
+                break;
+        }
+
+        return outputView;
+    }
 
     return (
-
         <Container>
             <HeaderComponent {...props} />
             <Content padder  >
 
                 {defaultHelpOptionDetails()}
-                {showDynamicallyAddedInput()}
+                {decideWhichViewToMake()}
+                {}
 
             </Content>
             <Footer style={{ height: 150, width: "100%" }} >
@@ -190,7 +209,7 @@ function AskForHelpDetailsScreen(props) {
 
                                 }}
                                 onPress={() => { //this.findCoordinates()
-                                    let totalInputTemp =  [...totalInput];
+                                    let totalInputTemp = [...totalInput];
                                     totalInputTemp.push(getID());
                                     console.log(totalInputTemp);
                                     setTotalInput(totalInputTemp);
@@ -270,22 +289,9 @@ function AskForHelpDetailsScreen(props) {
                         </Col>
                     </Row>
                 </Grid>
-
-
             </Footer>
         </Container>
-
     );
 }
-/**
- * 
- * <Text> AskForHelpScreen  {user.name} {translate('loginLabel','marathi')}</Text>
-        <Button onPress={() => navigation.openDrawer()} title="Open Drawer" />
-        <Button onPress={() => navigation.closeDrawer()} title="Close Drawer" />
-        <Button
-          title="Go to Details"
-          onPress={() => navigation.navigate('Details')}
-        />
 
- */
 export default AskForHelpDetailsScreen;
