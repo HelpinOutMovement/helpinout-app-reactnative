@@ -1,65 +1,16 @@
 
 import React, { useContext, useState } from 'react';
 import { Image, TouchableOpacity, StyleSheet, View } from 'react-native';
-
 import { Container, Textarea, Grid, CheckBox, Row, Col, Form, Title, Item, Input, Label, Left, Right, Button, Body, Content, Text, Card, CardItem, Footer } from "native-base";
 import { default as EntypoIcon } from 'react-native-vector-icons/AntDesign';
 import { default as MaterialCommunityIcon } from 'react-native-vector-icons/MaterialCommunityIcons';
-import UserContext from '../misc/UserContext';
-import AppStringContext from '../misc/AppStringContext';
-import StaticImage from '../styling/StaticImage';
-import CardComponent from './components/CardComponent';
+import translate from 'react-native-i18n';
+import {appLabelKey} from '../misc/AppStrings';
 import HeaderComponent from './components/HeaderComponent';
 import AppConstant from '../misc/AppConstant';
 import PeopleAskComponent from './components/PeopleAskComponent';
 import ModalComponent from './components/ModalComponent';
-const optionsOnScreen = [
-    {
-        label: "Food",
-        path: StaticImage.FOOD,
-        code: AppConstant.APP_OPTIONS.FOOD
-    },
-    {
-        label: "People",
-        path: StaticImage.PEOPLE,
-        code: AppConstant.APP_OPTIONS.PEOPLE
-    },
-    {
-        label: "Shelter",
-        path: StaticImage.SHELTER,
-        code: AppConstant.APP_OPTIONS.SHELTER
-    },
-    {
-        label: "Med PPE",
-        path: StaticImage.MED_PPE,
-        code: AppConstant.APP_OPTIONS.MED_PPE
-    },
-    {
-        label: "Testing",
-        path: StaticImage.TESTING,
-        code: AppConstant.APP_OPTIONS.TESTING
-    },
-    {
-        label: "Medicine",
-        path: StaticImage.MEDICINE,
-        code: AppConstant.APP_OPTIONS.MEDICINE
-    },
-    {
-        label: "Ambulance",
-        path: StaticImage.AMBULANCE,
-        code: AppConstant.APP_OPTIONS.AMBULANCE
-    },
-    {
-        label: "Medical Equipment",
-        path: StaticImage.MED_EQUIPMENT,
-        code: AppConstant.APP_OPTIONS.MED_EQUIPMENT
-    },
-    {
-        label: "Other",
-        path: StaticImage.OTHER,
-        code: AppConstant.APP_OPTIONS.OTHER
-    }
-]
+import ButtonComponent from './components/ButtonComponent';
 
 
 const InputRowComponent = (props) => {
@@ -67,7 +18,7 @@ const InputRowComponent = (props) => {
         <Row style={{ alignItems: "center", marginVertical: 10 }}>
             <Col style={{ width: "66%" }}>
                 <Input
-                    placeholder="Enter Items"
+                    placeholder= {translate.t(appLabelKey.enter_items_optional)} 
                     maxLength={AppConstant.APP_TEXT_INPUT.MAX_LENGTH}
                     style={{
                         fontSize: 20,
@@ -80,7 +31,7 @@ const InputRowComponent = (props) => {
             </Col>
             <Col style={{ width: "20%", marginLeft: 10 }}>
                 <Input
-                    placeholder="Qty"
+                    placeholder={translate.t(appLabelKey.qty)} 
                     keyboardType={'numeric'}
                     style={{
                         fontSize: 20,
@@ -169,7 +120,7 @@ function AskForHelpDetailsScreen(props) {
                 <Col style={{ alignItems: "center" }}>
 
                     <Input
-                        placeholder="How many people ?"
+                        placeholder= {translate.t(appLabelKey.how_many_people)} 
                         style={{
                             width: "80%",
                             borderColor: "#2328323D",
@@ -183,8 +134,8 @@ function AskForHelpDetailsScreen(props) {
     const showPeopleOption = () => {
         return (
             <React.Fragment>
-                <PeopleAskComponent label="Volunteers" setChecked={setVolunteers} checked={volunteers} />
-                <PeopleAskComponent label="Technical Personnel" setChecked={setTechnicalPersonnel} checked={technicalPersonnel} />
+                <PeopleAskComponent label= {translate.t(appLabelKey.volunteers)}  setChecked={setVolunteers} checked={volunteers} />
+                <PeopleAskComponent label= {translate.t(appLabelKey.technical_Personnel)}  setChecked={setTechnicalPersonnel} checked={technicalPersonnel} />
             </React.Fragment>
         )
     }
@@ -225,7 +176,7 @@ function AskForHelpDetailsScreen(props) {
                                     color: "#EE6B6B"
 
                                 }}
-                            > Add More </Text>
+                            >{translate.t(appLabelKey.add_more)} </Text>
                         </TouchableOpacity>
 
                     </Col>
@@ -267,77 +218,18 @@ function AskForHelpDetailsScreen(props) {
         <Container>
             <HeaderComponent {...props} />
             <Content padder  >
-
                 {defaultHelpOptionDetails()}
                 {decideWhichViewToMake()}
-                {}
-
             </Content>
             <Footer style={{ height: (optionCode !== AppConstant.APP_OPTIONS.PEOPLE && optionCode !== AppConstant.APP_OPTIONS.AMBULANCE) ? 150 : 60, width: "100%" }} >
                 <Grid>
-
                     {getAddMoreOption()}
-
                     <Row style={{ alignSelf: "center" }}>
-
-
-                        <Col style={{ width: "40%" }}>
-                            <TouchableOpacity
-                                style={{
-                                    alignItems: "center",
-                                    borderColor: "#EE6B6B",
-                                    height: 56,
-                                    borderWidth: 2,
-                                    borderRadius: 10
-
-                                }}
-                                onPress={() => { //this.findCoordinates()
-                                    setShowModal(true)
-                                }
-                                }>
-                                <Text
-                                    style={{
-                                        textAlign: "center",
-                                        fontFamily: "Roboto-Regular",
-                                        fontSize: 16,
-                                        lineHeight: 56,
-                                        color: "#EE6B6B"
-
-                                    }}
-                                > We Can Pay</Text>
-                            </TouchableOpacity>
-                        </Col>
-                        <Col style={{ width: "40%" }}>
-                            <TouchableOpacity
-                                style={{
-                                    marginLeft: 10,
-                                    alignItems: "center",
-                                    backgroundColor: "#EE6B6B",
-                                    height: 56,
-                                    borderRadius: 10
-
-                                }}
-                                onPress={() => {
-                                    setShowModal(true)
-                                }
-                                }>
-                                <Text
-                                    style={{
-
-                                        textAlign: "center",
-                                        fontFamily: "Roboto-Regular",
-                                        fontSize: 16,
-                                        lineHeight: 56,
-                                        color: "#ffffff"
-
-                                    }}
-                                > We Cannot Pay</Text>
-                            </TouchableOpacity>
-                        </Col>
+                    <ButtonComponent setShowModal={setShowModal} label={translate.t(appLabelKey.we_can_pay)} />
+                    <ButtonComponent containerStyle={{marginLeft:10}} setShowModal={setShowModal} unfilled={true} label={translate.t(appLabelKey.we_cannot_pay)} />
                     </Row>
                 </Grid>
             </Footer>
-
             <ModalComponent showModal={showModal} closePopUp={closePopUp} />
         </Container>
     );

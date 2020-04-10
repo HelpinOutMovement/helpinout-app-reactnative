@@ -1,9 +1,9 @@
 
-import React, { useContext, useState } from 'react';
-import { Image, TouchableOpacity } from 'react-native';
-import { Container, Header, Grid, Row, Col, Form, Title, Item, Input, Label, Left, Icon, Right, Button, Body, Content, Text, Card, CardItem } from "native-base";
-import UserContext from '../misc/UserContext';
-import AppStringContext from '../misc/AppStringContext';
+import React from 'react';
+import {  TouchableOpacity } from 'react-native';
+import { Container, Grid, Row, Col,  Content} from "native-base";
+import translate from 'react-native-i18n';
+import {appLabelKey} from '../misc/AppStrings';
 import StaticImage from '../styling/StaticImage';
 import CardComponent from './components/CardComponent';
 import HeaderComponent from './components/HeaderComponent';
@@ -11,47 +11,47 @@ import AppConstant from '../misc/AppConstant';
 
 const optionsOnScreen = [
   {
-    label: "Food",
+    label: translate.t(appLabelKey.food),
     path: StaticImage.FOOD,
     code: AppConstant.APP_OPTIONS.FOOD
   },
   {
-    label: "People",
+    label: translate.t(appLabelKey.people),
     path: StaticImage.PEOPLE,
     code: AppConstant.APP_OPTIONS.PEOPLE
   },
   {
-    label: "Shelter",
+    label: translate.t(appLabelKey.shelter),
     path: StaticImage.SHELTER,
     code: AppConstant.APP_OPTIONS.SHELTER
   },
   {
-    label: "Med PPE",
+    label: translate.t(appLabelKey.medical_PPE),
     path: StaticImage.MED_PPE,
     code: AppConstant.APP_OPTIONS.MED_PPE
   },
   {
-    label: "Testing",
+    label: translate.t(appLabelKey.testing),
     path: StaticImage.TESTING,
     code: AppConstant.APP_OPTIONS.TESTING
   },
   {
-    label: "Medicine",
+    label: translate.t(appLabelKey.medicines),
     path: StaticImage.MEDICINE,
     code: AppConstant.APP_OPTIONS.MEDICINE
   },
   {
-    label: "Ambulance",
+    label: translate.t(appLabelKey.ambulance),
     path: StaticImage.AMBULANCE,
     code: AppConstant.APP_OPTIONS.AMBULANCE
   },
   {
-    label: "Medical Equipment",
+    label: translate.t(appLabelKey.medical_Equipment),
     path: StaticImage.MED_EQUIPMENT,
     code: AppConstant.APP_OPTIONS.MED_EQUIPMENT
   },
   {
-    label: "Other",
+    label: translate.t(appLabelKey.other),
     path: StaticImage.OTHER,
     code: AppConstant.APP_OPTIONS.OTHER
   }
@@ -107,58 +107,7 @@ function AskForHelpScreen(props) {
     }
     return cardListView;
   }
-
-
-  const helpOptionDetails = () => {
-    return (
-      <Form>
-        <Item inlineLabel>
-          <Grid>
-            <Row style={{ marginBottom: 20 }}>
-              <Col>
-                <Image
-                  style={{ alignSelf: "center" }}
-                  source={selectedOptionComponent} />
-
-              </Col>
-            </Row>
-            <Row>
-              <Col style={{ width: "60%" }}>
-                <Input
-                  placeholder="Enter Items"
-                  maxLength={4}
-                  style={{
-
-                    fontSize: 20,
-                    borderWidth: 1,
-                    borderColor: 'gray',
-                    borderRadius: 9,
-                    color: 'black',
-
-                  }} />
-              </Col>
-              <Col style={{ width: "30%", marginLeft: 10 }}>
-                <Input
-                  placeholder="Qty"
-                  keyboardType={'numeric'}
-                  style={{
-                    fontSize: 20,
-                    borderWidth: 1,
-                    borderColor: 'gray',
-                    borderRadius: 9,
-                    color: 'black',
-                  }} />
-              </Col>
-            </Row>
-          </Grid>
-
-
-
-        </Item>
-
-      </Form>
-    );
-  }
+ 
 
   const getOptionGridView = () => {
     return (<Grid>
@@ -170,12 +119,9 @@ function AskForHelpScreen(props) {
 
   return (
       <Container>
-        <HeaderComponent {...props} />
+        <HeaderComponent {...props} title={translate.t(appLabelKey.need_help_with)}/>
         <Content padder  >
-
           {getOptionGridView()}
-
-
         </Content>
       </Container>
    

@@ -32,7 +32,27 @@ const appLabelKey = {
     continue_btn_label:"continue_btn_label",
     app_onboarding_text:'app_onboarding_text',
     app_onboarding_text_red:"app_onboarding_text_red",
-    app_onboarding_text_normal:"app_onboarding_text_normal"
+    app_onboarding_text_normal:"app_onboarding_text_normal",
+    would_you_like_to_search_for_Help_Providers_in_your_location:"Would_you_like_to_search_for_Help_Providers_in_your_location",
+    your_Request_for_Help_has_been_registered:"Your_Request_for_Help_has_been_registered",
+    we_can_pay:"We_can_pay",
+    we_cannot_pay:"We_cannot_pay",
+    add_more:"Add_more",
+    volunteers:"Volunteers",
+    technical_Personnel:"Technical_Personnel",
+    how_many_people:"How_many_people",
+    enter_items_optional:"Enter_items_optional",
+    food:"Food",
+    people:"People",
+    shelter:"Shelter",
+    medical_PPE:"Medical_PPE",
+    testing:"Testing",
+    medicines:"Medicines",
+    ambulance:"Ambulance",
+    medical_Equipment:"Medical_Equipment",
+    other:"Other",
+    need_help_with:"Need_help_with",
+    qty:"Qty"
 }
 
 
