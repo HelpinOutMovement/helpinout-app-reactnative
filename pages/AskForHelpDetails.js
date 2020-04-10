@@ -1,7 +1,7 @@
 
 import React, { useContext, useState } from 'react';
 import { Image, TouchableOpacity } from 'react-native';
-import { Container, Header, Grid, Row, Col, Form, Title, Item, Input, Label, Left, Right, Button, Body, Content, Text, Card, CardItem, Footer } from "native-base";
+import { Container, Textarea, Grid, CheckBox, Row, Col, Form, Title, Item, Input, Label, Left, Right, Button, Body, Content, Text, Card, CardItem, Footer } from "native-base";
 import { default as EntypoIcon } from 'react-native-vector-icons/AntDesign';
 import { default as MaterialCommunityIcon } from 'react-native-vector-icons/MaterialCommunityIcons';
 import UserContext from '../misc/UserContext';
@@ -10,6 +10,7 @@ import StaticImage from '../styling/StaticImage';
 import CardComponent from './components/CardComponent';
 import HeaderComponent from './components/HeaderComponent';
 import AppConstant from '../misc/AppConstant';
+import PeopleAskComponent from './components/PeopleAskComponent';
 
 const optionsOnScreen = [
     {
@@ -115,6 +116,8 @@ const getID = function () {
 function AskForHelpDetailsScreen(props) {
     const firstId = getID();
     const [totalInput, setTotalInput] = useState([firstId]);
+    const [volunteers, setVolunteers] = useState(false);
+    const [technicalPersonnel, setTechnicalPersonnel] = useState(false);
     const { optionCode, optionImage } = props.route.params;
     const onDeleteAction = (code) => {
         let tempTotal = [...totalInput];
@@ -157,24 +160,75 @@ function AskForHelpDetailsScreen(props) {
 
     const showAmbulanceOption = () => {
         return (
-            <Text> Ambulance  </Text>)
+            <Text> Ambulance  </Text>
+        );
     }
     const showPeopleOption = () => {
         return (
-            <Text> People  </Text>)
+            <React.Fragment>
+                <PeopleAskComponent label="Volunteers" setChecked={setVolunteers} checked={volunteers} />
+                <PeopleAskComponent label="Technical Personnel" setChecked={setTechnicalPersonnel} checked={technicalPersonnel} />
+            </React.Fragment>
+        )
+    }
+
+    const getAddMoreOption = () => {
+        if (optionCode !== AppConstant.APP_OPTIONS.PEOPLE && optionCode !== AppConstant.APP_OPTIONS.AMBULANCE) {
+            return (
+                <Row style={{ marginBottom: 10, width: "92%", alignItems: "center", alignSelf: "center" }}>
+                    <Col>
+                        <TouchableOpacity
+                            style={{
+                                alignItems: "center",
+                                borderColor: "#EE6B6B",
+                                height: 56,
+                                borderStyle: "dashed",
+                                borderWidth: 2,
+                                borderRadius: 10,
+                                flexDirection: 'row',
+                                flexWrap: 'wrap',
+                                alignItems: "center"
+
+                            }}
+                            onPress={() => { //this.findCoordinates()
+                                let totalInputTemp = [...totalInput];
+                                totalInputTemp.push(getID());
+                                console.log(totalInputTemp);
+                                setTotalInput(totalInputTemp);
+                            }
+                            }>
+                            <EntypoIcon name="plus" style={{ fontSize: 15 }} />
+                            <Text
+                                style={{
+
+                                    textAlign: "center",
+                                    fontFamily: "Roboto-Regular",
+                                    fontSize: 16,
+                                    lineHeight: 56,
+                                    color: "#EE6B6B"
+
+                                }}
+                            > Add More </Text>
+                        </TouchableOpacity>
+
+                    </Col>
+                </Row>
+            );
+        }
+
     }
 
     const decideWhichViewToMake = () => {
-        let outputView ;
+        let outputView;
         switch (optionCode) {
             case AppConstant.APP_OPTIONS.PEOPLE:
-                outputView =  showPeopleOption();
+                outputView = showPeopleOption();
                 break;
             case AppConstant.APP_OPTIONS.AMBULANCE:
-                outputView =  showAmbulanceOption();
+                outputView = showAmbulanceOption();
                 break;
             default:
-                outputView =  showDynamicallyAddedInput();
+                outputView = showDynamicallyAddedInput();
                 break;
         }
 
@@ -191,54 +245,20 @@ function AskForHelpDetailsScreen(props) {
                 {}
 
             </Content>
-            <Footer style={{ height: 150, width: "100%" }} >
+            <Footer style={{ height: (optionCode !== AppConstant.APP_OPTIONS.PEOPLE && optionCode !== AppConstant.APP_OPTIONS.AMBULANCE) ?150: 60, width: "100%" }} >
                 <Grid>
-                    <Row style={{ marginBottom: 10, width: "92%", alignItems: "center", alignSelf: "center" }}>
-                        <Col>
-                            <TouchableOpacity
-                                style={{
-                                    alignItems: "center",
-                                    borderColor: "#EE6B6B",
-                                    height: 56,
-                                    borderStyle: "dashed",
-                                    borderWidth: 2,
-                                    borderRadius: 10,
-                                    flexDirection: 'row',
-                                    flexWrap: 'wrap',
-                                    alignItems: "center"
 
-                                }}
-                                onPress={() => { //this.findCoordinates()
-                                    let totalInputTemp = [...totalInput];
-                                    totalInputTemp.push(getID());
-                                    console.log(totalInputTemp);
-                                    setTotalInput(totalInputTemp);
-                                }
-                                }>
-                                <EntypoIcon name="plus" style={{ fontSize: 15 }} />
-                                <Text
-                                    style={{
+                    {getAddMoreOption()}
 
-                                        textAlign: "center",
-                                        fontFamily: "Roboto-Regular",
-                                        fontSize: 16,
-                                        lineHeight: 56,
-                                        color: "#EE6B6B"
-
-                                    }}
-                                > We Can Pay</Text>
-                            </TouchableOpacity>
-
-                        </Col>
-                    </Row>
                     <Row style={{ alignSelf: "center" }}>
+
+
                         <Col style={{ width: "40%" }}>
                             <TouchableOpacity
                                 style={{
                                     alignItems: "center",
                                     borderColor: "#EE6B6B",
                                     height: 56,
-
                                     borderWidth: 2,
                                     borderRadius: 10
 
@@ -249,7 +269,6 @@ function AskForHelpDetailsScreen(props) {
                                 }>
                                 <Text
                                     style={{
-
                                         textAlign: "center",
                                         fontFamily: "Roboto-Regular",
                                         fontSize: 16,
