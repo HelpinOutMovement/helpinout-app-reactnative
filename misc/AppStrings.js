@@ -53,7 +53,14 @@ const appLabelKey = {
     other:"Other",
     need_help_with:"Need_help_with",
     qty:"Qty",
-    details_optional:"Details_optional"
+    details_optional:"Details_optional",
+    home:"Home",
+    ask_for_Help:"Ask_for_Help",
+    offer_Help:"Offer_Help",
+    my_Requests:"My_Requests",
+    my_Offers:"My_Offers",
+    profile:"Profile",
+    about_Us:"About_Us"
 }
 
 

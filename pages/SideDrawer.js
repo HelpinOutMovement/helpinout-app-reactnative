@@ -2,6 +2,8 @@ import React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { Button, View, Text, FlatList, TouchableOpacity } from 'react-native';
 import AppConstant from '../misc/AppConstant';
+import translate from 'react-native-i18n';
+import { appLabelKey } from '../misc/AppStrings';
 
 import Dashboard from './Dashboard';
 import LogoComponent from './components/LogoComponent';
@@ -10,38 +12,50 @@ const Drawer = createDrawerNavigator();
 
 const SideMenuOptions = {
     primay: [{
-        label: "Home",
+        label: translate.t(appLabelKey.home),
         pageName: AppConstant.APP_PAGE.DASHBOARD
-        
+
     }, {
-        label: "Ask",
+        label: translate.t(appLabelKey.ask_for_Help),
         pageName: AppConstant.APP_PAGE.ASK_FOR_HELP
     }, {
-        label: "Help",
-        pageName: AppConstant.APP_PAGE.SCREEN_WITH_SIDE_DRAWER
-    }, {
-        label: "Offer",
+        label: translate.t(appLabelKey.offer_Help),
         pageName: AppConstant.APP_PAGE.OFFER_HELP_SCREEN
     }, {
-        label: "My requests",
+        label: translate.t(appLabelKey.my_Requests),
         pageName: AppConstant.APP_PAGE.SCREEN_WITH_SIDE_DRAWER
     }, {
-        label: "My Offers",
+        label: translate.t(appLabelKey.my_Offers),
         pageName: AppConstant.APP_PAGE.SCREEN_WITH_SIDE_DRAWER
     }, {
-        label: "Profile",
+        label: translate.t(appLabelKey.profile),
         pageName: AppConstant.APP_PAGE.SCREEN_WITH_SIDE_DRAWER
     }, {
-        label: "About",
+        label: translate.t(appLabelKey.about_Us),
         pageName: AppConstant.APP_PAGE.SCREEN_WITH_SIDE_DRAWER
     }],
     secondary: [{
-        label: "English",
-        localeCode: "en"
+        label: translate.t(appLabelKey.lang_eng_label),
+        localeCode: AppConstant.APP_LANGUAGE.ENGLISH
+    }, {
+        label: translate.t(appLabelKey.lang_hindi_label),
+        localeCode: AppConstant.APP_LANGUAGE.HINDI
+    }
+        , {
+        label: translate.t(appLabelKey.lang_marathi_label),
+        localeCode: AppConstant.APP_LANGUAGE.MARATHI
     },
     {
-        label: "Marathi",
-        localeCode: "en"
+        label: translate.t(appLabelKey.lang_kanada_label),
+        localeCode: AppConstant.APP_LANGUAGE.KANNADA
+    },
+    {
+        label: translate.t(appLabelKey.lang_gujarathi_label),
+        localeCode: AppConstant.APP_LANGUAGE.GUJARATHI
+    },
+    {
+        label: translate.t(appLabelKey.lang_tamil_label),
+        localeCode: AppConstant.APP_LANGUAGE.TAMIL
     }]
 }
 
@@ -95,7 +109,7 @@ const CustomSideBarView = ({ navigation }) => {
                             navigation.closeDrawer();
                             navigation.navigate(singleMenu.pageName);
                         }}
-                        >
+                    >
                         <Text
                             style={{
                                 textAlign: "center",
