@@ -10,7 +10,7 @@ import ModalComponent from './components/ModalComponent';
 import HeaderComponent from './components/HeaderComponent';
 import TabWrapperComponent from './components/TabWrapperComponent';
 
-const WATER_IMAGE = require('../images/star.png')
+
 
 const primaryData = [
     {

@@ -1,12 +1,12 @@
 
-import React, { useContext } from 'react';
+import React, { useState } from 'react';
 import { TouchableOpacity } from 'react-native';
 import { Container, Header, Grid, Row, Col, Title, Left, Icon, Right, Button, Body, Content, Text, Card, CardItem } from "native-base";
 import translate from 'react-native-i18n';
 import { appLabelKey } from '../misc/AppStrings';
 import AppConstant from '../misc/AppConstant';
 import StaticImage from '../styling/StaticImage';
-import CardComponent from './components/CardComponent';
+import ModalComponent from './components/ModalComponent';
 import HeaderComponent from './components/HeaderComponent';
 import TabWrapperComponent from './components/TabWrapperComponent';
 
@@ -41,11 +41,25 @@ const secondaryData = [
 
 function MyOfferScreen(props) {
     const colorTheme = "#4F5065";
+    const [showModal, setShowModal] = useState(false);
+    const [modalInfo, setModalInfo] = useState({});
+
+
     const primaryActionHandler = (ele , actions)=> {
         console.log(ele.id, "$$$$", actions);
+        if(actions === AppConstant.APP_ACTION.RATE_REPORT) {
+            setModalInfo({
+                type:AppConstant.APP_ACTION.RATE_REPORT,
+                ...ele
+            });
+            setShowModal(!showModal);
+        }
     }
     const secondaryActionHandler = (ele , actions)=> {
         console.log(ele.id, "$$$$", actions);
+    }
+    const closePopUp = () => {
+        setShowModal(!showModal);
     }
     return (
         <Container>
@@ -66,6 +80,11 @@ function MyOfferScreen(props) {
                 </Grid>
 
             </Content>
+            <ModalComponent 
+                {...modalInfo}
+                viewName={(modalInfo && modalInfo.type)? modalInfo.type : ""}
+                showModal={showModal} 
+                closePopUp={closePopUp} />
         </Container>
     );
 }
