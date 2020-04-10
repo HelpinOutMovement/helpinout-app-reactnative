@@ -1,6 +1,10 @@
 const AppConstant = {
     IS_LOGGED_IN : 'IS_LOGGED_IN',
     APP_SITE:'www.google.com',
+    APP_CONFIRMATION:{
+        YES:'yes',
+        NO:'no'
+    },
     APP_STATE: {
         IS_LOADING: 'IS_LOADING',
         IS_AUTHENTICATED : 'IS_AUTHENTICATED',

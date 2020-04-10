@@ -1,6 +1,7 @@
 
 import React, { useContext, useState } from 'react';
-import { Image, TouchableOpacity } from 'react-native';
+import { Image, TouchableOpacity, StyleSheet, View } from 'react-native';
+
 import { Container, Textarea, Grid, CheckBox, Row, Col, Form, Title, Item, Input, Label, Left, Right, Button, Body, Content, Text, Card, CardItem, Footer } from "native-base";
 import { default as EntypoIcon } from 'react-native-vector-icons/AntDesign';
 import { default as MaterialCommunityIcon } from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -11,7 +12,7 @@ import CardComponent from './components/CardComponent';
 import HeaderComponent from './components/HeaderComponent';
 import AppConstant from '../misc/AppConstant';
 import PeopleAskComponent from './components/PeopleAskComponent';
-
+import ModalComponent from './components/ModalComponent';
 const optionsOnScreen = [
     {
         label: "Food",
@@ -118,7 +119,11 @@ function AskForHelpDetailsScreen(props) {
     const [totalInput, setTotalInput] = useState([firstId]);
     const [volunteers, setVolunteers] = useState(false);
     const [technicalPersonnel, setTechnicalPersonnel] = useState(false);
+    const [showModal, setShowModal] = useState(false);
+
     const { optionCode, optionImage } = props.route.params;
+
+
     const onDeleteAction = (code) => {
         let tempTotal = [...totalInput];
         const index = tempTotal.indexOf(code);
@@ -247,6 +252,17 @@ function AskForHelpDetailsScreen(props) {
         return outputView;
     }
 
+    const closePopUp = (userAction) => {
+        setShowModal(false);
+        if(userAction === AppConstant.APP_CONFIRMATION.YES) {
+            props.navigation.navigate(AppConstant.APP_PAGE.DASHBOARD);
+        } else {
+            props.navigation.navigate(AppConstant.APP_PAGE.DASHBOARD);
+        }
+        // props.navigation.navigate(AppConstant.APP_PAGE.)
+
+    }
+
     return (
         <Container>
             <HeaderComponent {...props} />
@@ -276,7 +292,7 @@ function AskForHelpDetailsScreen(props) {
 
                                 }}
                                 onPress={() => { //this.findCoordinates()
-                                    navigate(AppConstant.APP_PAGE.DASHBOARD);
+                                    setShowModal(true)
                                 }
                                 }>
                                 <Text
@@ -301,8 +317,8 @@ function AskForHelpDetailsScreen(props) {
                                     borderRadius: 10
 
                                 }}
-                                onPress={() => { //this.findCoordinates()
-                                    navigate(AppConstant.APP_PAGE.DASHBOARD);
+                                onPress={() => {
+                                    setShowModal(true)
                                 }
                                 }>
                                 <Text
@@ -321,6 +337,8 @@ function AskForHelpDetailsScreen(props) {
                     </Row>
                 </Grid>
             </Footer>
+
+            <ModalComponent showModal={showModal} closePopUp={closePopUp} />
         </Container>
     );
 }
