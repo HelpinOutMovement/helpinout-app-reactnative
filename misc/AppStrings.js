@@ -62,7 +62,11 @@ const appLabelKey = {
     profile:"Profile",
     about_Us:"About_Us",
     yes:"Yes",
-    no:"No"
+    no:"No",
+    offers_Received:"Offers_Received",
+    requests_Sent:"Requests_Sent",
+    requests_Received:"Requests_Received",
+    offers_Sent:"Offers_Sent"
 }
 
 

@@ -31,6 +31,8 @@ import AskForHelpDetailsScreen from './pages/AskForHelpDetails';
 import Dashboard from './pages/Dashboard';
 import OfferHelpScreen from './pages/OfferHelpScreen';
 import OfferHelpScreenDetails from './pages/OfferHelpScreenDetails';
+import MyOfferScreen from './pages/MyOfferScreen';
+import MyRequestScreen from './pages/MyRequestScreen';
 
 
 
@@ -79,6 +81,9 @@ function App() {
             <Stack.Screen key= {`a_${AppConstant.APP_PAGE.OFFER_HELP_SCREEN}`} name={AppConstant.APP_PAGE.OFFER_HELP_SCREEN}  component={OfferHelpScreen} />
             <Stack.Screen key= {`a_${AppConstant.APP_PAGE.ASK_FOR_HELP_DETAILS}`} name={AppConstant.APP_PAGE.ASK_FOR_HELP_DETAILS}  component={AskForHelpDetailsScreen} />
             <Stack.Screen key= {`a_${AppConstant.APP_PAGE.OFFER_HELP_SCREEN_DETAILS}`} name={AppConstant.APP_PAGE.OFFER_HELP_SCREEN_DETAILS}  component={OfferHelpScreenDetails} />
+            
+            <Stack.Screen key= {`a_${AppConstant.APP_PAGE.MY_REQUEST_SCREEN}`} name={AppConstant.APP_PAGE.MY_REQUEST_SCREEN}  component={MyRequestScreen} />
+            <Stack.Screen key= {`a_${AppConstant.APP_PAGE.MY_OFFERS_SCREEN}`} name={AppConstant.APP_PAGE.MY_OFFERS_SCREEN}  component={MyOfferScreen} />
             
             
           </Stack.Navigator>

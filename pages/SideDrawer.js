@@ -23,10 +23,10 @@ const SideMenuOptions = {
         pageName: AppConstant.APP_PAGE.OFFER_HELP_SCREEN
     }, {
         label: translate.t(appLabelKey.my_Requests),
-        pageName: AppConstant.APP_PAGE.SCREEN_WITH_SIDE_DRAWER
+        pageName: AppConstant.APP_PAGE.MY_REQUEST_SCREEN
     }, {
         label: translate.t(appLabelKey.my_Offers),
-        pageName: AppConstant.APP_PAGE.SCREEN_WITH_SIDE_DRAWER
+        pageName: AppConstant.APP_PAGE.MY_OFFERS_SCREEN
     }, {
         label: translate.t(appLabelKey.profile),
         pageName: AppConstant.APP_PAGE.SCREEN_WITH_SIDE_DRAWER

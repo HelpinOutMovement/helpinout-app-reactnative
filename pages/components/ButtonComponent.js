@@ -46,4 +46,37 @@ const ButtonComponent = (props) => {
     );
 };
 
+
+const BasicButton = (props) => {
+    let buttonFilledStyle = {
+        marginLeft: 10,
+        alignItems: "flex-start",
+        height: 56,
+        borderRadius: 10
+
+    };
+    return (
+        <TouchableOpacity
+        style={buttonFilledStyle}
+        onPress={() => {
+            props.clickHandler(true)
+        }
+        }>
+        <Text
+            style={{
+                textAlign: "left",
+                fontFamily: "Roboto-Regular",
+                fontSize: 14,
+                lineHeight: 26,
+                color: "#4F5065"
+            }}
+        > {props.label}</Text>
+    </TouchableOpacity>
+    );
+}
+
+export {
+    BasicButton
+}
+
 export default ButtonComponent;

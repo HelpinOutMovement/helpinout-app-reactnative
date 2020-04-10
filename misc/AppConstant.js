@@ -1,6 +1,10 @@
 const AppConstant = {
     IS_LOGGED_IN : 'IS_LOGGED_IN',
     APP_SITE:'www.google.com',
+    APP_ACTION:{
+        RATE_REPORT:'rate_report',
+        DELETE:'delete'
+    },
     APP_CONFIRMATION:{
         YES:'yes',
         NO:'no'
@@ -29,7 +33,9 @@ const AppConstant = {
         ASK_FOR_HELP:'Need Help With',
         OFFER_HELP_SCREEN:'Offer Help Screen',
         ASK_FOR_HELP_DETAILS:' Ask for Help Details',
-        OFFER_HELP_SCREEN_DETAILS:"Offer Help Screen Details"
+        OFFER_HELP_SCREEN_DETAILS:"Offer Help Screen Details",
+        MY_OFFERS_SCREEN:"My Offers",
+        MY_REQUEST_SCREEN:"My Requests"
     },
 
     APP_TEXT_INPUT : {
