@@ -62,7 +62,7 @@ const AppConstant = {
     },
 
     API_SERVER: {
-        baseURL:"http://dummy.restapiexample.com/api/v1",
+        baseURL:"http://3.7.52.176:8080/api/v1",
     }
 }
 
