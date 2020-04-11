@@ -91,6 +91,57 @@ const commonStyling = StyleSheet.create({
       color: 'black',
       paddingRight: 5, // to ensure the text is never behind the icon
     },
+    registerSwitch: {
+        marginTop: 0, 
+        width: 45,
+        height: 23,
+        textAlign: "left",        
+      },
+    registerSwitchText: {
+        textAlign: "right",
+        fontFamily: "Roboto-Medium",
+        fontSize: 20,
+        color:'black',
+        height:50,
+        marginLeft:20
+
+    },
+    registerSwitchRow: {
+        marginTop: 0, 
+        height: 50,
+        width:"100%",
+        flexDirection: "row",
+        flex: 1,
+        marginRight: -1,
+        textAlign: "left",        
+      },
+      registerSwitchColumn: {
+        marginTop: 0, 
+        height: 50,
+        width:"100%",
+        flexDirection: "column",
+        flex: 1,
+        marginRight: -1,
+        textAlign: "left",        
+      },
+      registerSwitch: {
+        marginBottom: 0,    
+        textAlign: "left",
+        width: 45,
+        height: 22
+      },      
+      RegistrationInput: {
+        fontSize: 20,
+        marginTop: 20, 
+        paddingVertical: 12,
+        paddingHorizontal: 1,        
+        width:'100%',
+        borderWidth: 1,
+        borderColor: 'gray',
+        borderRadius: 9,
+        color: 'black',
+        paddingRight: 5, // to ensure the text is never behind the icon
+      },
    
 });
 

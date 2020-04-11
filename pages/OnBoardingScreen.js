@@ -1,6 +1,6 @@
 
 import React,{useContext} from 'react';
-import { View, Image, Text, TouchableOpacity } from 'react-native';
+import { View, Image, Text, TouchableOpacity, ScrollView, StyleSheet } from 'react-native';
 import AppStorage from '../storage/AppStorage';
 import AppConstant from '../misc/AppConstant';
 import commonStyling from '../styling/commonStyle';
@@ -22,10 +22,12 @@ function  OnBoardingScreen({ navigation }) {
 
 
     return (
-        <View style={{ flexDirection: "column" }}>
+        <View style={{ flexDirection: "column", padding: 10, flex: 1}} >
             <LogoComponent />
-            <View style={{ alignItems: "center" }} >
-
+            
+            <ScrollView style={{flex: 1,borderWidth: StyleSheet.hairlineWidth, borderColor: 'red'}}>
+            <View style={{ alignItems: "center" , marginBottom:50}} >
+            
                 <TouchableOpacity
                     style={{
                         marginVertical:30,
@@ -184,6 +186,7 @@ function  OnBoardingScreen({ navigation }) {
                 </TouchableOpacity>
 
             </View>
+            </ScrollView>
 
         </View>
     );
