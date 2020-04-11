@@ -99,6 +99,7 @@ function OnBoardingInfoScreen({ navigation }) {
                         shadowOpacity: 0.9,
                         shadowOffset: { height: 3 },
                         shadowColor: '#2328321F',
+                        borderRadius: 9,
 
                     }}
                     onPress={() =>

@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { TouchableOpacity } from 'react-native';
-import { Container, Header, Grid, Row, Col, Title, Left, Icon, Right, Button, Body, Content, Text, Card, CardItem } from "native-base";
+import { Container, Header, Grid, Row, Col, Title, Left, Icon, Right, Button, Body, Content, Text, Footer, FooterTab, Card, CardItem } from "native-base";
 import translate from 'react-native-i18n';
 import { appLabelKey } from '../misc/AppStrings';
 import AppConstant from '../misc/AppConstant';
@@ -87,6 +87,22 @@ function MyRequestScreen(props) {
                 viewName={(modalInfo && modalInfo.type)? modalInfo.type : ""}
                 showModal={showModal} 
                 closePopUp={closePopUp} />
+       <Footer>                        
+          <FooterTab>
+            <Button vertical onPress={() => props.navigation.navigate(AppConstant.APP_PAGE.DASHBOARD)}>
+              <Icon name="ios-home" style={{color:"red"}}/>
+              <Text>Home</Text>
+            </Button>
+            <Button vertical active onPress={() => props.navigation.navigate(AppConstant.APP_PAGE.MY_REQUEST_SCREEN)}>
+              <Icon name="camera" />
+              <Text>My Requests</Text>
+            </Button>
+            <Button vertical onPress={() => props.navigation.navigate(AppConstant.APP_PAGE.MY_OFFERS_SCREEN)}>
+              <Icon active name="navigate" />
+              <Text>My Offers</Text>
+            </Button>          
+          </FooterTab>
+        </Footer>                
         </Container>
     );
 }

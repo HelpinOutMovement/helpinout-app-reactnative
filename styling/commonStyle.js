@@ -90,6 +90,7 @@ const commonStyling = StyleSheet.create({
       borderRadius: 9,
       color: 'black',
       paddingRight: 5, // to ensure the text is never behind the icon
+      paddingLeft: 10
     },
     registerSwitch: {
         marginTop: 0, 

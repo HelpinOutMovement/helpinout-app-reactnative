@@ -1,21 +1,21 @@
 
 import React, { useContext , useEffect }  from 'react';
-import { StatusBar, StyleSheet, View, Dimensions } from "react-native";
+import { StatusBar, StyleSheet, View, Dimensions , TouchableOpacity} from "react-native";
 import { Container, Header, Footer, FooterTab, Title, Left, Icon, Right, Button, Body, Content,Text, Card, CardItem } from "native-base";
 import UserContext from '../misc/UserContext';
 import AppStringContext from '../misc/AppStringContext';
 import ModalComponent from './components/ModalComponent';
 import MapComponent from './MapComponent';
-
+import AppConstant from '../misc/AppConstant';
 import AskForHelpButton from "./components/AskForHelpButton";
 import OfferHelpButton from "./components/OfferHelpButton";
 import ButtonComponent from "./components/ButtonComponent";
 
-function Dashboard({ navigation }) {
+function Dashboard({ navigation  }) {
     const user = useContext(UserContext);
     const {translate} = useContext(AppStringContext);
     let dimensions = Dimensions.get('window');
-
+    
     console.log(JSON.stringify(dimensions) + " ---- " + dimensions.width);
     useEffect(() => {
       return () => { navigation.closeDrawer(); }
@@ -46,27 +46,27 @@ function Dashboard({ navigation }) {
       </View>  
       <View style={{alignItems: "center", marginTop:10, marginBottom:10}}>
         <View style={styles(dimensions).buttonContainer}>
-          <View style={styles(dimensions).AskForHelp}>
-            <AskForHelpButton />
-          </View>
-          <View style={styles(dimensions).OfferHelp}>
-            <OfferHelpButton />
-          </View>                
+          <TouchableOpacity style={styles(dimensions).AskForHelp} onPress={() => navigation.navigate(AppConstant.APP_PAGE.ASK_FOR_HELP)}>
+            <AskForHelpButton  />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles(dimensions).OfferHelp} onPress={() => navigation.navigate(AppConstant.APP_PAGE.OFFER_HELP_SCREEN)}>
+            <OfferHelpButton  />
+          </TouchableOpacity>                
         </View> 
       </View>
-    <Footer>                        
+       <Footer>                        
           <FooterTab>
-            <Button vertical>
+            <Button vertical active  onPress={() => navigation.navigate(AppConstant.APP_PAGE.DASHBOARD)}>
               <Icon name="ios-home" style={{color:"red"}}/>
               <Text>Home</Text>
             </Button>
-            <Button vertical>
+            <Button vertical onPress={() => navigation.navigate(AppConstant.APP_PAGE.MY_REQUEST_SCREEN)}>
               <Icon name="camera" />
-              <Text>Camera</Text>
+              <Text>My Requests</Text>
             </Button>
-            <Button vertical active>
+            <Button vertical onPress={() => navigation.navigate(AppConstant.APP_PAGE.MY_OFFERS_SCREEN)}>
               <Icon active name="navigate" />
-              <Text>Navigate</Text>
+              <Text>My Offers</Text>
             </Button>          
           </FooterTab>
         </Footer>

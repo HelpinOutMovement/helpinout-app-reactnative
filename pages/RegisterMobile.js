@@ -196,7 +196,7 @@ export default class RegisterMobile extends React.Component {
                 <View style={{ alignItems: "center" }} >                        
                 </View>
                 <View style={{ alignItems: "center" ,  marginVertical: 0}} >
-                    <TouchableOpacity style={{borderRadius: 9, marginVertical: 30,alignItems: "center",backgroundColor: "#4F5065",height: 56,width: "9%",shadowOpacity: 0.9,shadowOffset: { height: 3 },shadowColor: '#2328321F',}} onPress={() =>{this.login()}}>
+                    <TouchableOpacity style={{borderRadius: 9, marginVertical: 30,alignItems: "center",backgroundColor: "#4F5065",height: 56,width: "90%",shadowOpacity: 0.9,shadowOffset: { height: 3 },shadowColor: '#2328321F',}} onPress={() =>{this.login()}}>
                         <Text style={{textAlign: "center",fontFamily: "Roboto-Medium",fontSize: 20,lineHeight: 56,color: "#FFFFFF"}}>{translate.t("Login_Sign_Up")}}</Text>
                     </TouchableOpacity>                    
                 </View>                
