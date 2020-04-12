@@ -84,8 +84,7 @@ function MyOfferScreen(props) {
                 <Right />
             </Header>
 
-            <Content padder  >
-                <Grid>
+            <Content >
                     <TabWrapperComponent
                         primaryTabTitle={translate.t(appLabelKey.offers_Received)}
                         secondaryTabTitle={translate.t(appLabelKey.offers_Sent)}
@@ -93,10 +92,8 @@ function MyOfferScreen(props) {
                         primaryActionHandler={primaryActionHandler}
                         secondaryActionHandler={secondaryActionHandler}
                         secondaryTabData={secondaryData}
+                        colorTheme={colorTheme}
                     />
-
-                </Grid>
-
             </Content>
             <ModalComponent
                 {...modalInfo}

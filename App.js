@@ -35,7 +35,7 @@ import MyOfferScreen from './pages/MyOfferScreen';
 import MyRequestScreen from './pages/MyRequestScreen';
 
 
-
+console.disableYellowBox = true;
 const Stack = createStackNavigator();
 
 

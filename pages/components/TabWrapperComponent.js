@@ -7,22 +7,35 @@ import SingleTabComponent from './SingleTabComponent';
 
 const TabWrapperComponent = (props) => {
     return (
-        <Container>
-            <Tabs>
+        <Container >
+            <Tabs
+                tabBarInactiveTextColor="#4F50657A"
+                tabBarUnderlineStyle={{ borderBottomWidth: 5, borderBottomColor: props.colorTheme }}>
                 <Tab
+                
                     heading={
-                        <TabHeading>
-                            <Text>{props.primaryTabTitle}</Text>
+                        <TabHeading 
+                        
+                            style={{ backgroundColor: "#ffffff" }}>
+                            <Text style={{
+                                color: props.colorTheme,
+                                fontFamily: "Roboto-Medium",
+                                fontSize: 16
+                            }}>{props.primaryTabTitle}</Text>
                         </TabHeading>}>
-                    <SingleTabComponent 
+                    <SingleTabComponent
                         tabData={props.primayTabData}
                         clickHandler={props.primaryActionHandler} />
                 </Tab>
                 <Tab heading={
-                    <TabHeading>
-                        <Text>{props.secondaryTabTitle}</Text>
+                    <TabHeading style={{ backgroundColor: "#ffffff" }}>
+                        <Text style={{
+                            color: props.colorTheme,
+                            fontFamily: "Roboto-Medium",
+                            fontSize: 16
+                        }}>{props.secondaryTabTitle}</Text>
                     </TabHeading>}>
-                    <SingleTabComponent title="BB" 
+                    <SingleTabComponent
                         tabData={props.secondaryTabData}
                         clickHandler={props.secondaryActionHandler} />
                 </Tab>
