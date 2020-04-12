@@ -29,7 +29,10 @@ const SideMenuOptions = {
         pageName: AppConstant.APP_PAGE.MY_OFFERS_SCREEN
     }, {
         label: translate.t(appLabelKey.profile),
-        pageName: AppConstant.APP_PAGE.SCREEN_WITH_SIDE_DRAWER
+        pageName: AppConstant.APP_PAGE.REGISTER_MOBILE,
+        pageProps:{
+            showBack:true
+        }
     }, {
         label: translate.t(appLabelKey.about_Us),
         pageName: AppConstant.APP_PAGE.SCREEN_WITH_SIDE_DRAWER
@@ -107,7 +110,8 @@ const CustomSideBarView = ({ navigation }) => {
                         }}
                         onPress={() => {
                             navigation.closeDrawer();
-                            navigation.navigate(singleMenu.pageName);
+                            const pageProps = singleMenu.pageProps ?singleMenu.pageProps : {};
+                            navigation.navigate(singleMenu.pageName, pageProps);
                         }}
                     >
                         <Text

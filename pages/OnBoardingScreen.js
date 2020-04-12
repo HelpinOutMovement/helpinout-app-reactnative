@@ -1,191 +1,56 @@
 
-import React,{useContext} from 'react';
+import React, { useContext } from 'react';
 import { View, Image, Text, TouchableOpacity, ScrollView, StyleSheet } from 'react-native';
 import AppStorage from '../storage/AppStorage';
 import AppConstant from '../misc/AppConstant';
 import commonStyling from '../styling/commonStyle';
 import AppStringContext from '../misc/AppStringContext';
-import{appLabelKey} from '../misc/AppStrings';
+import { appLabelKey } from '../misc/AppStrings';
 import LogoComponent from './components/LogoComponent';
 
-function  OnBoardingScreen({ navigation }) {
-    const {translate} = useContext(AppStringContext);
-    const {setLanguage} = useContext(AppStringContext);
-    
-    const onLanguageClicked =  (lang) => {        
-        AppStorage.storeAppInfo("locale", lang).then(function(value) {
+const LanguageOptions = [
+    { label: appLabelKey.lang_eng_label, code: AppConstant.APP_LANGUAGE.ENGLISH },
+    { label: appLabelKey.lang_hindi_label, code: AppConstant.APP_LANGUAGE.HINDI },
+    { label: appLabelKey.lang_tamil_label, code: AppConstant.APP_LANGUAGE.TAMIL },
+    { label: appLabelKey.lang_marathi_label, code: AppConstant.APP_LANGUAGE.MARATHI },
+    { label: appLabelKey.lang_kanada_label, code: AppConstant.APP_LANGUAGE.KANNADA },
+    { label: appLabelKey.lang_gujarathi_label, code: AppConstant.APP_LANGUAGE.GUJARATHI }
+];
+function OnBoardingScreen({ navigation }) {
+    const { translate } = useContext(AppStringContext);
+    const { setLanguage } = useContext(AppStringContext);
+
+    const onLanguageClicked = (lang) => {
+        AppStorage.storeAppInfo("locale", lang).then(function (value) {
             setLanguage(lang);
             navigation.navigate(AppConstant.APP_PAGE.ON_BOARDING_INFO);
-          });
-        
+        });
     }
 
-
+    const getLangBtnOptions = () => {
+        const btnList = []
+        LanguageOptions.forEach(singleLang => {
+            btnList.push((
+                <TouchableOpacity
+                    style={commonStyling.languageButtonContainer}
+                    onPress={() =>
+                        onLanguageClicked(singleLang.code)
+                    }>
+                    <Text
+                        style={commonStyling.languageButtonText}
+                    >{translate(singleLang.label)}</Text>
+                </TouchableOpacity>
+            ));
+        });
+        return btnList;
+    }
     return (
-        <View style={{ flexDirection: "column", padding: 10, flex: 1}} >
+        <View style={{ flexDirection: "column", padding: 10, flex: 1 }} >
             <LogoComponent />
-            
-            <ScrollView style={{flex: 1,borderWidth: StyleSheet.hairlineWidth, borderColor: 'red'}}>
-            <View style={{ alignItems: "center" , marginBottom:50}} >
-            
-                <TouchableOpacity
-                    style={{
-                        marginVertical:30,
-                        alignItems: "flex-start",
-                        backgroundColor: "#FFFFFF",
-                        height: 56,
-                        width:"92%",
-                        shadowOpacity: 0.9,
-                        shadowOffset:{height:3},
-                        shadowColor: '#2328321F'
-                    }}
-                    onPress={() =>
-                        onLanguageClicked(AppConstant.APP_LANGUAGE.ENGLISH)
-                    }>
-                    <Text
-                     style={{
-                        textAlign: "center",
-                        fontFamily: "Roboto-Medium",
-                        fontSize: 20,
-                        lineHeight: 56,
-                        marginLeft:35,
-                        color:"#4F5065CC"
-                     }}
-                    >{translate(appLabelKey.lang_eng_label)}</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity
-                    style={{
-                        marginVertical:15,
-                        alignItems: "flex-start",
-                        backgroundColor: "#FFFFFF",
-                        height: 56,
-                        width:"92%",
-                        shadowOpacity: 0.9,
-                        shadowOffset:{height:3},
-                        shadowColor: '#2328321F'
-                    }}
-                    onPress={() =>
-                        onLanguageClicked(AppConstant.APP_LANGUAGE.HINDI)
-                    }>
-                    <Text
-                     style={{
-                        textAlign: "center",
-                        fontFamily: "Roboto-Medium",
-                        fontSize: 20,
-                        lineHeight: 56,
-                        marginLeft:35,
-                        color:"#4F5065CC"
-                     }}
-                    >{ translate(appLabelKey.lang_hindi_label)}</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity
-                    style={{
-                        marginVertical:15,
-                        alignItems: "flex-start",
-                        backgroundColor: "#FFFFFF",
-                        height: 56,
-                        width:"92%",
-                        shadowOpacity: 0.9,
-                        shadowOffset:{height:3},
-                        shadowColor: '#2328321F'
-                    }}
-                    onPress={() =>
-                        onLanguageClicked(AppConstant.APP_LANGUAGE.TAMIL)
-                    }>
-                    <Text
-                     style={{
-                        textAlign: "center",
-                        fontFamily: "Roboto-Medium",
-                        fontSize: 20,
-                        lineHeight: 56,
-                        marginLeft:35,
-                        color:"#4F5065CC"
-                     }}
-                    >{ translate(appLabelKey.lang_tamil_label)}</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity
-                    style={{
-                        marginVertical:15,
-                        alignItems: "flex-start",
-                        backgroundColor: "#FFFFFF",
-                        height: 56,
-                        width:"92%",
-                        shadowOpacity: 0.9,
-                        shadowOffset:{height:3},
-                        shadowColor: '#2328321F'
-                    }}
-                    onPress={() =>
-                        onLanguageClicked(AppConstant.APP_LANGUAGE.MARATHI)
-                    }>
-                    <Text
-                     style={{
-                        textAlign: "center",
-                        fontFamily: "Roboto-Medium",
-                        fontSize: 20,
-                        lineHeight: 56,
-                        marginLeft:35,
-                        color:"#4F5065CC"
-                     }}
-                    >{ translate(appLabelKey.lang_marathi_label)}</Text>
-                </TouchableOpacity>
-
-
-                <TouchableOpacity
-                    style={{
-                        marginVertical:15,
-                        alignItems: "flex-start",
-                        backgroundColor: "#FFFFFF",
-                        height: 56,
-                        width:"92%",
-                        shadowOpacity: 0.9,
-                        shadowOffset:{height:3},
-                        shadowColor: '#2328321F'
-                    }}
-                    onPress={() =>
-                        onLanguageClicked(AppConstant.APP_LANGUAGE.KANNADA)
-                    }>
-                    <Text
-                     style={{
-                        textAlign: "center",
-                        fontFamily: "Roboto-Medium",
-                        fontSize: 20,
-                        lineHeight: 56,
-                        marginLeft:35,
-                        color:"#4F5065CC"
-                     }}
-                    >{ translate(appLabelKey.lang_kanada_label)}</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity
-                    style={{
-                        marginVertical:15,
-                        alignItems: "flex-start",
-                        backgroundColor: "#FFFFFF",
-                        height: 56,
-                        width:"92%",
-                        shadowOpacity: 0.9,
-                        shadowOffset:{height:3},
-                        shadowColor: '#2328321F'
-                    }}
-                    onPress={() =>
-                        onLanguageClicked(AppConstant.APP_LANGUAGE.GUJARATHI)
-                    }>
-                    <Text
-                     style={{
-                        textAlign: "center",
-                        fontFamily: "Roboto-Medium",
-                        fontSize: 20,
-                        lineHeight: 56,
-                        marginLeft:35,
-                        color:"#4F5065CC"
-                     }}
-                    >{ translate(appLabelKey.lang_gujarathi_label) }</Text>
-                </TouchableOpacity>
-
-            </View>
+            <ScrollView style={{ flex: 1, borderWidth: StyleSheet.hairlineWidth, borderColor: 'red' }}>
+                <View style={{ alignItems: "center", marginBottom: 50 }} >
+                    {getLangBtnOptions()}
+                </View>
             </ScrollView>
 
         </View>

@@ -300,7 +300,7 @@ export default class RegisterMobile extends React.Component {
                                         shadowOffset: { height: 3 },
                                         shadowColor: '#2328321F',}} 
                                         onPress={() =>{this.register()}}>
-                                            <Text style={{borderRadius: 9, textAlign: "center",fontFamily: "Roboto-Medium",fontSize: 20,lineHeight: 56,color: "#FFFFFF"}}>{translate.t("Start")}}</Text>
+                                            <Text style={{borderRadius: 9, textAlign: "center",fontFamily: "Roboto-Medium",fontSize: 20,lineHeight: 56,color: "#FFFFFF"}}>{translate.t("Start")}</Text>
                             </TouchableOpacity>
                         </View>
                         }
