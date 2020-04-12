@@ -17,7 +17,7 @@ const primaryData = [
         helpOption: StaticImage.FOOD,
         name: "Tina 11111Jamna",
         description: "has offered to help you. 14 April 2020, 10:45 am.as offered to help you. 14 April 2as offered to help you. 14 April 2",
-        callerInfo: "Call them on +91 543053490 Time: 6pm to 9pm.",
+        callerInfo: "+91 543053490",
         callerNumber: "+91543053490"
     },
     {

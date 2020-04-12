@@ -80,11 +80,8 @@ const BasicFilledButton = (props) => {
 
 const BasicButton = (props) => {
     let buttonFilledStyle = {
-        marginLeft: 10,
         alignItems: "flex-start",
-        height: 56,
         borderRadius: 10
-
     };
     return (
         <TouchableOpacity

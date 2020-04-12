@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, TouchableOpacity, Linking, Platform } from 'react-native';
+import { Image, TouchableOpacity, Linking, Platform, View } from 'react-native';
 import { Body, Text, Card, CardItem, Grid, Row, Col } from "native-base";
 import { default as MaterialIcon } from 'react-native-vector-icons/MaterialIcons';
 import { BasicButton } from './ButtonComponent';
@@ -78,78 +78,57 @@ const TabCardComponent = (props) => {
 
 
   return (
-    <Card style={{ alignItems: "center" }} >
-      <CardItem bordered  >
-
-        <Grid style={{ width: "100%", alignItems: "center" }}>
-          <Row style={{ width: "90%", height: 20, backgroundColor: "yellow" }}>
-            <Col style={{ width: "60%" }}>
-              <Text style={{
-                textAlign: "left",
-                fontFamily: "Roboto-Medium",
-                fontSize: 14,
-                color: "#4F5065"
-              }}> {props.name}</Text>
-            </Col>
-            <Col style={{ width: "40%", alignSelf: "flex-end" }}>
-              <Image
-                style={{ alignSelf: "center", width: 24, height: 19 }}
-                source={props.helpOption} />
-            </Col>
-          </Row>
-          <Row style={{ width: "90%", height: 90, borderColor: "green", borderWidth: 2 }}>
-            <Col style={{ width: "90%", flex: 1, flexDirection: 'row' }}>
-              <Text style={{
-                width: "100%",
-                textAlign: "left",
-                fontFamily: "Roboto-Regular",
-                fontSize: 14,
-                flex: 1,
-                color: "#4F5065B8"
-              }}> {props.description}</Text>
-            </Col>
-          </Row>
-          {
-            (props.callerInfo) && (
-              <Row style={{ width: "90%", height: 30, borderWidth: 2 }}>
-                <Col style={{ width: "80%", flex: 1, borderColor: "green", flexDirection: 'row' }}>
-                  <Text style={{
-                    width: "100%",
-                    textAlign: "left",
-                    fontFamily: "Roboto-Regular",
-                    fontSize: 14,
-                    flex: 1,
-                    color: "#4F5065B8"
-                  }}> {props.callerInfo}</Text>
-                </Col>
-                <Col style={{ width: "20%" }}>
-
-                  <TouchableOpacity onPress={() => {
-                    dialCall(props.callerNumber)
-                  }}>
-                    <MaterialIcon name="call" style={{
-                      fontSize: 24
-                    }} />
-                  </TouchableOpacity>
-
-                </Col>
-              </Row>
-            )
-          }
-          <Row style={{ width: "90%" }}>
-            <Col>
-              <BasicButton 
-                label="Rate / Report" 
-                clickHandler={() => {props.clickHandler(props, AppConstant.APP_ACTION.RATE_REPORT)} }/>
-            </Col>
-            <Col>
-              <BasicButton label="Delete"
-              clickHandler={() => {props.clickHandler(props, AppConstant.APP_ACTION.DELETE)} }/>
-            </Col>
-          </Row>
-
-        </Grid>
-
+    <Card style={{
+      marginTop:25,
+      marginHorizontal: 10,
+      alignSelf: "center",
+      width: "90%",
+      borderRadius: 10,
+      borderWidth: 4
+    }} >
+      <CardItem >
+        <View style={{ width: "100%", flexDirection: "column" }}>
+          <View style={{ marginVertical: 10,flexDirection: "row",  justifyContent: "space-between" }}>
+            <Text style={{
+              textAlign: "left",
+              fontFamily: "Roboto-Medium",
+              fontSize: 14,
+              color: "#EE6B6B"
+            }}> {props.name}</Text>
+            <Image
+              style={{ alignSelf: "center", width: 24, height: 19 }}
+              source={props.helpOption} />
+          </View>
+          <View style={{ flexDirection: "row" , justifyContent: "space-between"}}>
+           <View style={{ width: "80%"}}>
+            <Text style={{
+             
+              fontFamily: "Roboto-Regular",
+              fontSize: 16,
+              color: "#4F5065B8"
+            }}> {props.description + " Call them on  " }</Text>
+            <Text style={{fontSize:17}}>{props.callerInfo}</Text>
+            </View>
+            {
+              (props.callerInfo) && (<TouchableOpacity
+                style={{ alignSelf: "center" }}
+                onPress={() => {
+                  dialCall(props.callerNumber)
+                }}>
+                <MaterialIcon name="call" style={{
+                  fontSize: 17
+                }} />
+              </TouchableOpacity>)
+            }
+          </View>
+          <View style={{ marginTop:10, flexDirection: "row", justifyContent: "space-between" }}>
+            <BasicButton
+              label="Rate / Report"
+              clickHandler={() => { props.clickHandler(props, AppConstant.APP_ACTION.RATE_REPORT) }} />
+            <BasicButton label="Delete"
+              clickHandler={() => { props.clickHandler(props, AppConstant.APP_ACTION.DELETE) }} />
+          </View>
+        </View>
       </CardItem>
     </Card>
   )
