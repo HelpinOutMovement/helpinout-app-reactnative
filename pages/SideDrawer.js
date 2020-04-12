@@ -1,9 +1,11 @@
 import React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { Button, View, Text, FlatList, TouchableOpacity } from 'react-native';
+import { default as MaterialCommunityIcon } from 'react-native-vector-icons/MaterialCommunityIcons';
 import AppConstant from '../misc/AppConstant';
 import translate from 'react-native-i18n';
 import { appLabelKey } from '../misc/AppStrings';
+import commonStyling from '../styling/commonStyle';
 
 import Dashboard from './Dashboard';
 import LogoComponent from './components/LogoComponent';
@@ -30,8 +32,8 @@ const SideMenuOptions = {
     }, {
         label: translate.t(appLabelKey.profile),
         pageName: AppConstant.APP_PAGE.REGISTER_MOBILE,
-        pageProps:{
-            showBack:true
+        pageProps: {
+            showBack: true
         }
     }, {
         label: translate.t(appLabelKey.about_Us),
@@ -69,25 +71,27 @@ const CustomSideBarView = ({ navigation }) => {
             primaryMenu.push((
                 <View style={{ alignItems: "center", marginVertical: 15 }} >
                     <TouchableOpacity
-                        style={{
-                            alignItems: "center",
-                            width: "92%",
-                            shadowColor: '#2328321F',
-
-                        }}
+                        style={[{
+                            flexDirection: 'row'
+                        }]}
                         onPress={() =>
                             console.log(singleMenu.localeCode)
                             //navigation.navigate(singleMenu.pageName)
                         }>
                         <Text
-                            style={{
-                                textAlign: "center",
-                                fontFamily: "Roboto-Medium",
-                                fontSize: 14,
-                                color: "#4F5065"
-
-                            }}
+                            style={commonStyling.sideDrawerText}
                         >{singleMenu.label}</Text>
+                        <View style={{
+                            marginLeft: 10
+                        }}>
+                            <MaterialCommunityIcon
+                                name="check"
+                                style={{
+                                    color: "#EE6B6B",
+                                    fontSize: 18
+                                }} />
+
+                        </View>
                     </TouchableOpacity>
                 </View>
             ))
@@ -102,26 +106,15 @@ const CustomSideBarView = ({ navigation }) => {
             primaryMenu.push((
                 <View style={{ alignItems: "center", marginVertical: 15 }} >
                     <TouchableOpacity
-                        style={{
-                            alignItems: "center",
-                            width: "92%",
-                            shadowColor: '#2328321F',
-
-                        }}
+                        style={commonStyling.sideDrawerTextContainer}
                         onPress={() => {
                             navigation.closeDrawer();
-                            const pageProps = singleMenu.pageProps ?singleMenu.pageProps : {};
+                            const pageProps = singleMenu.pageProps ? singleMenu.pageProps : {};
                             navigation.navigate(singleMenu.pageName, pageProps);
                         }}
                     >
                         <Text
-                            style={{
-                                textAlign: "center",
-                                fontFamily: "Roboto-Medium",
-                                fontSize: 14,
-                                color: "#4F5065"
-
-                            }}
+                            style={commonStyling.sideDrawerText}
                         >{singleMenu.label}</Text>
                     </TouchableOpacity>
                 </View>
@@ -132,15 +125,16 @@ const CustomSideBarView = ({ navigation }) => {
     }
     return (
         <View>
-            <LogoComponent marginVertical={20} />
+            <LogoComponent marginVertical={10} hideName={true}/>
             <View>
 
                 {getPrimaryMenu()}
             </View>
             <View
                 style={{
-                    borderBottomColor: 'black',
+                    borderBottomColor: '#bfbfbf',
                     borderBottomWidth: 1,
+                    marginVertical: 15
                 }}
             />
             <View>

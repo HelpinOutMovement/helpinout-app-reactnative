@@ -9,6 +9,20 @@ const commonStyling = StyleSheet.create({
   onBoardingScreenContainer: {
 
   },
+
+  sideDrawerTextContainer: {
+    alignItems: "center",
+    width: "92%",
+    backgroundColor:"#ffffff",
+    
+  },
+
+  sideDrawerText: {
+    textAlign: "center",
+    fontFamily: "Roboto-Medium",
+    fontSize: 18,
+    color: "#4F5065"
+  },
   languageButtonContainer: {
     marginTop: 30,
     alignItems: "flex-start",

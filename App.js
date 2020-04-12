@@ -70,7 +70,7 @@ function App() {
         break;
       case AppConstant.APP_STATE.IS_NOT_AUTENTICATED:
         stackedScreen.push((
-          <Stack.Navigator headerMode="none" key= 'a_authen' initialRouteName={AppConstant.APP_PAGE.ON_BOARDING}>
+          <Stack.Navigator headerMode="none" key= 'a_authen' initialRouteName={AppConstant.APP_PAGE.DASHBOARD}>
             <Stack.Screen key= {`a_${AppConstant.APP_PAGE.SPLASH}`} name={AppConstant.APP_PAGE.SPLASH} component={SplashScreen} /> 
             <Stack.Screen key= {`a_${AppConstant.APP_PAGE.ON_BOARDING}`} name={AppConstant.APP_PAGE.ON_BOARDING} component={OnBoardingScreen} />
             <Stack.Screen key= {`a_${AppConstant.APP_PAGE.ON_BOARDING_INFO}`} name={AppConstant.APP_PAGE.ON_BOARDING_INFO}  component={OnBoardingInfoScreen} />
