@@ -175,7 +175,29 @@ const commonStyling = StyleSheet.create({
       paddingRight: 8, // to ensure the text is never behind the icon
       paddingLeft: 1,
       textAlign:'center'
-    }
+    },
+
+
+    languageButtonContainer: {
+      marginVertical:30,
+      alignItems: "flex-start",
+      backgroundColor: "#FFFFFF",
+      height: 56,
+      width:"92%",
+      shadowOpacity: 0.9,
+      shadowOffset:{height:3},
+      shadowColor: '#2328321F'
+    }, 
+    
+    languageButtonText: {
+      textAlign: "center",
+      fontFamily: "Roboto-Medium",
+      fontSize: 20,
+      lineHeight: 56,
+      marginLeft:35,
+      color:"#4F5065CC"
+  }
+
 });
 
 export default commonStyling;

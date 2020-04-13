@@ -25,21 +25,24 @@
 		<dict>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
-			<key>CFBundleURLName</key>
-			<string>com.googleusercontent.apps.505791242995-2nemghbcera485n2em91hqn40frv541b</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>helpinout</string>
+				<!--<string>com.googleusercontent.apps.517803779913-r1h3soosf0iq9c8gt6blmho4sqbt9ah4</string> -->
+				<string>com.googleusercontent.apps.517803779913-r1h3soosf0iq9c8gt6blmho4sqbt9ah4</string>
 			</array>
 		</dict>
-		<dict/>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>org.hemlinout.helpinoutapp</string>
-		<string>com.googleusercontent.apps.505791242995-2nemghbcera485n2em91hqn40frv541b</string>
+		<!--<string>com.googleusercontent.apps.505791242995-2nemghbcera485n2em91hqn40frv541b</string> -->
+		<string>com.googleusercontent.apps.517803779913-r1h3soosf0iq9c8gt6blmho4sqbt9ah4</string>
 		<string>com-google-gidconsent-google</string>
 		<string>com-google-gidconsent-youtube</string>
 		<string>com-google-gidconsent</string>
