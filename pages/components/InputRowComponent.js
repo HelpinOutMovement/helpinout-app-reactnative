@@ -5,34 +5,24 @@ import { default as MaterialCommunityIcon } from 'react-native-vector-icons/Mate
 import translate from 'react-native-i18n';
 import {appLabelKey} from '../../misc/AppStrings';
 import AppConstant from '../../misc/AppConstant';
+import commonStyling from '../../styling/commonStyle';
 
 const InputRowComponent = (props) => {
     return (
-        <Row style={{ alignItems: "center", marginVertical: 10 }}>
-            <Col style={{ width: "66%" }}>
+        <Row style={{ alignItems: "center", marginVertical: 15, marginHorizontal:10 }}>
+            <Col style={{ width: "65%", marginRight:10 }}>
                 <Input
+                    placeholderTextColor='#4F5065B8'
                     placeholder= {translate.t(appLabelKey.enter_items_optional)} 
                     maxLength={AppConstant.APP_TEXT_INPUT.MAX_LENGTH}
-                    style={{
-                        fontSize: 20,
-                        borderWidth: 1,
-                        borderColor: 'gray',
-                        borderRadius: 9,
-                        color: 'black',
-
-                    }} />
+                    style={commonStyling.inputRowComponentText} />
             </Col>
             <Col style={{ width: "20%", marginLeft: 10 }}>
                 <Input
                     placeholder={translate.t(appLabelKey.qty)} 
+                    placeholderTextColor='#4F5065B8'
                     keyboardType={'numeric'}
-                    style={{
-                        fontSize: 20,
-                        borderWidth: 1,
-                        borderColor: 'gray',
-                        borderRadius: 9,
-                        color: 'black',
-                    }} />
+                    style={commonStyling.inputRowComponentText}  />
             </Col>
             <Col style={{ width: "10%", marginLeft: 10 }}>
                 <TouchableOpacity
@@ -45,7 +35,7 @@ const InputRowComponent = (props) => {
                             props.onDelete(props.code)
                         }
                     }}>
-                    {props.showDelete && (<MaterialCommunityIcon name="delete" style={{ fontSize: 40 }} />)}
+                    {props.showDelete && (<MaterialCommunityIcon name="close" style={{ fontSize: 30, color:"#4F5065" }} />)}
                 </TouchableOpacity>
             </Col>
         </Row>

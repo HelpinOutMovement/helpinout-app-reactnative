@@ -10,7 +10,9 @@ const ButtonComponent = (props) => {
         alignItems: "center",
         backgroundColor: props.colorTheme ? props.colorTheme : "#EE6B6B",
         height: 56,
-        borderRadius: 10
+        borderRadius: 10,
+        justifyContent: "center",
+        alignContent: "center"
 
     };
     if (props.unfilled) {
@@ -19,7 +21,9 @@ const ButtonComponent = (props) => {
             borderColor: props.colorTheme ? props.colorTheme : "#EE6B6B",
             height: 56,
             borderWidth: 2,
-            borderRadius: 10
+            borderRadius: 10,
+            justifyContent: "center",
+            alignContent: "center"
         }
     }
 
@@ -36,8 +40,7 @@ const ButtonComponent = (props) => {
 
                         textAlign: "center",
                         fontFamily: "Roboto-Regular",
-                        fontSize: 16,
-                        lineHeight: 56,
+                        fontSize: 18,
                         color: (props.unfilled) ? (props.colorTheme ? props.colorTheme : "#EE6B6B") : "#ffffff"
                     }}
                 > {props.label}</Text>

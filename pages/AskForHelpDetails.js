@@ -5,7 +5,7 @@ import { Container, Textarea, Grid, CheckBox, Row, Col, Form, Title, Item, Input
 import { default as EntypoIcon } from 'react-native-vector-icons/AntDesign';
 import { default as MaterialCommunityIcon } from 'react-native-vector-icons/MaterialCommunityIcons';
 import translate from 'react-native-i18n';
-import {appLabelKey} from '../misc/AppStrings';
+import { appLabelKey } from '../misc/AppStrings';
 import HeaderComponent from './components/HeaderComponent';
 import AppConstant from '../misc/AppConstant';
 import PeopleAskComponent from './components/PeopleAskComponent';
@@ -53,10 +53,10 @@ function AskForHelpDetailsScreen(props) {
     const defaultHelpOptionDetails = () => {
         return (
 
-            <Row style={{ margin: 20 }}>
+            <Row style={{ marginVertical: 40 }}>
                 <Col>
                     <Image
-                        style={{ alignSelf: "center" }}
+                        style={{ alignSelf: "center", height: 64, width: 79 }}
                         source={optionImage} />
 
                 </Col>
@@ -71,7 +71,7 @@ function AskForHelpDetailsScreen(props) {
                 <Col style={{ alignItems: "center" }}>
 
                     <Input
-                        placeholder= {translate.t(appLabelKey.how_many_people)} 
+                        placeholder={translate.t(appLabelKey.how_many_people)}
                         style={{
                             width: "80%",
                             borderColor: "#2328323D",
@@ -85,8 +85,8 @@ function AskForHelpDetailsScreen(props) {
     const showPeopleOption = () => {
         return (
             <React.Fragment>
-                <PeopleAskComponent label= {translate.t(appLabelKey.volunteers)}  setChecked={setVolunteers} checked={volunteers} />
-                <PeopleAskComponent label= {translate.t(appLabelKey.technical_Personnel)}  setChecked={setTechnicalPersonnel} checked={technicalPersonnel} />
+                <PeopleAskComponent label={translate.t(appLabelKey.volunteers)} setChecked={setVolunteers} checked={volunteers} />
+                <PeopleAskComponent label={translate.t(appLabelKey.technical_Personnel)} setChecked={setTechnicalPersonnel} checked={technicalPersonnel} />
             </React.Fragment>
         )
     }
@@ -99,14 +99,16 @@ function AskForHelpDetailsScreen(props) {
                         <TouchableOpacity
                             style={{
                                 alignItems: "center",
-                                borderColor: {colorTheme},
+                                borderColor: "#CACBCE",
                                 height: 56,
                                 borderStyle: "dashed",
                                 borderWidth: 2,
-                                borderRadius: 10,
+                                borderRadius: 5,
                                 flexDirection: 'row',
                                 flexWrap: 'wrap',
-                                alignItems: "center"
+                                alignItems: "center",
+                                justifyContent: "center",
+                                alignContent: "center"
 
                             }}
                             onPress={() => { //this.findCoordinates()
@@ -116,15 +118,14 @@ function AskForHelpDetailsScreen(props) {
                                 setTotalInput(totalInputTemp);
                             }
                             }>
-                            <EntypoIcon name="plus" style={{ fontSize: 15 }} />
+                            <EntypoIcon name="plus" style={{ fontSize: 18, color: "#4F5065" }} />
                             <Text
                                 style={{
-
                                     textAlign: "center",
                                     fontFamily: "Roboto-Regular",
-                                    fontSize: 16,
-                                    lineHeight: 56,
-                                    color: {colorTheme}
+                                    fontSize: 17,
+                                    color: "#4F5065",
+
 
                                 }}
                             >{translate.t(appLabelKey.add_more)} </Text>
@@ -156,7 +157,7 @@ function AskForHelpDetailsScreen(props) {
 
     const closePopUp = (userAction) => {
         setShowModal(false);
-        if(userAction === AppConstant.APP_CONFIRMATION.YES) {
+        if (userAction === AppConstant.APP_CONFIRMATION.YES) {
             props.navigation.navigate(AppConstant.APP_PAGE.DASHBOARD);
         } else {
             props.navigation.navigate(AppConstant.APP_PAGE.DASHBOARD);
@@ -170,20 +171,26 @@ function AskForHelpDetailsScreen(props) {
                 {defaultHelpOptionDetails()}
                 {decideWhichViewToMake()}
             </Content>
-            <Footer style={{ height: (optionCode !== AppConstant.APP_OPTIONS.PEOPLE && optionCode !== AppConstant.APP_OPTIONS.AMBULANCE) ? 150 : 60, width: "100%" }} >
+            <Footer
+                style={{
+                    backgroundColor: "#FFFFFF",
+                    borderColor: "#ffffff",
+                    height: (optionCode !== AppConstant.APP_OPTIONS.PEOPLE && optionCode !== AppConstant.APP_OPTIONS.AMBULANCE) ? 150 : 60
+                }} >
                 <Grid>
                     {getAddMoreOption()}
                     <Row style={{ alignSelf: "center" }}>
-                    <ButtonComponent 
-                        setShowModal={setShowModal} 
-                        label={translate.t(appLabelKey.we_can_pay)}
-                        color={colorTheme} />
-                    <ButtonComponent 
-                        containerStyle={{marginLeft:10}} 
-                        setShowModal={setShowModal} 
-                        unfilled={true} 
-                        label={translate.t(appLabelKey.we_cannot_pay)}
-                        color={colorTheme} />
+                        <ButtonComponent
+                            setShowModal={setShowModal}
+                            unfilled={true}
+                            label={translate.t(appLabelKey.we_can_pay)}
+                            color={colorTheme} />
+                        <ButtonComponent
+                            containerStyle={{ marginLeft: 10 }}
+                            setShowModal={setShowModal}
+                            
+                            label={translate.t(appLabelKey.we_cannot_pay)}
+                            color={colorTheme} />
                     </Row>
                 </Grid>
             </Footer>

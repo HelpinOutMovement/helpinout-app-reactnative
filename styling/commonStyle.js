@@ -16,7 +16,17 @@ const commonStyling = StyleSheet.create({
     backgroundColor:"#ffffff",
     
   },
+ inputRowComponentText: {
+  fontSize: 16,
+  fontFamily: "Roboto-Regular",
+  borderWidth: 1,
+  borderColor: '#4F5065B8',
+  borderRadius: 9,
+  color: '#4F5065B8',
+  height:50,
+  paddingLeft:10
 
+},
   sideDrawerText: {
     textAlign: "center",
     fontFamily: "Roboto-Medium",

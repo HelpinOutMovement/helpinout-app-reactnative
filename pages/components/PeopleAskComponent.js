@@ -3,7 +3,7 @@ import React from 'react';
 import { TouchableOpacity } from 'react-native';
 import { Textarea, CheckBox, Row, Col, Input, Text } from "native-base";
 import translate from 'react-native-i18n';
-import {appLabelKey} from '../../misc/AppStrings';
+import { appLabelKey } from '../../misc/AppStrings';
 
 
 const PeopleAskComponent = (props) => {
@@ -17,12 +17,20 @@ const PeopleAskComponent = (props) => {
                         flexDirection: 'row',
                         flexWrap: 'wrap'
                     }}>
-                        <CheckBox checked={props.checked} color="#4F5065" style={{ marginRight: 20 }} />
-                        <Text>{props.label}</Text>
+                        <CheckBox
+                            checked={props.checked}
+                            color="#4F5065"
+                            style={{ marginRight: 20, borderRadius: 0 }} />
+                        <Text style={{
+                            textAlign: "center",
+                            fontFamily: "Roboto-Regular",
+                            fontSize: 16,
+                            color: "#4F5065"
+                        }}>{props.label}</Text>
                     </Col>
                 </TouchableOpacity>
             </Row>
-            <Row style={{marginBottom:30}}>
+            <Row style={{ marginBottom: 30 }}>
                 <Col>
                     <Textarea
                         style={{
@@ -34,11 +42,11 @@ const PeopleAskComponent = (props) => {
                         }}
                         rowSpan={5}
                         bordered
-                        placeholder= {translate.t(appLabelKey.details_optional)}/>
+                        placeholder={translate.t(appLabelKey.details_optional)} />
                 </Col>
                 <Col style={{ width: "20%", marginLeft: 10, height: 50 }}>
                     <Input
-                        placeholder= {translate.t(appLabelKey.qty)}
+                        placeholder={translate.t(appLabelKey.qty)}
                         keyboardType={'numeric'}
                         style={{
 
