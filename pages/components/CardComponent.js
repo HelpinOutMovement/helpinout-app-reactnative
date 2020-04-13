@@ -8,14 +8,28 @@ import AppConstant from '../../misc/AppConstant'
 const CardComponent = (props) => {
   if (props.singleRow) {
     return (
-      <Card style={{ alignItems: "center" }}>
-        <CardItem bordered >
+      <Card style={{
+        alignItems: "center",
+        marginTop: 10,
+        marginBottom: 10,
+        marginLeft: 10,
+        marginRight: 10,
+        paddingVertical: 20,
+        borderRadius: 10,
+        borderBottomWidth: 1,
+        shadowColor: '#4F5065CC',
+        shadowOffset: { width: 5, height: 6 }
+      }}>
+        <CardItem  >
           <Body>
             <Grid>
               <Row style={{}}>
                 <Col style={{ width: "30%" }}>
                   <Image
-                    style={{ alignSelf: "flex-start", width: 70, height: 56 }}
+                    style={{ alignSelf: "flex-start",
+                           width: 70, 
+                           height: 56,
+                          marginLeft: 10 }}
                     source={props.path} />
                 </Col>
                 <Col style={{ width: "70%", alignItems: "flex-start" }}>
@@ -23,6 +37,7 @@ const CardComponent = (props) => {
                     style={{
                       fontFamily: "Roboto-Regular",
                       fontSize: 16,
+                      lineHeight:18,
                       color: "#4F5065"
                     }}> Food </Text>
                   <Text style={{
@@ -34,9 +49,11 @@ const CardComponent = (props) => {
                     fontFamily: "Roboto-Regular",
                     fontSize: 14,
                     color: "#4F50657A",
-                    alignSelf: "flex-end"
+                    alignSelf:"flex-end",
+                    marginRight: 10
                   }}>4200 Total</Text>
                 </Col>
+                
               </Row>
 
             </Grid>
