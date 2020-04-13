@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { StyleSheet, View, Text } from "react-native";
-
+import translate from 'react-native-i18n';  
 function OfferHelpButon(props) {
   return (    
     <View style={[styles.container, props.style]}>
-    <Text style={styles.offerHelp}>Offer Help</Text>
+    <Text style={styles.offerHelp}>{translate.t("Offer_Help")}</Text>
   </View>
   );
 }

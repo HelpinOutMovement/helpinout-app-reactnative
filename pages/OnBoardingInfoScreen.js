@@ -1,6 +1,6 @@
 
 import React, { useContext } from 'react';
-import { View, Image, Text, TouchableOpacity, Linking } from 'react-native';
+import { View, Image, Text, TouchableOpacity, Linking, Dimensions } from 'react-native';
 import AppStorage from '../storage/AppStorage';
 import AppConstant from '../misc/AppConstant';
 import commonStyling from '../styling/commonStyle';
@@ -10,6 +10,7 @@ import LogoComponent from './components/LogoComponent';
 
 function OnBoardingInfoScreen({ navigation }) {
 
+    const dimensions = Dimensions.get('window');
     const getLocalAsync =  () => {  
         let data =   AppStorage.getAppInfo("locale");   
         console.log(data)
@@ -29,7 +30,7 @@ function OnBoardingInfoScreen({ navigation }) {
     return (
         <View style={{ flexDirection: "column" }}>
             <LogoComponent />
-            <View style={{ alignItems: "center" }}>
+            <View style={{ alignItems:"center"}}>
                 <TouchableOpacity
                     style={{
                         alignItems: "center",
@@ -45,79 +46,78 @@ function OnBoardingInfoScreen({ navigation }) {
                             fontFamily: "Roboto-Medium",
                             fontSize: 20,
                             lineHeight: 56,
-                            marginLeft: 35,
+                            marginLeft: 0,
                             color: "#4F5065CC"
                         }}
-                    >{translate.t(appLabelKey.app_website)}</Text>
+                    >{translate.t(appLabelKey.app_website)}</Text>                    
                 </TouchableOpacity>
-
             </View>
-
-            <View style={{
-                alignItems: "center", flexDirection: 'row',
-                flexWrap: 'wrap',
-            }}>
-                <Text
-                    style={{
-                        textAlign: "center",
-                        fontFamily: "Roboto-Medium",
-                        fontSize: 16,
-
-                        marginLeft: 35,
-                        color: "#EE6B6B"
-                    }}
-                >{translate.t("Ask_for_Help_Offer_Help")}</Text>
-                
-
-
-
-            </View>
-
-            <View style={{
-                alignItems: "center", flexDirection: 'row',
-                marginVertical: 30,
-                flexWrap: 'wrap',
-            }}>
-                <Text
-                    style={{
-                        fontFamily: "Roboto-Medium",
-                        fontSize: 16,
-                        marginLeft: 35,
-                        color: "#4F5065CC"
-                    }}
-                >{translate.t("wherever_you_are") + " " + translate.t("Search_for_help-providers_and_help-requesters_around_you")}</Text>
-            </View>
-
-            <View style={{ alignItems: "center" }} >
-                <TouchableOpacity
-                    style={{
-                        marginVertical: 30,
-                        alignItems: "center",
-                        backgroundColor: "#4F5065",
-                        height: 56,
-                        width: "92%",
-                        shadowOpacity: 0.9,
-                        shadowOffset: { height: 3 },
-                        shadowColor: '#2328321F',
-                        borderRadius: 9,
-
-                    }}
-                    onPress={() =>
-                        onContinueClicked()
-                    }>
+            <View style={{top:(dimensions.height*.25)}}>
+                <View style={{ alignItems: "center"}}>
                     <Text
                         style={{
-
                             textAlign: "center",
                             fontFamily: "Roboto-Medium",
                             fontSize: 20,
-                            lineHeight: 56,
-                            color: "#FFFFFF"
+                            marginLeft: 0,
+                            color: "#EE6B6B"
+                        }}
+                    >{translate.t("Ask_for_Help_Offer_Help")}</Text>    
+                    <Text
+                        style={{
+                            textAlign: "center",
+                            fontFamily: "Roboto-Medium",
+                            fontSize: 20,
+                            marginTop: 10,
+                            color: "#4F5065CC"
+                        }}
+                    >{translate.t("wherever_you_are")}</Text>         
+                </View>
+            
+                <View style={{alignItems: "center" ,marginTop:50}}>
+                    <Text
+                        style={{
+                            fontFamily: "Roboto-Medium",
+                            fontSize: 20,
+                            marginLeft: 0,
+                            color: "#4F5065CC",
+                            textAlign: "center",
+                            width:275,
+                        }}
+                    >{translate.t("Search_for_help-providers_and_help-requesters_around_you")}</Text>
+                </View>
+
+                <View style={{ alignItems: "center" , marginTop:50}} >
+                    <TouchableOpacity
+                        style={{
+                            marginVertical: 30,
+                            alignItems: "center",
+                            backgroundColor: "#4F5065",
+                            height: 56,
+                            width: "92%",
+                            shadowOpacity: 0.9,
+                            shadowOffset: { height: 3 },
+                            shadowColor: '#2328321F',
+                            borderRadius: 9,
 
                         }}
-                    >{translate.t("Login_Sign_Up")}</Text>
-                </TouchableOpacity>
+                        onPress={() =>
+                            onContinueClicked()
+                        }>
+                        <Text
+                            style={{
 
+                                textAlign: "center",
+                                fontFamily: "Roboto-Medium",
+                                fontSize: 20,
+                                lineHeight: 56,
+                                color: "#FFFFFF"
+
+                            }}
+                        >{translate.t("Continue")}</Text>
+                    </TouchableOpacity>
+
+                </View>
             </View>
 
         </View>

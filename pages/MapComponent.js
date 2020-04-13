@@ -187,6 +187,8 @@ class MapComponent extends React.Component {
             {this.state.region.longitude.toPrecision(7)}
           </Text>
         </View>
+        
+        {/*
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             onPress={() => this.jumpRandom()}
@@ -219,6 +221,7 @@ class MapComponent extends React.Component {
             <Text style={styles.buttonText}>Animate (View Angle)</Text>
           </TouchableOpacity>
         </View>
+        */}
        
       </View>
     );

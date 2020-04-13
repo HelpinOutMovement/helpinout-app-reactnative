@@ -1,5 +1,5 @@
 import React ,{useState, useContext} from 'react';
-import { TextInput, View, Image, Text, TouchableOpacity, StyleSheet, Switch, ScrollView } from 'react-native';
+import { TextInput, View, Image, Text, TouchableOpacity, StyleSheet, Switch, ScrollView, Dimensions } from 'react-native';
 import AppStorage from '../storage/AppStorage';
 import AppConstant from '../misc/AppConstant';
 import AppStringContext from '../misc/AppStringContext';
@@ -11,15 +11,10 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import translate from 'react-native-i18n';
 import geolocation from '@react-native-community/geolocation';
 import API from "../APIClient/API";
-import RequestObjects from '../APIClient/RequestResponseObjects/RequestObjects';
 import LogoComponent from './components/LogoComponent';
-import DeviceInfo from 'react-native-device-info';
 
 
 
-
-import{appLabelKey} from '../misc/AppStrings';
-//const {navigation} = this.props;
 
 export default class RegisterMobile extends React.Component {
     constructor({ navigation, props }){
@@ -27,7 +22,9 @@ export default class RegisterMobile extends React.Component {
         this.navigate = navigation.navigate;
         this.props = props;
         this.forceUpdateHandler = this.forceUpdateHandler.bind(this);
+        
     }
+   dimensions = Dimensions.get('window');
             
   state = {
     languages: [],
@@ -70,31 +67,69 @@ export default class RegisterMobile extends React.Component {
         );
     };
 
-
-    login =() =>{                
-        let restApi = new API();
-        reqObj =  restApi.login(this.state.selectedCountryDialCode, this.state.phoneNumber);
-        reqObj.then(
-            result => {
-                if(result.status === "0"){
-                    console.log("RegMobile  === 0");        
-                    console.log("RegMobile  " + JSON.stringify(result));
-                    this.setState({loginstatus: result.status});
-                    this.forceUpdateHandler();                    //this.render((renderRegistrationScreen})
-                }else{
-                    console.log("RegMobile  === 1");
-                    console.log("RegMobile  " + JSON.stringify(result));
-                    this.navigate(AppConstant.APP_PAGE.DASHBOARD)
-                }
-            }, 
-            error => {
-                console.log(error);
-            } 
-          );
+    validatePhoneNumber = () => {
+        if(this.isEmpty(this.state.phoneNumber)){
+            return false;
+        }else{
+            //var regexp = /^\+[0-9]?()[0-9](\s|\S)(\d[0-9]{8,16})$/
+            //return regexp.test(this.state.phoneNumber)
+            return  true;
+        }
+       
+       
     }
 
-    register =() =>{
-        
+    login =() =>{       
+        console.log(this.validatePhoneNumber());
+        if(this.validatePhoneNumber()){
+            let restApi = new API();
+            reqObj =  restApi.login(this.state.selectedCountryDialCode, this.state.phoneNumber);
+            reqObj.then(
+                result => {
+                    if(result.status === "0"){
+                        console.log("RegMobile  === 0");        
+                        console.log("RegMobile  " + JSON.stringify(result));
+                        this.setState({loginstatus: result.status});
+                        this.forceUpdateHandler();                    //this.render((renderRegistrationScreen})
+                    }else{
+                        console.log("RegMobile  === 1");
+                        console.log("RegMobile  " + JSON.stringify(result));
+                        this.navigate(AppConstant.APP_PAGE.DASHBOARD)
+                    }
+                }, 
+                error => {
+                    console.log(error);
+                } 
+              );
+        }else{
+            console.log("invalid Phone  Number")
+                // Add Error Toasts
+        }      
+
+    }
+
+
+
+    isEmpty = (value) => {
+        console.log("value.size  :  " +  value.length )
+        return (typeof value === "undefined" || value === null || value.length === 0);        
+    }
+
+    validateRegistrationInput = () => {
+        if(this.isEmpty(this.state.selectedCountryDialCode) || this.isEmpty(this.state.phoneNumber) || this.isEmpty(this.state.firstName) || this.isEmpty(this.state.lastName) || this.isEmpty(this.state.contactVisible) || this.isEmpty(this.state.userType)){
+            return false;
+        }else{
+            if(this.isEmpty(this.state.userType === "2")){
+                if(this.isEmpty(this.state.organisationName) || this.isEmpty(this.state.organisationType)){
+                    return  false;
+                }                
+            }
+        }
+        return true;
+    }
+
+
+    register =() =>{        
         let restApi = new API();
         reqObj =  restApi.login(this.state.selectedCountryDialCode, this.state.phoneNumber, this.state.firstName, this.state.lastName, this.state.contactVisible, this.state.userType, this.state.organisationName, this.state.organisationType, this.state.organisationUnit);
         reqObj.then(
@@ -111,42 +146,16 @@ export default class RegisterMobile extends React.Component {
             error => {
                 console.log(error);
             } 
-          );
-        /*
-        let  requestObjects = new RequestObjects();
-        reqObj = requestObjects.registerObject(this.state.selectedCountryDialCode, this.state.phoneNumber,"VSRV", "Raghavan", "0", "1");
-        
-        var myAPI = new APIClient()
-        let apicall = 'user/register';
-        apicall = myAPI.createEntity(apicall)
-        let data = myAPI.endpoints[apicall].post(reqObj);        
-        data.then(({data})=> {
-            if(data.status.localeCompare("1")){
-                console.log(data);
-                AppStorage.storeAppInfo("userRegistrationDetails", data.data);
-                this.navigate(AppConstant.APP_PAGE.REGISTER_MOBILE)   
-            }else{
-                console.log(data);                
-            }
-        })
-        .catch(err => console.log(err))
-        
-
-        console.log(JSON.stringify(this.state))
-        */
+          );s       
     }
 
 
 
-  onCountryValueChange = (value, index) =>{         
-    //console.log(value  + " - "+ key +"  "+ label)    
-    this.setState({selectedCountryCode: countries[index-1].key, selectedCountryDialCode: value});
-    
-    
-  }
-    
+    onCountryValueChange = (value, index) =>{         
+        this.setState({selectedCountryCode: countries[index-1].key, selectedCountryDialCode: value});    
+    }
+        
     render() {                       
-        //const { navigate } = this.props.navigation;
         if(typeof this.state.loginstatus != 'undefined' && this.state.loginstatus  === "0"){            
             return (
                 this.renderRegistrationScreen()
@@ -154,10 +163,8 @@ export default class RegisterMobile extends React.Component {
         }else{
             return (
                     this.renderLoginScreen()
-                //this.renderRegistrationScreen()
             );
-        }
-        
+        }        
     }
 
 
@@ -169,49 +176,49 @@ export default class RegisterMobile extends React.Component {
         return (
             <View style={{ flexDirection: "column" }}>
                 <LogoComponent />
-                <View style={{ alignItems: "center" , marginVertical: 30, marginHorizontal:30}}>
-                    <Text style={commonStyling.appLabelInout}>{translate.t('Enter_your_mobile_number')}</Text>
-                    <View style={commonStyling.appPhoneNumberInputView}>
-                    <View style={{flex: 1,  flexDirection: "row",alignItems: 'center', justifyContent:'center',}}>
-                    <TextInput style={commonStyles.phoneCountryCode}> {this.state.selectedCountryCode} </TextInput>
-                    <RNPickerSelect                            
-                            onValueChange ={(value, key) => {this.onCountryValueChange(value, key)}}
-                            items={countries}  
-                            style={pickerCcountryStyles}  
-                            Icon={() => {
-                            return <Ionicons  style={{marginVertical: 10, marginRight:6}} family={"Ionicons"}  name={"md-arrow-dropdown"}  color={"#OOOOOO"} size={30} />;
-                            }}             
-                            value={this.state.selectedCountryDialCode}
-                    />
-                    <TextInput style={commonStyles.phoneLoginInput} 
-                        keyboardType={'numeric'}
-                        placeholderTextColor="grey"
-                        placeholder={translate.t('Enter_your_mobile_number')}                
-                        onChangeText={text => this.setState({phoneNumber: text})}                 
-                    >  
-                    </TextInput>
+                <View style={{alignItems: "center",  width:"100%"}} >                                        
+                    <View style={{ alignItems: "center" ,  marginVertical: 0, width:"98%"}} >
+                        <Text style={commonStyling.appLabelInout}>{translate.t('Enter_your_mobile_number')}</Text>
+                        <View style={commonStyling.appPhoneNumberInputView}>
+                            <View style={{flex: 1,  flexDirection: "row",alignItems: 'center', justifyContent:'center',}}>
+                                <TextInput style={commonStyles.phoneCountryCode}> {this.state.selectedCountryCode} </TextInput>
+                                <RNPickerSelect                            
+                                        onValueChange ={(value, key) => {this.onCountryValueChange(value, key)}}
+                                        items={countries}  
+                                        style={pickerCcountryStyles}  
+                                        Icon={() => {
+                                        return <Ionicons  style={{marginVertical: 10, marginRight:6}} family={"Ionicons"}  name={"md-arrow-dropdown"}  color={"#OOOOOO"} size={30} />;
+                                        }}             
+                                        value={this.state.selectedCountryDialCode}
+                                />
+                                <TextInput style={commonStyles.phoneLoginInput} 
+                                    keyboardType={'numeric'}
+                                    placeholderTextColor="grey"
+                                    placeholder={translate.t('Enter_your_mobile_number')}                
+                                    onChangeText={text => this.setState({phoneNumber: text})}                 
+                                >  
+                                </TextInput>
+                            </View>
+                        </View>                                
                     </View>
-                    </View>                                
                 </View>
-                <View style={{ alignItems: "center" }} >                        
+                <View style={{alignItems: "center",  width:"100%"}} >                                        
+                    <View style={{ alignItems: "center" ,  marginVertical: 0, width:"98%"}} >
+                        <TouchableOpacity style={{borderRadius: 9, marginVertical: 30,alignItems: "center",backgroundColor: "#4F5065",height: 56,width: "92%",shadowOpacity: 0.9,shadowOffset: { height: 3 },shadowColor: '#2328321F',}} onPress={() =>{this.login()}}>
+                            <Text style={{textAlign: "center",fontFamily: "Roboto-Medium",fontSize: 20,lineHeight: 56,color: "#FFFFFF"}}>{translate.t("Login_Sign_Up")}}</Text>
+                        </TouchableOpacity>                    
+                    </View>                
+                    <Text style={{
+                        textAlign: "center",
+                        fontFamily: "Roboto-Medium",
+                        fontSize: 18,
+                        lineHeight: 36,
+                        color: "Grey"
+
+                    }}> By Signing up you  agree to {"\n"} Terms of service | Privacy  Policy </Text>
                 </View>
-                <View style={{ alignItems: "center" ,  marginVertical: 0}} >
-                    <TouchableOpacity style={{borderRadius: 9, marginVertical: 30,alignItems: "center",backgroundColor: "#4F5065",height: 56,width: "90%",shadowOpacity: 0.9,shadowOffset: { height: 3 },shadowColor: '#2328321F',}} onPress={() =>{this.login()}}>
-                        <Text style={{textAlign: "center",fontFamily: "Roboto-Medium",fontSize: 20,lineHeight: 56,color: "#FFFFFF"}}>{translate.t("Login_Sign_Up")}}</Text>
-                    </TouchableOpacity>                    
-                </View>                
-                <Text style={{
-                    textAlign: "center",
-                    fontFamily: "Roboto-Medium",
-                    fontSize: 20,
-                    lineHeight: 36,
-                    color: "Grey"
-
-                }}> By Signing up you  agree to {"\n"} Terms of service | Privacy  Policy </Text>
-
             </View>
-        );   
-        
+        );           
     }
 
     orgTypes = [{"label":"Individual","key":"Individual" ,"displayValue": false ,"value":"1"},{"label":"Organisation","key":"Organisation" ,"displayValue": false ,"value":"2"}]
@@ -300,7 +307,7 @@ export default class RegisterMobile extends React.Component {
                                         shadowOffset: { height: 3 },
                                         shadowColor: '#2328321F',}} 
                                         onPress={() =>{this.register()}}>
-                                            <Text style={{borderRadius: 9, textAlign: "center",fontFamily: "Roboto-Medium",fontSize: 20,lineHeight: 56,color: "#FFFFFF"}}>{translate.t("Start")}</Text>
+                                            <Text style={{borderRadius: 9, textAlign: "center",fontFamily: "Roboto-Medium",fontSize: 20,lineHeight: 56,color: "#FFFFFF"}}>{translate.t("Start")}}</Text>
                             </TouchableOpacity>
                         </View>
                         }

@@ -54,6 +54,11 @@ target 'helpinout' do
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
+  # Add the pods for the Firebase products you want to use in your app
+  # For example, to use Firebase Authentication and Cloud Firestore
+  pod 'GoogleSignIn'
+  pod 'Firebase/Core'
+
 
   target 'helpinoutTests' do
     inherit! :complete

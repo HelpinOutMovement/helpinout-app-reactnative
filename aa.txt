@@ -848,7 +848,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.helpinout-tvOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.helpinout.helpinoutapp-tvOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
@@ -876,7 +876,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.helpinout-tvOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.helpinout.helpinoutapp-tvOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
@@ -903,7 +903,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.helpinout-tvOSTests";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.helpinout.helpinoutapp-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/helpinout-tvOS.app/helpinout-tvOS";
@@ -930,7 +930,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.helpinout-tvOSTests";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.helpinout.helpinoutapp-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/helpinout-tvOS.app/helpinout-tvOS";

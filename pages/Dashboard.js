@@ -9,11 +9,12 @@ import MapComponent from './MapComponent';
 import AppConstant from '../misc/AppConstant';
 import AskForHelpButton from "./components/AskForHelpButton";
 import OfferHelpButton from "./components/OfferHelpButton";
-import ButtonComponent from "./components/ButtonComponent";
+
+import translate from 'react-native-i18n';
 
 function Dashboard({ navigation  }) {
     const user = useContext(UserContext);
-    const {translate} = useContext(AppStringContext);
+    //const {translate} = useContext(AppStringContext);
     let dimensions = Dimensions.get('window');
     
     console.log(JSON.stringify(dimensions) + " ---- " + dimensions.width);
@@ -58,15 +59,15 @@ function Dashboard({ navigation  }) {
           <FooterTab>
             <Button vertical active  onPress={() => navigation.navigate(AppConstant.APP_PAGE.DASHBOARD)}>
               <Icon name="ios-home" style={{color:"red"}}/>
-              <Text>Home</Text>
+              <Text>{translate.t("Home")}</Text>
             </Button>
             <Button vertical onPress={() => navigation.navigate(AppConstant.APP_PAGE.MY_REQUEST_SCREEN)}>
               <Icon name="camera" />
-              <Text>My Requests</Text>
+              <Text>{translate.t("My_Requests")}</Text>
             </Button>
             <Button vertical onPress={() => navigation.navigate(AppConstant.APP_PAGE.MY_OFFERS_SCREEN)}>
               <Icon active name="navigate" />
-              <Text>My Offers</Text>
+              <Text>{translate.t("My_Offers")}</Text>
             </Button>          
           </FooterTab>
         </Footer>
