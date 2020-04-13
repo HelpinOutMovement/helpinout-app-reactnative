@@ -97,6 +97,7 @@ function AskForHelpScreen(props) {
           <Col>
             {twoColGrid}
           </Col>
+          <Col></Col>
         </Row>)
       );
     }

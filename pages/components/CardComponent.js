@@ -48,16 +48,32 @@ const CardComponent = (props) => {
   }
   return (
 
-    <Card style={{ alignItems: "center" }} >
-      <CardItem bordered  >
+    <Card style={{
+      alignItems: "center",
+      marginTop: 10,
+      marginBottom: 10,
+      marginLeft: 10,
+      marginRight: 10,
+      paddingVertical: 20,
+      borderRadius: 10,
+      borderBottomWidth: 1,
+      shadowColor: '#4F5065CC',
+      shadowOffset: { width: 5, height: 6 }
+    }} >
+      <CardItem   >
         <Body>
           <Image
-            style={{ alignSelf: "center" }}
+            style={{ alignSelf: "center", height: 65, width: 79 }}
             source={props.path} />
         </Body>
       </CardItem>
-      <CardItem footer bordered>
-        <Text> {props.label}</Text>
+      <CardItem footer >
+        <Text style={{
+          textAlign: "center",
+          fontFamily: "Roboto-Regular",
+          fontSize: 16,
+          color: "#4F5065CC"
+        }}> {props.label}</Text>
       </CardItem>
     </Card>
 
@@ -79,7 +95,7 @@ const TabCardComponent = (props) => {
 
   return (
     <Card style={{
-      marginTop:25,
+      marginTop: 25,
       marginHorizontal: 10,
       alignSelf: "center",
       width: "90%",
@@ -88,7 +104,7 @@ const TabCardComponent = (props) => {
     }} >
       <CardItem >
         <View style={{ width: "100%", flexDirection: "column" }}>
-          <View style={{ marginVertical: 10,flexDirection: "row",  justifyContent: "space-between" }}>
+          <View style={{ marginVertical: 10, flexDirection: "row", justifyContent: "space-between" }}>
             <Text style={{
               textAlign: "left",
               fontFamily: "Roboto-Medium",
@@ -99,15 +115,15 @@ const TabCardComponent = (props) => {
               style={{ alignSelf: "center", width: 24, height: 19 }}
               source={props.helpOption} />
           </View>
-          <View style={{ flexDirection: "row" , justifyContent: "space-between"}}>
-           <View style={{ width: "80%"}}>
-            <Text style={{
-             
-              fontFamily: "Roboto-Regular",
-              fontSize: 16,
-              color: "#4F5065B8"
-            }}> {props.description + " Call them on  " }</Text>
-            <Text style={{fontSize:17}}>{props.callerInfo}</Text>
+          <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+            <View style={{ width: "80%" }}>
+              <Text style={{
+
+                fontFamily: "Roboto-Regular",
+                fontSize: 16,
+                color: "#4F5065B8"
+              }}> {props.description + " Call them on  "}</Text>
+              <Text style={{ fontSize: 17 }}>{props.callerInfo}</Text>
             </View>
             {
               (props.callerInfo) && (<TouchableOpacity
@@ -121,7 +137,7 @@ const TabCardComponent = (props) => {
               </TouchableOpacity>)
             }
           </View>
-          <View style={{ marginTop:10, flexDirection: "row", justifyContent: "space-between" }}>
+          <View style={{ marginTop: 10, flexDirection: "row", justifyContent: "space-between" }}>
             <BasicButton
               label="Rate / Report"
               clickHandler={() => { props.clickHandler(props, AppConstant.APP_ACTION.RATE_REPORT) }} />
