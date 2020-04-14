@@ -30,6 +30,7 @@ const InputRowComponent = (props) => {
                     placeholder={translate.t(appLabelKey.qty)} 
                     placeholderTextColor='#4F5065B8'
                     keyboardType={'numeric'}
+                    maxLength={AppConstant.APP_TEXT_INPUT.NUMBER_MAX_LENGTH}
                     style={commonStyling.inputRowComponentText}  />
             </Col>
             <Col style={{ width: "10%", marginLeft: 10 }}>

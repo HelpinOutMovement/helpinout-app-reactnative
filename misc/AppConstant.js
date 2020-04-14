@@ -39,7 +39,8 @@ const AppConstant = {
     },
 
     APP_TEXT_INPUT : {
-        MAX_LENGTH: 256
+        MAX_LENGTH: 256,
+        NUMBER_MAX_LENGTH:20
     },
     APP_LOCALE:{
         ENGLISH: 'en',

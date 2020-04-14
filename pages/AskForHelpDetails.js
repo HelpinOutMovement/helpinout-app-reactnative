@@ -26,9 +26,12 @@ function AskForHelpDetailsScreen(props) {
     const [volunteers, setVolunteers] = useState(false);
     const [technicalPersonnel, setTechnicalPersonnel] = useState(false);
     const [showModal, setShowModal] = useState(false);
+    const [pplForAmbulance, setPplForAmbulance] = useState(0);
+    const [ambulanceSelection, setAmbulanceSelection] = useState(0);
     const inputEl = useRef(null);
 
     const { optionCode, optionImage } = props.route.params;
+
 
 
     const validateTheInput = () => {
@@ -45,8 +48,18 @@ function AskForHelpDetailsScreen(props) {
                 notFilledLocal.push(totalInput[singleItem])
             }
         }
-        setNotFilled(notFilledLocal)
+        if (notFilledLocal.length > 0) {
+            setNotFilled(notFilledLocal)
+        } else {
+            inputIsValid(filledItems)
+        }
+
     }
+
+    const inputIsValid  = (payload) => {
+        
+        setShowModal(!showModal);
+    } 
 
     const onTextChangeAction = (code, val) => {
         const inputValuesLocal = { ...inputValues };
@@ -126,13 +139,21 @@ function AskForHelpDetailsScreen(props) {
                 <Col style={{ alignItems: "center" }}>
 
                     <Input
+
+                        onChangeText={(val) => {
+                            setPplForAmbulance(val)
+                        }}
+                        keyboardType={'numeric'}
+                        maxLength={AppConstant.APP_TEXT_INPUT.NUMBER_MAX_LENGTH}
                         placeholder={translate.t(appLabelKey.how_many_people)}
-                        style={{
+                        style={[{
                             width: "80%",
                             borderColor: "#2328323D",
                             borderWidth: 2,
                             borderRadius: 10
-                        }} />
+                        },
+                        (ambulanceSelection) ? { borderColor: "red" } : { borderColor: "#2328323D" }
+                        ]} />
                 </Col>
             </Row>
         );
@@ -192,6 +213,24 @@ function AskForHelpDetailsScreen(props) {
 
     }
 
+    const decideWhichValidation = () => {
+        switch (optionCode) {
+            case AppConstant.APP_OPTIONS.PEOPLE:
+                outputView = showPeopleOption();
+                break;
+            case AppConstant.APP_OPTIONS.AMBULANCE:
+                if (pplForAmbulance <= 0) {
+                    setAmbulanceSelection(true)
+                } else {
+                    inputIsValid(filledItems,pplForAmbulance)
+                }
+                break;
+            default:
+                validateTheInput();
+                break;
+        }
+    }
+
     const decideWhichViewToMake = () => {
         let outputView;
         switch (optionCode) {
@@ -236,16 +275,16 @@ function AskForHelpDetailsScreen(props) {
                     <Row style={{ alignSelf: "center" }}>
                         <ButtonComponent
                             setShowModal={() => {
-
-                                validateTheInput()
-
+                                decideWhichValidation()
                             }}
                             unfilled={true}
                             label={translate.t(appLabelKey.we_can_pay)}
                             color={colorTheme} />
                         <ButtonComponent
                             containerStyle={{ marginLeft: 10 }}
-                            setShowModal={setShowModal}
+                            setShowModal={() => {
+                                decideWhichValidation()
+                            }}
 
                             label={translate.t(appLabelKey.we_cannot_pay)}
                             color={colorTheme} />
