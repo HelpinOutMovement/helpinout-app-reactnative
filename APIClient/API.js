@@ -74,11 +74,12 @@ class API{
 
       let  requestObjects = new RequestObjects();
       reqObj = requestObjects.registerObject(country_code, mobil_number,first_name, last_name, mobile_number_visible, user_type);
-        
+      console.log("register request Object ")
+      console.log(reqObj)
       return new Promise((resolve, reject) => {
           let apicall = 'user/register';
           apicall = this.createEntity(apicall)
-          let data = myAPI.endpoints[apicall].post(reqObj);        
+          let data = this.endpoints[apicall].post(reqObj);        
           data.then(({data})=> {
               resolve(data);
           })

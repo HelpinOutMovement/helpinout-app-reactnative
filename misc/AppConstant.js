@@ -1,5 +1,8 @@
 const AppConstant = {
     IS_LOGGED_IN : 'IS_LOGGED_IN',
+    USER_REGISTRATION_DETAILS : 'user_registration_details',
+    FIREBASE_USER_DETAILS: 'firebase_user_details', 
+    IS_VEFIRIED : 'user_verified',
     APP_SITE:'www.google.com',
     APP_ACTION:{
         RATE_REPORT:'rate_report',
@@ -24,6 +27,8 @@ const AppConstant = {
     },
     APP_PAGE:{
         SPLASH:'Splash',
+        LOGIN: "login",
+        VERIFY: "Verify",
         ON_BOARDING:'OnBoarding',
         ON_BOARDING_INFO:'OnBoardingInfo',
         REGISTER_MOBILE:'RegisterMobile',
@@ -39,8 +44,7 @@ const AppConstant = {
     },
 
     APP_TEXT_INPUT : {
-        MAX_LENGTH: 256,
-        NUMBER_MAX_LENGTH:20
+        MAX_LENGTH: 256
     },
     APP_LOCALE:{
         ENGLISH: 'en',

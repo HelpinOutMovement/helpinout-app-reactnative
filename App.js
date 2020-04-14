@@ -33,6 +33,7 @@ import OfferHelpScreen from './pages/OfferHelpScreen';
 import OfferHelpScreenDetails from './pages/OfferHelpScreenDetails';
 import MyOfferScreen from './pages/MyOfferScreen';
 import MyRequestScreen from './pages/MyRequestScreen';
+import VerifyScreen from './pages/VerifyScreen';
 
 
 console.disableYellowBox = true;
@@ -43,11 +44,14 @@ const Stack = createStackNavigator();
 function App() {
 
   const [appState, setAppState] = useState(AppConstant.APP_STATE.IS_LOADING);
-  AppStorage.storeAppInfo("locale", "en");
+  //AppStorage.storeAppInfo(AppConstant.IS_VEFIRIED, "false");
+
+
   useEffect(() => {
-    AppStorage.getAppInfo(AppConstant.IS_LOGGED_IN)
-      .then((resp) => {
-        if(resp) {
+    AppStorage.getAppInfo(AppConstant.IS_VEFIRIED)
+      .then((resp) => {        
+        if(resp === "true") {
+          console.log("APP resp :  "+  resp);
           setAppState(AppConstant.APP_STATE.IS_AUTHENTICATED);
         } else {
           setAppState(AppConstant.APP_STATE.IS_NOT_AUTENTICATED);
@@ -56,21 +60,27 @@ function App() {
         setAppState(AppConstant.APP_STATE.IS_NOT_AUTENTICATED);
       });
   },[]);
-
+  console.log("appState  :  "+ appState);
   const getStackedScreen = () => {
     const stackedScreen = [];
     switch (appState) {
       case AppConstant.APP_STATE.IS_AUTHENTICATED:
-        stackedScreen.push((
+        stackedScreen.push((          
           <Stack.Navigator  key= 'n_authen'  initialRouteName="Dashboard">
-               <Stack.Screen key= 'n_login' name="Login" component={LoginScreen} />
+          <Stack.Screen key= {`a_${AppConstant.APP_PAGE.SPLASH}`} name={AppConstant.APP_PAGE.SPLASH} component={SplashScreen} /> 
+          <Stack.Screen key= {`a_${AppConstant.APP_PAGE.DASHBOARD}`} name={AppConstant.APP_PAGE.DASHBOARD}  component={Dashboard} />
+
+{/*          <Stack.Screen key= 'n_login' name="Login" component={LoginScreen} />
             <Stack.Screen key= 'n_details' name="Details" component={DetailsScreen} />
+*/}
           </Stack.Navigator>
         ));
         break;
       case AppConstant.APP_STATE.IS_NOT_AUTENTICATED:
         stackedScreen.push((
           <Stack.Navigator headerMode="none" key= 'a_authen' initialRouteName={AppConstant.APP_PAGE.ON_BOARDING}>
+            <Stack.Screen key= {`a_${AppConstant.APP_PAGE.LOGIN}`} name={AppConstant.APP_PAGE.LOGIN} component={LoginScreen} /> 
+            <Stack.Screen key= {`a_${AppConstant.APP_PAGE.VERIFY}`} name={AppConstant.APP_PAGE.VERIFY} component={VerifyScreen} /> 
             <Stack.Screen key= {`a_${AppConstant.APP_PAGE.SPLASH}`} name={AppConstant.APP_PAGE.SPLASH} component={SplashScreen} /> 
             <Stack.Screen key= {`a_${AppConstant.APP_PAGE.ON_BOARDING}`} name={AppConstant.APP_PAGE.ON_BOARDING} component={OnBoardingScreen} />
             <Stack.Screen key= {`a_${AppConstant.APP_PAGE.ON_BOARDING_INFO}`} name={AppConstant.APP_PAGE.ON_BOARDING_INFO}  component={OnBoardingInfoScreen} />
@@ -80,8 +90,7 @@ function App() {
             <Stack.Screen key= {`a_${AppConstant.APP_PAGE.MAP_COMPONENT}`} name={AppConstant.APP_PAGE.MAP_COMPONENT}  component={MapComponent} />
             <Stack.Screen key= {`a_${AppConstant.APP_PAGE.OFFER_HELP_SCREEN}`} name={AppConstant.APP_PAGE.OFFER_HELP_SCREEN}  component={OfferHelpScreen} />
             <Stack.Screen key= {`a_${AppConstant.APP_PAGE.ASK_FOR_HELP_DETAILS}`} name={AppConstant.APP_PAGE.ASK_FOR_HELP_DETAILS}  component={AskForHelpDetailsScreen} />
-            <Stack.Screen key= {`a_${AppConstant.APP_PAGE.OFFER_HELP_SCREEN_DETAILS}`} name={AppConstant.APP_PAGE.OFFER_HELP_SCREEN_DETAILS}  component={OfferHelpScreenDetails} />
-            
+            <Stack.Screen key= {`a_${AppConstant.APP_PAGE.OFFER_HELP_SCREEN_DETAILS}`} name={AppConstant.APP_PAGE.OFFER_HELP_SCREEN_DETAILS}  component={OfferHelpScreenDetails} />            
             <Stack.Screen key= {`a_${AppConstant.APP_PAGE.MY_REQUEST_SCREEN}`} name={AppConstant.APP_PAGE.MY_REQUEST_SCREEN}  component={MyRequestScreen} />
             <Stack.Screen key= {`a_${AppConstant.APP_PAGE.MY_OFFERS_SCREEN}`} name={AppConstant.APP_PAGE.MY_OFFERS_SCREEN}  component={MyOfferScreen} />
             

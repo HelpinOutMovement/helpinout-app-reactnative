@@ -6,47 +6,6 @@ const commonStyling = StyleSheet.create({
         alignItems: 'center', 
         justifyContent: 'center'
     },
-    sideDrawerTextContainer: {
-      alignItems: "center",
-      width: "92%",
-      backgroundColor:"#ffffff",
-      
-    },
-   inputRowComponentText: {
-    fontSize: 16,
-    fontFamily: "Roboto-Regular",
-    borderWidth: 1,
-    borderColor: '#4F5065B8',
-    borderRadius: 9,
-    color: '#4F5065B8',
-    height:50,
-    paddingLeft:10
-  
-  },
-    sideDrawerText: {
-      textAlign: "center",
-      fontFamily: "Roboto-Medium",
-      fontSize: 18,
-      color: "#4F5065"
-    },
-    languageButtonContainer: {
-      marginTop: 30,
-      alignItems: "flex-start",
-      backgroundColor: "#FFFFFF",
-      height: 56,
-      width: "92%",
-      shadowOpacity: 0.9,
-      shadowOffset: { height: 3 },
-      shadowColor: '#2328321F'
-    },
-    languageButtonText: {
-      textAlign: "center",
-      fontFamily: "Roboto-Medium",
-      fontSize: 20,
-      lineHeight: 56,
-      marginLeft: 35,
-      color: "#4F5065CC"
-    },
     onBoardingScreenContainer:{
 
     },
@@ -99,39 +58,41 @@ const commonStyling = StyleSheet.create({
     borderBottomLeftRadius:10,
     width:75,
     borderWidth: 1,
-    borderColor: '#2328323D',
+    borderColor: '#4F5065',
     borderRadius: 4,
-    color: '#4F5065A3',
+    color: '#4F5065',
     paddingRight: 5, // to ensure the text is never behind the icon
   },
   phoneCountryCode: {
-    fontSize: 16,
+    fontSize: 20,
     paddingVertical: 12,
     paddingHorizontal: 1,
     borderTopRightRadius:0,
     borderBottomRightRadius:0,
-    fontFamily: "Roboto-Regular",
     borderRightWidth:0,    
     width:40,
-    borderWidth: 1,
-    borderColor: '#2328323D',
+    borderWidth: 4,
+    borderTopWidth:1,
+    borderLeftWidth:1,
+    borderColor: '#E8E8E8',
     borderRadius: 9,
-    color: '#4F5065A3',
+    color: '#4F5065',
     paddingRight: 1, // to ensure the text is never behind the icon
     textAlign:'right'
   },
   phoneLoginInput: {
-      fontSize: 16,
+      fontSize: 20,
       paddingVertical: 12,
       paddingHorizontal: 1,
-      fontFamily: "Roboto-Regular",
       borderTopLeftRadius:0,
       borderBottomLeftRadius:0,
       width:240,
-      borderWidth: 1,
-      borderColor: '#2328323D',
+      borderTopWidth:1,
+      borderLeftWidth:0,
+      borderWidth: 4,
+      borderColor: '#E8E8E8',
       borderRadius: 9,
-      color: '#4F5065A3',
+      color: '#4F5065',
       paddingRight: 5, // to ensure the text is never behind the icon
       paddingLeft: 10
     },
@@ -141,22 +102,11 @@ const commonStyling = StyleSheet.create({
         height: 23,
         textAlign: "left",        
       },
-      inputRowComponentText: {
-        fontSize: 16,
-        fontFamily: "Roboto-Regular",
-        borderWidth: 1,
-        borderColor: '#4F5065B8',
-        borderRadius: 9,
-        color: '#4F5065B8',
-        height:50,
-        paddingLeft:10
-      
-      },
     registerSwitchText: {
-        textAlign: "right",
+        textAlign: "left",
         fontFamily: "Roboto-Medium",
-        fontSize: 20,
-        color:'black',
+        fontSize: 16,
+        color:'#4F5065',
         height:50,
         marginLeft:20
 
@@ -186,16 +136,22 @@ const commonStyling = StyleSheet.create({
         height: 22
       },      
       RegistrationInput: {
+        alignItems: "center",
+        textAlign: "center",
         fontSize: 20,
         marginTop: 20, 
         paddingVertical: 12,
-        paddingHorizontal: 1,        
+        paddingHorizontal: 1,  
+        paddingLeft: 10,       
         width:'100%',
-        borderWidth: 1,
-        borderColor: '#2328323D',
+        borderTopWidth:1,
+        borderLeftWidth:1,
+        borderWidth: 4,
+        borderColor: '#E8E8E8',
         borderRadius: 9,
-        color: '#4F5065A3',
+        color: '#000000',
         paddingRight: 5, // to ensure the text is never behind the icon
+        
       },
       pickerSelectStyles: {
         marginTop: 20,
@@ -206,9 +162,9 @@ const commonStyling = StyleSheet.create({
       width: "100%",
       height: 50,
       borderWidth: 1,
-      borderColor: '#2328323D',  
+      borderColor: 'gray',  
       borderWidth: 1,
-      color: '#4F5065A3',
+      color: '#4F5065',
       paddingRight: 5, // to ensure the text is never behind the icon
       textAlign:'center'
     },
@@ -223,9 +179,9 @@ const commonStyling = StyleSheet.create({
       borderWidth: 1,
       borderRightWidth: 0,
       borderLeftWidth: 0,
-      borderColor: '#2328323D',  
+      borderColor: 'gray',  
       borderWidth: 1,
-      color: '#4F5065A3',
+      color: '#4F5065',
       paddingRight: 8, // to ensure the text is never behind the icon
       paddingLeft: 1,
       textAlign:'center'
