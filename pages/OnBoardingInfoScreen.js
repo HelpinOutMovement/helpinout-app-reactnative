@@ -11,26 +11,26 @@ import LogoComponent from './components/LogoComponent';
 function OnBoardingInfoScreen({ navigation }) {
 
     const dimensions = Dimensions.get('window');
-    const getLocalAsync =  () => {  
-        let data =   AppStorage.getAppInfo("locale");   
+    const getLocalAsync = () => {
+        let data = AppStorage.getAppInfo("locale");
         console.log(data)
         return data;
-      };  
-    
+    };
+
     const onContinueClicked = () => {
         navigation.navigate(AppConstant.APP_PAGE.REGISTER_MOBILE);
     }
 
-    const onAppLinkClicked = (lang) => {        
-        
+    const onAppLinkClicked = (lang) => {
+
         Linking.openURL(AppConstant.APP_SITE);
     }
 
 
     return (
         <View style={{ flexDirection: "column" }}>
-            <LogoComponent />
-            <View style={{ alignItems:"center"}}>
+            <LogoComponent marginVertical={15} marginTop={100}/>
+            <View style={{ alignItems: "center" }}>
                 <TouchableOpacity
                     style={{
                         alignItems: "center",
@@ -43,51 +43,61 @@ function OnBoardingInfoScreen({ navigation }) {
                     <Text
                         style={{
                             textAlign: "center",
-                            fontFamily: "Roboto-Medium",
-                            fontSize: 20,
-                            lineHeight: 56,
+                            fontFamily: "Roboto-Regular",
+                            fontSize: 16,
                             marginLeft: 0,
-                            color: "#4F5065CC"
+                            color: "#4F5065"
                         }}
-                    >{translate.t(appLabelKey.app_website)}</Text>                    
+                    >{translate.t(appLabelKey.app_website)}</Text>
                 </TouchableOpacity>
             </View>
-            <View style={{top:(dimensions.height*.25)}}>
-                <View style={{ alignItems: "center"}}>
+            <View style={{ top: (dimensions.height * .25) }}>
+                <View style={{ alignItems: "center", flexDirection: "row", justifyContent: "center" }}>
                     <Text
                         style={{
                             textAlign: "center",
-                            fontFamily: "Roboto-Medium",
-                            fontSize: 20,
+                            fontFamily: "Roboto-Regular",
+                            fontSize: 16,
                             marginLeft: 0,
                             color: "#EE6B6B"
                         }}
-                    >{translate.t("Ask_for_Help_Offer_Help")}</Text>    
+                    >{translate.t("Ask_for_Help_Offer_Help")}</Text>
                     <Text
                         style={{
                             textAlign: "center",
-                            fontFamily: "Roboto-Medium",
-                            fontSize: 20,
+                            fontFamily: "Roboto-Regular",
+                            fontSize: 16,
+                            color: "#4F5065"
+                        }}
+                    >{translate.t("Ask_for_Help_Offer_Help2")}</Text>
+                </View>
+                <View style={{ alignItems: "center" }}>
+                    <Text
+                        style={{
+                            textAlign: "center",
+                            fontFamily: "Roboto-Regular",
+                            fontSize: 16,
                             marginTop: 10,
                             color: "#4F5065CC"
                         }}
-                    >{translate.t("wherever_you_are")}</Text>         
+                    >{translate.t("wherever_you_are")}</Text>
                 </View>
-            
-                <View style={{alignItems: "center" ,marginTop:50}}>
+
+
+                <View style={{ alignItems: "center", marginTop: 50 }}>
                     <Text
                         style={{
-                            fontFamily: "Roboto-Medium",
-                            fontSize: 20,
-                            marginLeft: 0,
-                            color: "#4F5065CC",
                             textAlign: "center",
-                            width:275,
+                            fontFamily: "Roboto-Regular",
+                            fontSize: 16,
+                            marginTop: 10,
+                            color: "#4F5065CC",
+                            width: 275,
                         }}
                     >{translate.t("Search_for_help-providers_and_help-requesters_around_you")}</Text>
                 </View>
 
-                <View style={{ alignItems: "center" , marginTop:50}} >
+                <View style={{ alignItems: "center", marginTop: 50 }} >
                     <TouchableOpacity
                         style={{
                             marginVertical: 30,

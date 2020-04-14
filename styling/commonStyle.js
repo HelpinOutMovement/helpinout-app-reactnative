@@ -6,6 +6,47 @@ const commonStyling = StyleSheet.create({
         alignItems: 'center', 
         justifyContent: 'center'
     },
+    sideDrawerTextContainer: {
+      alignItems: "center",
+      width: "92%",
+      backgroundColor:"#ffffff",
+      
+    },
+   inputRowComponentText: {
+    fontSize: 16,
+    fontFamily: "Roboto-Regular",
+    borderWidth: 1,
+    borderColor: '#4F5065B8',
+    borderRadius: 9,
+    color: '#4F5065B8',
+    height:50,
+    paddingLeft:10
+  
+  },
+    sideDrawerText: {
+      textAlign: "center",
+      fontFamily: "Roboto-Medium",
+      fontSize: 18,
+      color: "#4F5065"
+    },
+    languageButtonContainer: {
+      marginTop: 30,
+      alignItems: "flex-start",
+      backgroundColor: "#FFFFFF",
+      height: 56,
+      width: "92%",
+      shadowOpacity: 0.9,
+      shadowOffset: { height: 3 },
+      shadowColor: '#2328321F'
+    },
+    languageButtonText: {
+      textAlign: "center",
+      fontFamily: "Roboto-Medium",
+      fontSize: 20,
+      lineHeight: 56,
+      marginLeft: 35,
+      color: "#4F5065CC"
+    },
     onBoardingScreenContainer:{
 
     },
@@ -58,37 +99,39 @@ const commonStyling = StyleSheet.create({
     borderBottomLeftRadius:10,
     width:75,
     borderWidth: 1,
-    borderColor: 'gray',
+    borderColor: '#2328323D',
     borderRadius: 4,
-    color: 'black',
+    color: '#4F5065A3',
     paddingRight: 5, // to ensure the text is never behind the icon
   },
   phoneCountryCode: {
-    fontSize: 20,
+    fontSize: 16,
     paddingVertical: 12,
     paddingHorizontal: 1,
     borderTopRightRadius:0,
     borderBottomRightRadius:0,
+    fontFamily: "Roboto-Regular",
     borderRightWidth:0,    
     width:40,
     borderWidth: 1,
-    borderColor: 'gray',
+    borderColor: '#2328323D',
     borderRadius: 9,
-    color: 'black',
+    color: '#4F5065A3',
     paddingRight: 1, // to ensure the text is never behind the icon
     textAlign:'right'
   },
   phoneLoginInput: {
-      fontSize: 20,
+      fontSize: 16,
       paddingVertical: 12,
       paddingHorizontal: 1,
+      fontFamily: "Roboto-Regular",
       borderTopLeftRadius:0,
       borderBottomLeftRadius:0,
       width:240,
       borderWidth: 1,
-      borderColor: 'gray',
+      borderColor: '#2328323D',
       borderRadius: 9,
-      color: 'black',
+      color: '#4F5065A3',
       paddingRight: 5, // to ensure the text is never behind the icon
       paddingLeft: 10
     },
@@ -97,6 +140,17 @@ const commonStyling = StyleSheet.create({
         width: 45,
         height: 23,
         textAlign: "left",        
+      },
+      inputRowComponentText: {
+        fontSize: 16,
+        fontFamily: "Roboto-Regular",
+        borderWidth: 1,
+        borderColor: '#4F5065B8',
+        borderRadius: 9,
+        color: '#4F5065B8',
+        height:50,
+        paddingLeft:10
+      
       },
     registerSwitchText: {
         textAlign: "right",
@@ -138,9 +192,9 @@ const commonStyling = StyleSheet.create({
         paddingHorizontal: 1,        
         width:'100%',
         borderWidth: 1,
-        borderColor: 'gray',
+        borderColor: '#2328323D',
         borderRadius: 9,
-        color: 'black',
+        color: '#4F5065A3',
         paddingRight: 5, // to ensure the text is never behind the icon
       },
       pickerSelectStyles: {
@@ -152,9 +206,9 @@ const commonStyling = StyleSheet.create({
       width: "100%",
       height: 50,
       borderWidth: 1,
-      borderColor: 'gray',  
+      borderColor: '#2328323D',  
       borderWidth: 1,
-      color: 'black',
+      color: '#4F5065A3',
       paddingRight: 5, // to ensure the text is never behind the icon
       textAlign:'center'
     },
@@ -169,9 +223,9 @@ const commonStyling = StyleSheet.create({
       borderWidth: 1,
       borderRightWidth: 0,
       borderLeftWidth: 0,
-      borderColor: 'gray',  
+      borderColor: '#2328323D',  
       borderWidth: 1,
-      color: 'black',
+      color: '#4F5065A3',
       paddingRight: 8, // to ensure the text is never behind the icon
       paddingLeft: 1,
       textAlign:'center'

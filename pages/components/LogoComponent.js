@@ -5,7 +5,11 @@ import commonStyling from '../../styling/commonStyle';
 
 const LogoComponent = (props) => {
     return (
-        <View style={{ alignItems: "center", marginVertical: props.marginVertical ? props.marginVertical : 60 }}>
+        <View style={{ 
+                alignItems: "center", 
+                marginVertical: props.marginVertical ? props.marginVertical : 60,
+                marginTop: props.marginTop ? props.marginTop : 50,
+                 }}>
             <Image
                 style={commonStyling.splashSmallImage}
                 source={require('../../images/logo.png')}

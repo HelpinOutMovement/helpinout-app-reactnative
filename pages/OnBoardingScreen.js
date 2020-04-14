@@ -45,9 +45,11 @@ function OnBoardingScreen({ navigation }) {
         return btnList;
     }
     return (
-        <View style={{ flexDirection: "column", padding: 10, flex: 1 }} >
-            <LogoComponent />
-            <ScrollView style={{ flex: 1, borderWidth: StyleSheet.hairlineWidth, borderColor: 'red' }}>
+        <View style={{ flexDirection: "column", padding: 10, flex: 1  }} >
+            <LogoComponent/>
+            <ScrollView style={{ 
+                    flex: 1
+                    }}>
                 <View style={{ alignItems: "center", marginBottom: 50 }} >
                     {getLangBtnOptions()}
                 </View>
