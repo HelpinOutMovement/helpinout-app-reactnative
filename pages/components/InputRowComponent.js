@@ -19,7 +19,6 @@ const InputRowComponent = (props) => {
                     maxLength={AppConstant.APP_TEXT_INPUT.MAX_LENGTH}
                     style={[commonStyling.inputRowComponentText, (props.showError ? {borderColor: 'red'}: {borderColor: '#4F5065B8'})]} 
                     onChangeText={(value)=> {
-                        console.log("changes#####",value);
                         if(props.onTextChange){
                              props.onTextChange(props.code , value);
                         }
