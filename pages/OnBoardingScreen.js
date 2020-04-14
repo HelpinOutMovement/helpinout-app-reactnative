@@ -23,6 +23,7 @@ function OnBoardingScreen({ navigation }) {
     const onLanguageClicked = (lang) => {
         AppStorage.storeAppInfo("locale", lang).then(function (value) {
             setLanguage(lang);
+            console.log(lang)
             navigation.navigate(AppConstant.APP_PAGE.ON_BOARDING_INFO);
         });
     }

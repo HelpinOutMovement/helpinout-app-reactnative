@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { Button, View, Text, FlatList, TouchableOpacity } from 'react-native';
 import { default as MaterialCommunityIcon } from 'react-native-vector-icons/MaterialCommunityIcons';
 import AppConstant from '../misc/AppConstant';
 import translate from 'react-native-i18n';
+import AppStringContext from '../misc/AppStringContext';
 import { appLabelKey } from '../misc/AppStrings';
 import commonStyling from '../styling/commonStyle';
 
@@ -65,6 +66,7 @@ const SideMenuOptions = {
 }
 
 const CustomSideBarView = ({ navigation }) => {
+    const { setLanguage, language } = useContext(AppStringContext);
     const getSecondaryMenu = () => {
         const primaryMenu = []
         SideMenuOptions.secondary.forEach((singleMenu, index) => {
@@ -75,8 +77,7 @@ const CustomSideBarView = ({ navigation }) => {
                             flexDirection: 'row'
                         }]}
                         onPress={() =>
-                            console.log(singleMenu.localeCode)
-                            //navigation.navigate(singleMenu.pageName)
+                            setLanguage(singleMenu.localeCode)
                         }>
                         <Text
                             style={commonStyling.sideDrawerText}
@@ -84,12 +85,17 @@ const CustomSideBarView = ({ navigation }) => {
                         <View style={{
                             marginLeft: 10
                         }}>
-                            <MaterialCommunityIcon
-                                name="check"
-                                style={{
-                                    color: "#EE6B6B",
-                                    fontSize: 18
-                                }} />
+                            {
+                                (singleMenu.localeCode === language) && (
+                                    <MaterialCommunityIcon
+                                        name="check"
+                                        style={{
+                                            color: "#EE6B6B",
+                                            fontSize: 18
+                                        }} />
+                                )
+                            }
+
 
                         </View>
                     </TouchableOpacity>
@@ -125,7 +131,7 @@ const CustomSideBarView = ({ navigation }) => {
     }
     return (
         <View>
-            <LogoComponent marginVertical={10} hideName={true}/>
+            <LogoComponent marginVertical={10} hideName={true} />
             <View>
 
                 {getPrimaryMenu()}

@@ -27,7 +27,7 @@ class AppStringProvider extends React.Component {
   
     // Method to update state
     setLanguage = language => {
-      console.log(language);
+      console.log("lan set  ===>",language);
       this.setState(prevState => ({ language }))
     }
     translate = (stringLabelKey, selectedLanguage)  => {
