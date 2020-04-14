@@ -1,5 +1,5 @@
 
-import React, { useContext, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Image, TouchableOpacity, StyleSheet, View } from 'react-native';
 import { Container, Textarea, Grid, CheckBox, Row, Col, Form, Title, Item, Input, Label, Left, Right, Button, Body, Content, Text, Card, CardItem, Footer } from "native-base";
 import { default as EntypoIcon } from 'react-native-vector-icons/AntDesign';
@@ -13,21 +13,53 @@ import ModalComponent from './components/ModalComponent';
 import ButtonComponent from './components/ButtonComponent';
 import InputRowComponent from './components/InputRowComponent';
 import Utilities from '../misc/Utils';
+import { sin } from 'react-native-reanimated';
 
+const firstId = Utilities.getID();
 
 function AskForHelpDetailsScreen(props) {
     const colorTheme = "#EE6B6B";
-    const firstId = Utilities.getID();
+
     const [totalInput, setTotalInput] = useState([firstId]);
+    const [inputValues, setInputValues] = useState({});
+    const [notFilled, setNotFilled] = useState([]);
     const [volunteers, setVolunteers] = useState(false);
     const [technicalPersonnel, setTechnicalPersonnel] = useState(false);
     const [showModal, setShowModal] = useState(false);
+    const inputEl = useRef(null);
 
     const { optionCode, optionImage } = props.route.params;
 
 
+    const validateTheInput = () => {
+        // Get the size of an object
+        const notFilledLocal = [];
+        const filledItems = [];
+        for (let [key, value] of Object.entries(inputValues)) {
+            if (value) {
+                filledItems.push(key)
+            }
+        }
+        for (let singleItem = 0; singleItem < totalInput.length; singleItem++) {
+            if (filledItems.indexOf(totalInput[singleItem]) === -1) {
+                notFilledLocal.push(totalInput[singleItem])
+            }
+        }
+        setNotFilled(notFilledLocal)
+    }
+
+    const onTextChangeAction = (code, val) => {
+        const inputValuesLocal = { ...inputValues };
+        inputValuesLocal[code] = val;
+        setInputValues(inputValuesLocal);
+    }
     const onDeleteAction = (code) => {
         let tempTotal = [...totalInput];
+        if (inputValues[code]) {
+            const inputValuesLocal = { ...inputValues };
+            delete inputValuesLocal[code];
+            setInputValues(inputValuesLocal);
+        }
         const index = tempTotal.indexOf(code);
         if (index != -1) {
             tempTotal.splice(index, 1);
@@ -37,16 +69,39 @@ function AskForHelpDetailsScreen(props) {
     const showDynamicallyAddedInput = () => {
         const dynamicInput = [];
         totalInput.forEach(singleInstance => {
-            dynamicInput.push((
-                <InputRowComponent
-                    key={"input_r" + singleInstance}
-                    showDelete={singleInstance == firstId ? false : true}
-                    code={singleInstance}
-                    onDelete={() => {
-                        onDeleteAction(singleInstance);
-                    }}
-                />
-            ))
+            if (singleInstance == firstId) {
+                dynamicInput.push((
+                    <InputRowComponent
+                        ref={inputEl}
+                        key={"input_r" + singleInstance}
+                        showError={(notFilled.indexOf(singleInstance) !== -1) ? true : false}
+                        showDelete={false}
+                        code={singleInstance}
+                        onDelete={() => {
+                            onDeleteAction(singleInstance);
+                        }}
+                        onTextChange={(code, val) => {
+                            onTextChangeAction(code, val)
+                        }}
+                    />
+                ))
+            } else {
+                dynamicInput.push((
+                    <InputRowComponent
+                        key={"input_r" + singleInstance}
+                        showDelete={true}
+                        showError={(notFilled.indexOf(singleInstance) !== -1) ? true : false}
+                        code={singleInstance}
+                        onDelete={() => {
+                            onDeleteAction(singleInstance);
+                        }}
+                        onTextChange={(code, val) => {
+                            onTextChangeAction(code, val)
+                        }}
+                    />
+                ))
+            }
+
         })
         return dynamicInput;
     }
@@ -114,7 +169,6 @@ function AskForHelpDetailsScreen(props) {
                             onPress={() => { //this.findCoordinates()
                                 let totalInputTemp = [...totalInput];
                                 totalInputTemp.push(Utilities.getID());
-                                console.log(totalInputTemp);
                                 setTotalInput(totalInputTemp);
                             }
                             }>
@@ -181,14 +235,18 @@ function AskForHelpDetailsScreen(props) {
                     {getAddMoreOption()}
                     <Row style={{ alignSelf: "center" }}>
                         <ButtonComponent
-                            setShowModal={setShowModal}
+                            setShowModal={() => {
+
+                                validateTheInput()
+
+                            }}
                             unfilled={true}
                             label={translate.t(appLabelKey.we_can_pay)}
                             color={colorTheme} />
                         <ButtonComponent
                             containerStyle={{ marginLeft: 10 }}
                             setShowModal={setShowModal}
-                            
+
                             label={translate.t(appLabelKey.we_cannot_pay)}
                             color={colorTheme} />
                     </Row>
