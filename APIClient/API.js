@@ -70,10 +70,9 @@ class API{
   }
 
 
-  register = (country_code, mobil_number, first_name, last_name, mobile_number_visible, user_type) => {
-
+  register = (country_code, mobil_number, first_name, last_name, mobile_number_visible, user_type,org_name, org_type, org_division) => {
       let  requestObjects = new RequestObjects();
-      reqObj = requestObjects.registerObject(country_code, mobil_number,first_name, last_name, mobile_number_visible, user_type);
+      reqObj = requestObjects.registerObject(country_code, mobil_number,first_name, last_name, mobile_number_visible, user_type,org_name, org_type, org_division);
       console.log("register request Object ")
       console.log(reqObj)
       return new Promise((resolve, reject) => {
@@ -88,172 +87,208 @@ class API{
   }
 
 
-
-  locationSuggestion = (lat, lon, geo_accuracy, activity_type , activity_uuid)=>{
-      let  requestObjects = new RequestObjects();
-      reqObj = requestObjects.locationSuggestionObject(lat, lon, geo_accuracy, activity_type , activity_uuid);
-      console.log("locationsuggestion request Object ")
-      console.log(reqObj)
-      return new Promise((resolve, reject) => {
-          let apicall = 'user/locationsuggestion';
-          apicall = this.createEntity(apicall)
-          let data = this.endpoints[apicall].post(reqObj);        
-          data.then(({data})=> {
-              resolve(data);
-          })
-          .catch(err => {reject(err)})
-      });
-  }
-
-
-  locationRequesterSummary = (lat, lon, geo_accuracy)=>{
-    let  requestObjects = new RequestObjects();
-    reqObj = requestObjects.locationRequesterSummary(lat, lon, geo_accuracy);
-    console.log("locationRequesterSummary request Object ")
-      console.log(reqObj)
-      return new Promise((resolve, reject) => {
-          let apicall = 'user/locationrequestersummary';
-          apicall = this.createEntity(apicall)
-          let data = this.endpoints[apicall].post(reqObj);        
-          data.then(({data})=> {
-              resolve(data);
-          })
-          .catch(err => {reject(err)})
-      });
-  }
-
-  userPastActivity = (activity_type) =>{
-    let  requestObjects = new RequestObjects();
-    reqObj = requestObjects.userPastActivity(activity_type);
-    console.log("pastactivity request Object ")
-      console.log(reqObj)
-      return new Promise((resolve, reject) => {
-          let apicall = 'user/pastactivity';
-          apicall = this.createEntity(apicall)
-          let data = this.endpoints[apicall].post(reqObj);        
-          data.then(({data})=> {
-              resolve(data);
-          })
-          .catch(err => {reject(err)})
-      });    
-  }
-
-  activityAdd = () =>{
-    let  requestObjects = new RequestObjects();
-    reqObj = requestObjects.activityAdd();
-    console.log("Add Activity request Object ")
-      console.log(reqObj)
-      return new Promise((resolve, reject) => {
-          let apicall = 'activity/add';
-          apicall = this.createEntity(apicall)
-          let data = this.endpoints[apicall].post(reqObj);        
-          data.then(({data})=> {
-              resolve(data);
-          })
-          .catch(err => {reject(err)})
-      });    
-  }
-
-  activitySuggestions = (activity_type, activity_uuid, offerer, requester) =>{
-    let  requestObjects = new RequestObjects();
-    reqObj = requestObjects.activitySuggestions(activity_type, activity_uuid, offerer, requester);
-    console.log("Activity mapping suggestion request Object ")
-      console.log(reqObj)
-      return new Promise((resolve, reject) => {
-          let apicall = 'activity/suggestions';
-          apicall = this.createEntity(apicall)
-          let data = this.endpoints[apicall].post(reqObj);        
-          data.then(({data})=> {
-              resolve(data);
-          })
-          .catch(err => {reject(err)})
-      });    
-  }
-
-
-  activityMapping = (activity_type, activity_uuid, offerer, requester) =>{
-    let  requestObjects = new RequestObjects();
-    reqObj = requestObjects.activityMapping(activity_type, activity_uuid, offerer, requester);
-    console.log("Activity mapping suggestion request Object ")
-      console.log(reqObj)
-      return new Promise((resolve, reject) => {
-          let apicall = 'activity/mapping';
-          apicall = this.createEntity(apicall)
-          let data = this.endpoints[apicall].post(reqObj);        
-          data.then(({data})=> {
-              resolve(data);
-          })
-          .catch(err => {reject(err)})
-      }); 
-  }
-
-  activityDelete = (activity_uuid, activity_type) =>{
-    let  requestObjects = new RequestObjects();
-    reqObj = requestObjects.activityDelete(activity_uuid, activity_type);    
-    console.log("Activity delete request Object ")
-      console.log(reqObj)
-      return new Promise((resolve, reject) => {
-          let apicall = 'activity/delete';
-          apicall = this.createEntity(apicall)
-          let data = this.endpoints[apicall].post(reqObj);        
-          data.then(({data})=> {
-              resolve(data);
-          })
-          .catch(err => {reject(err)})
-      });     
-  }
-
-
-  mappingDelete = (activity_uuid, activity_type, mapping_id) =>{
-    let  requestObjects = new RequestObjects();
-    reqObj = requestObjects.mappingDelete(activity_uuid, activity_type, mapping_id);
-    console.log("Mapping delete request Object ")
-      console.log(reqObj)
-      return new Promise((resolve, reject) => {
-          let apicall = 'mapping/delete';
-          apicall = this.createEntity(apicall)
-          let data = this.endpoints[apicall].post(reqObj);        
-          data.then(({data})=> {
-              resolve(data);
-          })
-          .catch(err => {reject(err)})
-      });     
-  }
+  updateUser = (first_name, last_name, mobile_number_visible, user_type,org_name, org_type, org_division) => {
+        let  requestObjects = new RequestObjects();
+        reqObj = requestObjects.updateUserObject(first_name, last_name, mobile_number_visible, user_type,org_name, org_type, org_division);
+        console.log("update request Object ")
+        console.log(reqObj)
+        return new Promise((resolve, reject) => {
+            let apicall = 'user/update';
+            apicall = this.createEntity(apicall)
+            let data = this.endpoints[apicall].post(reqObj);        
+            data.then(({data})=> {
+                resolve(data);
+            })
+            .catch(err => {reject(err)})
+        });
+    }
 
 
 
-  mappingRating = (activity_uuid, mapping_id, rating, recommend_other) =>{
-    let  requestObjects = new RequestObjects();
-    reqObj = requestObjects.mappingRating(activity_uuid, mapping_id, rating, recommend_other);
-    console.log("Mapping rating request Object ")
-      console.log(reqObj)
-      return new Promise((resolve, reject) => {
-          let apicall = 'mapping/rating';
-          apicall = this.createEntity(apicall)
-          let data = this.endpoints[apicall].post(reqObj);        
-          data.then(({data})=> {
-              resolve(data);
-          })
-          .catch(err => {reject(err)})
-      });   
-  }
+    locationSuggestion = (lat, lon, geo_accuracy, activity_type , activity_uuid)=>{
+        let  requestObjects = new RequestObjects();
+        reqObj = requestObjects.locationSuggestionObject(lat, lon, geo_accuracy, activity_type , activity_uuid);
+        console.log("locationsuggestion request Object ")
+        console.log(reqObj)
+        return new Promise((resolve, reject) => {
+            let apicall = 'user/locationsuggestion';
+            apicall = this.createEntity(apicall)
+            let data = this.endpoints[apicall].post(reqObj);        
+            data.then(({data})=> {
+                resolve(data);
+            })
+            .catch(err => {reject(err)})
+        });
+    }
 
 
-  mappingCall = (activity_uuid, mapping_id) =>{
-    let  requestObjects = new RequestObjects();
-    reqObj = requestObjects.mappingCall(activity_uuid, mapping_id);
-    console.log("Mapping Call Initiate request Object ")
-      console.log(reqObj)
-      return new Promise((resolve, reject) => {
-          let apicall = 'mapping/call';
-          apicall = this.createEntity(apicall)
-          let data = this.endpoints[apicall].post(reqObj);        
-          data.then(({data})=> {
-              resolve(data);
-          })
-          .catch(err => {reject(err)})
-      });     
-  }
+    locationRequesterSummary = (lat, lon, geo_accuracy)=>{
+        let  requestObjects = new RequestObjects();
+        reqObj = requestObjects.locationRequesterSummary(lat, lon, geo_accuracy);
+        console.log("locationRequesterSummary request Object ")
+        console.log(reqObj)
+        return new Promise((resolve, reject) => {
+            let apicall = 'user/locationrequestersummary';
+            apicall = this.createEntity(apicall)
+            let data = this.endpoints[apicall].post(reqObj);        
+            data.then(({data})=> {
+                resolve(data);
+            })
+            .catch(err => {reject(err)})
+        });
+    }
+
+    userPastActivity = (activity_type) =>{
+        let  requestObjects = new RequestObjects();
+        reqObj = requestObjects.userPastActivity(activity_type);
+        console.log("pastactivity request Object ")
+        console.log(reqObj)
+        return new Promise((resolve, reject) => {
+            let apicall = 'user/pastactivity';
+            apicall = this.createEntity(apicall)
+            let data = this.endpoints[apicall].post(reqObj);        
+            data.then(({data})=> {
+                resolve(data);
+            })
+            .catch(err => {reject(err)})
+        });    
+    }
+
+    activityAdd = () =>{
+        let  requestObjects = new RequestObjects();
+        reqObj = requestObjects.activityAdd();
+        console.log("Add Activity request Object ")
+        console.log(reqObj)
+        return new Promise((resolve, reject) => {
+            let apicall = 'activity/add';
+            apicall = this.createEntity(apicall)
+            let data = this.endpoints[apicall].post(reqObj);        
+            data.then(({data})=> {
+                resolve(data);
+            })
+            .catch(err => {reject(err)})
+        });    
+    }
+
+    activitySuggestions = (activity_type, activity_uuid, offerer, requester) =>{
+        let  requestObjects = new RequestObjects();
+        reqObj = requestObjects.activitySuggestions(activity_type, activity_uuid, offerer, requester);
+        console.log("Activity mapping suggestion request Object ")
+        console.log(reqObj)
+        return new Promise((resolve, reject) => {
+            let apicall = 'activity/suggestions';
+            apicall = this.createEntity(apicall)
+            let data = this.endpoints[apicall].post(reqObj);        
+            data.then(({data})=> {
+                resolve(data);
+            })
+            .catch(err => {reject(err)})
+        });    
+    }
+
+
+    activityMapping = (activity_type, activity_uuid, offerer, requester) =>{
+        let  requestObjects = new RequestObjects();
+        reqObj = requestObjects.activityMapping(activity_type, activity_uuid, offerer, requester);
+        console.log("Activity mapping suggestion request Object ")
+        console.log(reqObj)
+        return new Promise((resolve, reject) => {
+            let apicall = 'activity/mapping';
+            apicall = this.createEntity(apicall)
+            let data = this.endpoints[apicall].post(reqObj);        
+            data.then(({data})=> {
+                resolve(data);
+            })
+            .catch(err => {reject(err)})
+        }); 
+    }
+
+
+
+    activityAdd = (activity_uuid, activity_type, geo_location, geo_accuracy, address, activity_category, activity_count, activity_detail, offer_condition, pay) =>{
+        let  requestObjects = new RequestObjects();
+        reqObj = requestObjects.activityAdd(activity_uuid, activity_type, geo_location, geo_accuracy, address, activity_category, activity_count, activity_detail, offer_condition, pay);    
+        console.log("Activity Add request Object ")
+        console.log(reqObj)
+        return new Promise((resolve, reject) => {
+            let apicall = 'activity/add';
+            apicall = this.createEntity(apicall)
+            let data = this.endpoints[apicall].post(reqObj);        
+            data.then(({data})=> {
+                resolve(data);
+            })
+            .catch(err => {reject(err)})
+        });     
+    }
+
+
+    activityDelete = (activity_uuid, activity_type) =>{
+        let  requestObjects = new RequestObjects();
+        reqObj = requestObjects.activityDelete(activity_uuid, activity_type);    
+        console.log("Activity delete request Object ")
+        console.log(reqObj)
+        return new Promise((resolve, reject) => {
+            let apicall = 'activity/delete';
+            apicall = this.createEntity(apicall)
+            let data = this.endpoints[apicall].post(reqObj);        
+            data.then(({data})=> {
+                resolve(data);
+            })
+            .catch(err => {reject(err)})
+        });     
+    }
+
+
+    mappingDelete = (activity_uuid, activity_type, mapping_id) =>{
+        let  requestObjects = new RequestObjects();
+        reqObj = requestObjects.mappingDelete(activity_uuid, activity_type, mapping_id);
+        console.log("Mapping delete request Object ")
+        console.log(reqObj)
+        return new Promise((resolve, reject) => {
+            let apicall = 'mapping/delete';
+            apicall = this.createEntity(apicall)
+            let data = this.endpoints[apicall].post(reqObj);        
+            data.then(({data})=> {
+                resolve(data);
+            })
+            .catch(err => {reject(err)})
+        });     
+    }
+
+
+
+    mappingRating = (activity_uuid, mapping_id, rating, recommend_other) =>{
+        let  requestObjects = new RequestObjects();
+        reqObj = requestObjects.mappingRating(activity_uuid, mapping_id, rating, recommend_other);
+        console.log("Mapping rating request Object ")
+        console.log(reqObj)
+        return new Promise((resolve, reject) => {
+            let apicall = 'mapping/rating';
+            apicall = this.createEntity(apicall)
+            let data = this.endpoints[apicall].post(reqObj);        
+            data.then(({data})=> {
+                resolve(data);
+            })
+            .catch(err => {reject(err)})
+        });   
+    }
+
+
+    mappingCall = (activity_uuid, mapping_id) =>{
+        let  requestObjects = new RequestObjects();
+        reqObj = requestObjects.mappingCall(activity_uuid, mapping_id);
+        console.log("Mapping Call Initiate request Object ")
+        console.log(reqObj)
+        return new Promise((resolve, reject) => {
+            let apicall = 'mapping/call';
+            apicall = this.createEntity(apicall)
+            let data = this.endpoints[apicall].post(reqObj);        
+            data.then(({data})=> {
+                resolve(data);
+            })
+            .catch(err => {reject(err)})
+        });     
+    }
   
 
 

@@ -31,6 +31,29 @@
             return this.stuffHeader(data);
         }
 
+        updateUserObject = (first_name,last_name, mobile_no_visibility, user_type, org_name, org_type, org_division)=>{
+            let data = {
+                "imei_no": DeviceInfo.getUniqueId(),
+                "os_type": DeviceInfo.getSystemName(),
+                "manufacturer_name": DeviceInfo.getBrand(),
+                "os_version": DeviceInfo.getSystemVersion(),
+                "firebase_token": "121212",
+                "app_version": "0.1",
+                "time_zone": Intl.DateTimeFormat().resolvedOptions().timeZone,
+                "first_name": first_name,
+                "last_name": last_name,
+                "mobile_no_visibility": mobile_no_visibility,
+                "user_type": user_type,
+            }    
+            
+            if(user_type != "1"){
+                data["org_name"] = org_name
+                data["org_type"] =  org_type,
+                data["org_division"] = org_division;
+            }
+            return this.stuffHeader(data);
+        }
+
 
         loginObject = (country_code, mobile_no)=>{        
             let data = {
@@ -102,6 +125,21 @@
             return this.stuffHeader(data);
         }
 
+        activityAdd(activity_uuid, activity_type, geo_location, geo_accuracy, address, activity_category, activity_count, activity_detail, offer_condition, pay){
+            let data = {
+                "activity_uuid": activity_uuid, 
+                "activity_type": activity_type,
+                "geo_location": geo_location,
+                "geo_accuracy": geo_accuracy,
+                "address": address,
+                "activity_category": activity_category,
+                "activity_count": activity_count,                
+                "activity_detail": activity_detail,
+                "offer_condition": offer_condition,
+                "pay": pay
+            }
+            return this.stuffHeader(data);    
+        }
         activityDelete = (activity_uuid, activity_type) =>{
             let data = {
                 "activity_uuid": activity_uuid, 
