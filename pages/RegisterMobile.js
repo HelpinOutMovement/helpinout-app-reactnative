@@ -18,7 +18,6 @@ import firebase from 'react-native-firebase'
 
 export default class RegisterMobile extends React.Component {
     
-
    constructor(props) {
         super(props);
         const { navigate } = this.props.navigation;
@@ -27,30 +26,17 @@ export default class RegisterMobile extends React.Component {
         this.state = this.props.route.params.loginState;
         console.log(JSON.stringify(this.state));
     }
-   dimensions = Dimensions.get('window');
-  
-  forceUpdateHandler(){
-    this.forceUpdate();
-  };
    
-
-  componentDidMount() {
-
-  }
+    dimensions = Dimensions.get('window');
   
-    findCoordinates = () => {
-      console.log("before getCurrentPosition");
-      console.log(this.state.phoneNumber);
-        geolocation.getCurrentPosition(
-            position => {
-                const location = JSON.stringify(position);
-                this.setState({ location });
-            },
-            error => Alert.alert(error.message),
-                { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
-        );
+    forceUpdateHandler(){
+        this.forceUpdate();
     };
+   
+    componentDidMount() {
 
+    }
+    
     validatePhoneNumber = () => {
         if(this.isEmpty(this.state.phoneNumber)){
             return false;
@@ -60,32 +46,6 @@ export default class RegisterMobile extends React.Component {
             return  true;
         }       
     }
-
-
-
-    handleSendCode = () => {
-        // Request to send OTP
-        if (this.validatePhoneNumber(this.state.phoneNumber)) {
-          firebase
-            .auth()
-            .signInWithPhoneNumber("")
-            .then(confirmResult => {
-              console.log(confirmResult)
-              this.setState({ confirmResult }).then(function(value) {
-                    console.log("setState  : confirmResult "  + value);
-                    this.navigate(AppConstant.APP_PAGE.VERIFY);
-              });              
-            })
-            .catch(error => {
-              //alert(error.message)    
-              console.log(error)
-            })
-        } else {
-          alert('Invalid Phone Number')
-        }
-      }
-
-
 
     isEmpty = (value) => {
         console.log("value.size  :  " +  value.length )
@@ -104,30 +64,6 @@ export default class RegisterMobile extends React.Component {
         }
         return true;
     }
-
-
-    handleSendCode = () => {
-        // Request to send OTP
-        if (this.validatePhoneNumber()) {
-          firebase
-            .auth()
-            .signInWithPhoneNumber(this.state.selectedCountryDialCode+""+this.state.phoneNumber)
-            .then(confirmResult => {
-              console.log(confirmResult)
-              this.setState({ confirmResult }).then(function(value) {
-                    console.log("setState  : confirmResult "  + value);
-                    this.forceUpdateHandler();                    //this.render((renderRegistrationScreen})s
-              });
-              
-            })
-            .catch(error => {
-              //alert(error.message)    
-              console.log(error)
-            })
-        } else {
-          alert('Invalid Phone Number')
-        }
-      }
 
     register =() =>{        
         let restApi = new API();
@@ -154,10 +90,11 @@ export default class RegisterMobile extends React.Component {
                 }else{
                     console.log("RegMobile  <> 0");
                     console.log("RegMobile  " + result.status);                                        
-                    AsyncStorage.setItem('userRegistrationDetails', result.data).then(function(value) {
+                    AsyncStorage.setItem('userRegistrationDetails', JSON.stringify(result.data)).then(function(value) {
                         console.log("userRegistrationDetails    " + value);
                         // expected output: "Success!"
-                        handleSendCode();
+                        //handleSendCode();
+                        this.navigate(AppConstant.APP_PAGE.VERIFY, {loginState: this.state});
                       });
                     
                 }
@@ -165,7 +102,7 @@ export default class RegisterMobile extends React.Component {
             error => {
                 console.log(error);
             } 
-          );   
+        );   
     }
 
 
@@ -296,26 +233,5 @@ const pickerSelectStyles = StyleSheet.create({
     paddingRight: 5, // to ensure the text is never behind the icon
     textAlign:'center'
   },
-
-});
-const pickerCcountryStyles = StyleSheet.create({
-    inputIOS: {
-      marginTop: 0,
-      fontSize: 20,
-      paddingVertical: 12,
-      paddingHorizontal: 1,      
-      borderRadius: 0,  
-      width: 90,
-      height: 53,      
-      borderRightWidth: 0,
-      borderLeftWidth: 0,
-      borderTopWidth:1,
-      borderColor: '#E8E8E8',  
-      borderWidth: 4,
-      color: 'black',
-      paddingRight: 8, // to ensure the text is never behind the icon
-      paddingLeft: 1,
-      textAlign:'center'
-    }
 
 });

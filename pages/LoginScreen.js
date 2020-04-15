@@ -20,44 +20,43 @@ export default class LoginScreen extends React.Component {
     constructor({ navigation, props }){
         super({ navigation });
         this.navigate = navigation.navigate;
-        this.props = props;
-        
+        this.props = props;        
         this.forceUpdateHandler = this.forceUpdateHandler.bind(this);
         
     }
    dimensions = Dimensions.get('window');
             
-  state = {
-    languages: [],
-    selectedCountryCode: "IN",
-    selectedCountryDialCode: "+91" , 
-    selectedCountry: {},
-    phoneNumber: "",
-    loginstatus: "",
-    representOrg: false,
-    contactVisible: false,
-    firstName: "",
-    lastName: "",
-    userType: 1,
-    organisationName:  null,
-    organisationType:  null,
-    organisationUnit:  null,
+    state = {
+        languages: [],
+        selectedCountryCode: "IN",
+        selectedCountryDialCode: "+91" , 
+        selectedCountry: {},
+        phoneNumber: "",
+        loginstatus: "",
+        representOrg: false,
+        contactVisible: false,
+        firstName: "",
+        lastName: "",
+        userType: 1,
+        organisationName:  null,
+        organisationType:  null,
+        organisationUnit:  null,
 
-    confirmResult: null,
-    verificationCode: '',
-    userId: '', 
-    loggedIn: false,
+        confirmResult: null,
+        verificationCode: '',
+        userId: '', 
+        loggedIn: false,
 
-  }
+    }
   
-  forceUpdateHandler(){
-    this.forceUpdate();
-  };
-   
+    forceUpdateHandler(){
+        this.forceUpdate();
+    };
+    
 
-  componentDidMount() {
+    componentDidMount() {
 
-  }
+    }
   
     validatePhoneNumber = () => {
         if(this.isEmpty(this.state.phoneNumber)){
@@ -68,10 +67,6 @@ export default class LoginScreen extends React.Component {
             return  true;
         }       
     }
-
-
-
-
 
     handleSendCode = () => {
         // Request to send OTP
@@ -86,7 +81,6 @@ export default class LoginScreen extends React.Component {
               this.navigate(AppConstant.APP_PAGE.VERIFY, {loginState: this.state});             
             })
             .catch(error => {
-              //alert(error.message)    
               console.log(error)
             })
         } else {
@@ -112,13 +106,12 @@ export default class LoginScreen extends React.Component {
                         AppStorage.storeAppInfo("user_registration_details", JSON.stringify(result.data));
                         AppStorage.getAppInfo(AppConstant.IS_VEFIRIED).then((value) => {
                             if(value === "true"){
-                                this.navigate(AppConstant.APP_PAGE.DASHBOARD);                        
+                                this.navigate(AppConstant.APP_PAGE.DASHBOARD, JSON.stringify(result.data));                        
                             }else{
                                 //this.handleSendCode();     
                                 this.navigate(AppConstant.APP_PAGE.VERIFY, {loginState: this.state});                                    
                             }
-                        });                        
-                        
+                        });   
                     }
                 }, 
                 error => {
@@ -128,9 +121,7 @@ export default class LoginScreen extends React.Component {
         }else{
             console.log("invalid Phone  Number")
                 // Add Error Toasts
-        }      
-        
-
+        }    
     }
 
 
@@ -148,9 +139,6 @@ export default class LoginScreen extends React.Component {
     render() {                   
        return  this.renderLoginScreen();        
     }
-
-
-
 
 
     renderLoginScreen = () =>{
@@ -206,55 +194,6 @@ export default class LoginScreen extends React.Component {
 }
 
 
-const styles = StyleSheet.create({
-    phoneInput: {
-        width: 311,
-        height: 60,
-        borderRadius: 5,
-        borderColor: "rgba(226,214,214,1)",
-        borderWidth: 1,
-        shadowOffset: {
-          height: 1,
-          width: 1
-        },     
-        shadowColor: "rgba(0,0,0,10)",
-        shadowOpacity: 0.39,
-        marginTop: 37,
-        alignSelf: "center",
-        fontSize:50,
-        fontFamily:"roboto-regular"
-    },
-    textData: {
-        color: "#121212",
-        fontFamily: "roboto-regular",
-        marginLeft: 16,
-        marginTop: 5
-      },
-
-    
-
-});
-
-const pickerSelectStyles = StyleSheet.create({
-  inputIOS: {
-      marginTop: 20,
-    fontSize: 20,
-    paddingVertical: 12,
-    paddingHorizontal: 1,
-    borderRadius: 9,  
-    width: "100%",
-    height: 50,
-    borderTopWidth:1,
-    borderLeftWidth:1,
-    borderWidth: 4,
-    borderColor: '#E8E8E8',
-    borderRadius: 9,
-    color: '#000000',
-    paddingRight: 5, // to ensure the text is never behind the icon
-    textAlign:'center'
-  },
-
-});
 const pickerCcountryStyles = StyleSheet.create({
     inputIOS: {
       marginTop: 0,
