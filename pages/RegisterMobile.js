@@ -21,6 +21,7 @@ export default class RegisterMobile extends React.Component {
    constructor(props) {
         super(props);
         const { navigate } = this.props.navigation;
+        this.navigate = this.props.navigation.navigate;
         console.log(JSON.stringify("Register Constructor")); 
         console.log(JSON.stringify(this.props.route.params.loginState));
         this.state = this.props.route.params.loginState;
@@ -83,10 +84,15 @@ export default class RegisterMobile extends React.Component {
             result => {
                 console.log("result  data : "+ JSON.stringify(result));
                 if(result.status === "0"){
-                    console.log("RegMobile  === 0");
-                    console.log("RegMobile  " + result.status);                    
-                    this.setState({loginstatus: result.status});
-                    this.forceUpdateHandler();                    //this.render((renderRegistrationScreen})
+                    if(result.message === "Already registered"){
+                        this.navigate(AppConstant.APP_PAGE.DASHBOARD, {loginState: this.state});
+                    }else{
+                        console.log("RegMobile  === 0");
+                        console.log("RegMobile  " + result.status);                    
+                        this.setState({loginstatus: result.status});
+                        this.forceUpdateHandler();                    //this.render((renderRegistrationScreen})
+                    }
+                    
                 }else{
                     console.log("RegMobile  <> 0");
                     console.log("RegMobile  " + result.status);                                        
@@ -94,9 +100,8 @@ export default class RegisterMobile extends React.Component {
                         console.log("userRegistrationDetails    " + value);
                         // expected output: "Success!"
                         //handleSendCode();
-                        this.navigate(AppConstant.APP_PAGE.VERIFY, {loginState: this.state});
-                      });
-                    
+                        this.navigate(AppConstant.APP_PAGE.DASHBOARD, {loginState: this.state});
+                      });                    
                 }
             }, 
             error => {

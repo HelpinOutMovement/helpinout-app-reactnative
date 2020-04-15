@@ -25,7 +25,7 @@ export default class VerifyScreen extends React.Component {
         console.log("VerifyScreen Constructor")
         console.log(JSON.stringify(this.state));        
         if(this.isEmpty(this.state.confirmResult)){
-            this.handleSendCode();
+            //this.handleSendCode();
         }
     }
     
@@ -51,7 +51,7 @@ export default class VerifyScreen extends React.Component {
       }       
   }
 
-
+/*
   handleSendCode = () => {
         // Request to send OTP
         if (this.validatePhoneNumber(this.state.phoneNumber)) {
@@ -70,6 +70,44 @@ export default class VerifyScreen extends React.Component {
           alert('Invalid Phone Number')
         }
     }
+  */
+
+
+ login =() =>{       
+  console.log(this.validatePhoneNumber());
+  this.setState({loggedIn:true});                
+  if(this.validatePhoneNumber()){
+      let restApi = new API();
+      reqObj =  restApi.login(this.state.selectedCountryDialCode, this.state.phoneNumber);
+      reqObj.then(
+          result => {
+              if(result.status === "0"){
+                  console.log("Login  === 0");        
+                  console.log("Login  " + JSON.stringify(result));
+                  this.navigate(AppConstant.APP_PAGE.REGISTER_MOBILE, {loginState: this.state});                        
+              }else{
+                  console.log("Login  === 1");
+                  console.log("Login  " + JSON.stringify(result));                          
+                  AppStorage.storeAppInfo("user_registration_details", JSON.stringify(result.data));
+                  AppStorage.getAppInfo(AppConstant.IS_VEFIRIED).then((value) => {
+                      if(value === "true"){
+                          this.navigate(AppConstant.APP_PAGE.DASHBOARD, JSON.stringify(result.data));                        
+                      }else{
+                          //this.handleSendCode();     
+                          this.navigate(AppConstant.APP_PAGE.LOGIN);                                    
+                      }
+                  });   
+              }
+          }, 
+          error => {
+              console.log(error);
+          } 
+        );
+  }else{
+      console.log("invalid Phone  Number")
+          // Add Error Toasts
+  }    
+}
 
     handleVerifyCode = () => {
         // Request for OTP verification
@@ -81,7 +119,8 @@ export default class VerifyScreen extends React.Component {
                 //console.log(user);
                     AppStorage.storeAppInfo(AppConstant.IS_VEFIRIED, "true").then((data) => {
                       AppStorage.storeAppInfo(AppConstant.FIREBASE_USER_DETAILS, JSON.stringify(user)).then((data) => {
-                          this.navigate(AppConstant.APP_PAGE.DASHBOARD, {loginState: this.state});             
+                        this.login();
+                        //this.navigate(AppConstant.APP_PAGE.DASHBOARD, {loginState: this.state});             
                       });
                     });             
             })

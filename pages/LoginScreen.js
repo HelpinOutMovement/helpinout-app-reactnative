@@ -58,6 +58,12 @@ export default class LoginScreen extends React.Component {
 
     }
   
+    
+    isEmpty = (value) => {
+        console.log("value.size  :  " +  value.length )
+        return (typeof value === "undefined" || value === null || value.length === 0);        
+    }
+
     validatePhoneNumber = () => {
         if(this.isEmpty(this.state.phoneNumber)){
             return false;
@@ -125,13 +131,6 @@ export default class LoginScreen extends React.Component {
     }
 
 
-
-    isEmpty = (value) => {
-        console.log("value.size  :  " +  value.length )
-        return (typeof value === "undefined" || value === null || value.length === 0);        
-    }
-
-
     onCountryValueChange = (value, index) =>{         
         this.setState({selectedCountry: countries[index-1], selectedCountryCode: countries[index-1].key, selectedCountryDialCode: value});    
     }
@@ -174,7 +173,7 @@ export default class LoginScreen extends React.Component {
                 </View>
                 <View style={{alignItems: "center",  width:"100%"}} >                                        
                     <View style={{ alignItems: "center" ,  marginVertical: 0, width:"98%"}} >
-                        <TouchableOpacity style={{borderRadius: 9, marginVertical: 30,alignItems: "center",backgroundColor: "#4F5065",height: 56,width: "92%",shadowOpacity: 0.9,shadowOffset: { height: 3 },shadowColor: '#2328321F',}} onPress={() =>{this.login()}}>
+                        <TouchableOpacity style={{borderRadius: 9, marginVertical: 30,alignItems: "center",backgroundColor: "#4F5065",height: 56,width: "92%",shadowOpacity: 0.9,shadowOffset: { height: 3 },shadowColor: '#2328321F',}} onPress={() =>{this.handleSendCode()}}>
                             <Text style={{textAlign: "center",fontFamily: "Roboto-Medium",fontSize: 20,lineHeight: 56,color: "#FFFFFF"}}>{translate.t("Login_Sign_Up")}}</Text>
                         </TouchableOpacity>                    
                     </View>                
