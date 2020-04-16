@@ -18,7 +18,7 @@ const dimensions = Dimensions.get('window');
 class Dashboard extends React.Component {
     constructor(props){
         super(props);
-        const { navigate } = this.props.navigation;        
+        this.navigation = this.props.navigation;        
         //this.state = this.props.route.params.loginState;
         this.state = {hintIsHidden:false};
         this.navigate = this.props.navigation.navigate;
@@ -28,8 +28,12 @@ class Dashboard extends React.Component {
           this.setState({
             hintIsHidden: true
           })
-          }, 5000);          
+          }, 5000);  
+          this.props.navigation.openDrawer();
+          console.log(this.props.navigation);
+          
     }
+    
       
     render() { 
         return (
@@ -38,7 +42,7 @@ class Dashboard extends React.Component {
                   <Left>
                     <Button
                       transparent
-                      onPress={() => navigation.openDrawer()}>
+                      onPress={() => this.navigation.openDrawer()}>
                       <Icon name="menu" />
                     </Button>
                   </Left>
@@ -57,25 +61,25 @@ class Dashboard extends React.Component {
                   </HView>  
                   <View style={{alignItems: "center", marginTop:10, marginBottom:10}}>
                     <View style={styles(this.dimensions).buttonContainer}>
-                      <TouchableOpacity style={styles(this.dimensions).AskForHelp} onPress={() => navigation.navigate(AppConstant.APP_PAGE.ASK_FOR_HELP)}>
+                      <TouchableOpacity style={styles(this.dimensions).AskForHelp} onPress={() => this.navigate(AppConstant.APP_PAGE.ASK_FOR_HELP)}>
                         <AskForHelpButton  />
                       </TouchableOpacity>
-                      <TouchableOpacity style={styles(this.dimensions).OfferHelp} onPress={() => navigation.navigate(AppConstant.APP_PAGE.OFFER_HELP_SCREEN)}>
+                      <TouchableOpacity style={styles(this.dimensions).OfferHelp} onPress={() => this.navigate(AppConstant.APP_PAGE.OFFER_HELP_SCREEN)}>
                         <OfferHelpButton  />
                       </TouchableOpacity>                
                     </View> 
                   </View>
                   <Footer>                        
                     <FooterTab>
-                      <Button vertical active  onPress={() => navigation.navigate(AppConstant.APP_PAGE.DASHBOARD)}>
+                      <Button vertical active  onPress={() => this.navigate(AppConstant.APP_PAGE.DASHBOARD)}>
                         <Icon name="ios-home" style={{color:"red"}}/>
                         <Text>{translate.t("Home")}</Text>
                       </Button>
-                      <Button vertical onPress={() => navigation.navigate(AppConstant.APP_PAGE.MY_REQUEST_SCREEN)}>
+                      <Button vertical onPress={() => this.navigate(AppConstant.APP_PAGE.MY_REQUEST_SCREEN)}>
                         <Icon name="camera" />
                         <Text>{translate.t("My_Requests")}</Text>
                       </Button>
-                      <Button vertical onPress={() => navigation.navigate(AppConstant.APP_PAGE.MY_OFFERS_SCREEN)}>
+                      <Button vertical onPress={() => this.navigate(AppConstant.APP_PAGE.MY_OFFERS_SCREEN)}>
                         <Icon active name="navigate" />
                         <Text>{translate.t("My_Offers")}</Text>
                       </Button>          

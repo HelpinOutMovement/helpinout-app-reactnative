@@ -66,9 +66,18 @@ function App() {
     switch (appState) {
       case AppConstant.APP_STATE.IS_AUTHENTICATED:
         stackedScreen.push((          
-          <Stack.Navigator  key= 'n_authen'  initialRouteName="Dashboard">
-          <Stack.Screen key= {`a_${AppConstant.APP_PAGE.SPLASH}`} name={AppConstant.APP_PAGE.SPLASH} component={SplashScreen} /> 
-          <Stack.Screen key= {`a_${AppConstant.APP_PAGE.DASHBOARD}`} name={AppConstant.APP_PAGE.DASHBOARD}  component={Dashboard} />
+          <Stack.Navigator  key= 'n_authen'  initialRouteName="Dashboard" screenOptions={{
+            headerShown: false
+          }} >
+          <Stack.Screen key= {`a_${AppConstant.APP_PAGE.SPLASH}`} name={AppConstant.APP_PAGE.SPLASH} component={SplashScreen} />           
+          <Stack.Screen key= {`a_${AppConstant.APP_PAGE.ASK_FOR_HELP}`} name={AppConstant.APP_PAGE.ASK_FOR_HELP}  component={AskForHelpScreen} />
+             <Stack.Screen key= {`a_${AppConstant.APP_PAGE.DASHBOARD}`} name={AppConstant.APP_PAGE.DASHBOARD}  component={MyDrawer} />
+            <Stack.Screen key= {`a_${AppConstant.APP_PAGE.MAP_COMPONENT}`} name={AppConstant.APP_PAGE.MAP_COMPONENT}  component={MapComponent} />
+            <Stack.Screen key= {`a_${AppConstant.APP_PAGE.OFFER_HELP_SCREEN}`} name={AppConstant.APP_PAGE.OFFER_HELP_SCREEN}  component={OfferHelpScreen} />
+            <Stack.Screen key= {`a_${AppConstant.APP_PAGE.ASK_FOR_HELP_DETAILS}`} name={AppConstant.APP_PAGE.ASK_FOR_HELP_DETAILS}  component={AskForHelpDetailsScreen} />
+            <Stack.Screen key= {`a_${AppConstant.APP_PAGE.OFFER_HELP_SCREEN_DETAILS}`} name={AppConstant.APP_PAGE.OFFER_HELP_SCREEN_DETAILS}  component={OfferHelpScreenDetails} />            
+            <Stack.Screen key= {`a_${AppConstant.APP_PAGE.MY_REQUEST_SCREEN}`} name={AppConstant.APP_PAGE.MY_REQUEST_SCREEN}  component={MyRequestScreen} />
+            <Stack.Screen key= {`a_${AppConstant.APP_PAGE.MY_OFFERS_SCREEN}`} name={AppConstant.APP_PAGE.MY_OFFERS_SCREEN}  component={MyOfferScreen} />
 
 {/*          <Stack.Screen key= 'n_login' name="Login" component={LoginScreen} />
             <Stack.Screen key= 'n_details' name="Details" component={DetailsScreen} />
