@@ -22,6 +22,7 @@ function AskForHelpDetailsScreen(props) {
 
     const [totalInput, setTotalInput] = useState([firstId]);
     const [inputValues, setInputValues] = useState({});
+    const [inputQuantities, setInputQuantities] = useState({});
     const [notFilled, setNotFilled] = useState([]);
     const [volunteers, setVolunteers] = useState(false);
     const [technicalPersonnel, setTechnicalPersonnel] = useState(false);
@@ -34,13 +35,15 @@ function AskForHelpDetailsScreen(props) {
 
 
 
-    const validateTheInput = () => {
+    const validateTheInput = (paymentIndicator) => {
         // Get the size of an object
         const notFilledLocal = [];
         const filledItems = [];
+        const actualFilledValues = []
         for (let [key, value] of Object.entries(inputValues)) {
             if (value) {
-                filledItems.push(key)
+                filledItems.push(key);
+                actualFilledValues.push ({requested: value, qty: (inputQuantities[key])?inputQuantities[key]:''})
             }
         }
         for (let singleItem = 0; singleItem < totalInput.length; singleItem++) {
@@ -51,16 +54,21 @@ function AskForHelpDetailsScreen(props) {
         if (notFilledLocal.length > 0) {
             setNotFilled(notFilledLocal)
         } else {
-            inputIsValid(filledItems)
+            inputIsValid({requested : actualFilledValues,ambulanceReq:0, paymentIndicator: paymentIndicator} )
         }
 
     }
 
-    const inputIsValid  = (payload) => {
-        
-        setShowModal(!showModal);
+    const inputIsValid  = (requestedDetails ) => {
+        console.log("requested", requestedDetails.requested,"paymentIndicator : " ,requestedDetails.paymentIndicator, "AMbulance ", requestedDetails.ambulanceReq)
+        //setShowModal(!showModal);
     } 
 
+    onQtyChangeAction= (code, val) => {
+        const inputQuantitiesLocal = { ...inputQuantities };
+        inputQuantitiesLocal[code] = val;
+        setInputQuantities(inputQuantitiesLocal);
+    }
     const onTextChangeAction = (code, val) => {
         const inputValuesLocal = { ...inputValues };
         inputValuesLocal[code] = val;
@@ -95,6 +103,9 @@ function AskForHelpDetailsScreen(props) {
                         }}
                         onTextChange={(code, val) => {
                             onTextChangeAction(code, val)
+                        }}
+                        onQtyChange={(code, val) => {
+                            onQtyChangeAction(code, val)
                         }}
                     />
                 ))
@@ -213,7 +224,7 @@ function AskForHelpDetailsScreen(props) {
 
     }
 
-    const decideWhichValidation = () => {
+    const decideWhichValidation = (paymentIndicator) => {
         switch (optionCode) {
             case AppConstant.APP_OPTIONS.PEOPLE:
                 outputView = showPeopleOption();
@@ -222,11 +233,11 @@ function AskForHelpDetailsScreen(props) {
                 if (pplForAmbulance <= 0) {
                     setAmbulanceSelection(true)
                 } else {
-                    inputIsValid(filledItems,pplForAmbulance)
+                    inputIsValid({requested : [],ambulanceReq:pplForAmbulance, paymentIndicator: paymentIndicator})
                 }
                 break;
             default:
-                validateTheInput();
+                validateTheInput(paymentIndicator);
                 break;
         }
     }
@@ -275,7 +286,7 @@ function AskForHelpDetailsScreen(props) {
                     <Row style={{ alignSelf: "center" }}>
                         <ButtonComponent
                             setShowModal={() => {
-                                decideWhichValidation()
+                                decideWhichValidation(AppConstant.APP_CONFIRMATION.WE_CAN_PAY)
                             }}
                             unfilled={true}
                             label={translate.t(appLabelKey.we_can_pay)}
@@ -283,7 +294,7 @@ function AskForHelpDetailsScreen(props) {
                         <ButtonComponent
                             containerStyle={{ marginLeft: 10 }}
                             setShowModal={() => {
-                                decideWhichValidation()
+                                decideWhichValidation(AppConstant.APP_CONFIRMATION.WE_CANNOT_PAY)
                             }}
 
                             label={translate.t(appLabelKey.we_cannot_pay)}

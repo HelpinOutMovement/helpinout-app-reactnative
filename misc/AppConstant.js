@@ -8,9 +8,12 @@ const AppConstant = {
         RATE_REPORT:'rate_report',
         DELETE:'delete'
     },
+    
     APP_CONFIRMATION:{
         YES:'yes',
-        NO:'no'
+        NO:'no',
+        WE_CAN_PAY:'WE_CAN_PAY',
+        WE_CANNOT_PAY:'WE_CANNOT_PAY'
     },
     APP_STORE_KEY:{
         USER_REG_DETAILS:"userRegistrationDetails",
