@@ -6,6 +6,47 @@ const commonStyling = StyleSheet.create({
         alignItems: 'center', 
         justifyContent: 'center'
     },
+    sideDrawerTextContainer: {		
+      alignItems: "center",		
+      width: "92%",		
+      backgroundColor:"#ffffff",		
+
+     },		
+   inputRowComponentText: {		
+    fontSize: 16,		
+    fontFamily: "Roboto-Regular",		
+    borderWidth: 1,		
+    borderColor: '#4F5065B8',		
+    borderRadius: 9,		
+    color: '#4F5065B8',		
+    height:50,		
+    paddingLeft:10		
+
+   },		
+    sideDrawerText: {		
+      textAlign: "center",		
+      fontFamily: "Roboto-Medium",		
+      fontSize: 18,		
+      color: "#4F5065"		
+    },		
+    languageButtonContainer: {		
+      marginTop: 30,		
+      alignItems: "flex-start",		
+      backgroundColor: "#FFFFFF",		
+      height: 56,		
+      width: "92%",		
+      shadowOpacity: 0.9,		
+      shadowOffset: { height: 3 },		
+      shadowColor: '#2328321F'		
+    },		
+    languageButtonText: {		
+      textAlign: "center",		
+      fontFamily: "Roboto-Medium",		
+      fontSize: 20,		
+      lineHeight: 56,		
+      marginLeft: 35,		
+      color: "#4F5065CC"		
+    },
     onBoardingScreenContainer:{
 
     },
