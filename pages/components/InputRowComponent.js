@@ -17,7 +17,9 @@ const InputRowComponent = (props) => {
                     placeholderTextColor='#4F5065B8'
                     placeholder= {translate.t(appLabelKey.enter_items_optional)} 
                     maxLength={AppConstant.APP_TEXT_INPUT.MAX_LENGTH}
-                    style={[commonStyling.inputRowComponentText, (props.showError ? {borderColor: 'red'}: {borderColor: '#4F5065B8'})]} 
+                    style={[
+                        commonStyling.inputRowComponentText, 
+                        (props.showError ? {borderColor: 'red'}: {borderColor: '#4F5065B8'})]} 
                     onChangeText={(value)=> {
                         if(props.onTextChange){
                              props.onTextChange(props.code , value);

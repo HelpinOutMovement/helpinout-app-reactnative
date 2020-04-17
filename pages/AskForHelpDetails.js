@@ -19,8 +19,8 @@ const firstId = Utilities.getID();
 
 function AskForHelpDetailsScreen(props) {
     const colorTheme = "#EE6B6B";
-
-    const [totalInput, setTotalInput] = useState([firstId]);
+    const { optionCode, optionImage } = props.route.params;
+    const [totalInput, setTotalInput] = useState((optionCode !== AppConstant.APP_OPTIONS.PEOPLE) ? [firstId] : []);
     const [inputValues, setInputValues] = useState({});
     const [inputQuantities, setInputQuantities] = useState({});
     const [notFilled, setNotFilled] = useState([]);
@@ -31,7 +31,7 @@ function AskForHelpDetailsScreen(props) {
     const [ambulanceSelection, setAmbulanceSelection] = useState(0);
     const inputEl = useRef(null);
 
-    const { optionCode, optionImage } = props.route.params;
+
 
 
 
@@ -39,32 +39,55 @@ function AskForHelpDetailsScreen(props) {
         // Get the size of an object
         const notFilledLocal = [];
         const filledItems = [];
-        const actualFilledValues = []
+        const actualFilledValues = [];
+        const localTotalInput = [...totalInput];
+        let localIndex;
         for (let [key, value] of Object.entries(inputValues)) {
             if (value) {
                 filledItems.push(key);
-                actualFilledValues.push ({requested: value, qty: (inputQuantities[key])?inputQuantities[key]:''})
+                actualFilledValues.push({ code: key, requested: value, qty: (inputQuantities[key]) ? inputQuantities[key] : '' })
             }
         }
-        for (let singleItem = 0; singleItem < totalInput.length; singleItem++) {
-            if (filledItems.indexOf(totalInput[singleItem]) === -1) {
-                notFilledLocal.push(totalInput[singleItem])
+
+        if (optionCode === AppConstant.APP_OPTIONS.PEOPLE) {
+            localIndex = localTotalInput.indexOf(AppConstant.APP_PEOPLE_OPTIONS.VOLUNTEERS);
+            if (volunteers && localIndex === -1) {
+                localTotalInput.push(AppConstant.APP_PEOPLE_OPTIONS.VOLUNTEERS);
+            } else if (!volunteers) {
+                localTotalInput.splice(localIndex, 1);
+            }
+
+            const localIndex2 = localTotalInput.indexOf(AppConstant.APP_PEOPLE_OPTIONS.TECT_PERSONNEL);
+            if (technicalPersonnel && localIndex2 === -1) {
+                localTotalInput.push(AppConstant.APP_PEOPLE_OPTIONS.TECT_PERSONNEL);
+            } else if (!technicalPersonnel){
+                localTotalInput.splice(localIndex2, 1);
+            }
+
+            if(!volunteers && !technicalPersonnel){
+                localTotalInput.push(AppConstant.APP_PEOPLE_OPTIONS.VOLUNTEERS);
+                localTotalInput.push(AppConstant.APP_PEOPLE_OPTIONS.TECT_PERSONNEL);
             }
         }
-        if (notFilledLocal.length > 0) {
+        for (let singleItem = 0; singleItem < localTotalInput.length; singleItem++) {
+            if (filledItems.indexOf(localTotalInput[singleItem]) === -1) {
+                notFilledLocal.push(localTotalInput[singleItem])
+            }
+        }
+        if (localTotalInput.length > 0 && notFilledLocal.length > 0) {
             setNotFilled(notFilledLocal)
         } else {
-            inputIsValid({requested : actualFilledValues,ambulanceReq:0, paymentIndicator: paymentIndicator} )
+            inputIsValid({ requested: actualFilledValues, ambulanceReq: 0, paymentIndicator: paymentIndicator })
         }
 
     }
 
-    const inputIsValid  = (requestedDetails ) => {
-        console.log("requested", requestedDetails.requested,"paymentIndicator : " ,requestedDetails.paymentIndicator, "AMbulance ", requestedDetails.ambulanceReq)
+    const inputIsValid = (requestedDetails) => {
+        console.log("requested", requestedDetails.requested, "paymentIndicator : ", requestedDetails.paymentIndicator, "AMbulance ", requestedDetails.ambulanceReq)
         //setShowModal(!showModal);
-    } 
+    }
 
-    onQtyChangeAction= (code, val) => {
+    const onQtyChangeAction = (code, val) => {
         const inputQuantitiesLocal = { ...inputQuantities };
         inputQuantitiesLocal[code] = val;
         setInputQuantities(inputQuantitiesLocal);
@@ -172,8 +195,30 @@ function AskForHelpDetailsScreen(props) {
     const showPeopleOption = () => {
         return (
             <React.Fragment>
-                <PeopleAskComponent label={translate.t(appLabelKey.volunteers)} setChecked={setVolunteers} checked={volunteers} />
-                <PeopleAskComponent label={translate.t(appLabelKey.technical_Personnel)} setChecked={setTechnicalPersonnel} checked={technicalPersonnel} />
+                <PeopleAskComponent
+                    showError={(notFilled.indexOf(AppConstant.APP_PEOPLE_OPTIONS.VOLUNTEERS) !== -1) ? true : false}
+                    onTextChange={(code, val) => {
+                        onTextChangeAction(code, val)
+                    }}
+                    onQtyChange={(code, val) => {
+                        onQtyChangeAction(code, val)
+                    }}
+                    code={AppConstant.APP_PEOPLE_OPTIONS.VOLUNTEERS}
+                    label={translate.t(appLabelKey.volunteers)}
+                    setChecked={setVolunteers}
+                    checked={volunteers} />
+                <PeopleAskComponent
+                    showError={(notFilled.indexOf(AppConstant.APP_PEOPLE_OPTIONS.TECT_PERSONNEL) !== -1) ? true : false}
+                    onTextChange={(code, val) => {
+                        onTextChangeAction(code, val)
+                    }}
+                    onQtyChange={(code, val) => {
+                        onQtyChangeAction(code, val)
+                    }}
+                    code={AppConstant.APP_PEOPLE_OPTIONS.TECT_PERSONNEL}
+                    label={translate.t(appLabelKey.technical_Personnel)}
+                    setChecked={setTechnicalPersonnel}
+                    checked={technicalPersonnel} />
             </React.Fragment>
         )
     }
@@ -227,13 +272,13 @@ function AskForHelpDetailsScreen(props) {
     const decideWhichValidation = (paymentIndicator) => {
         switch (optionCode) {
             case AppConstant.APP_OPTIONS.PEOPLE:
-                outputView = showPeopleOption();
+                validateTheInput(paymentIndicator);
                 break;
             case AppConstant.APP_OPTIONS.AMBULANCE:
                 if (pplForAmbulance <= 0) {
                     setAmbulanceSelection(true)
                 } else {
-                    inputIsValid({requested : [],ambulanceReq:pplForAmbulance, paymentIndicator: paymentIndicator})
+                    inputIsValid({ requested: [], ambulanceReq: pplForAmbulance, paymentIndicator: paymentIndicator })
                 }
                 break;
             default:

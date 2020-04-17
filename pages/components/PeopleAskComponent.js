@@ -7,7 +7,6 @@ import { appLabelKey } from '../../misc/AppStrings';
 
 
 const PeopleAskComponent = (props) => {
-    
     return (
         <React.Fragment>
             <Row style={{ marginVertical: 10 }}>
@@ -22,31 +21,49 @@ const PeopleAskComponent = (props) => {
                             checked={props.checked}
                             color="#4F5065"
                             style={{ marginRight: 20, borderRadius: 0 }} />
-                        <Text style={{
-                            textAlign: "center",
-                            fontFamily: "Roboto-Regular",
-                            fontSize: 16,
-                            color: "#4F5065"
-                        }}>{props.label}</Text>
+                        <Text
+
+                            style={{
+                                textAlign: "center",
+                                fontFamily: "Roboto-Regular",
+                                fontSize: 16,
+                                color: "#4F5065"
+                            }}>{props.label}</Text>
                     </Col>
                 </TouchableOpacity>
             </Row>
             <Row style={{ marginBottom: 30 }}>
                 <Col>
                     <Textarea
-                        style={{
+                        disabled={!props.checked}
+                        onChangeText={(value) => {
+                            if (props.onTextChange) {
+                                props.onTextChange(props.code, value);
+                            }
+                        }}
+                        
+                        style={[{
                             color: "#4F5065B8",
                             fontFamily: "Roboto-Regular",
                             fontSize: 16,
                             borderRadius: 12,
-                            borderColor: "#2328323D"
-                        }}
+                            borderColor: "#2328323D",
+                            borderWidth: 1
+                        },
+                        (props.showError ? {borderColor: 'red'}: {borderColor: '#4F5065B8'})
+                        ]}
                         rowSpan={5}
                         bordered
                         placeholder={translate.t(appLabelKey.details_optional)} />
                 </Col>
                 <Col style={{ width: "20%", marginLeft: 10, height: 50 }}>
                     <Input
+                        disabled={!props.checked}
+                         onChangeText={(value)=> {
+                            if(props.onQtyChange){
+                                 props.onQtyChange(props.code , value);
+                            }
+                        }}
                         placeholder={translate.t(appLabelKey.qty)}
                         keyboardType={'numeric'}
                         style={{

@@ -4,6 +4,10 @@ const AppConstant = {
     FIREBASE_USER_DETAILS: 'firebase_user_details', 
     
     APP_SITE:'www.google.com',
+    APP_PEOPLE_OPTIONS:{
+        VOLUNTEERS:'VOLUNTEERS',
+        TECT_PERSONNEL:'TECT_PERSONNEL'
+    },
     APP_ACTION:{
         RATE_REPORT:'rate_report',
         DELETE:'delete'
