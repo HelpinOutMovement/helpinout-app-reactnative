@@ -95,13 +95,20 @@ export default class RegisterMobile extends React.Component {
                     
                 }else{
                     console.log("RegMobile  <> 0");
-                    console.log("RegMobile  " + result.status);                                        
-                    AsyncStorage.setItem('userRegistrationDetails', JSON.stringify(result.data)).then(function(value) {
+                    console.log("RegMobile  " + result.status);
+                    AppStorage.storeAppInfo(AppConstant.APP_STORE_KEY.USER_REG_DETAILS, JSON.stringify(result.data)).then(function(value) {
                         console.log("userRegistrationDetails    " + value);
                         // expected output: "Success!"
                         //handleSendCode();
                         this.navigate(AppConstant.APP_PAGE.DASHBOARD, {loginState: this.state});
-                      });                    
+                      });                                        
+                    
+                    /*AsyncStorage.setItem('userRegistrationDetails',JSON.stringify(result.data) ).then(function(value) {
+                        console.log("userRegistrationDetails    " + value);
+                        // expected output: "Success!"
+                        //handleSendCode();
+                        this.navigate(AppConstant.APP_PAGE.DASHBOARD, {loginState: this.state});
+                      }); */                   
                 }
             }, 
             error => {

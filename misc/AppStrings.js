@@ -69,7 +69,8 @@ const appLabelKey = {
     offers_Sent:"Offers_Sent",
     rate_Report:"Rate_Report",
     submit:"Submit",
-    should_others_take_help_from_them:"Should_others_take_help_from_them"
+    should_others_take_help_from_them:"Should_others_take_help_from_them",
+    logout:"Logout"
 }
 
 

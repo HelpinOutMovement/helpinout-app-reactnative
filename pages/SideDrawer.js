@@ -3,6 +3,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { Button, View, Text, FlatList, TouchableOpacity } from 'react-native';
 import { default as MaterialCommunityIcon } from 'react-native-vector-icons/MaterialCommunityIcons';
 import AppConstant from '../misc/AppConstant';
+import AppStorage from '../storage/AppStorage';
 import translate from 'react-native-i18n';
 import AppStringContext from '../misc/AppStringContext';
 import { appLabelKey } from '../misc/AppStrings';
@@ -39,6 +40,9 @@ const SideMenuOptions = {
     }, {
         label: translate.t(appLabelKey.about_Us),
         pageName: AppConstant.APP_PAGE.SCREEN_WITH_SIDE_DRAWER
+    },{
+        label: translate.t(appLabelKey.logout),
+        pageName: AppConstant.APP_PAGE.LOGOUT_ACTION
     }],
     secondary: [{
         label: translate.t(appLabelKey.lang_eng_label),
@@ -114,9 +118,17 @@ const CustomSideBarView = ({ navigation }) => {
                     <TouchableOpacity
                         style={commonStyling.sideDrawerTextContainer}
                         onPress={() => {
-                            navigation.closeDrawer();
-                            const pageProps = singleMenu.pageProps ? singleMenu.pageProps : {};
-                            navigation.navigate(singleMenu.pageName, pageProps);
+                            if(singleMenu.pageName !== AppConstant.APP_PAGE.LOGOUT_ACTION) {
+                                navigation.closeDrawer();
+                                const pageProps = singleMenu.pageProps ? singleMenu.pageProps : {};
+                                navigation.navigate(singleMenu.pageName, pageProps);
+                            } else {
+                                navigation.closeDrawer();
+                                AppStorage.removeAppInfo(AppConstant.APP_STORE_KEY.USER_REG_DETAILS);
+                                navigation.navigate(AppConstant.APP_PAGE.ON_BOARDING);
+                                // AsyncStorage.setItem('userRegistrationDetails', JSON.stringify(result.data)).
+                            }
+                            
                         }}
                     >
                         <Text

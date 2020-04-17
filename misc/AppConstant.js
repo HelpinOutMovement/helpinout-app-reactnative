@@ -12,6 +12,9 @@ const AppConstant = {
         YES:'yes',
         NO:'no'
     },
+    APP_STORE_KEY:{
+        USER_REG_DETAILS:"userRegistrationDetails"
+    },
     APP_STATE: {
         IS_LOADING: 'IS_LOADING',
         IS_AUTHENTICATED : 'IS_AUTHENTICATED',
@@ -40,7 +43,8 @@ const AppConstant = {
         ASK_FOR_HELP_DETAILS:' Ask for Help Details',
         OFFER_HELP_SCREEN_DETAILS:"Offer Help Screen Details",
         MY_OFFERS_SCREEN:"My Offers",
-        MY_REQUEST_SCREEN:"My Requests"
+        MY_REQUEST_SCREEN:"My Requests",
+        LOGOUT_ACTION:"LOGOUT_ACTION"
     },
 
     APP_TEXT_INPUT : {
