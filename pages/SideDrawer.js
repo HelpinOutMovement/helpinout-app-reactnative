@@ -125,6 +125,7 @@ const CustomSideBarView = ({ navigation }) => {
                             } else {
                                 navigation.closeDrawer();
                                 AppStorage.removeAppInfo(AppConstant.APP_STORE_KEY.USER_REG_DETAILS);
+                                AppStorage.removeAppInfo(AppConstant.APP_STORE_KEY.IS_VEFIRIED)
                                 navigation.navigate(AppConstant.APP_PAGE.ON_BOARDING);
                                 // AsyncStorage.setItem('userRegistrationDetails', JSON.stringify(result.data)).
                             }

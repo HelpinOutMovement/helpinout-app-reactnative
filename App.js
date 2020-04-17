@@ -48,7 +48,7 @@ function App() {
 
 
   useEffect(() => {
-    AppStorage.getAppInfo(AppConstant.IS_VEFIRIED)
+    AppStorage.getAppInfo(AppConstant.APP_STORE_KEY.IS_VEFIRIED)
       .then((resp) => {        
         if(resp === "true") {
           console.log("APP resp :  "+  resp);

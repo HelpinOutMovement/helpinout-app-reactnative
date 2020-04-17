@@ -2,7 +2,7 @@ const AppConstant = {
     IS_LOGGED_IN : 'IS_LOGGED_IN',
     USER_REGISTRATION_DETAILS : 'user_registration_details',
     FIREBASE_USER_DETAILS: 'firebase_user_details', 
-    IS_VEFIRIED : 'user_verified',
+    
     APP_SITE:'www.google.com',
     APP_ACTION:{
         RATE_REPORT:'rate_report',
@@ -13,7 +13,8 @@ const AppConstant = {
         NO:'no'
     },
     APP_STORE_KEY:{
-        USER_REG_DETAILS:"userRegistrationDetails"
+        USER_REG_DETAILS:"userRegistrationDetails",
+        IS_VEFIRIED : 'user_verified'
     },
     APP_STATE: {
         IS_LOADING: 'IS_LOADING',

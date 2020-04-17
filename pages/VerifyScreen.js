@@ -1,4 +1,4 @@
-import React ,{useState, useContext} from 'react';
+import React, { useState, useContext } from 'react';
 import { TextInput, View, Image, Text, TouchableOpacity, StyleSheet, Switch, ScrollView, Dimensions, AsyncStorage } from 'react-native';
 import AppStorage from '../storage/AppStorage';
 import AppConstant from '../misc/AppConstant';
@@ -17,179 +17,179 @@ import firebase from 'react-native-firebase'
 
 
 export default class VerifyScreen extends React.Component {
-    constructor(props){
+    constructor(props) {
         super(props);
-        const { navigate } = this.props.navigation;        
+        const { navigate } = this.props.navigation;
         this.state = this.props.route.params.loginState;
         this.navigate = this.props.navigation.navigate;
         console.log("VerifyScreen Constructor")
-        console.log(JSON.stringify(this.state));        
-        if(this.isEmpty(this.state.confirmResult)){
+        console.log(JSON.stringify(this.state));
+        if (this.isEmpty(this.state.confirmResult)) {
             //this.handleSendCode();
         }
     }
-    
-  dimensions = Dimensions.get('window');
-  
-  forceUpdateHandler(){
-    this.forceUpdate();
-  };
-   
-  
-  isEmpty = (value) => {
-    return (typeof value === "undefined" || value === null || value.length === 0);        
-  } 
+
+    dimensions = Dimensions.get('window');
+
+    forceUpdateHandler() {
+        this.forceUpdate();
+    };
 
 
-  validatePhoneNumber = () => {
-      if(this.isEmpty(this.state.phoneNumber)){
-          return false;
-      }else{
-          //var regexp = /^\+[0-9]?()[0-9](\s|\S)(\d[0-9]{8,16})$/
-          //return regexp.test(this.state.phoneNumber)
-          return  true;
-      }       
-  }
+    isEmpty = (value) => {
+        return (typeof value === "undefined" || value === null || value.length === 0);
+    }
 
-/*
-  handleSendCode = () => {
-        // Request to send OTP
-        if (this.validatePhoneNumber(this.state.phoneNumber)) {
-          firebase
-            .auth()
-            .signInWithPhoneNumber(this.state.selectedCountryDialCode+""+this.state.phoneNumber)
-            .then(confirmResult => {
-              console.log("confirmResult")
-              console.log(confirmResult)
-              this.setState({ confirmResult: confirmResult });
-            })
-            .catch(error => {
-              console.log(error)
-            })
+
+    validatePhoneNumber = () => {
+        if (this.isEmpty(this.state.phoneNumber)) {
+            return false;
         } else {
-          alert('Invalid Phone Number')
+            //var regexp = /^\+[0-9]?()[0-9](\s|\S)(\d[0-9]{8,16})$/
+            //return regexp.test(this.state.phoneNumber)
+            return true;
         }
     }
-  */
+
+    /*
+      handleSendCode = () => {
+            // Request to send OTP
+            if (this.validatePhoneNumber(this.state.phoneNumber)) {
+              firebase
+                .auth()
+                .signInWithPhoneNumber(this.state.selectedCountryDialCode+""+this.state.phoneNumber)
+                .then(confirmResult => {
+                  console.log("confirmResult")
+                  console.log(confirmResult)
+                  this.setState({ confirmResult: confirmResult });
+                })
+                .catch(error => {
+                  console.log(error)
+                })
+            } else {
+              alert('Invalid Phone Number')
+            }
+        }
+      */
 
 
- login =() =>{       
-  console.log(this.validatePhoneNumber());
-  this.setState({loggedIn:true});                
-  if(this.validatePhoneNumber()){
-      let restApi = new API();
-      reqObj =  restApi.login(this.state.selectedCountryDialCode, this.state.phoneNumber);
-      reqObj.then(
-          result => {
-              if(result.status === "0"){
-                  console.log("Login  === 0");        
-                  console.log("Login  " + JSON.stringify(result));
-                  this.navigate(AppConstant.APP_PAGE.REGISTER_MOBILE, {loginState: this.state});                        
-              }else{
-                  console.log("Login  === 1");
-                  console.log("Login  " + JSON.stringify(result));                          
-                  AppStorage.storeAppInfo("user_registration_details", JSON.stringify(result.data));
-                  AppStorage.getAppInfo(AppConstant.IS_VEFIRIED).then((value) => {
-                      if(value === "true"){
-                          this.navigate(AppConstant.APP_PAGE.DASHBOARD, JSON.stringify(result.data));                        
-                      }else{
-                          //this.handleSendCode();     
-                          this.navigate(AppConstant.APP_PAGE.LOGIN);                                    
-                      }
-                  });   
-              }
-          }, 
-          error => {
-              console.log(error);
-          } 
-        );
-  }else{
-      console.log("invalid Phone  Number")
-          // Add Error Toasts
-  }    
-}
+    login = () => {
+        console.log(this.validatePhoneNumber());
+        this.setState({ loggedIn: true });
+        if (this.validatePhoneNumber()) {
+            let restApi = new API();
+            reqObj = restApi.login(this.state.selectedCountryDialCode, this.state.phoneNumber);
+            reqObj.then(
+                result => {
+                    if (result.status === "0") {
+                        console.log("Login  === 0");
+                        console.log("Login  " + JSON.stringify(result));
+                        this.navigate(AppConstant.APP_PAGE.REGISTER_MOBILE, { loginState: this.state });
+                    } else {
+                        console.log("Login  === 1");
+                        console.log("Login  " + JSON.stringify(result));
+                        AppStorage.storeAppInfo(AppConstant.APP_STORE_KEY.USER_REG_DETAILS, JSON.stringify(result.data));
+                        AppStorage.getAppInfo(AppConstant.APP_STORE_KEY.IS_VEFIRIED).then((value) => {
+                            if (value === "true") {
+                                this.navigate(AppConstant.APP_PAGE.DASHBOARD, JSON.stringify(result.data));
+                            } else {
+                                //this.handleSendCode();     
+                                this.navigate(AppConstant.APP_PAGE.LOGIN);
+                            }
+                        });
+                    }
+                },
+                error => {
+                    console.log(error);
+                }
+            );
+        } else {
+            console.log("invalid Phone  Number")
+            // Add Error Toasts
+        }
+    }
 
     handleVerifyCode = () => {
         // Request for OTP verification
         const { confirmResult, verificationCode } = this.state;
         if (verificationCode.length == 6) {
             //console.log(verificationCode);
-          confirmResult.confirm(verificationCode)
-            .then(user => {
-                //console.log(user);
-                    AppStorage.storeAppInfo(AppConstant.IS_VEFIRIED, "true").then((data) => {
-                      AppStorage.storeAppInfo(AppConstant.FIREBASE_USER_DETAILS, JSON.stringify(user)).then((data) => {
-                        this.login();
-                        //this.navigate(AppConstant.APP_PAGE.DASHBOARD, {loginState: this.state});             
-                      });
-                    });             
-            })
-            .catch(error => {
-              console.log(error)
-            })
+            confirmResult.confirm(verificationCode)
+                .then(user => {
+                    //console.log(user);
+                    AppStorage.storeAppInfo(AppConstant.APP_STORE_KEY.IS_VEFIRIED, "true").then((data) => {
+                        AppStorage.storeAppInfo(AppConstant.FIREBASE_USER_DETAILS, JSON.stringify(user)).then((data) => {
+                            this.login();
+                            //this.navigate(AppConstant.APP_PAGE.DASHBOARD, {loginState: this.state});             
+                        });
+                    });
+                })
+                .catch(error => {
+                    console.log(error)
+                })
         } else {
-          alert('Please enter a 6 digit OTP code.')
+            alert('Please enter a 6 digit OTP code.')
         }
-      }
-
-        
-      render() { 
-          return (
-              <View>
-                  {this.renderConfirmationCodeView()}
-                  {/*this.state.confirmResult ? this.renderConfirmationCodeView() : null*/}                     
-              </View>
-            
-          );             
-      }
+    }
 
 
-      renderConfirmationCodeView = () => {
-          return (
-              <View style={{ flexDirection: "column" , alignItems: "center",}}>
-                  <LogoComponent />
-                  <View style={{alignItems: "center",  width:"96%"}} >                                        
-                      <View style={{ alignItems: "center" ,  marginVertical: 0, width:"94%"}} >
-                          <Text style={commonStyling.appLabelInout}>{"Enter verification code"}</Text>
-                          <View style={commonStyling.appPhoneNumberInputView}>
-                              <View style={{flex: 1,  flexDirection: "row",alignItems: 'center', justifyContent:'center',}}>
-                                  <TextInput
-                                      style={commonStyles.RegistrationInput}
-                                      placeholder='Verification code'
-                                      placeholderTextColor='grey'
-                                      value={this.state.verificationCode}
-                                      keyboardType='numeric'                                    
-                                      onChangeText={verificationCode => {
-                                          this.setState({ verificationCode: verificationCode })
-                                      }}
-                                      maxLength={6}
-                                  />
-                              </View>
-                          </View>                                
-                      </View>
-                  </View>
-                      <View style={{alignItems: "center",  width:"96%"}} >                                        
-                          <View style={{ alignItems: "center" ,  marginVertical: 0, width:"94%"}} >
-                              <TouchableOpacity
-                              style={{
-                                      backgroundColor: "#4F5065",height: 56,
-                                      marginTop: 10,                                     
-                                      paddingHorizontal: 1,        
-                                      width:'100%',
-                                      borderWidth: 1,
-                                      shadowOpacity: 0.9,
-                                      borderRadius: 9,
-                                      shadowOffset: { height: 3 },
-                                      shadowColor: '#2328321F',
-                                  }} 
-                              onPress={this.handleVerifyCode}>
-                              <Text style={{borderRadius: 9, textAlign: "center",fontFamily: "Roboto-Medium",fontSize: 20,lineHeight: 56,color: "#FFFFFF"}}>Verify Code</Text>
-                              </TouchableOpacity>
-                          </View>
-                      </View>
-              </View>
+    render() {
+        return (
+            <View>
+                {this.renderConfirmationCodeView()}
+                {/*this.state.confirmResult ? this.renderConfirmationCodeView() : null*/}
+            </View>
 
-          )
-      }
-    
+        );
+    }
+
+
+    renderConfirmationCodeView = () => {
+        return (
+            <View style={{ flexDirection: "column", alignItems: "center", }}>
+                <LogoComponent />
+                <View style={{ alignItems: "center", width: "96%" }} >
+                    <View style={{ alignItems: "center", marginVertical: 0, width: "94%" }} >
+                        <Text style={commonStyling.appLabelInout}>{"Enter verification code"}</Text>
+                        <View style={commonStyling.appPhoneNumberInputView}>
+                            <View style={{ flex: 1, flexDirection: "row", alignItems: 'center', justifyContent: 'center', }}>
+                                <TextInput
+                                    style={commonStyles.RegistrationInput}
+                                    placeholder='Verification code'
+                                    placeholderTextColor='grey'
+                                    value={this.state.verificationCode}
+                                    keyboardType='numeric'
+                                    onChangeText={verificationCode => {
+                                        this.setState({ verificationCode: verificationCode })
+                                    }}
+                                    maxLength={6}
+                                />
+                            </View>
+                        </View>
+                    </View>
+                </View>
+                <View style={{ alignItems: "center", width: "96%" }} >
+                    <View style={{ alignItems: "center", marginVertical: 0, width: "94%" }} >
+                        <TouchableOpacity
+                            style={{
+                                backgroundColor: "#4F5065", height: 56,
+                                marginTop: 10,
+                                paddingHorizontal: 1,
+                                width: '100%',
+                                borderWidth: 1,
+                                shadowOpacity: 0.9,
+                                borderRadius: 9,
+                                shadowOffset: { height: 3 },
+                                shadowColor: '#2328321F',
+                            }}
+                            onPress={this.handleVerifyCode}>
+                            <Text style={{ borderRadius: 9, textAlign: "center", fontFamily: "Roboto-Medium", fontSize: 20, lineHeight: 56, color: "#FFFFFF" }}>Verify Code</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </View>
+
+        )
+    }
+
 }

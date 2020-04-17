@@ -30,7 +30,7 @@ function OnBoardingInfoScreen({ navigation }) {
 
     return (
         <View style={{ flexDirection: "column" }}>
-            <LogoComponent />
+            <LogoComponent marginVertical={15} marginTop={100}/>
             <View style={{ alignItems:"center"}}>
                 <TouchableOpacity
                     style={{
@@ -44,9 +44,8 @@ function OnBoardingInfoScreen({ navigation }) {
                     <Text
                         style={{
                             textAlign: "center",
-                            fontFamily: "Roboto-Medium",
-                            fontSize: 20,
-                            lineHeight: 56,
+                            fontFamily: "Roboto-Regular",
+                            fontSize: 16,
                             marginLeft: 0,
                             color: "#4F5065CC"
                         }}
@@ -54,12 +53,12 @@ function OnBoardingInfoScreen({ navigation }) {
                 </TouchableOpacity>
             </View>
             <View style={{top:(dimensions.height*.25)}}>
-                <View style={{ alignItems: "center"}}>
+                <View style={{ alignItems: "center", flexDirection: "row", justifyContent: "center"}}>
                     <Text
                         style={{
                             textAlign: "center",
-                            fontFamily: "Roboto-Medium",
-                            fontSize: 20,
+                             fontFamily: "Roboto-Regular",
+                            fontSize: 16,
                             marginLeft: 0,
                             color: "#EE6B6B"
                         }}
@@ -67,9 +66,8 @@ function OnBoardingInfoScreen({ navigation }) {
                     <Text
                         style={{
                             textAlign: "center",
-                            fontFamily: "Roboto-Medium",
-                            fontSize: 20,
-                            marginTop: 10,
+                             fontFamily: "Roboto-Regular",
+                            fontSize: 16,
                             color: "#4F5065CC"
                         }}
                     >{translate.t("wherever_you_are")}</Text>         
@@ -78,8 +76,8 @@ function OnBoardingInfoScreen({ navigation }) {
                 <View style={{alignItems: "center" ,marginTop:50}}>
                     <Text
                         style={{
-                            fontFamily: "Roboto-Medium",
-                            fontSize: 20,
+                             fontFamily: "Roboto-Regular",
+                            fontSize: 16,
                             marginLeft: 0,
                             color: "#4F5065CC",
                             textAlign: "center",
@@ -109,8 +107,8 @@ function OnBoardingInfoScreen({ navigation }) {
                             style={{
 
                                 textAlign: "center",
-                                fontFamily: "Roboto-Medium",
-                                fontSize: 20,
+                                 fontFamily: "Roboto-Regular",
+                                fontSize: 16,
                                 lineHeight: 56,
                                 color: "#FFFFFF"
 
