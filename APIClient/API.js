@@ -154,9 +154,9 @@ class API{
         });    
     }
 
-    activityAdd = () =>{
+    activityAdd = (activity_uuid, activity_type, geo_location, geo_accuracy, address, activity_category, activity_count, activity_detail, offer_condition, pay) =>{
         let  requestObjects = new RequestObjects();
-        reqObj = requestObjects.activityAdd();
+        reqObj = requestObjects.activityAdd(activity_uuid, activity_type, geo_location, geo_accuracy, address, activity_category, activity_count, activity_detail, offer_condition, pay);
         console.log("Add Activity request Object ")
         console.log(reqObj)
         return new Promise((resolve, reject) => {

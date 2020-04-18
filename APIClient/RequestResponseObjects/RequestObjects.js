@@ -97,13 +97,6 @@
             return this.stuffHeader(data);
         }
 
-        activityAdd = () =>{
-            let data = {
-
-            }
-            return this.stuffHeader(data);
-        }
-
         activitySuggestions = (activity_type, activity_uuid, offerer, requester) =>{
             let data = {
                 "activity_type": activity_type,              
@@ -125,7 +118,7 @@
             return this.stuffHeader(data);
         }
 
-        activityAdd(activity_uuid, activity_type, geo_location, geo_accuracy, address, activity_category, activity_count, activity_detail, offer_condition, pay){
+        activityAdd = (activity_uuid, activity_type, geo_location, geo_accuracy, address, activity_category, activity_count, activity_detail, offer_condition, pay) =>{
             let data = {
                 "activity_uuid": activity_uuid, 
                 "activity_type": activity_type,
@@ -140,6 +133,7 @@
             }
             return this.stuffHeader(data);    
         }
+        
         activityDelete = (activity_uuid, activity_type) =>{
             let data = {
                 "activity_uuid": activity_uuid, 
