@@ -4,36 +4,43 @@ import { StatusBar, StyleSheet, View, Dimensions , TouchableOpacity} from "react
 import { Container, Header, Footer, FooterTab, Title, Left, Icon, Right, Button, Body, Content,Text, Card, CardItem } from "native-base";
 import UserContext from '../misc/UserContext';
 import AppStringContext from '../misc/AppStringContext';
+
 import ModalComponent from './components/ModalComponent';
 import MapComponent from './MapComponent';
 import AppConstant from '../misc/AppConstant';
 import AskForHelpButton from "./components/AskForHelpButton";
 import OfferHelpButton from "./components/OfferHelpButton";
 import HView from "./components/HView"
-
+import API from "../APIClient/API";
 
 import translate from 'react-native-i18n';
+import appStorage from '../storage/AppStorage';
+import Geolocation from '@react-native-community/geolocation';
 
 const dimensions = Dimensions.get('window');       
 class Dashboard extends React.Component {
     constructor(props){
         super(props);
+        this.mapComponentRef = React.createRef();
         this.navigation = this.props.navigation;        
         //this.state = this.props.route.params.loginState;
-        this.state = {hintIsHidden:false};
+        this.state = {hintIsHidden:false,userDetails: {}};
         this.navigate = this.props.navigation.navigate;
         console.log("VerifyScreen Constructor")
         console.log(JSON.stringify(this.state)); 
         setTimeout(() => {
           this.setState({
-            hintIsHidden: true
+            hintIsHidden: true,
+            userDetails: {}
           })
-          }, 5000);  
-          this.props.navigation.openDrawer();
-          console.log(this.props.navigation);
-          
+          }, 5000);           
     }
-    
+
+   
+    callMapComponentMethod = (markers) =>{      
+      this.mapComponentRef.current.addMarker(markers);
+    }
+
       
     render() { 
         return (
@@ -52,7 +59,7 @@ class Dashboard extends React.Component {
                   <Right />
                 </Header>   
                 <Content padder contentContainerStyle={{...StyleSheet.absoluteFillObject, justifyContent: 'flex-end', alignItems: 'center',}} >
-                  <MapComponent />      
+                  <MapComponent ref={this.mapComponentRef} onPress={() => this.callMapComponentMethod()}/>      
                 </Content>
                   <HView style={styles(this.dimensions).hintTextContainer} hide={this.state.hintIsHidden}>
                       <Text style={styles(this.dimensions).hintText}>
@@ -89,81 +96,7 @@ class Dashboard extends React.Component {
           
         );             
     }
-
-
-
   }
-/*
-function Dashboard({ navigation }) {
-    const user = useContext(UserContext);
-    //const {translate} = useContext(AppStringContext);
-    let dimensions = Dimensions.get('window');    
-    let hintIsHidden =  false;
-    
-    setTimeout(() => {
-      hintIsHidden = true
-      }, 5000);
-    //setTimeout((this.state.hintIsHidden = true), 5000);
-
-    console.log(JSON.stringify(dimensions) + " ---- " + dimensions.width);
-    useEffect(() => {
-      return () => { navigation.closeDrawer(); }
-    }, [] );
-   
-   return (
-    <Container>
-    <Header>
-      <Left>
-        <Button
-          transparent
-          onPress={() => navigation.openDrawer()}>
-          <Icon name="menu" />
-        </Button>
-      </Left>
-      <Body>
-        <Title>Dashboard</Title>
-      </Body>
-      <Right />
-    </Header>
-    <Content padder contentContainerStyle={{...StyleSheet.absoluteFillObject, justifyContent: 'flex-end', alignItems: 'center',}} >
-          <MapComponent />      
-    </Content>
-      <HView style={styles(dimensions).hintTextContainer} hide={hintIsHidden}>
-          <Text style={styles(dimensions).hintText}>
-            Inentify your location above, then select below
-          </Text>
-      </HView>  
-      <View style={{alignItems: "center", marginTop:10, marginBottom:10}}>
-        <View style={styles(dimensions).buttonContainer}>
-          <TouchableOpacity style={styles(dimensions).AskForHelp} onPress={() => navigation.navigate(AppConstant.APP_PAGE.ASK_FOR_HELP)}>
-            <AskForHelpButton  />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles(dimensions).OfferHelp} onPress={() => navigation.navigate(AppConstant.APP_PAGE.OFFER_HELP_SCREEN)}>
-            <OfferHelpButton  />
-          </TouchableOpacity>                
-        </View> 
-      </View>
-       <Footer>                        
-          <FooterTab>
-            <Button vertical active  onPress={() => navigation.navigate(AppConstant.APP_PAGE.DASHBOARD)}>
-              <Icon name="ios-home" style={{color:"red"}}/>
-              <Text>{translate.t("Home")}</Text>
-            </Button>
-            <Button vertical onPress={() => navigation.navigate(AppConstant.APP_PAGE.MY_REQUEST_SCREEN)}>
-              <Icon name="camera" />
-              <Text>{translate.t("My_Requests")}</Text>
-            </Button>
-            <Button vertical onPress={() => navigation.navigate(AppConstant.APP_PAGE.MY_OFFERS_SCREEN)}>
-              <Icon active name="navigate" />
-              <Text>{translate.t("My_Offers")}</Text>
-            </Button>          
-          </FooterTab>
-        </Footer>
-  </Container>
-   )
-
-}
-*/
 
 const styles = (dimensions1) => StyleSheet.create({
 

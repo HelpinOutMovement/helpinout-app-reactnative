@@ -1,87 +1,4 @@
-/*
-import React from 'react';
-import { StyleSheet, Dimensions, ScrollView } from 'react-native';
 
-import MapView from 'react-native-maps';
-
-import geolocation from '@react-native-community/geolocation';
-
-const { width, height } = Dimensions.get('window');
-
-const ASPECT_RATIO = width / height;
-const LATITUDE = 37.78825;
-const LONGITUDE = -122.4324;
-const LATITUDE_DELTA = 0.0922;
-const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
-
-const SAMPLE_REGION = {
-  latitude: LATITUDE,
-  longitude: LONGITUDE,
-  latitudeDelta: LATITUDE_DELTA,
-  longitudeDelta: LONGITUDE_DELTA,
-};
-
-class MapComponents extends React.Component {
-
-    state = {
-        
-    }
-
-    componentDidMount() {
-
-        findCoordinates = () => {
-            console.log("before ");
-            console.log("before " + this.state);
-          geolocation.getCurrentPosition(
-              position => {
-                  const location = JSON.stringify(position);
-                  console.log("after " + SAMPLE_REGION.latitude);
-                  console.log(position)
-                  
-                  this.setState({ position }); 
-                  
-                  
-                 // console.log("after " + this.state);
-              },
-              error => Alert.alert(error.message),
-                  { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
-          );
-          };
-          findCoordinates();
-        
-    }
-
-    
-  render() {
-    const maps = [];
-    
-    for (let i = 0; i < 10; i++) {
-      maps.push(
-        <MapView
-          provider={this.props.provider}
-          liteMode
-          key={`map_${i}`}
-          style={styles.map}
-          initialRegion={SAMPLE_REGION}
-        />
-      );
-    }
-    return (
-      <ScrollView style={StyleSheet.absoluteFillObject}>{maps}</ScrollView>
-    );
-  }
-}
-
-const styles = StyleSheet.create({
-  map: {
-    height: 200,
-    marginVertical: 50,
-  },
-});
-
-export default MapComponents;
-
-*/
 import React from 'react';
 import {
   StyleSheet,
@@ -91,22 +8,25 @@ import {
   TouchableOpacity,
   Button
 } from 'react-native';
+import API from "../APIClient/API";
 import DeviceInfo from 'react-native-device-info';
+import Geolocation from '@react-native-community/geolocation';
 
-import MapView, { MAP_TYPES, ProviderPropType , PROVIDER_GOOGLE} from 'react-native-maps';
 
+import MapView, { Marker, MAP_TYPES, ProviderPropType , PROVIDER_GOOGLE} from 'react-native-maps';
+import { getDistance, getPreciseDistance } from 'geolib';
+
+const LATITUDE = 18.5204;
+const LONGITUDE = 73.8567;
 const { width, height } = Dimensions.get('window');
-
 const ASPECT_RATIO = width / height;
-const LATITUDE = 37.78825;
-const LONGITUDE = -122.4324;
-const LATITUDE_DELTA = 0.0922;
+const LATITUDE_DELTA = (Platform.OS === global.platformIOS ? 1.5 : 0.5);
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
 class MapComponent extends React.Component {
   constructor(props) {
     super(props);
-
+    console.log("MapComponent Constructor" )
     this.state = {
       region: {
         latitude: LATITUDE,
@@ -114,9 +34,40 @@ class MapComponent extends React.Component {
         latitudeDelta: LATITUDE_DELTA,
         longitudeDelta: LONGITUDE_DELTA,
       },
-      deviceInfo:[]
+      boundries: {},
+      deviceInfo:[],
+      markerList: [],
+      radius:50
+
     };
+    
+    // Define the const outside the class
+
+
+    
+    this.setCurrentLocation(0,0);    
+
   }
+
+  setLanLon(lat, lon){
+    this.setState({region:{latitude: lat, longitude:lon, latitudeDelta: LATITUDE_DELTA, longitudeDelta: LONGITUDE_DELTA}});
+  }
+  
+  setCurrentLocation(lat, lon){
+    if(lat === 0 && lon === 0){
+      Geolocation.getCurrentPosition((info) => {
+        console.log("getCurrentPosition "+ JSON.stringify(info))
+        this.setLanLon(info.coords.latitude, info.coords.longitude);
+        console.log("setCurrentLocation")
+      console.log("Current Location " + JSON.stringify(info))
+      this.setState({latitude: lat, longitude:lon});
+      // Use the below code to zoom to particular location with radius.
+      console.log(this.state.region)
+      this.map.animateToRegion({ latitude: this.state.region.latitude, longitude: this.state.region.longitude, latitudeDelta: LATITUDE_DELTA * Number(this.state.radius/15), longitudeDelta: LONGITUDE_DELTA * Number(this.state.radius/15) }, 2000); 
+      })
+    }  
+  }
+
 
   onRegionChange(region) {
     this.setState({ region });
@@ -127,6 +78,7 @@ class MapComponent extends React.Component {
   }
 
   animateRandom() {
+    console.log(this.state.markers.member.length)
     this.map.animateToRegion(this.randomRegion());
   }
 
@@ -163,6 +115,82 @@ class MapComponent extends React.Component {
     };
   }
 
+
+  addMarker= (markers)  => {
+    console.log("Markers Data : "+ JSON.stringify(markers))
+    
+    let markerDataList = [];
+    markers.data.requests.map((data) => {
+      //console.log(" markers.data.requests.map : " + JSON.stringify(data))
+      var markerData = {
+        lat: data.geo_location.split(",")[0],      
+        lon: data.geo_location.split(",")[1],
+        type: "requests",
+        title: "requests   : " + data.user_detail.first_name + " " + data.user_detail.last_name,
+        description: data.user_detail.first_name
+      }         
+      markerDataList.push(markerData);
+    })
+
+    markers.data.offers.map((data) => {
+      //console.log(" markers.data.requests.map : " + JSON.stringify(data))
+      var markerData = {
+        lat: data.geo_location.split(",")[0],      
+        lon: data.geo_location.split(",")[1],
+        type: "Offers",
+        title: "Offers  :  " + data.user_detail.first_name + " " + data.user_detail.last_name,
+        description: data.user_detail.first_name
+      }         
+      markerDataList.push(markerData);
+    })
+
+
+    console.log(" markers.data.map : " + JSON.stringify(markerDataList))
+
+    this.setState({markerList:markerDataList})
+   //this.map.fitToElements(true);
+   
+
+  }
+
+
+  onRegionChangeComplete(region){
+    this.setState({ region });
+    //console.log("onRegionChangeComplete")
+    let mapBoundries = this.map.getMapBoundaries();
+    mapBoundries.then((val) => {
+      console.log("onRegionChangeComplete   " + JSON.stringify(val))
+      this.state.boundries = val;
+      var dis = getDistance(
+        val.northEast,
+        val.southWest
+      );
+      console.log(`Distance\n${dis} Meter\nor\n${dis / 1000} KM`);
+      console.log("this.state.region.    " + JSON.stringify(this.state))
+      this.getLocationSuggestions();
+    })
+  }
+
+
+  getLocationSuggestions = () =>{
+
+        this.setLanLon(this.state.region.latitude, this.state.region.longitude);
+        let restApi = new API();
+
+
+        reqObj =  restApi.locationSuggestion(this.state.region.latitude, this.state.region.longitude, "10.424", getDistance(this.state.boundries.northEast,this.state.boundries.southWest)/3);
+      
+        reqObj.then((val)=> {
+        console.log("API Response Data  1  " + JSON.stringify(val))
+        
+        this.addMarker(val)
+    });
+  }
+
+  componentDidMount() {
+    //this.map.fitToElements(true);
+   }
+
   render() {
       console.log(DeviceInfo.getUniqueId());
       const { navigation} = this.props;
@@ -176,11 +204,20 @@ class MapComponent extends React.Component {
           }}
           //mapType={MAP_TYPES.TERRAIN}
           //provider={PROVIDER_GOOGLE}
+          onRegionChangeComplete={region => this.onRegionChangeComplete(region)}   
           style={styles.map}
           initialRegion={this.state.region}
-          onRegionChange={region => this.onRegionChange(region)}
-          
-        />
+          //onRegionChange={region => this.onRegionChange(region)}          
+        >
+            {this.state.markerList.map(data => (                  
+                  <Marker
+                      coordinate={{ latitude: data.lat, longitude: data.lon}}
+                      title={ data.title}
+                      description={data.description}
+                  />
+            ))}
+        </MapView>
+        {/*  
         <View style={[styles.bubble, styles.latlng]}>
           <Text style={styles.centeredText}>
             {this.state.region.latitude.toPrecision(7)},
@@ -188,7 +225,7 @@ class MapComponent extends React.Component {
           </Text>
         </View>
         
-        {/*
+        
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             onPress={() => this.jumpRandom()}
@@ -221,7 +258,8 @@ class MapComponent extends React.Component {
             <Text style={styles.buttonText}>Animate (View Angle)</Text>
           </TouchableOpacity>
         </View>
-        */}
+        */
+        }
        
       </View>
     );

@@ -109,7 +109,9 @@ export default class LoginScreen extends React.Component {
                     }else{
                         console.log("Login  === 1");
                         console.log("Login  " + JSON.stringify(result));                          
-                        AppStorage.storeAppInfo(AppConstant.APP_STORE_KEY.USER_REG_DETAILS, JSON.stringify(result.data));
+                        AppStorage.storeAppInfo(AppConstant.APP_STORE_KEY.USER_REG_DETAILS, JSON.stringify(result.data)).then((value) => {
+                            console.log("Stored user details " + value)
+                        });   
                         AppStorage.getAppInfo(AppConstant.APP_STORE_KEY.IS_VEFIRIED).then((value) => {
                             if(value === "true"){
                                 this.navigate(AppConstant.APP_PAGE.DASHBOARD, JSON.stringify(result.data));                        

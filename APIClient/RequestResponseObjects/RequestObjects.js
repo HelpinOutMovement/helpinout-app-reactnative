@@ -1,10 +1,23 @@
     import DeviceInfo from 'react-native-device-info';
+    import AppStorage from '../../storage/AppStorage';
+    import AppConstant from '../../misc/AppConstant';
 
     const startingDate = new Date()
     const date = startingDate.getFullYear()+"-"+startingDate.getMonth()+"-"+startingDate.getDate()+"T"+startingDate.getHours()+":"+startingDate.getMinutes()+":"+startingDate.getSeconds()+"."+startingDate.getMilliseconds()+"+"+startingDate.getTimezoneOffset();
 
-    var APIData = {"app_id": '', "imei_no": DeviceInfo.getUniqueId(), "app_version": "0.1", 'date_time':  date  };
     class RequestObject{
+
+        constructor(){
+
+            this.APIData = {"app_id": 0, "imei_no": DeviceInfo.getUniqueId(), "app_version": "0.1", 'date_time':  date  };       
+            
+
+            //this.APIData = {"app_id": 137, "imei_no": DeviceInfo.getUniqueId(), "app_version": "0.1", 'date_time':  date  };
+            //console.log(this.getUserDetails())
+            //this.setAppId();
+        }
+
+
         //Struct = (...keys) => ((...v) => keys.reduce((o, k, i) => {o[k] = v[i]; return o} , {}))
         registerObject = (country_code, mobile_no, first_name,last_name, mobile_no_visibility, user_type, org_name, org_type, org_division)=>{
             let data = {
@@ -28,7 +41,13 @@
                 data["org_type"] =  org_type,
                 data["org_division"] = org_division;
             }
-            return this.stuffHeader(data);
+            return new Promise((resolve, reject) => {
+                let reqObject = this.stuffHeader(data, false);
+                reqObject.then((val)=> {
+                    resolve(val);
+                })
+                .catch(err => {reject(err)})
+            });
         }
 
         updateUserObject = (first_name,last_name, mobile_no_visibility, user_type, org_name, org_type, org_division)=>{
@@ -51,7 +70,13 @@
                 data["org_type"] =  org_type,
                 data["org_division"] = org_division;
             }
-            return this.stuffHeader(data);
+            return new Promise((resolve, reject) => {
+                let reqObject = this.stuffHeader(data, true);
+                reqObject.then((val)=> {
+                    resolve(val);
+                })
+                .catch(err => {reject(err)})
+            });
         }
 
 
@@ -67,18 +92,32 @@
                 "country_code": country_code,
                 "mobile_no": mobile_no                    
             }        
-            return this.stuffHeader(data);
+            return new Promise((resolve, reject) => {
+                let reqObject = this.stuffHeader(data, false);
+                reqObject.then((val)=> {
+                    resolve(val);
+                })
+                .catch(err => {reject(err)})
+            });
         }
 
 
-        locationSuggestionObject = (lat, lon, geo_accuracy, activity_type , activity_uuid)=>{
-            let data = {
-                "geo_location": lat + ","+lon ,
-                "geo_accuracy": geo_accuracy,
-                "activity_type": activity_type,
-                "activity_uuid": activity_uuid,            
-            }
-            return this.stuffHeader(data);
+        locationSuggestionObject = (lat, lon, geo_accuracy, radius, activity_type , activity_uuid)=>{
+            
+                let data = {
+                    "geo_location": lat + ","+lon ,
+                    "geo_accuracy": geo_accuracy,
+                    "radius": radius,
+                    "activity_type": activity_type,
+                    "activity_uuid": activity_uuid,            
+                }
+            return new Promise((resolve, reject) => {
+                let reqObject = this.stuffHeader(data, true);
+                reqObject.then((val)=> {
+                    resolve(val);
+                })
+                .catch(err => {reject(err)})
+            });   
         }
 
 
@@ -87,14 +126,26 @@
                 "geo_location": lat + ","+lon ,
                 "geo_accuracy": geo_accuracy                  
             }
-            return this.stuffHeader(data);
+            return new Promise((resolve, reject) => {
+                let reqObject = this.stuffHeader(data, true);
+                reqObject.then((val)=> {
+                    resolve(val);
+                })
+                .catch(err => {reject(err)})
+            });
         }
 
         userPastActivityObject = (activity_type) =>{
             let data = {            
                 "activity_type": activity_type                  
             }
-            return this.stuffHeader(data);
+            return new Promise((resolve, reject) => {
+                let reqObject = this.stuffHeader(data, true);
+                reqObject.then((val)=> {
+                    resolve(val);
+                })
+                .catch(err => {reject(err)})
+            });
         }
 
         activitySuggestions = (activity_type, activity_uuid, offerer, requester) =>{
@@ -104,7 +155,13 @@
                 "offerer": offerer,
                 "requester": requester,
             }
-            return this.stuffHeader(data);
+            return new Promise((resolve, reject) => {
+                let reqObject = this.stuffHeader(data, true);
+                reqObject.then((val)=> {
+                    resolve(val);
+                })
+                .catch(err => {reject(err)})
+            });
         }
 
 
@@ -115,7 +172,13 @@
                 "offerer": offerer, 
                 "requester": requester
             }
-            return this.stuffHeader(data);
+            return new Promise((resolve, reject) => {
+                let reqObject = this.stuffHeader(data, true);
+                reqObject.then((val)=> {
+                    resolve(val);
+                })
+                .catch(err => {reject(err)})
+            });
         }
 
         activityAdd = (activity_uuid, activity_type, geo_location, geo_accuracy, address, activity_category, activity_count, activity_detail, offer_condition, pay) =>{
@@ -131,7 +194,13 @@
                 "offer_condition": offer_condition,
                 "pay": pay
             }
-            return this.stuffHeader(data);    
+            return new Promise((resolve, reject) => {
+                let reqObject = this.stuffHeader(data, true);
+                reqObject.then((val)=> {
+                    resolve(val);
+                })
+                .catch(err => {reject(err)})
+            });
         }
         
         activityDelete = (activity_uuid, activity_type) =>{
@@ -139,7 +208,13 @@
                 "activity_uuid": activity_uuid, 
                 "activity_type": activity_type
             }
-            return this.stuffHeader(data);
+            return new Promise((resolve, reject) => {
+                let reqObject = this.stuffHeader(data, true);
+                reqObject.then((val)=> {
+                    resolve(val);
+                })
+                .catch(err => {reject(err)})
+            });
         }
 
 
@@ -149,7 +224,13 @@
                 "activity_type": activity_type, 
                 "mapping_id": mapping_id
             }
-            return this.stuffHeader(data);        
+            return new Promise((resolve, reject) => {
+                let reqObject = this.stuffHeader(data, true);
+                reqObject.then((val)=> {
+                    resolve(val);
+                })
+                .catch(err => {reject(err)})
+            });   
         }
 
 
@@ -160,7 +241,13 @@
                 "rating":rating, 
                 "recommend_other":recommend_other
             }
-            return this.stuffHeader(data);
+            return new Promise((resolve, reject) => {
+                let reqObject = this.stuffHeader(data, true);
+                reqObject.then((val)=> {
+                    resolve(val);
+                })
+                .catch(err => {reject(err)})
+            });
         }
 
 
@@ -169,17 +256,45 @@
                 "activity_uuid":activity_uuid, 
                 "mapping_id":mapping_id
             }
-            return this.stuffHeader(data);        
+            return new Promise((resolve, reject) => {
+                let reqObject = this.stuffHeader(data, true);
+                reqObject.then((val)=> {
+                    resolve(val);
+                })
+                .catch(err => {reject(err)})
+            });    
         }
 
 
-        stuffHeader = (data) =>{
-            let reqData = APIData;
-            reqData["data"] = data; 
-            console.log(reqData)   
-            return reqData;
+        stuffHeader = (data, withAppId) =>{
+            return new Promise((resolve, reject) => {
+                let reqData = this.APIData;
+                let userDetails = this.getUserDetails();
+                userDetails.then((details) => {
+                    console.log("stuffHeader    "+ details );
+                    //console.log("details[app_id]    "+ JSON.parse(details).app_id );
+                    details = JSON.parse(details);
+                    if(withAppId){
+                        reqData["app_id"] = details.app_id;  
+                    }
+                    reqData["data"] = data; 
+                    //console.log("stuffHeader userDetails reqData   :  " + JSON.stringify(reqData))   
+                    resolve(reqData);
+                })   
+            });                  
         }
 
+
+        getUserDetails = () => {
+            return new Promise((resolve, reject) => {
+                let data = AppStorage.getAppInfo(AppConstant.APP_STORE_KEY.USER_REG_DETAILS);        
+                data.then((data)=> {
+                    console.log("getUserDetails    "+ data )
+                    resolve(data);
+                })
+                .catch(err => {reject(err)})
+            });           
+        }
 
 }
 

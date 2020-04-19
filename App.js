@@ -44,7 +44,7 @@ const Stack = createStackNavigator();
 function App() {
 
   const [appState, setAppState] = useState(AppConstant.APP_STATE.IS_LOADING);
-  //AppStorage.storeAppInfo(AppConstant.IS_VEFIRIED, "false");
+  //AppStorage.storeAppInfo(AppConstant.APP_STORE_KEY.IS_VEFIRIED, "false");
 
 
   useEffect(() => {
@@ -93,7 +93,7 @@ function App() {
         break;
       case AppConstant.APP_STATE.IS_NOT_AUTENTICATED:
         stackedScreen.push((
-          <Stack.Navigator headerMode="none" key= 'a_authen' initialRouteName={AppConstant.APP_PAGE.ON_BOARDING}>
+          <Stack.Navigator headerMode="none" key= 'a_authen' initialRouteName={AppConstant.APP_PAGE.LOGIN}>
             <Stack.Screen key= {`a_${AppConstant.APP_PAGE.LOGIN}`} name={AppConstant.APP_PAGE.LOGIN} component={LoginScreen} /> 
             <Stack.Screen key= {`a_${AppConstant.APP_PAGE.VERIFY}`} name={AppConstant.APP_PAGE.VERIFY} component={VerifyScreen} /> 
             <Stack.Screen key= {`a_${AppConstant.APP_PAGE.SPLASH}`} name={AppConstant.APP_PAGE.SPLASH} component={SplashScreen} /> 
