@@ -1,3 +1,4 @@
+import  UUID from "uuid";  
 class Utilities {
     static getID = function () {
         // Math.random should be unique because of its seeding algorithm.
@@ -5,6 +6,10 @@ class Utilities {
         // after the decimal.
         return '_' + Math.random().toString(36).substr(2, 9);
     };
+
+    static genUUID = function() {
+        return UUID.v4();
+    }
 }
 
 export default Utilities;

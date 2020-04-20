@@ -80,6 +80,39 @@ const AppConstant = {
 
     API_SERVER: {
         baseURL:"http://3.7.52.176:8080/api/v1",
+    },
+
+    API_REQUEST_CONSTANTS:{
+
+        user_type:{
+            Individual:1,
+            Organization:2
+        },
+        mobile_no_visibility:{
+            No:0,
+            Yes:1
+        },
+
+        activity_type:{
+            Both:0,
+            Request:1,
+            Offer:2
+        },
+        activity_category:{
+            FOOD:1,
+            PEOPLE:2,
+            SHELTER:3,
+            MED_PPE:4,
+            TESTING:5,
+            MEDICINE:6,
+            AMBULANCE:7,
+            MED_EQUIPMENT:8,
+            OTHER:9
+        },
+        pay:{
+            Willing_To_Pay:1,
+            Not_Willing_To_Pay:0
+        }
     }
 }
 

@@ -16,7 +16,7 @@ import AppStringContext from '../misc/AppStringContext';
 import API from "../APIClient/API";
 import DeviceInfo from 'react-native-device-info';
 import Geolocation from '@react-native-community/geolocation';
-
+import Geocoder from 'react-native-geocoding';
 
 import MapView, { Marker, MAP_TYPES, ProviderPropType , PROVIDER_GOOGLE} from 'react-native-maps';
 import { getDistance, getPreciseDistance } from 'geolib';
@@ -32,6 +32,7 @@ class MapComponent extends React.Component {
   constructor(props) {
     super(props);
     console.log("MapComponent Constructor" )
+    Geocoder.init("AIzaSyDgaOp_orkTcVpcH6NfNE3XtOH6tdiXlsg");
     console.log(this.props)
     this.navigate = this.props.mapProps.navigation.navigate;
     this.state = {
@@ -44,14 +45,13 @@ class MapComponent extends React.Component {
       boundries: {},
       deviceInfo:[],
       markerList: [],
-      radius:50
+      radius:50,
+      address: "Dummy Address 1"
 
     };
     
     // Define the const outside the class
 
-
-    
     this.setCurrentLocation(0,0);    
 
   }
@@ -69,6 +69,7 @@ class MapComponent extends React.Component {
       console.log("Current Location " + JSON.stringify(info))
       this.setState({latitude: lat, longitude:lon});
       // Use the below code to zoom to particular location with radius.
+
       console.log(this.state.region)
       this.map.animateToRegion({ latitude: this.state.region.latitude, longitude: this.state.region.longitude, latitudeDelta: LATITUDE_DELTA * Number(this.state.radius/15), longitudeDelta: LONGITUDE_DELTA * Number(this.state.radius/15) }, 2000); 
       })
@@ -174,7 +175,20 @@ class MapComponent extends React.Component {
       );
       console.log(`Distance\n${dis} Meter\nor\n${dis / 1000} KM`);
       console.log("this.state.region.    " + JSON.stringify(this.state))
-      this.getLocationSuggestions();
+      /*
+      Geocoder.from(41.89, 12.49)
+      .then(json => {
+      var addressComponent = json.results[0].address_components[0];
+      console.log(addressComponent);
+      this.setState({address:addressComponent})
+      this.props.callbackOnRegionChange(region, this.state.address);
+      })
+      */
+     
+     this.props.callbackOnRegionChange(region, this.state.address);
+
+     this.getLocationSuggestions();
+
     })
   }
 

@@ -39,19 +39,19 @@ const CardComponent = (props) => {
                       fontSize: 16,
                       lineHeight:18,
                       color: "#4F5065"
-                    }}> Food </Text>
+                    }}> {props.label} </Text>
                   <Text style={{
                     fontFamily: "Roboto-Regular",
                     fontSize: 14,
                     color: "#4F50657A"
-                  }}> 24 Requests near me </Text>
+                  }}> 0 Requests near me </Text>
                   <Text style={{
                     fontFamily: "Roboto-Regular",
                     fontSize: 14,
                     color: "#4F50657A",
                     alignSelf:"flex-end",
                     marginRight: 10
-                  }}>4200 Total</Text>
+                  }}>0 Total</Text>
                 </Col>
                 
               </Row>

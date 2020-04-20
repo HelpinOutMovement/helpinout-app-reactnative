@@ -13,57 +13,59 @@ const optionsOnScreen = [
     {
         label: translate.t(appLabelKey.food),
         path: StaticImage.FOOD,
-        code: AppConstant.APP_OPTIONS.FOOD
+        code: AppConstant.API_REQUEST_CONSTANTS.activity_category.FOOD
     },
     {
         label: translate.t(appLabelKey.people),
         path: StaticImage.PEOPLE,
-        code: AppConstant.APP_OPTIONS.PEOPLE
+        code: AppConstant.API_REQUEST_CONSTANTS.activity_category.PEOPLE
     },
     {
         label: translate.t(appLabelKey.shelter),
         path: StaticImage.SHELTER,
-        code: AppConstant.APP_OPTIONS.SHELTER
+        code: AppConstant.API_REQUEST_CONSTANTS.activity_category.SHELTER
     },
     {
         label: translate.t(appLabelKey.medical_PPE),
         path: StaticImage.MED_PPE,
-        code: AppConstant.APP_OPTIONS.MED_PPE
+        code: AppConstant.API_REQUEST_CONSTANTS.activity_category.MED_PPE
     },
     {
         label: translate.t(appLabelKey.testing),
         path: StaticImage.TESTING,
-        code: AppConstant.APP_OPTIONS.TESTING
+        code: AppConstant.API_REQUEST_CONSTANTS.activity_category.TESTING
     },
     {
         label: translate.t(appLabelKey.medicines),
         path: StaticImage.MEDICINE,
-        code: AppConstant.APP_OPTIONS.MEDICINE
+        code: AppConstant.API_REQUEST_CONSTANTS.activity_category.MEDICINE
     },
     {
         label: translate.t(appLabelKey.ambulance),
         path: StaticImage.AMBULANCE,
-        code: AppConstant.APP_OPTIONS.AMBULANCE
+        code: AppConstant.API_REQUEST_CONSTANTS.activity_category.AMBULANCE
     },
     {
         label: translate.t(appLabelKey.medical_Equipment),
         path: StaticImage.MED_EQUIPMENT,
-        code: AppConstant.APP_OPTIONS.MED_EQUIPMENT
+        code: AppConstant.API_REQUEST_CONSTANTS.activity_category.MED_EQUIPMENT
     },
     {
         label: translate.t(appLabelKey.other),
         path: StaticImage.OTHER,
-        code: AppConstant.APP_OPTIONS.OTHER
+        code: AppConstant.API_REQUEST_CONSTANTS.activity_category.OTHER
     }
 ]
 
 
 function OfferHelpScreen(props) {
-
-    const onAskForHelpSelection = (optionCode, optionImage) => {
+    const onOfferHelpSelection = (optionCode, optionImage) => {
         props.navigation.navigate(AppConstant.APP_PAGE.OFFER_HELP_SCREEN_DETAILS, {
+            activity_type: AppConstant.API_REQUEST_CONSTANTS.activity_type.Offer,
             optionCode: optionCode,
-            optionImage: optionImage
+            optionImage: optionImage,
+            region:props.route.params.region,
+            address:props.route.params.address
         })
     }
 
@@ -74,13 +76,14 @@ function OfferHelpScreen(props) {
                 <Row key={singleOption.code}>
                     <Col>
                         <TouchableOpacity onPress={() => {
-                            onAskForHelpSelection(singleOption.code, singleOption.path);
+                            onOfferHelpSelection(singleOption.code, singleOption.path);
                         }} >
+                            
                             <CardComponent {...singleOption} singleRow={true} />
                         </TouchableOpacity>
-                    </Col></Row>));
-
-
+                    </Col>
+                </Row>
+            ));
         });
 
 
@@ -92,7 +95,6 @@ function OfferHelpScreen(props) {
             <HeaderComponent {...props} title="Offer help with " bgColor="#4F5065" />
             <Content padder  >
                 <Grid>
-
                     {getHelpOptionsView()}
                 </Grid>
 

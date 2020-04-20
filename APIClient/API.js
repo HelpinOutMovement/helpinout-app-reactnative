@@ -189,10 +189,12 @@ class API{
                 apicall = this.createEntity(apicall)
                 let data = this.endpoints[apicall].post(val);        
                 data.then(({data})=> {
+                    console.log(val)
                     resolve(data);
                 })
+                .catch(err => {console.log(err);console.log(err);reject(err)})
             })
-            .catch(err => {reject(err)})
+            .catch(err => {console.log(err);reject(err)})
         });    
     }
 

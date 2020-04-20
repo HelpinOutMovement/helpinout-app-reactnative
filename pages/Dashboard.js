@@ -24,7 +24,7 @@ class Dashboard extends React.Component {
         this.mapComponentRef = React.createRef();
         this.navigation = this.props.navigation;                
         //this.state = this.props.route.params.loginState;
-        this.state = {hintIsHidden:false,userDetails: {}};
+        this.state = {hintIsHidden:false,userDetails: {}, region:{}, address:"Default Address"};
         this.navigate = this.props.navigation.navigate;
         console.log("VerifyScreen Constructor")
         console.log(JSON.stringify(this.state)); 
@@ -41,6 +41,16 @@ class Dashboard extends React.Component {
       this.mapComponentRef.current.addMarker(markers);
     }
 
+
+    callbackOnRegionChange = (rgn, addr) =>{
+        this.setState({region:rgn, address:addr})
+        console.log("Dashboard callbackOnRegionChange : " + JSON.stringify(rgn))
+        // Use Geocoding and get address.
+
+    }
+
+
+    
       
     render() { 
         return (
@@ -59,7 +69,7 @@ class Dashboard extends React.Component {
                   <Right />
                 </Header>   
                 <Content padder contentContainerStyle={{...StyleSheet.absoluteFillObject, justifyContent: 'flex-end', alignItems: 'center',}} >
-                  <MapComponent mapProps={this.props} ref={this.mapComponentRef} onPress={() => this.callMapComponentMethod()} />      
+                  <MapComponent callbackOnRegionChange={this.callbackOnRegionChange} mapProps={this.props} ref={this.mapComponentRef} onPress={() => this.callMapComponentMethod()} />      
                 </Content>
                   <HView style={styles(this.dimensions).hintTextContainer} hide={this.state.hintIsHidden}>
                       <Text style={styles(this.dimensions).hintText}>
@@ -68,10 +78,10 @@ class Dashboard extends React.Component {
                   </HView>  
                   <View style={{alignItems: "center", marginTop:10, marginBottom:10}}>
                     <View style={styles(this.dimensions).buttonContainer}>
-                      <TouchableOpacity style={styles(this.dimensions).AskForHelp} onPress={() => this.navigate(AppConstant.APP_PAGE.ASK_FOR_HELP)}>
+                      <TouchableOpacity style={styles(this.dimensions).AskForHelp} onPress={() => this.navigate(AppConstant.APP_PAGE.ASK_FOR_HELP, {region:this.state.region, address:this.state.address})}>
                         <AskForHelpButton  />
                       </TouchableOpacity>
-                      <TouchableOpacity style={styles(this.dimensions).OfferHelp} onPress={() => this.navigate(AppConstant.APP_PAGE.OFFER_HELP_SCREEN)}>
+                      <TouchableOpacity style={styles(this.dimensions).OfferHelp} onPress={() => this.navigate(AppConstant.APP_PAGE.OFFER_HELP_SCREEN, {region:this.state.region, address:this.state.address})}>
                         <OfferHelpButton  />
                       </TouchableOpacity>                
                     </View> 

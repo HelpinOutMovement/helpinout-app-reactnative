@@ -100,6 +100,8 @@ const rateAndReviewModalContent = (props) => {
 
 }
 const needHelpWithModalContent = (props) => {
+
+
     return (
         <View style={{
             backgroundColor: 'white',
@@ -107,11 +109,12 @@ const needHelpWithModalContent = (props) => {
             height: 190,
             justifyContent: 'center',
             alignItems: 'center',
-            borderRadius: 4,
-            borderColor: 'rgba(0, 0, 0, 0.1)',
+            borderRadius: 2,
+            borderColor: 'red',//''rgba(0, 0, 0, 0.1)',
+            borderWidth:1
 
         }}>
-            <Grid style={{ width: "100%" }}>
+            <Grid style={{ width: "100%" , alignItems:"center"}}>
                 <Row>
                     <Col>
                         <Text style={{ color: "#000000" }}>{translate.t(appLabelKey.your_Request_for_Help_has_been_registered)}   </Text>
@@ -126,13 +129,19 @@ const needHelpWithModalContent = (props) => {
                     <ButtonComponent
                         setShowModal={() => { props.closePopUp(AppConstant.APP_CONFIRMATION.YES) }}
                         label={translate.t(appLabelKey.yes)}
-                        colorTheme={props.colorTheme} />
+                        buttonVal={AppConstant.APP_CONFIRMATION.YES}
+                        colorTheme={props.colorTheme} 
+                        activity_type={props.activity_type}
+                        />
                     <ButtonComponent
                         containerStyle={{ marginLeft: 10 }}
                         setShowModal={() => { props.closePopUp(AppConstant.APP_CONFIRMATION.NO) }}
                         unfilled={true}
                         label={translate.t(appLabelKey.no)}
-                        colorTheme={props.colorTheme} />
+                        buttonVal={AppConstant.APP_CONFIRMATION.NO}
+                        colorTheme={props.colorTheme} 
+                        activity_type={props.activity_type}
+                        />
                 </Row>
             </Grid>
         </View>
@@ -162,6 +171,7 @@ const ModalComponent = (props) => {
             style={{
                 justifyContent: 'flex-end',
                 margin: 0,
+                marginBottom:2
             }}>
             {getModalContent()}
         </Modal>

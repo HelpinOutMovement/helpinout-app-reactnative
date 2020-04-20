@@ -20,7 +20,7 @@ export default class RegisterMobile extends React.Component {
     
    constructor(props) {
         super(props);
-        const { navigate } = this.props.navigation;
+        ///const { navigate } = this.props.navigation;
         this.navigate = this.props.navigation.navigate;
         console.log(JSON.stringify("Register Constructor")); 
         console.log(JSON.stringify(this.props.route.params.loginState));
@@ -96,11 +96,12 @@ export default class RegisterMobile extends React.Component {
                 }else{
                     console.log("RegMobile  <> 0");
                     console.log("RegMobile  " + result.status);
+                    let thisclass = this;
                     AppStorage.storeAppInfo(AppConstant.APP_STORE_KEY.USER_REG_DETAILS, JSON.stringify(result.data)).then(function(value) {
                         console.log("userRegistrationDetails    " + value);
                         // expected output: "Success!"
                         //handleSendCode();
-                        this.navigate(AppConstant.APP_PAGE.DASHBOARD, {loginState: this.state});
+                        thisclass.navigate(AppConstant.APP_PAGE.DASHBOARD, {loginState: thisclass.state});
                       });                                        
                     
                     /*AsyncStorage.setItem('userRegistrationDetails',JSON.stringify(result.data) ).then(function(value) {

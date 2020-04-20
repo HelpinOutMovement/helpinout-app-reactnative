@@ -2,9 +2,12 @@
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
 import { Col, Text } from "native-base";
+import AppConstant from '../../misc/AppConstant';
+import { useNavigation } from '@react-navigation/native';
 
 const ButtonComponent = (props) => {
 
+    const navigation = useNavigation();
     let buttonFilledStyle = {
         marginLeft: 10,
         alignItems: "center",
@@ -26,13 +29,26 @@ const ButtonComponent = (props) => {
             alignContent: "center"
         }
     }
-
     return (
         <Col style={{ width: "40%" , ...props.containerStyle}}>
             <TouchableOpacity
                 style={buttonFilledStyle}
                 onPress={() => {
                     props.setShowModal(true)
+                    if(props.activity_type === AppConstant.API_REQUEST_CONSTANTS.activity_type.Request){
+                            if(props.buttonVal === AppConstant.APP_CONFIRMATION.YES){
+                                navigation.navigate(AppConstant.APP_PAGE.DASHBOARD)
+                            }else if(props.buttonVal === AppConstant.APP_CONFIRMATION.NO){
+                                navigation.navigate(AppConstant.APP_PAGE.MY_REQUEST_SCREEN)
+                            }
+                    }else if(props.activity_type === AppConstant.API_REQUEST_CONSTANTS.activity_type.Offer){
+                            if(props.buttonVal === AppConstant.APP_CONFIRMATION.YES){
+                                navigation.navigate(AppConstant.APP_PAGE.DASHBOARD)
+                            }else if(props.buttonVal === AppConstant.APP_CONFIRMATION.NO){
+                                navigation.navigate(AppConstant.APP_PAGE.MY_OFFERS_SCREEN)
+                            }
+                    }
+                    
                 }
                 }>
                 <Text

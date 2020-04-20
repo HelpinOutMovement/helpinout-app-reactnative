@@ -13,8 +13,16 @@ import InputRowComponent from './InputRowComponent';
 import Utilities from '../../misc/Utils';
 
 const AddActivityDetailsComponent = (props) => {
-    const { optionCode, optionImage } = props.route.params;
-    const [totalInput, setTotalInput] = useState((optionCode !== AppConstant.APP_OPTIONS.PEOPLE) ? [props.firstId] : []);
+    console.log(JSON.stringify(props))
+    console.log("props.activity_type  " + props.activity_type)
+    //const { optionCode, optionImage } = props.route.params;
+    const optionCode = props.route.params.optionCode;
+    console.log("optionCode  : " + optionCode)
+    const optionImage = props.route.params.optionImage;
+    const region = props.route.params.region;
+    const address = props.route.params.address;
+
+    const [totalInput, setTotalInput] = useState((optionCode !== AppConstant.API_REQUEST_CONSTANTS.activity_category.PEOPLE) ? [props.firstId] : []);
     const [inputValues, setInputValues] = useState({});
     const [inputQuantities, setInputQuantities] = useState({});
     const [notFilled, setNotFilled] = useState([]);
@@ -35,11 +43,12 @@ const AddActivityDetailsComponent = (props) => {
         for (let [key, value] of Object.entries(inputValues)) {
             if (value) {
                 filledItems.push(key);
-                actualFilledValues.push({ code: key, requested: value, qty: (inputQuantities[key]) ? inputQuantities[key] : '' })
+                //actualFilledValues.push({ code: key, detail: value, qty: (inputQuantities[key]) ? inputQuantities[key] : '' })
+                actualFilledValues.push({ detail: value, qty: (inputQuantities[key]) ? inputQuantities[key] : '' })
             }
         }
 
-        if (optionCode === AppConstant.APP_OPTIONS.PEOPLE) {
+        if (optionCode === AppConstant.API_REQUEST_CONSTANTS.activity_category.PEOPLE) {
             localIndex = localTotalInput.indexOf(AppConstant.APP_PEOPLE_OPTIONS.VOLUNTEERS);
             if (volunteers && localIndex === -1) {
                 localTotalInput.push(AppConstant.APP_PEOPLE_OPTIONS.VOLUNTEERS);
@@ -59,6 +68,7 @@ const AddActivityDetailsComponent = (props) => {
                 localTotalInput.push(AppConstant.APP_PEOPLE_OPTIONS.TECT_PERSONNEL);
             }
         }
+        console.log(localTotalInput + "    "+ JSON.stringify(optionCode))
         for (let singleItem = 0; singleItem < localTotalInput.length; singleItem++) {
             if (filledItems.indexOf(localTotalInput[singleItem]) === -1) {
                 notFilledLocal.push(localTotalInput[singleItem])
@@ -67,7 +77,7 @@ const AddActivityDetailsComponent = (props) => {
         if (localTotalInput.length > 0 && notFilledLocal.length > 0) {
             setNotFilled(notFilledLocal)
         } else {
-            props.inputIsValid({ requested: actualFilledValues, ambulanceReq: 0, paymentIndicator: paymentIndicator })
+            props.inputIsValid({ requested: actualFilledValues, region: region, address: address, activity_category: optionCode, ambulanceReq: 0, paymentIndicator: paymentIndicator })
         }
 
     }
@@ -131,6 +141,9 @@ const AddActivityDetailsComponent = (props) => {
                         }}
                         onTextChange={(code, val) => {
                             onTextChangeAction(code, val)
+                        }}
+                        onQtyChange={(code, val) => {
+                            onQtyChangeAction(code, val)
                         }}
                     />
                 ))
@@ -211,7 +224,7 @@ const AddActivityDetailsComponent = (props) => {
     }
 
     const getAddMoreOption = () => {
-        if (optionCode !== AppConstant.APP_OPTIONS.PEOPLE && optionCode !== AppConstant.APP_OPTIONS.AMBULANCE) {
+        if (optionCode !== AppConstant.API_REQUEST_CONSTANTS.activity_category.PEOPLE && optionCode !== AppConstant.API_REQUEST_CONSTANTS.activity_category.AMBULANCE) {
             return (
                 <Row style={{ marginBottom: 10, width: "92%", alignItems: "center", alignSelf: "center" }}>
                     <Col>
@@ -258,10 +271,10 @@ const AddActivityDetailsComponent = (props) => {
 
     const decideWhichValidation = (paymentIndicator) => {
         switch (optionCode) {
-            case AppConstant.APP_OPTIONS.PEOPLE:
+            case AppConstant.API_REQUEST_CONSTANTS.activity_category.PEOPLE:
                 validateTheInput(paymentIndicator);
                 break;
-            case AppConstant.APP_OPTIONS.AMBULANCE:
+            case AppConstant.API_REQUEST_CONSTANTS.activity_category.AMBULANCE:
                 if (pplForAmbulance <= 0) {
                     setAmbulanceSelection(true)
                 } else {
@@ -277,10 +290,10 @@ const AddActivityDetailsComponent = (props) => {
     const decideWhichViewToMake = () => {
         let outputView;
         switch (optionCode) {
-            case AppConstant.APP_OPTIONS.PEOPLE:
+            case AppConstant.API_REQUEST_CONSTANTS.activity_category.PEOPLE:
                 outputView = showPeopleOption();
                 break;
-            case AppConstant.APP_OPTIONS.AMBULANCE:
+            case AppConstant.API_REQUEST_CONSTANTS.activity_category.AMBULANCE:
                 outputView = showAmbulanceOption();
                 break;
             default:
@@ -311,26 +324,25 @@ const AddActivityDetailsComponent = (props) => {
                 style={{
                     backgroundColor: "#FFFFFF",
                     borderColor: "#ffffff",
-                    height: (optionCode !== AppConstant.APP_OPTIONS.PEOPLE && optionCode !== AppConstant.APP_OPTIONS.AMBULANCE) ? 150 : 60
+                    height: (optionCode !== AppConstant.API_REQUEST_CONSTANTS.activity_category.PEOPLE && optionCode !== AppConstant.API_REQUEST_CONSTANTS.activity_category.AMBULANCE) ? 150 : 60
                 }} >
                 <Grid>
                     {getAddMoreOption()}
                     <Row style={{ alignSelf: "center" }}>
                         <ButtonComponent
                             setShowModal={() => {
-                                decideWhichValidation(AppConstant.APP_CONFIRMATION.WE_CAN_PAY)
+                                decideWhichValidation(AppConstant.API_REQUEST_CONSTANTS.pay.Willing_To_Pay)
                             }}
                             unfilled={true}
-                            label={translate.t(appLabelKey.we_can_pay)}
+                            label={(props.activity_type === AppConstant.API_REQUEST_CONSTANTS.activity_type.Request) ? translate.t(appLabelKey.we_can_pay) : translate.t("We_Charge")}
                             color={props.colorTheme} 
                             colorTheme={props.colorTheme}/>
                         <ButtonComponent
                             containerStyle={{ marginLeft: 10 }}
                             setShowModal={() => {
-                                decideWhichValidation(AppConstant.APP_CONFIRMATION.WE_CANNOT_PAY)
+                                decideWhichValidation(AppConstant.API_REQUEST_CONSTANTS.pay.Not_Willing_To_Pay)
                             }}
-
-                            label={translate.t(appLabelKey.we_cannot_pay)}
+                            label={(props.activity_type === AppConstant.API_REQUEST_CONSTANTS.activity_type.Request) ?  translate.t(appLabelKey.we_cannot_pay) : translate.t("For_Free")}
                             color={props.colorTheme}
                             colorTheme={props.colorTheme}
                              />
