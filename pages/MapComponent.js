@@ -8,6 +8,11 @@ import {
   TouchableOpacity,
   Button
 } from 'react-native';
+
+import AppStorage from '../storage/AppStorage';
+import AppConstant from '../misc/AppConstant';
+import AppStringContext from '../misc/AppStringContext';
+
 import API from "../APIClient/API";
 import DeviceInfo from 'react-native-device-info';
 import Geolocation from '@react-native-community/geolocation';
@@ -27,6 +32,8 @@ class MapComponent extends React.Component {
   constructor(props) {
     super(props);
     console.log("MapComponent Constructor" )
+    console.log(this.props)
+    this.navigate = this.props.mapProps.navigation.navigate;
     this.state = {
       region: {
         latitude: LATITUDE,
@@ -176,15 +183,17 @@ class MapComponent extends React.Component {
 
         this.setLanLon(this.state.region.latitude, this.state.region.longitude);
         let restApi = new API();
-
-
-        reqObj =  restApi.locationSuggestion(this.state.region.latitude, this.state.region.longitude, "10.424", getDistance(this.state.boundries.northEast,this.state.boundries.southWest)/3);
-      
+        reqObj =  restApi.locationSuggestion(this.state.region.latitude, this.state.region.longitude, "10.424", getDistance(this.state.boundries.northEast,this.state.boundries.southWest)/3);     
         reqObj.then((val)=> {
-        console.log("API Response Data  1  " + JSON.stringify(val))
-        
-        this.addMarker(val)
-    });
+          console.log("API Response Data  1  " + JSON.stringify(val))
+          this.addMarker(val)
+        }).catch(err => {
+          if(err.response.status === 409){
+            alert("appid expired ")
+            AppStorage.storeAppInfo(AppConstant.APP_STORE_KEY.IS_VEFIRIED, "false");
+            this.navigate(AppConstant.APP_PAGE.LOGIN);
+          }
+        })
   }
 
   componentDidMount() {
@@ -193,7 +202,6 @@ class MapComponent extends React.Component {
 
   render() {
       console.log(DeviceInfo.getUniqueId());
-      const { navigation} = this.props;
     return (
       <View style={styles.container}>
        

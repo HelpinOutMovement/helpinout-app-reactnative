@@ -22,7 +22,7 @@ class Dashboard extends React.Component {
     constructor(props){
         super(props);
         this.mapComponentRef = React.createRef();
-        this.navigation = this.props.navigation;        
+        this.navigation = this.props.navigation;                
         //this.state = this.props.route.params.loginState;
         this.state = {hintIsHidden:false,userDetails: {}};
         this.navigate = this.props.navigation.navigate;
@@ -59,7 +59,7 @@ class Dashboard extends React.Component {
                   <Right />
                 </Header>   
                 <Content padder contentContainerStyle={{...StyleSheet.absoluteFillObject, justifyContent: 'flex-end', alignItems: 'center',}} >
-                  <MapComponent ref={this.mapComponentRef} onPress={() => this.callMapComponentMethod()}/>      
+                  <MapComponent mapProps={this.props} ref={this.mapComponentRef} onPress={() => this.callMapComponentMethod()} />      
                 </Content>
                   <HView style={styles(this.dimensions).hintTextContainer} hide={this.state.hintIsHidden}>
                       <Text style={styles(this.dimensions).hintText}>

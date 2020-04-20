@@ -42,8 +42,19 @@ class API{
     endpoints.getAll = ({ params={}}, config={} ) => axios.get(resourceURL, { params }, config)
     endpoints.getOne = ({ id }, config={}) =>  axios.get(`${resourceURL}/${id}`, config)
     endpoints.post = (toCreate, config={}) =>  {
-      //console.log(toCreate) 
-      return axios.post(resourceURL, toCreate, config)
+        return new Promise((resolve, reject) => {
+            let response =  axios.post(resourceURL, toCreate, config)
+            response.then((resp) => {
+                //console.log("Post Success")
+                resolve(resp);
+            }).catch(error => {
+                //console.log("Post Error")
+                //console.log('onRejected function called: ' + JSON.stringify(error.response));
+                reject(error);
+            })
+        });
+       
+      //return response
     }
     endpoints.pur = (toUpdate, config={}) => axios.put(`${resourceURL}/${toUpdate.id}`, toUpdate, config)
     endpoints.patch  = ({id}, toPatch, config={}) => axios.patch(`${resourceURL}/${id}`, toPatch, config)
@@ -66,6 +77,7 @@ class API{
                 data.then(({data})=> {
                     resolve(data);
                 })
+                .catch(err => {reject(err)})
             })
             .catch(err => {reject(err)})
         });
@@ -85,6 +97,7 @@ class API{
             data.then(({data})=> {
                 resolve(data);
             })
+            .catch(err => {reject(err)})
         })
         .catch(err => {reject(err)})
       });
@@ -117,12 +130,11 @@ class API{
             let  requestObjects = new RequestObjects();
             reqObj = requestObjects.locationSuggestionObject(lat, lon, geo_accuracy, radius, activity_type , activity_uuid);          
             reqObj.then((val)=> {
-                console.log("locationsuggestion request Object ")
                 let apicall = 'user/locationsuggestion';
                 apicall = this.createEntity(apicall)
-                let data = this.endpoints[apicall].post(val);        
-                data.then(({data})=> {
-                    resolve(data);
+                let data = this.endpoints[apicall].post(val);  
+                data.then((response)=> {
+                    resolve(response.data);
                 })
                 .catch(err => {reject(err)})
             })
