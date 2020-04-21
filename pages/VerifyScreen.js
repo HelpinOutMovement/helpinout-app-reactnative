@@ -22,11 +22,13 @@ export default class VerifyScreen extends React.Component {
         const { navigate } = this.props.navigation;
         this.state = this.props.route.params.loginState;
         this.navigate = this.props.navigation.navigate;
+        this.phoneNumber = this.props.phoneNumber;
         console.log("VerifyScreen Constructor")
         console.log(JSON.stringify(this.state));
         if (this.isEmpty(this.state.confirmResult)) {
             //this.handleSendCode();
         }
+        this.handleSendCode();
     }
 
     dimensions = Dimensions.get('window');
@@ -51,27 +53,28 @@ export default class VerifyScreen extends React.Component {
         }
     }
 
-    /*
-      handleSendCode = () => {
-            // Request to send OTP
-            if (this.validatePhoneNumber(this.state.phoneNumber)) {
-              firebase
-                .auth()
-                .signInWithPhoneNumber(this.state.selectedCountryDialCode+""+this.state.phoneNumber)
-                .then(confirmResult => {
-                  console.log("confirmResult")
-                  console.log(confirmResult)
-                  this.setState({ confirmResult: confirmResult });
-                })
-                .catch(error => {
-                  console.log(error)
-                })
-            } else {
-              alert('Invalid Phone Number')
-            }
-        }
-      */
 
+
+    handleSendCode = () => {
+        // Request to send OTP
+        if (this.validatePhoneNumber(this.state.selectedCountryDialCode+""+this.state.phoneNumber)) {
+          firebase
+            .auth()
+            .signInWithPhoneNumber(this.state.selectedCountryDialCode+""+this.state.phoneNumber)
+            .then(confirmResult => {
+              console.log("confirmResult")
+              console.log(confirmResult)
+              this.setState({ confirmResult: confirmResult });
+                         
+            })
+            .catch(error => {
+              console.log(error)
+            })
+        } else {
+          alert('Invalid Phone Number')
+        }
+    }
+    
 
     login = () => {
         console.log(this.validatePhoneNumber());

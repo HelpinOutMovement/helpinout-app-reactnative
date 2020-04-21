@@ -73,7 +73,7 @@ export default class LoginScreen extends React.Component {
             return  true;
         }       
     }
-
+/*
     handleSendCode = () => {
         // Request to send OTP
         if (this.validatePhoneNumber(this.state.phoneNumber)) {
@@ -92,6 +92,10 @@ export default class LoginScreen extends React.Component {
         } else {
           alert('Invalid Phone Number')
         }
+    }
+*/
+    verifyPhone = () =>{
+        this.navigate(AppConstant.APP_PAGE.VERIFY, {loginState: this.state, phoneNumber:this.state.selectedCountryDialCode+""+this.state.phoneNumber});   
     }
 
     login =() =>{       
@@ -175,7 +179,7 @@ export default class LoginScreen extends React.Component {
                 </View>
                 <View style={{alignItems: "center",  width:"100%"}} >                                        
                     <View style={{ alignItems: "center" ,  marginVertical: 0, width:"98%"}} >
-                        <TouchableOpacity style={{borderRadius: 9, marginVertical: 30,alignItems: "center",backgroundColor: "#4F5065",height: 56,width: "92%",shadowOpacity: 0.9,shadowOffset: { height: 3 },shadowColor: '#2328321F',}} onPress={() =>{this.handleSendCode()}}>
+                        <TouchableOpacity style={{borderRadius: 9, marginVertical: 30,alignItems: "center",backgroundColor: "#4F5065",height: 56,width: "92%",shadowOpacity: 0.9,shadowOffset: { height: 3 },shadowColor: '#2328321F',}} onPress={() =>{this.verifyPhone()}}>
                             <Text style={{textAlign: "center",fontFamily: "Roboto-Medium",fontSize: 20,lineHeight: 56,color: "#FFFFFF"}}>{translate.t("Login_Sign_Up")}</Text>
                         </TouchableOpacity>                    
                     </View>                
