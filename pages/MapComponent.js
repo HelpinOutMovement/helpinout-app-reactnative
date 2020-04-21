@@ -32,7 +32,7 @@ class MapComponent extends React.Component {
   constructor(props) {
     super(props);
     console.log("MapComponent Constructor" )
-    Geocoder.init("AIzaSyDgaOp_orkTcVpcH6NfNE3XtOH6tdiXlsg");
+    Geocoder.init("AIzaSyDNnHoaO86zpI2dJt7FvXQRFMWCAG_ldjM");
     console.log(this.props)
     this.navigate = this.props.mapProps.navigation.navigate;
     this.state = {
@@ -47,13 +47,9 @@ class MapComponent extends React.Component {
       markerList: [],
       radius:50,
       address: "Dummy Address 1"
-
-    };
-    
+    };  
     // Define the const outside the class
-
     this.setCurrentLocation(0,0);    
-
   }
 
   setLanLon(lat, lon){
