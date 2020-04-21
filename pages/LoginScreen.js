@@ -41,7 +41,6 @@ export default class LoginScreen extends React.Component {
         organisationName:  null,
         organisationType:  null,
         organisationUnit:  null,
-
         confirmResult: null,
         verificationCode: '',
         userId: '', 
@@ -73,67 +72,9 @@ export default class LoginScreen extends React.Component {
             return  true;
         }       
     }
-/*
-    handleSendCode = () => {
-        // Request to send OTP
-        if (this.validatePhoneNumber(this.state.phoneNumber)) {
-          firebase
-            .auth()
-            .signInWithPhoneNumber(this.state.selectedCountryDialCode+""+this.state.phoneNumber)
-            .then(confirmResult => {
-              console.log("confirmResult")
-              console.log(confirmResult)
-              this.setState({ confirmResult: confirmResult });
-              this.navigate(AppConstant.APP_PAGE.VERIFY, {loginState: this.state});             
-            })
-            .catch(error => {
-              console.log(error)
-            })
-        } else {
-          alert('Invalid Phone Number')
-        }
-    }
-*/
+
     verifyPhone = () =>{
         this.navigate(AppConstant.APP_PAGE.VERIFY, {loginState: this.state, phoneNumber:this.state.selectedCountryDialCode+""+this.state.phoneNumber});   
-    }
-
-    login =() =>{       
-        console.log(this.validatePhoneNumber());
-        this.setState({loggedIn:true});                
-        if(this.validatePhoneNumber()){
-            let restApi = new API();
-            reqObj =  restApi.login(this.state.selectedCountryDialCode, this.state.phoneNumber);
-            reqObj.then(
-                result => {
-                    if(result.status === "0"){
-                        console.log("Login  === 0");        
-                        console.log("Login  " + JSON.stringify(result));
-                        this.navigate(AppConstant.APP_PAGE.REGISTER_MOBILE, {loginState: this.state});                        
-                    }else{
-                        console.log("Login  === 1");
-                        console.log("Login  " + JSON.stringify(result));                          
-                        AppStorage.storeAppInfo(AppConstant.APP_STORE_KEY.USER_REG_DETAILS, JSON.stringify(result.data)).then((value) => {
-                            console.log("Stored user details " + value)
-                        });   
-                        AppStorage.getAppInfo(AppConstant.APP_STORE_KEY.IS_VEFIRIED).then((value) => {
-                            if(value === "true"){
-                                this.navigate(AppConstant.APP_PAGE.DASHBOARD, JSON.stringify(result.data));                        
-                            }else{
-                                //this.handleSendCode();     
-                                this.navigate(AppConstant.APP_PAGE.VERIFY, {loginState: this.state});                                    
-                            }
-                        });   
-                    }
-                }, 
-                error => {
-                    console.log(error);
-                } 
-              );
-        }else{
-            console.log("invalid Phone  Number")
-                // Add Error Toasts
-        }    
     }
 
 

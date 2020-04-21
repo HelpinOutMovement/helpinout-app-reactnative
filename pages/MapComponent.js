@@ -6,7 +6,8 @@ import {
   Text,
   Dimensions,
   TouchableOpacity,
-  Button
+  Button,
+  Image
 } from 'react-native';
 
 import AppStorage from '../storage/AppStorage';
@@ -27,6 +28,9 @@ const { width, height } = Dimensions.get('window');
 const ASPECT_RATIO = width / height;
 const LATITUDE_DELTA = (Platform.OS === global.platformIOS ? 1.5 : 0.5);
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
+
+const requesterIcon = require("../images/red-pin.png")
+const offererIcon = require("../images/black-pin.png")
 
 class MapComponent extends React.Component {
   constructor(props) {
@@ -131,7 +135,8 @@ class MapComponent extends React.Component {
         lon: data.geo_location.split(",")[1],
         type: "requests",
         title: "requests   : " + data.user_detail.first_name + " " + data.user_detail.last_name,
-        description: data.user_detail.first_name
+        description: data.user_detail.first_name,
+        icon:requesterIcon
       }         
       markerDataList.push(markerData);
     })
@@ -143,7 +148,8 @@ class MapComponent extends React.Component {
         lon: data.geo_location.split(",")[1],
         type: "Offers",
         title: "Offers  :  " + data.user_detail.first_name + " " + data.user_detail.last_name,
-        description: data.user_detail.first_name
+        description: data.user_detail.first_name,
+        icon:offererIcon
       }         
       markerDataList.push(markerData);
     })
@@ -232,7 +238,11 @@ class MapComponent extends React.Component {
                       coordinate={{ latitude: data.lat, longitude: data.lon}}
                       title={ data.title}
                       description={data.description}
-                  />
+                      tracksViewChanges={false}
+                     // icon={require('../images/red-pin.png')}
+                  >
+                     <Image source={data.icon} style={{height:35, width:35}} resizeMode="contain" />
+                  </Marker>
             ))}
         </MapView>
         {/*  
