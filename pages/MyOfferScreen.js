@@ -63,26 +63,9 @@ function MyOfferScreen(props) {
     }
     return (
         <Container>
-            <Header
-                style={{ backgroundColor: colorTheme }}>
-                <Left style={{
-                    flexDirection: "row", 
-                    alignItems: 'center'
-                }}>
-                    <Button
-                        transparent
-                        onPress={() => navigation.openDrawer()}>
-                        <Icon name="menu" style={{ color: "#ffffff" }} />
-                    </Button>
-
-                    <Title style={{
-                        color: "#ffffff",
-                        fontFamily: "Roboto-Medium",
-                        fontSize: 20
-                    }}>My Offers</Title>
-                </Left>
-                <Right />
-            </Header>
+            <HeaderComponent {...props}
+                title="My Offers "
+                bgColor={colorTheme} />
 
             <Content >
                     <TabWrapperComponent
