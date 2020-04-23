@@ -53,8 +53,7 @@ const AppConstant = {
         MY_OFFERS_SCREEN:"My Offers",
         MY_REQUEST_SCREEN:"My Requests",
         LOGOUT_ACTION:"LOGOUT_ACTION",
-        ADD_REQUEST_GENERAL:"AddRequestGeneral",
-        ADD_OFFER_GENERAL:"AddOfferGeneral"
+        ADD_ACTIVITY_SCREEN:"AddActivityScreen",
     },
 
     APP_TEXT_INPUT : {

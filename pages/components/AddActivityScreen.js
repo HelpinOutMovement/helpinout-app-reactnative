@@ -133,13 +133,16 @@ class Animated_Item extends Component {
   }
 }
  
-export default class AddRequestGeneral extends Component {
+export default class AddActivityScreen extends Component {
  
   constructor(props) {
  
     super(props);
     console.log(JSON.stringify(this.props))
-    this.state = { valueArray: [], disabled: false , hideAddMore:true, hideConstrains: false, constrainsData:"", volunteerDetails:"", technicalPersonalDetails:"", enableVolunteers:false, enableTechPersonal:false}
+    this.state = { valueArray: [], disabled: false , hideAddMore:true, hideConstrains: false, 
+      constrainsData:"", volunteerDetails:"", technicalPersonalDetails:"", 
+      enableVolunteers:false, enableTechPersonal:false,
+      title:"Need help with...", headerBgColor:"#4F5065"}
     this.addNewElement = false;
     this.index = 0;
     
@@ -152,10 +155,6 @@ export default class AddRequestGeneral extends Component {
         this.state.valueArray[indexVal][itemKey] = itemValue;
        console.log(JSON.stringify(this.state.valueArray))
     }
- 
-
-
-
 
     submitData = (canPay) => {
           console.log(this.props.route.params.activity_type)
@@ -174,17 +173,9 @@ export default class AddRequestGeneral extends Component {
 
 
 componentDidMount(){
-  /*
-  if(this.props.route.params.optionCode === AppConstant.API_REQUEST_CONSTANTS.activity_category.PEOPLE || this.props.route.params.optionCode === AppConstant.API_REQUEST_CONSTANTS.activity_category.AMBULANCE ){
-    console.log(this.props.route.params.optionCode + "    " + AppConstant.API_REQUEST_CONSTANTS.activity_category.PEOPLE)
-    this.setState({hideAddMore:true})
-  }else{
-    this.setState({hideAddMore:false})
-    this.add_New_View();
-  }
-*/
 
   if(this.props.route.params.activity_type === 1){
+    this.setState({title:"Need help with...", headerBgColor:"#EE6B6B" })
     console.log("Add Requests")
     if(this.props.route.params.optionCode === AppConstant.API_REQUEST_CONSTANTS.activity_category.PEOPLE || this.props.route.params.optionCode === AppConstant.API_REQUEST_CONSTANTS.activity_category.AMBULANCE ){
       console.log(this.props.route.params.optionCode + "    " + AppConstant.API_REQUEST_CONSTANTS.activity_category.PEOPLE)
@@ -196,6 +187,7 @@ componentDidMount(){
       this.add_New_View();
     }
   }else{
+    this.setState({title:"Offer help with...", headerBgColor:"#4F5065" })
     console.log("Add Offers")
     if(this.props.route.params.optionCode === AppConstant.API_REQUEST_CONSTANTS.activity_category.PEOPLE || this.props.route.params.optionCode === AppConstant.API_REQUEST_CONSTANTS.activity_category.AMBULANCE ){
       console.log("Add Offers People/Ambulance")
@@ -245,7 +237,7 @@ componentDidMount(){
     return (
       <View style={styles.container}>
         <Container >
-            <HeaderComponent {...this.props} title="Ask for Help" /*bgColor="#4F5065"*/ />
+            <HeaderComponent {...this.props} title={this.state.title} bgColor={this.state.headerBgColor} />
             <Content padder contentContainerStyle={{...StyleSheet.absoluteFillObject, justifyContent: 'flex-start', alignItems: 'center',}} > 
                 <Row style={{ marginVertical: 10  ,height: 76}}>
                     <Col>

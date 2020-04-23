@@ -84,7 +84,7 @@ function OfferHelpScreen(props) {
     getOptionsData(props)
 
     const onOfferHelpSelection = (optionCode, optionImage) => {
-        props.navigation.navigate(AppConstant.APP_PAGE.ADD_REQUEST_GENERAL, {
+        props.navigation.navigate(AppConstant.APP_PAGE.ADD_ACTIVITY_SCREEN, {
             activity_type: AppConstant.API_REQUEST_CONSTANTS.activity_type.Offer,
             optionCode: optionCode,
             optionImage: optionImage,

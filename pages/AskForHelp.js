@@ -70,7 +70,7 @@ function AskForHelpScreen(props) {
       })
       */
      console.log(optionImage)
-     props.navigation.navigate(AppConstant.APP_PAGE.ADD_REQUEST_GENERAL, {
+     props.navigation.navigate(AppConstant.APP_PAGE.ADD_ACTIVITY_SCREEN, {
       activity_type: AppConstant.API_REQUEST_CONSTANTS.activity_type.Request,
       optionCode: optionCode,
       optionImage:optionImage,

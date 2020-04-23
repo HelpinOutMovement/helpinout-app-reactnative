@@ -27,15 +27,12 @@ import AppStorage from './storage/AppStorage';
 import AppConstant from './misc/AppConstant';
 import MyDrawer from './pages/SideDrawer';
 import AskForHelpScreen from './pages/AskForHelp';
-import AskForHelpDetailsScreen from './pages/AskForHelpDetails';
 import Dashboard from './pages/Dashboard';
 import OfferHelpScreen from './pages/OfferHelpScreen';
-import OfferHelpScreenDetails from './pages/OfferHelpScreenDetails';
 import MyOfferScreen from './pages/MyOfferScreen';
 import MyRequestScreen from './pages/MyRequestScreen';
 import VerifyScreen from './pages/VerifyScreen';
-import AddRequestGeneral from './pages/components/AddRequestGeneral'
-import AddOfferGeneral from './pages/components/AddOfferGeneral'
+import AddActivityScreen from './pages/components/AddActivityScreen'
 
 
 console.disableYellowBox = true;
@@ -86,13 +83,10 @@ function App() {
              <Stack.Screen key= {`a_${AppConstant.APP_PAGE.DASHBOARD}`} name={AppConstant.APP_PAGE.DASHBOARD}  component={MyDrawer} />
             <Stack.Screen key= {`a_${AppConstant.APP_PAGE.MAP_COMPONENT}`} name={AppConstant.APP_PAGE.MAP_COMPONENT}  component={MapComponent} />
             <Stack.Screen key= {`a_${AppConstant.APP_PAGE.OFFER_HELP_SCREEN}`} name={AppConstant.APP_PAGE.OFFER_HELP_SCREEN}  component={OfferHelpScreen} />
-            <Stack.Screen key= {`a_${AppConstant.APP_PAGE.ASK_FOR_HELP_DETAILS}`} name={AppConstant.APP_PAGE.ASK_FOR_HELP_DETAILS}  component={AskForHelpDetailsScreen} />
-            <Stack.Screen key= {`a_${AppConstant.APP_PAGE.OFFER_HELP_SCREEN_DETAILS}`} name={AppConstant.APP_PAGE.OFFER_HELP_SCREEN_DETAILS}  component={OfferHelpScreenDetails} />            
             <Stack.Screen key= {`a_${AppConstant.APP_PAGE.MY_REQUEST_SCREEN}`} name={AppConstant.APP_PAGE.MY_REQUEST_SCREEN}  component={MyRequestScreen} />
             <Stack.Screen key= {`a_${AppConstant.APP_PAGE.MY_OFFERS_SCREEN}`} name={AppConstant.APP_PAGE.MY_OFFERS_SCREEN}  component={MyOfferScreen} />
 
-            <Stack.Screen key= {`a_${AppConstant.APP_PAGE.ADD_OFFER_GENERAL}`} name={AppConstant.APP_PAGE.ADD_OFFER_GENERAL}  component={AddOfferGeneral} />
-            <Stack.Screen key= {`a_${AppConstant.APP_PAGE.ADD_REQUEST_GENERAL}`} name={AppConstant.APP_PAGE.ADD_REQUEST_GENERAL}  component={AddRequestGeneral} />
+            <Stack.Screen key= {`a_${AppConstant.APP_PAGE.ADD_ACTIVITY_SCREEN}`} name={AppConstant.APP_PAGE.ADD_ACTIVITY_SCREEN}  component={AddActivityScreen} />
 
 
 {/*          <Stack.Screen key= 'n_login' name="Login" component={LoginScreen} />
@@ -114,8 +108,6 @@ function App() {
              <Stack.Screen key= {`a_${AppConstant.APP_PAGE.DASHBOARD}`} name={AppConstant.APP_PAGE.DASHBOARD}  component={MyDrawer} />
             <Stack.Screen key= {`a_${AppConstant.APP_PAGE.MAP_COMPONENT}`} name={AppConstant.APP_PAGE.MAP_COMPONENT}  component={MapComponent} />
             <Stack.Screen key= {`a_${AppConstant.APP_PAGE.OFFER_HELP_SCREEN}`} name={AppConstant.APP_PAGE.OFFER_HELP_SCREEN}  component={OfferHelpScreen} />
-            <Stack.Screen key= {`a_${AppConstant.APP_PAGE.ASK_FOR_HELP_DETAILS}`} name={AppConstant.APP_PAGE.ASK_FOR_HELP_DETAILS}  component={AskForHelpDetailsScreen} />
-            <Stack.Screen key= {`a_${AppConstant.APP_PAGE.OFFER_HELP_SCREEN_DETAILS}`} name={AppConstant.APP_PAGE.OFFER_HELP_SCREEN_DETAILS}  component={OfferHelpScreenDetails} />            
             <Stack.Screen key= {`a_${AppConstant.APP_PAGE.MY_REQUEST_SCREEN}`} name={AppConstant.APP_PAGE.MY_REQUEST_SCREEN}  component={MyRequestScreen} />
             <Stack.Screen key= {`a_${AppConstant.APP_PAGE.MY_OFFERS_SCREEN}`} name={AppConstant.APP_PAGE.MY_OFFERS_SCREEN}  component={MyOfferScreen} />
             
