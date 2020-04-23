@@ -57,7 +57,6 @@ class MapComponent extends React.Component {
       deviceInfo:[],
       markerList: [],
       radius:50,
-      address: "Dummy Address 1"
     };  
 
     Geolocation.requestAuthorization();

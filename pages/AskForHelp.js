@@ -59,6 +59,9 @@ const optionsOnScreen = [
 
 
 function AskForHelpScreen(props) {
+
+
+    console.log(JSON.stringify(props))
     const onAskForHelpSelection = (optionCode, optionImage) => {
       /*
       props.navigation.navigate(AppConstant.APP_PAGE.ASK_FOR_HELP_DETAILS, {

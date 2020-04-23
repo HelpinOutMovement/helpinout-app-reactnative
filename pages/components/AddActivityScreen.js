@@ -1,6 +1,6 @@
 
 
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import {
   Animated,
   Dimensions,
@@ -23,6 +23,9 @@ import translate from 'react-native-i18n';
 import { appLabelKey } from '../../misc/AppStrings';
 import AppConstant from '../../misc/AppConstant';
 import HView from "./HView"
+import ModalComponent from './ModalComponent';
+import UUIDGenerator from 'react-native-uuid-generator';
+import API from '../../APIClient/API'
 
  
 const width = Dimensions.get('window').width;
@@ -32,7 +35,7 @@ class Animated_Item extends Component {
   constructor(props) {
  
     super(props);
-    
+    console.log(this.props.route.params.address)
     this.animatedValue = new Animated.Value(0);
  
     if (Platform.OS === 'android') {
@@ -102,12 +105,11 @@ class Animated_Item extends Component {
         }]}>
  
         <View style={{flex: 1, flexDirection: 'row',justifyContent:"space-evenly", marginBottom:10}}>
-
                 <TextInput 
                     placeholderTextColor="grey"
                     placeholder={"Enter Items"}                
                     style={{borderWidth:1, borderRadius:3, borderColor:"grey", height:40, width:200, marginRight:10, padding:10, color:"#000000"}}    
-                    onChangeText={(val) => this.itemDataOnChange("item", this.props.item.id, val)} 
+                    onChangeText={(val) => this.itemDataOnChange("detail", this.props.item.id, val)} 
                 >   
                 </TextInput>
                 <TextInput 
@@ -125,8 +127,7 @@ class Animated_Item extends Component {
                     }}
                     onPress={this.deleteItem}>
                     {(<MaterialCommunityIcon name="close" style={{ fontSize: 30, color:"#4F5065" }} />)}
-                </TouchableOpacity>
-        
+                </TouchableOpacity>       
         </View> 
       </Animated.View>
     );
@@ -134,21 +135,34 @@ class Animated_Item extends Component {
 }
  
 export default class AddActivityScreen extends Component {
- 
+  
+
   constructor(props) {
- 
+    
     super(props);
     console.log(JSON.stringify(this.props))
     this.state = { valueArray: [], disabled: false , hideAddMore:true, hideConstrains: false, 
-      constrainsData:"", volunteerDetails:"", technicalPersonalDetails:"", 
+      constrainsData:"", volunters_required:false, volunters_detail:"", volunters_quantity:0, technical_personal_required:false,technical_personal_detail:"", technical_personal_quantity:0, 
       enableVolunteers:false, enableTechPersonal:false,
-      title:"Need help with...", headerBgColor:"#4F5065"}
+      title:"Need help with...", headerBgColor:"#4F5065", showModal:false, address:this.props.route.params.address}
     this.addNewElement = false;
     this.index = 0;
-    
-    
-   
+
+
+    const colorTheme = "#4F5065";
+
   }
+
+    setShowModal = (val) =>{
+      this.setState({showModal:val})
+    }
+    closePopUp = () => {
+      this.setState({showModal:false})
+    }
+    showPopUp = () => {
+      this.setState({showModal:true})
+      
+    }
 
     itemChangeCallBack = (itemKey, itemIndex, itemValue) => {
         let indexVal = this.state.valueArray.findIndex(ele => ele.id === itemIndex);
@@ -156,19 +170,86 @@ export default class AddActivityScreen extends Component {
        console.log(JSON.stringify(this.state.valueArray))
     }
 
+
+     setPeopleData = async (data_for, data) =>{
+      console.log(JSON.stringify(this.state))
+      console.log("Data for : ",  data_for, "  data : ", data)
+      switch(data_for) {
+        case "volunters_required":
+            await this.setState({ volunters_required: data })
+            console.log(JSON.stringify(this.state))
+          break;
+        case "technical_personal_required":
+          await this.setState({technical_personal_required:data})
+          break;
+        case "volunters_detail":
+          await this.setState({volunters_detail:data})
+          break;
+        case "volunters_quantity":
+          await this.setState({volunters_quantity:data})
+          break;
+        case "technical_personal_detail":
+          await this.setState({technical_personal_detail:data})
+          break;
+        case "technical_personal_quantity":
+          await this.setState({technical_personal_quantity:data})
+        break;
+        default:
+          console.log("no matching data")
+      }
+
+      console.log(JSON.stringify(this.state))
+    }
+
     submitData = (canPay) => {
-          console.log(this.props.route.params.activity_type)
-          console.log("canPay : " + canPay)
-          switch(this.props.route.params.optionCode) {
-            case AppConstant.API_REQUEST_CONSTANTS.activity_category.PEOPLE:
-              console.log("PEOPLE")
-              break;
-            case AppConstant.API_REQUEST_CONSTANTS.activity_category.AMBULANCE:
-              console.log("Ambulance")
-              break;
-            default:
-              console.log("Others")          
-            }      
+          let restApi = new API();
+          UUIDGenerator.getRandomUUID((uuid) => {
+            switch(this.props.route.params.optionCode) {
+              case AppConstant.API_REQUEST_CONSTANTS.activity_category.PEOPLE:
+                console.log("PEOPLE")
+                let volReq = this.state.volunters_required ? 1 : 0;
+                let techReq = this.state.technical_personal_required ? 1 : 0;
+                let peopleData = {"volunters_required":volReq, "volunters_detail":this.state.volunters_detail, "volunters_quantity":this.state.volunters_quantity,
+                  "technical_personal_required":techReq, "technical_personal_detail":this.state.technical_personal_detail, "technical_personal_quantity": this.state.technical_personal_quantity}
+                  console.log(JSON.stringify(peopleData))
+                
+                  reqObj =  restApi.activityAdd(uuid, this.props.route.params.activity_type, this.props.route.params.region.latitude+","+this.props.route.params.region.longitude, "100", this.state.address, this.props.route.params.optionCode,1,peopleData,this.state.constrainsData,canPay)
+                reqObj.then((response) => {
+                    console.log("Add Response Ambulance : " + JSON.stringify(response))
+                    if(response.status === "1") {
+                      this.showPopUp();
+                    }
+                }).catch((err) => {console.log(err)})    
+                
+                break;
+              case AppConstant.API_REQUEST_CONSTANTS.activity_category.AMBULANCE:
+                console.log("Ambulance")
+                reqObj =  restApi.activityAdd(uuid, this.props.route.params.activity_type, this.props.route.params.region.latitude+","+this.props.route.params.region.longitude, "100", this.state.address, this.props.route.params.optionCode,1,{qty:""},this.state.constrainsData,canPay)
+                reqObj.then((response) => {
+                    console.log("Add Response Ambulance : " + JSON.stringify(response))
+                    if(response.status === "1") {
+                      this.showPopUp();
+                    }
+                }).catch((err) => {console.log(err)})    
+                
+                break;
+              default:
+                console.log("Others") 
+                
+                reqObj =  restApi.activityAdd(uuid, this.props.route.params.activity_type, this.props.route.params.region.latitude+","+this.props.route.params.region.longitude, "100", this.state.address, this.props.route.params.optionCode,this.state.valueArray.length,this.state.valueArray,this.state.constrainsData,canPay)
+                
+                reqObj.then((response) => {
+                    console.log("Add Response : " + JSON.stringify(response))
+                    if(response.status === "1") {
+                      this.showPopUp();
+                    }
+                }).catch((err) => {console.log(err)})    
+                
+              
+            }
+
+          })
+          
     }
 
 
@@ -286,20 +367,22 @@ componentDidMount(){
                                         circleActiveColor={'#30a566'}
                                         circleInActiveColor={'#000000'}
                                             
-                                value={this.state.enableVolunteers ? true : false}                            
+                                value={this.state.volunters_required ? true : false}                            
                                 style={styles.Switch, {borderWidth:1}} 
-                                onValueChange ={(switchValue)=>{this.setState({enableVolunteers: switchValue})}}                                
+                                onValueChange ={(switchValue)=>{this.setPeopleData("volunters_required",switchValue)}}                              
                             ></Switch><Text style={{marginLeft:20}}>Volunteers</Text>
                             </View>
                         <View style={{flex: 1, flexDirection: 'row',justifyContent:"space-evenly", marginTop:10, marginBottom:0, borderWidth:1}}>
-                          <Textarea rowSpan={5} style={{borderWidth:1, borderRadius:4, width:"80%"}} disabled={!this.state.enableVolunteers}></Textarea>  
+                          <Textarea rowSpan={5} style={{borderWidth:1, borderRadius:4, width:"80%"}} 
+                              onChangeText={(val) => this.setPeopleData("volunters_detail",val)}  
+                              disabled={!this.state.volunters_required}></Textarea>  
                           <TextInput 
                               keyboardType={'numeric'}
                               placeholderTextColor="grey"
                               placeholder={"Qty"}                
-                              style={{borderWidth:1, borderRadius:3, borderColor:"grey",height:40, width:60, marginLeft:10, marginRight:10, padding:10}} 
-                              onChangeText={(val) => this.itemDataOnChange("qty", this.props.item.id, val)}    
-                              editable={this.state.enableVolunteers}               
+                              style={{borderWidth:1, borderRadius:3, borderColor:"grey", color:"#000000" ,height:40, width:60, marginLeft:10, marginRight:10, padding:10}} 
+                              onChangeText={(val) => this.setPeopleData("volunters_quantity",val)}    
+                              editable={this.state.volunters_required}               
                           >  
                           </TextInput>
                         </View>
@@ -315,21 +398,22 @@ componentDidMount(){
                                         circleActiveColor={'#30a566'}
                                         circleInActiveColor={'#000000'}
                                             
-                                value={this.state.enableTechPersonal ? true : false}                            
+                                value={this.state.technical_personal_required ? true : false}                            
                                 style={styles.Switch, {borderWidth:1}} 
-                                onValueChange ={(switchValue)=>{this.setState({enableTechPersonal: switchValue})}}                                
+                                onValueChange ={(switchValue)=>{this.setPeopleData("technical_personal_required",switchValue)}}                                
                             ></Switch><Text style={{marginLeft:20}}>Technicla Personal</Text>
                             </View>
                         <View style={{flex: 1, flexDirection: 'row',justifyContent:"space-evenly",marginTop:10, marginBottom:0, borderWidth:1}}>
-                          <Textarea rowSpan={5} style={{borderWidth:1, borderRadius:4, width:"80%"}} disabled={!this.state.enableTechPersonal}></Textarea>  
+                          <Textarea rowSpan={5} style={{borderWidth:1, borderRadius:4, width:"80%"}} 
+                          onChangeText={(val) => this.setPeopleData("technical_personal_detail",val)}   
+                          disabled={!this.state.technical_personal_required}></Textarea>  
                           <TextInput 
                               keyboardType={'numeric'}
                               placeholderTextColor="grey"
                               placeholder={"Qty"}                
-                              style={{borderWidth:1, borderRadius:3, borderColor:"grey",height:40, width:60, marginLeft:10, marginRight:10, padding:10}} 
-                              onChangeText={(val) => this.itemDataOnChange("qty", this.props.item.id, val)}   
-                              editable={this.state.enableTechPersonal}     
-                                         
+                              style={{borderWidth:1, borderRadius:3, borderColor:"grey", color:"#000000", height:40, width:60, marginLeft:10, marginRight:10, padding:10}} 
+                              onChangeText={(val) => this.setPeopleData("technical_personal_quantity",val)}   
+                              editable={this.state.technical_personal_required}       
                           >  
                           </TextInput>
                         </View>
@@ -345,7 +429,7 @@ componentDidMount(){
             </Content>
                 
                       <HView style={styles.hintTextContainer} hide={this.state.hideAddMore}>
-                        <HView style={{textAlign:"left", borderWidth:0, width:"100%", alignItems: "center",}} hide={this.state.hideConstrains}>
+                        <HView style={{textAlign:"left", borderWidth:0, width:"100%", alignItems: "center", marginBottom:20}} hide={this.state.hideConstrains}>
                             <Text style={{textAlign:"left", borderWidth:0, width:"90%"}}>Note to requesters</Text>
                             <Textarea style={{borderWidth:1, borderRadius:3, width:"90%"}} 
                                 rowSpan={5} 
@@ -381,19 +465,25 @@ componentDidMount(){
                     </HView>  
                   <View style={{alignItems: "center", marginTop:10, marginBottom:10}}>
                     <View style={styles.buttonContainer}>
-                      <TouchableOpacity style={styles.NonFilled} onPress={() => this.submitData(true)}>
-                        <View style={[styles.nonfilled]}>
-                            <Text style={styles.buttonTextNonFilled}>{translate.t("We_can_pay")}</Text>
+                      <TouchableOpacity style={styles.NonFilled} onPress={() => this.submitData(1)}>
+                        <View style={(this.props.route.params.activity_type === 1) ? styles.nonfilled_red : styles.nonfilled_grey }>                         
+                            <Text style={(this.props.route.params.activity_type === 1) ? styles.buttonTextNonFilled_red : styles.buttonTextNonFilled_grey}>{(this.props.route.params.activity_type === 1) ? translate.t("We_can_pay") : translate.t("We_Charge")}</Text>
                         </View> 
                       </TouchableOpacity>
-                      <TouchableOpacity style={styles.Filled} onPress={() => this.submitData(false)}>
-                        <View style={[styles.filled]}>
-                            <Text style={styles.buttonTextFilled}>{translate.t("We_cannot_pay")}</Text>
+                      <TouchableOpacity style={styles.Filled} onPress={() => this.submitData(0)}>
+                        <View style={(this.props.route.params.activity_type === 1) ? styles.filled_red : styles.filled_grey }>                        
+                            <Text style={(this.props.route.params.activity_type === 1) ? styles.buttonTextFilled_red : styles.buttonTextFilled_grey}>{(this.props.route.params.activity_type === 1) ? translate.t("We_cannot_pay") : translate.t("For_Free")}</Text>
                         </View>
                       </TouchableOpacity>                
                     </View> 
                   </View>
         </Container>
+        <ModalComponent
+                {...this.props}
+                viewName={(this.props && this.props.type) ? this.props.type : ""}
+                showModal={this.state.showModal}
+                closePopUp={this.closePopUp} 
+                activity_type={AppConstant.API_REQUEST_CONSTANTS.activity_type.Offer} />
       </View>
       
     );
@@ -505,7 +595,7 @@ const styles = StyleSheet.create({
     paddingLeft:10,
   },
 
-    filled: {
+    filled_red: {
       backgroundColor: "rgba(243,103,103,1)",
       justifyContent:'center',
       height:50,
@@ -513,7 +603,7 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       borderRadius: 9,
     },
-    nonfilled: {
+    nonfilled_red: {
         backgroundColor: "rgba(255,255,255,255)",
         justifyContent:'center',        
         height:50,
@@ -523,7 +613,29 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderRadius: 9,
       },
-    buttonTextFilled: {
+
+      filled_grey: {
+        backgroundColor: "rgba(109,115,130,1)",
+        justifyContent:'center',
+        height:50,
+        width:150,
+        alignItems: 'center',
+        borderRadius: 9,
+      },
+      nonfilled_grey: {
+          backgroundColor: "rgba(255,255,255,255)",
+          justifyContent:'center',        
+          height:50,
+          width:150,
+          alignItems: 'center',
+          borderColor: "rgba(109,115,130,1)",
+          borderWidth: 2,
+          borderRadius: 9,
+          color:"rgba(109,115,130,1)",
+        },
+
+
+    buttonTextFilled_red: {
       color: "rgba(245,245,245,1)",
       fontSize: 20,
       fontFamily: "roboto-regular", 
@@ -531,7 +643,7 @@ const styles = StyleSheet.create({
       justifyContent:'center',
     },
   
-    buttonTextNonFilled: {
+    buttonTextNonFilled_red: {
         color: "rgba(243,103,103,1)",
         fontSize: 20,
         fontFamily: "roboto-regular", 
@@ -539,6 +651,21 @@ const styles = StyleSheet.create({
         justifyContent:'center',
       },
 
+      buttonTextFilled_grey: {
+        color: "rgba(245,245,245,1)",
+        fontSize: 20,
+        fontFamily: "roboto-regular", 
+        alignItems: 'center',    
+        justifyContent:'center',
+      },
+    
+      buttonTextNonFilled_grey: {
+          color: "rgba(109,115,130,1)",
+          fontSize: 20,
+          fontFamily: "roboto-regular", 
+          alignItems: 'center',    
+          justifyContent:'center',
+        },
 
 
 

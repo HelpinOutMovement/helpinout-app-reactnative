@@ -44,7 +44,8 @@ class Dashboard extends React.Component {
 
     callbackOnRegionChange = (rgn, addr) =>{
         this.setState({region:rgn, address:addr})
-        console.log("Dashboard callbackOnRegionChange : " + JSON.stringify(rgn))
+        console.log("Dashboard callbackOnRegionChange : " + JSON.stringify(rgn), "       ---      " , addr)
+        
         // Use Geocoding and get address.
 
     }
