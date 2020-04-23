@@ -170,10 +170,10 @@ export default class AddActivityScreen extends Component {
        console.log(JSON.stringify(this.state.valueArray))
     }
 
-
+    constrainsDataOnChange = async (val) =>{
+        await this.setState({ constrainsData: val })
+    }
      setPeopleData = async (data_for, data) =>{
-      console.log(JSON.stringify(this.state))
-      console.log("Data for : ",  data_for, "  data : ", data)
       switch(data_for) {
         case "volunters_required":
             await this.setState({ volunters_required: data })
@@ -198,7 +198,6 @@ export default class AddActivityScreen extends Component {
           console.log("no matching data")
       }
 
-      console.log(JSON.stringify(this.state))
     }
 
     submitData = (canPay) => {
@@ -328,7 +327,7 @@ componentDidMount(){
                             source={this.props.route.params.optionImage} />
                     </Col>
                 </Row> 
-                <HView style={styles.hintTextContainer, {borderWidth:1, height:"75%"}} hide={this.state.hideAddMore}>
+                <HView style={styles.hintTextContainer, {borderWidth:0, height:"75%"}} hide={this.state.hideAddMore}>
                   <ScrollView
                       ref={scrollView => this.scrollView = scrollView}
                       onContentSizeChange={() => {

@@ -181,7 +181,7 @@
             });
         }
 
-        activityAdd = (activity_uuid, activity_type, geo_location, geo_accuracy, address, activity_category, activity_count, activity_detail, offer_condition, pay) =>{
+        activityAdd = (activity_uuid, activity_type, geo_location, geo_accuracy, address, activity_category, activity_count, activity_detail, offer_condition, pay) => {
             let data = {
                 "activity_uuid": activity_uuid, 
                 "activity_type": activity_type,
@@ -192,7 +192,7 @@
                 "activity_count": activity_count,                
                 "activity_detail": activity_detail,
                 "offer_condition": offer_condition,
-                "pay": pay
+                "pay": pay,
             }
             return new Promise((resolve, reject) => {
                 let reqObject = this.stuffHeader(data, true);
