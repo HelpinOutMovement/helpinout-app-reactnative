@@ -64,6 +64,20 @@ class API{
   }
 
 
+
+  geocode = (lat , lon) =>{
+    return new Promise((resolve, reject) => {
+        let addressData =  axios.get("https://nominatim.openstreetmap.org/reverse?format=json&lat="+lat+"&lon="+lon+"");
+        addressData.then((addressDetails)=> {
+            //console.log("daddressDetails : " + JSON.stringify(addressDetails))
+            resolve(addressDetails.data.display_name)
+        }).catch(err => {reject(err)})
+    });
+  }
+
+  //https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=18.482630&lon=73.892610
+
+
   login = (country_code, mobil_number) =>{
         return new Promise((resolve, reject) => {
             let  requestObjects = new RequestObjects();

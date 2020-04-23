@@ -44,14 +44,14 @@ const CardComponent = (props) => {
                     fontFamily: "Roboto-Regular",
                     fontSize: 14,
                     color: "#4F50657A"
-                  }}> 0 Requests near me </Text>
+                  }}> {props.nearMe} Requests near me </Text>
                   <Text style={{
                     fontFamily: "Roboto-Regular",
                     fontSize: 14,
                     color: "#4F50657A",
                     alignSelf:"flex-end",
                     marginRight: 10
-                  }}>0 Total</Text>
+                  }}>{props.total} Total</Text>
                 </Col>
                 
               </Row>
@@ -81,14 +81,14 @@ const CardComponent = (props) => {
         <Body>
           <Image
             style={{ alignSelf: "center", height: 65, width: 79 }}
-            source={props.path} />
+            source={props.path} resizeMode="contain"/>
         </Body>
       </CardItem>
       <CardItem footer >
         <Text style={{
           textAlign: "center",
           fontFamily: "Roboto-Regular",
-          fontSize: 16,
+          fontSize: 14,
           color: "#4F5065CC"
         }}> {props.label}</Text>
       </CardItem>

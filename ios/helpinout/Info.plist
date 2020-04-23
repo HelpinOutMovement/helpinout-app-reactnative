@@ -4,7 +4,7 @@
 <dict>
 	<key>BGTaskSchedulerPermittedIdentifiers</key>
 	<array>
-		<string>org.helpinout.billionlights</string>
+		<string>org.helpinout.helpinoutapp</string>
 	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
@@ -29,9 +29,11 @@
 		<dict>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>Firebase</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.517803779913-thqti90u1sn9pjofsgr3ian64frpcca1</string>
+				<string>com.googleusercontent.apps.517803779913-r1h3soosf0iq9c8gt6blmho4sqbt9ah4</string>
 			</array>
 		</dict>
 		<dict>
@@ -43,8 +45,8 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
-		<string>org.hemlinout.billionlights</string>
-		<string>com.googleusercontent.apps.517803779913-thqti90u1sn9pjofsgr3ian64frpcca1</string>
+		<string>org.helpinout.helpinoutapp</string>
+		<string>com.googleusercontent.apps.517803779913-r1h3soosf0iq9c8gt6blmho4sqbt9ah4</string>
 		<string>com-google-gidconsent-google</string>
 		<string>com-google-gidconsent-youtube</string>
 		<string>com-google-gidconsent</string>

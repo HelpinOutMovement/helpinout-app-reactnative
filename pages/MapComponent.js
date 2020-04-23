@@ -3,6 +3,12 @@ import React from 'react';
 import {
   StyleSheet,
   View,
+  Header,
+  Left,
+  Icon,
+  Body,
+  Title,
+  Right,
   Text,
   Dimensions,
   TouchableOpacity,
@@ -22,13 +28,14 @@ import Geocoder from 'react-native-geocoding';
 import MapView, { Marker, MAP_TYPES, ProviderPropType , PROVIDER_GOOGLE} from 'react-native-maps';
 import { getDistance, getPreciseDistance } from 'geolib';
 
-const LATITUDE = 18.5204;
-const LONGITUDE = 73.8567;
+const LATITUDE = 0;
+const LONGITUDE = 0;
 const { width, height } = Dimensions.get('window');
 const ASPECT_RATIO = width / height;
 const LATITUDE_DELTA = (Platform.OS === global.platformIOS ? 1.5 : 0.5);
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
+const currentLocationIcon = require("../images/current_location_icon.png")
 const requesterIcon = require("../images/red-pin.png")
 const offererIcon = require("../images/black-pin.png")
 
@@ -36,7 +43,7 @@ class MapComponent extends React.Component {
   constructor(props) {
     super(props);
     console.log("MapComponent Constructor" )
-    Geocoder.init("AIzaSyDNnHoaO86zpI2dJt7FvXQRFMWCAG_ldjM");
+    Geocoder.init("AIzaSyCHfhUetk2cn4t29B2YxVBf-3yrTw7NH_g");
     console.log(this.props)
     this.navigate = this.props.mapProps.navigation.navigate;
     this.state = {
@@ -52,6 +59,8 @@ class MapComponent extends React.Component {
       radius:50,
       address: "Dummy Address 1"
     };  
+
+    Geolocation.requestAuthorization();
     // Define the const outside the class
     this.setCurrentLocation(0,0);    
   }
@@ -186,9 +195,17 @@ class MapComponent extends React.Component {
       this.props.callbackOnRegionChange(region, this.state.address);
       })
       */
-     
-     this.props.callbackOnRegionChange(region, this.state.address);
+      
+     let restApi = new API();
 
+      let address = restApi.geocode(this.state.region.latitude, this.state.region.longitude)
+        address.then((addr) => {
+        this.setState({address:addr})   
+        console.log(addr)
+      })
+
+
+     this.props.callbackOnRegionChange(region, this.state.address);
      this.getLocationSuggestions();
 
     })
@@ -220,7 +237,7 @@ class MapComponent extends React.Component {
       console.log(DeviceInfo.getUniqueId());
     return (
       <View style={styles.container}>
-       
+                
         <MapView
           provider={this.props.provider}
           ref={ref => {
@@ -233,6 +250,15 @@ class MapComponent extends React.Component {
           initialRegion={this.state.region}
           //onRegionChange={region => this.onRegionChange(region)}          
         >
+                    <Marker
+                      showsUserLocation={true}
+                      coordinate={{ latitude: this.state.region.latitude, longitude: this.state.region.longitude}}
+                      title={""}
+                      description={""}
+                      tracksViewChanges={false}
+                    >
+                     <Image source={currentLocationIcon} style={{height:55, width:55}} resizeMode="contain" />
+                    </Marker>
             {this.state.markerList.map(data => (                  
                   <Marker
                       coordinate={{ latitude: data.lat, longitude: data.lon}}

@@ -33,7 +33,7 @@
 		8A75C2FC243DBACE00ACCB50 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A75C2FB243DBACE00ACCB50 /* MapKit.framework */; };
 		8A75C359243DD5B900ACCB50 /* libRNDeviceInfo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A75C358243DD5B900ACCB50 /* libRNDeviceInfo.a */; };
 		8AC74059244483050029FEF6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8AC74058244483050029FEF6 /* GoogleService-Info.plist */; };
-		8AC7405C2444919E0029FEF6 /* AuthenticationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AC7405B2444919E0029FEF6 /* AuthenticationServices.framework */; };
+		8AC7405C2444919E0029FEF6 /* AuthenticationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AC7405B2444919E0029FEF6 /* AuthenticationServices.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		A10E17F7DC2C4CB9BE7DD91C /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6EAB73EBBA5A4FA0BB546BAC /* Roboto-Medium.ttf */; };
 		C0ACDE6C1D6E174410B707C6 /* libPods-helpinout-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 63F72BC832AF3E578E5BC935 /* libPods-helpinout-tvOS.a */; };
 		C11EA3B18C644CC8B1BA3BF5 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0C737D6B27F04049937B5A28 /* Roboto-Regular.ttf */; };
@@ -375,7 +375,6 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = JDLPTBKAVL;
 						LastSwiftMigration = 1120;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
@@ -779,7 +778,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = helpinout/helpinout.entitlements;
-				CURRENT_PROJECT_VERSION = 6;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = JDLPTBKAVL;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -797,8 +798,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.helpinout.billionlights;
+				PRODUCT_BUNDLE_IDENTIFIER = org.helpinout.helpinoutapp;
 				PRODUCT_NAME = helpinout;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -813,7 +815,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = helpinout/helpinout.entitlements;
-				CURRENT_PROJECT_VERSION = 6;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = JDLPTBKAVL;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = helpinout/Info.plist;
@@ -827,8 +831,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.helpinout.billionlights;
+				PRODUCT_BUNDLE_IDENTIFIER = org.helpinout.helpinoutapp;
 				PRODUCT_NAME = helpinout;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -845,6 +850,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CURRENT_PROJECT_VERSION = 2;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -858,7 +864,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.helpinout.billionlights-tvOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.helpinout.-helpinoutapp-tvOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
@@ -877,6 +883,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 2;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = "helpinout-tvOS/Info.plist";
@@ -889,7 +896,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.helpinout.billionlights-tvOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.helpinout.-helpinoutapp-tvOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;

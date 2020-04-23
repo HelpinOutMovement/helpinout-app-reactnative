@@ -52,7 +52,9 @@ const AppConstant = {
         OFFER_HELP_SCREEN_DETAILS:"Offer Help Screen Details",
         MY_OFFERS_SCREEN:"My Offers",
         MY_REQUEST_SCREEN:"My Requests",
-        LOGOUT_ACTION:"LOGOUT_ACTION"
+        LOGOUT_ACTION:"LOGOUT_ACTION",
+        ADD_REQUEST_GENERAL:"AddRequestGeneral",
+        ADD_OFFER_GENERAL:"AddOfferGeneral"
     },
 
     APP_TEXT_INPUT : {
@@ -107,7 +109,7 @@ const AppConstant = {
             MEDICINE:6,
             AMBULANCE:7,
             MED_EQUIPMENT:8,
-            OTHER:9
+            OTHER:0
         },
         pay:{
             Willing_To_Pay:1,

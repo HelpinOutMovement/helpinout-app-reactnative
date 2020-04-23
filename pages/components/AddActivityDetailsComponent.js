@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { Image, TouchableOpacity } from 'react-native';
-import { Container, Grid,  Row, Col,  Input,  Content, Text,  Footer } from "native-base";
+import { Container, Grid,  Row, Col,  Input,  Content, Text,  Footer, Textarea, View } from "native-base";
 import { default as EntypoIcon } from 'react-native-vector-icons/AntDesign';
 import translate from 'react-native-i18n';
 import { appLabelKey } from '../../misc/AppStrings';
@@ -226,7 +226,7 @@ const AddActivityDetailsComponent = (props) => {
     const getAddMoreOption = () => {
         if (optionCode !== AppConstant.API_REQUEST_CONSTANTS.activity_category.PEOPLE && optionCode !== AppConstant.API_REQUEST_CONSTANTS.activity_category.AMBULANCE) {
             return (
-                <Row style={{ marginBottom: 10, width: "92%", alignItems: "center", alignSelf: "center" }}>
+                <Row style={{ marginBottom: 0, width: "92%", alignItems: "center", alignSelf: "center" , justifyContent:"flex-start"}}>
                     <Col>
                         <TouchableOpacity
                             style={{
@@ -313,22 +313,40 @@ const AddActivityDetailsComponent = (props) => {
         }
     }
 
+    const showConditionsOfAvailability = () =>{
+       return(
+            <Row style={{ alignSelf: "center" , marginTop:0}}>
+                <View >
+                    <Text style={{height:50}}>Conditions of Availability / Time</Text>
+                    <Textarea rowSpan={5} style={{width:300, borderWidth:1, marginTop:0}}></Textarea>
+                </View>
+            </Row>
+       ) 
+    }
+
     return (
         <Container>
             <HeaderComponent {...props} title={props.title} bgColor={props.colorTheme} />
-            <Content padder  >
+            <Content padder  contentContainerStyle={{alignItems:"center"}}>
                 {defaultHelpOptionDetails()}
                 {decideWhichViewToMake()}
             </Content>
             <Footer
                 style={{
                     backgroundColor: "#FFFFFF",
-                    borderColor: "#ffffff",
-                    height: (optionCode !== AppConstant.API_REQUEST_CONSTANTS.activity_category.PEOPLE && optionCode !== AppConstant.API_REQUEST_CONSTANTS.activity_category.AMBULANCE) ? 150 : 60
+                    borderColor: "#ffffff",   
+                    flex:0.1,
+                    left: 0,
+                    right: 0,
+                    //bottom: 120,
+                    bottom: (optionCode !== AppConstant.API_REQUEST_CONSTANTS.activity_category.PEOPLE && optionCode !== AppConstant.API_REQUEST_CONSTANTS.activity_category.AMBULANCE) ? 200 : 120,
+                    flexDirection:'row',
+                    height: (optionCode !== AppConstant.API_REQUEST_CONSTANTS.activity_category.PEOPLE && optionCode !== AppConstant.API_REQUEST_CONSTANTS.activity_category.AMBULANCE) ? 120 : 120
                 }} >
-                <Grid>
+                <Grid style={{ flexDirection:'column',}}>
                     {getAddMoreOption()}
-                    <Row style={{ alignSelf: "center" }}>
+                    {showConditionsOfAvailability()}
+                    <Row style={{ alignSelf: "center" , marginTop:70}}>
                         <ButtonComponent
                             setShowModal={() => {
                                 decideWhichValidation(AppConstant.API_REQUEST_CONSTANTS.pay.Willing_To_Pay)

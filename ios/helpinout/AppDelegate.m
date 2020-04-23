@@ -6,6 +6,7 @@
 #import <React/RCTRootView.h>
 #import <Firebase.h>
 
+
 #if DEBUG
 #import <FlipperKit/FlipperClient.h>
 #import <FlipperKitLayoutPlugin/FlipperKitLayoutPlugin.h>
@@ -63,11 +64,14 @@ static void InitializeFlipper(UIApplication *application) {
 
 - (NSURL *)sourceURLForBridge:(RCTBridge *)bridge
 {
+  
 #if DEBUG
   return [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
 #else
   return [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
 #endif
+  
+//   return [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
 }
 
 @end

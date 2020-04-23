@@ -28,6 +28,17 @@ export default class VerifyScreen extends React.Component {
         if (this.isEmpty(this.state.confirmResult)) {
             //this.handleSendCode();
         }
+/*
+        var config = {
+            apiKey: "AIzaSyAfct3wQWfE5r914mqbw8bLTrtovql6XtU",
+            authDomain: "helpinout-app-raga111.firebaseio.com",
+            databaseURL: "https://helpinout-app-raga.firebaseio.com",
+            projectId: "helpinout-app-raga111",
+            storageBucket: "helpinout-app-raga111.firebaseio.com",
+            messagingSenderId: "12121212"
+          };
+          firebase.initializeApp(config);
+*/          
         this.handleSendCode();
     }
 
@@ -57,17 +68,20 @@ export default class VerifyScreen extends React.Component {
 
     handleSendCode = () => {
         // Request to send OTP
+        alert("handleSendCode");
         if (this.validatePhoneNumber(this.state.selectedCountryDialCode+""+this.state.phoneNumber)) {
           firebase
             .auth()
             .signInWithPhoneNumber(this.state.selectedCountryDialCode+""+this.state.phoneNumber)
             .then(confirmResult => {
+                alert("confirmResult");
               console.log("confirmResult")
               console.log(confirmResult)
               this.setState({ confirmResult: confirmResult });
                          
             })
             .catch(error => {
+                alert(" handleSendCode " + error)
               console.log(error)
             })
         } else {
@@ -103,7 +117,7 @@ export default class VerifyScreen extends React.Component {
                     }
                 },
                 error => {
-                    console.log(error);
+                    alert(" login " + error)
                 }
             );
         } else {
@@ -128,7 +142,7 @@ export default class VerifyScreen extends React.Component {
                     });
                 })
                 .catch(error => {
-                    console.log(error)
+                    alert(" handleVerifyCode " + error)
                 })
         } else {
             alert('Please enter a 6 digit OTP code.')
