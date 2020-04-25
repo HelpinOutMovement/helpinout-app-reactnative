@@ -131,8 +131,10 @@
 "Month_12":"Dec",
 "Period_am":"am ",
 "Period_pm":"pm",
-"offers":"offers"
-
-
+"offers":"offers",
+"You_have_not_requested_for_any_help":"You have not requested for any help",
+"Sent_Requests":"Sent Requests",
+"Request_have_been_sent_to":"Request have been sent to",
+"Cancel_This_Request":"Cancel This Request"
 
 }

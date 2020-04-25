@@ -31,6 +31,7 @@ import Dashboard from './pages/Dashboard';
 import OfferHelpScreen from './pages/OfferHelpScreen';
 import MyOfferScreen from './pages/MyOfferScreen';
 import MyRequestScreen from './pages/MyRequestScreen';
+import MyRequestDetailScreen from './pages/MyRequestScreen.Details';
 import VerifyScreen from './pages/VerifyScreen';
 import AddActivityScreen from './pages/components/AddActivityScreen'
 
@@ -78,6 +79,7 @@ function App() {
 
 
             <Stack.Screen key={`a_${AppConstant.APP_PAGE.MY_REQUEST_SCREEN}`} name={AppConstant.APP_PAGE.MY_REQUEST_SCREEN} component={MyRequestScreen} />
+            <Stack.Screen key={`a_${AppConstant.APP_PAGE.MY_REQUEST_DETAILS_SCREEN}`} name={AppConstant.APP_PAGE.MY_REQUEST_DETAILS_SCREEN} component={MyRequestDetailScreen} />
             <Stack.Screen key={`a_${AppConstant.APP_PAGE.MY_OFFERS_SCREEN}`} name={AppConstant.APP_PAGE.MY_OFFERS_SCREEN} component={MyOfferScreen} />
 
             <Stack.Screen key={`a_${AppConstant.APP_PAGE.SPLASH}`} name={AppConstant.APP_PAGE.SPLASH} component={SplashScreen} />

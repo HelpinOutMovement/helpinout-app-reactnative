@@ -10,7 +10,9 @@ const AppConstant = {
     },
     APP_ACTION:{
         RATE_REPORT:'rate_report',
-        DELETE:'delete'
+        DELETE:'delete',
+        SEARCH_FOR_PROVIDERS:'SEARCH_FOR_PROVIDERS',
+        SENT_REQUEST:'SENT_REQUEST'
     },
     
     APP_CONFIRMATION:{
@@ -54,6 +56,7 @@ const AppConstant = {
         MY_REQUEST_SCREEN:"My Requests",
         LOGOUT_ACTION:"LOGOUT_ACTION",
         ADD_ACTIVITY_SCREEN:"AddActivityScreen",
+        MY_REQUEST_DETAILS_SCREEN:"MyRequestDetailScreen"
     },
 
     APP_TEXT_INPUT : {

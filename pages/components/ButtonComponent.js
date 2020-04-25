@@ -69,7 +69,7 @@ const BasicFilledButton = (props) => {
     let buttonFilledStyle = {
         marginVertical: 30,
         alignItems: "center",
-        backgroundColor: "#4F5065",
+        backgroundColor: props.colorTheme ? props.colorTheme : "#EE6B6B",
         height: 56,
         width: "92%",
         shadowOpacity: 0.9,

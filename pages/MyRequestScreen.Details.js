@@ -1,11 +1,12 @@
-
 import React, { useState, useEffect } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import { Container, Header, Grid, Row, Col, Title, Left, Icon, Right, Button, Body, Content, Text, Footer, FooterTab, Card, CardItem } from "native-base";
 import translate from 'react-native-i18n';
+import { BasicFilledButton } from './components/ButtonComponent';
 import { PastOfferRequestComponent } from './components/PastOfferRequestComponent';
-import {apiInstance} from "../APIClient/API";
+import { apiInstance } from "../APIClient/API";
 import AppConstant from '../misc/AppConstant';
+import { TabCardComponent } from './components/CardComponent';
 import ModalComponent from './components/ModalComponent';
 import HeaderComponent from './components/HeaderComponent';
 
@@ -19,100 +20,67 @@ const realReq = [
         "geo_location": "18.59409090,73.90899140",
         "status": 1,
         "activity_detail": [
-          {
-            "detail": "Bshs",
-            "quantity": 1
-          }
+            {
+                "detail": "Bshs",
+                "quantity": 1
+            }
         ],
         "mapping": [
-          {
-            "offer_detail": {
-              "activity_type": 2,
-              "activity_uuid": "F390A4C5-81A6-481D-B926-34ECEB942B7B",
-              "date_time": "2020-03-21T22:41:31.000-05:30",
-              "activity_category": 1,
-              "activity_count": 1,
-              "geo_location": "19.23246073,74.80682373",
-              "status": 1,
-              "offer_condition": "",
-              "activity_detail": [
-                {
-                  "detail": "Lunch",
-                  "quantity": 20
-                }
-              ],
-              "user_detail": {
-                "country_code": "+91",
-                "mobile_no": "9730131849",
-                "first_name": "VSRV",
-                "last_name": "Raghavan",
-                "mobile_no_visibility": 0,
-                "user_type": 2,
-                "org_name": null,
-                "org_type": null,
-                "org_division": null,
-                "rating_avg": 0,
-                "rating_count": 0
-              }
-            },
-            "status": 1,
-            "mapping_initiator": 1,
-            "rate_report": "{}"
-          }
+            {
+                "offer_detail": {
+                    "activity_type": 2,
+                    "activity_uuid": "F390A4C5-81A6-481D-B926-34ECEB942B7B",
+                    "date_time": "2020-03-21T22:41:31.000-05:30",
+                    "activity_category": 1,
+                    "activity_count": 1,
+                    "geo_location": "19.23246073,74.80682373",
+                    "status": 1,
+                    "offer_condition": "",
+                    "activity_detail": [
+                        {
+                            "detail": "Lunch",
+                            "quantity": 20
+                        }
+                    ],
+                    "user_detail": {
+                        "country_code": "+91",
+                        "mobile_no": "9730131849",
+                        "first_name": "VSRV",
+                        "last_name": "Raghavan",
+                        "mobile_no_visibility": 0,
+                        "user_type": 2,
+                        "org_name": null,
+                        "org_type": null,
+                        "org_division": null,
+                        "rating_avg": 0,
+                        "rating_count": 0
+                    }
+                },
+                "status": 1,
+                "mapping_initiator": 1,
+                "rate_report": "{}"
+            }
         ]
-      },
-      {
+    },
+    {
         "activity_type": 1,
-        "activity_uuid": "fbd7e6c0-5282-4817-8364-7e1600d92db6",
-        "date_time": "2020-04-17T21:43:28.000+05:30",
-        "activity_category": 4,
+        "activity_uuid": "A1DD40A8-00F9-4AE3-9525-E595BBBDCE68",
+        "date_time": "2020-03-23T23:22:51.000-05:30",
+        "activity_category": 2,
         "activity_count": 1,
-        "geo_location": "28.64439120,77.36176942",
+        "geo_location": "17.44303093,78.52630595",
         "status": 1,
         "activity_detail": [
-          {
-            "detail": "Gd",
-            "quantity": 35
-          }
-        ],
-        "mapping": [
-          {
-            "offer_detail": {
-              "activity_type": 2,
-              "activity_uuid": "89af57b3-f148-4162-bc08-d76d93bb6389",
-              "date_time": "2020-04-17T21:43:07.000+05:30",
-              "activity_category": 4,
-              "activity_count": 1,
-              "geo_location": "28.64426530,77.36177710",
-              "status": 1,
-              "offer_condition": "",
-              "activity_detail": [
-                {
-                  "detail": "Bdnd",
-                  "quantity": 98
-                }
-              ],
-              "user_detail": {
-                "country_code": "+91",
-                "mobile_no": "8800579215",
-                "first_name": "Avneesh",
-                "last_name": "Kumar Gupta",
-                "mobile_no_visibility": 1,
-                "user_type": 2,
-                "org_name": "Organization",
-                "org_type": 4,
-                "org_division": "Unit2",
-                "rating_avg": 3.5,
-                "rating_count": 4
-              }
-            },
-            "status": 1,
-            "mapping_initiator": 1,
-            "rate_report":  {}
-          }
+            {
+                "volunters_required": 1,
+                "volunters_detail": "Clean\t\t ",
+                "volunters_quantity": 5,
+                "technical_personal_required": 1,
+                "technical_personal_detail": "Lab ",
+                "technical_personal_quantity": 4
+            }
         ]
-      },
-     
+    },
     {
         "activity_type": 1,
         "activity_uuid": "4058E8B8-E76F-487F-B723-820612901761",
@@ -267,105 +235,48 @@ const realReq = [
     }
 ]
 
-function MyRequestScreen(props) {
+function MyRequestDetailScreen(props) {
     const colorTheme = "#EE6B6B";
-    const activity_type = 1;
     const [showModal, setShowModal] = useState(false);
     const [modalInfo, setModalInfo] = useState({});
-    const [requestInformation, setRequestInformation] = useState([]);
-    useEffect(()=>{
-        apiInstance.userPastActivity(activity_type).then(resp => {
-            setRequestInformation(resp.data.requests);
-        }).catch((e)=>{
-            setRequestInformation([]);
-        })
-    },[]);
-
-
-    const primaryActionHandler = (ele, actions) => {
-        console.log(ele, "$$$$", actions);
-        if(actions === AppConstant.APP_ACTION.SENT_REQUEST) {
-            props.navigation.navigate(AppConstant.APP_PAGE.MY_REQUEST_DETAILS_SCREEN,{
-                request: ele
-            });
-        }
-        /*
-        if (actions === AppConstant.APP_ACTION.RATE_REPORT) {
-            setModalInfo({
-                type: AppConstant.APP_ACTION.RATE_REPORT,
-                ...ele
-            });
-            setShowModal(!showModal);
-        }
-        */
-    }
-    const secondaryActionHandler = (ele, actions) => {
-        console.log(ele.id, "$$$$", actions);
-    }
-
+    const requestParams = (props.route && props.route.params && props.route.params.request) ? props.route.params.request : {};
     const closePopUp = () => {
         setShowModal(!showModal);
     }
 
-    const getRequestList = () => {
-        let cardListView = [];
-        // requestInformation.forEach((singleOption, index) => {
-            realReq.forEach((singleOption, index) => {
-            cardListView.push((
-                <PastOfferRequestComponent
-                    key={singleOption.activity_uuid}
-                    count_suffix= {translate.t("offers")}
-                    colorTheme={colorTheme}
-                    {...singleOption}
-                    clickHandler={primaryActionHandler}
-                   />
-            ));
-        });
-
-        
-        if(cardListView.length <= 0) {
-            cardListView.push(<View>
-                <Text>
-                    {translate.t("You_have_not_requested_for_any_help")}
-                </Text>
-            </View>)
+    const getMappedRequestView = () => {
+        const mappedRequestView = [];
+        if (requestParams && requestParams.mapping && requestParams.mapping.length) {
+            requestParams.mapping.forEach((singleOption) => {
+                mappedRequestView.push(<TabCardComponent {...singleOption} />)
+            });
         }
-        return cardListView;
 
+        // if no items 
+        if (mappedRequestView.length <= 0) {
+            mappedRequestView.push(
+                <View>
+                    <Text> This is Request Details </Text>
+                </View>
+            )
+        }
+
+        return mappedRequestView;
     }
-    //hamburgerMenu={true}
-    /*
-     navigationHandler={() => {
-                    console.log('HERE!!');
-                    props.navigation.dispatch(DrawerActions.openDrawer())
-                }}
-    */
+
     return (
         <Container>
             <HeaderComponent {...props}
-               
-
-                title={translate.t("My_Requests")}
+                title={translate.t("Request_have_been_sent_to")}
                 bgColor={colorTheme} />
             <Content   >
-                {getRequestList()}
-                {
-                    /**
-                     <Grid>
-                     {
-                     (<TabWrapperComponent 
-                     primaryTabTitle={translate.t(appLabelKey.offers_Received)}
-                     secondaryTabTitle={translate.t(appLabelKey.requests_Sent)}
-                     primayTabData={primaryData}
-                     primaryActionHandler={primaryActionHandler}
-                     secondaryActionHandler={secondaryActionHandler}
-                     secondaryTabData={secondaryData}
-                         />)
-                      }
-                 </Grid>
-                     */
-                }
-
+                {getMappedRequestView()}
+                <View style={{ marginTop: 10, justifyContent: "center", alignItems: "center" }}>
+                    <BasicFilledButton
+                        clickHandler={() => { props.closePopUp() }}
+                        label={translate.t("Cancel_This_Request")}
+                        colorTheme={colorTheme} />
+                </View>
             </Content>
             <ModalComponent
                 {...modalInfo}
@@ -392,4 +303,4 @@ function MyRequestScreen(props) {
     );
 }
 
-export default MyRequestScreen;
+export default MyRequestDetailScreen;
