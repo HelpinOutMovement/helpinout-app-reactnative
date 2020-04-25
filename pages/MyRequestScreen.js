@@ -78,7 +78,7 @@ const realReq = [
         "status": 1,
         "activity_detail": [
             {
-                "quantity": null
+                "quantity": 12
             }
         ]
     },
