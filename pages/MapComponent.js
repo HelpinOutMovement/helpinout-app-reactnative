@@ -204,8 +204,8 @@ class MapComponent extends React.Component {
       })
 
 
-     this.props.callbackOnRegionChange(region, this.state.address);
-     this.getLocationSuggestions();
+     this.props.callbackOnRegionChange(region, this.state);
+     //this.getLocationSuggestions();
 
     })
   }
@@ -245,7 +245,7 @@ class MapComponent extends React.Component {
           //mapType={MAP_TYPES.TERRAIN}
           //provider={PROVIDER_GOOGLE}
           onRegionChangeComplete={region => this.onRegionChangeComplete(region)}   
-          style={styles.map}
+          style={{...StyleSheet.absoluteFillObject, height:this.props.mapHeight}}
           initialRegion={this.state.region}
           //onRegionChange={region => this.onRegionChange(region)}          
         >

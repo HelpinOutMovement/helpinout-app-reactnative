@@ -148,12 +148,13 @@
             });
         }
 
-        activitySuggestions = (activity_type, activity_uuid, offerer, requester) =>{
+        activitySuggestions = (activity_type, activity_uuid, geo_location, geo_accuracy, radius) =>{
             let data = {
                 "activity_type": activity_type,              
                 "activity_uuid": activity_uuid,
-                "offerer": offerer,
-                "requester": requester,
+                "geo_location": geo_location,
+                "geo_accuracy": geo_accuracy,
+                "radius":radius,
             }
             return new Promise((resolve, reject) => {
                 let reqObject = this.stuffHeader(data, true);

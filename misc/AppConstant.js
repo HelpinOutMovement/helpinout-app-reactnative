@@ -56,7 +56,8 @@ const AppConstant = {
         MY_REQUEST_SCREEN:"My Requests",
         LOGOUT_ACTION:"LOGOUT_ACTION",
         ADD_ACTIVITY_SCREEN:"AddActivityScreen",
-        MY_REQUEST_DETAILS_SCREEN:"MyRequestDetailScreen"
+        MY_REQUEST_DETAILS_SCREEN:"MyRequestDetailScreen",
+        SEARCH_HELP_PROVIDERS_REQUESTERS:"SearchHelpProvidersRequesters",
     },
 
     APP_TEXT_INPUT : {

@@ -34,6 +34,7 @@ import MyRequestScreen from './pages/MyRequestScreen';
 import MyRequestDetailScreen from './pages/MyRequestScreen.Details';
 import VerifyScreen from './pages/VerifyScreen';
 import AddActivityScreen from './pages/components/AddActivityScreen'
+import SearchHelpProvidersRequesters from './pages/SearchHelpProvidersRequesters'
 
 
 console.disableYellowBox = true;
@@ -66,7 +67,7 @@ function App() {
     switch (appState) {
       case AppConstant.APP_STATE.IS_AUTHENTICATED:
         stackedScreen.push((
-          //"Dashboard"
+          //"Dashboard  SearchHelpProvidersRequesters"
           <Stack.Navigator key='n_authen' initialRouteName="Dashboard" screenOptions={{
             headerShown: false
           }} >
@@ -89,6 +90,7 @@ function App() {
             <Stack.Screen key={`a_${AppConstant.APP_PAGE.OFFER_HELP_SCREEN}`} name={AppConstant.APP_PAGE.OFFER_HELP_SCREEN} component={OfferHelpScreen} />
 
             <Stack.Screen key={`a_${AppConstant.APP_PAGE.ADD_ACTIVITY_SCREEN}`} name={AppConstant.APP_PAGE.ADD_ACTIVITY_SCREEN} component={AddActivityScreen} />
+            <Stack.Screen key= {`a_${AppConstant.APP_PAGE.SEARCH_HELP_PROVIDERS_REQUESTERS}`} name={AppConstant.APP_PAGE.SEARCH_HELP_PROVIDERS_REQUESTERS}  component={SearchHelpProvidersRequesters} />
 
 
             {/*          <Stack.Screen key= 'n_login' name="Login" component={LoginScreen} />

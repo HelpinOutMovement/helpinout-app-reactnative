@@ -16,6 +16,12 @@ import API from "../APIClient/API";
 import translate from 'react-native-i18n';
 import appStorage from '../storage/AppStorage';
 import Geolocation from '@react-native-community/geolocation';
+import { getDistance, getPreciseDistance } from 'geolib';
+
+const { width, height } = Dimensions.get('window');
+const ASPECT_RATIO = width / height;
+const LATITUDE_DELTA = (Platform.OS === global.platformIOS ? 1.5 : 0.5);
+const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
 const dimensions = Dimensions.get('window');       
 class Dashboard extends React.Component {
@@ -42,12 +48,36 @@ class Dashboard extends React.Component {
     }
 
 
-    callbackOnRegionChange = (rgn, addr) =>{
-        this.setState({region:rgn, address:addr})
-        console.log("Dashboard callbackOnRegionChange : " + JSON.stringify(rgn), "       ---      " , addr)
+    callbackOnRegionChange = (rgn, mapState) =>{
+        this.setState({region:rgn, address:mapState.address})
+        console.log("Dashboard callbackOnRegionChange : " + JSON.stringify(rgn), "       ---      " , mapState.address)
         
         // Use Geocoding and get address.
+        this.getLocationSuggestions(mapState);
 
+    }
+
+
+    getLocationSuggestions = (mapState) =>{
+
+      this.setLanLon(mapState.region.latitude, mapState.region.longitude);
+      let restApi = new API();
+      reqObj =  restApi.locationSuggestion(mapState.region.latitude, mapState.region.longitude, "10.424", getDistance(mapState.boundries.northEast,mapState.boundries.southWest)/2);     
+      reqObj.then((val)=> {
+        //console.log("API Response Data  1  " + JSON.stringify(val))
+        //this.addMarker(val)
+        this.mapComponentRef.current.addMarker(val)
+      }).catch(err => {
+        if(err.response.status === 409){
+          alert("appid expired ")
+          AppStorage.storeAppInfo(AppConstant.APP_STORE_KEY.IS_VEFIRIED, "false");
+          this.navigate(AppConstant.APP_PAGE.LOGIN);
+        }
+      })
+    }
+
+    setLanLon(lat, lon){
+      this.setState({region:{latitude: lat, longitude:lon, latitudeDelta: LATITUDE_DELTA, longitudeDelta: LONGITUDE_DELTA}});
     }
 
 

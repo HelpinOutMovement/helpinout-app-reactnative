@@ -212,10 +212,10 @@ class API{
         });    
     }
 
-    activitySuggestions = (activity_type, activity_uuid, offerer, requester) =>{
+    activitySuggestions = (activity_type, activity_uuid, geo_location, geo_accuracy, radius) =>{
         return new Promise((resolve, reject) => {
             let  requestObjects = new RequestObjects();
-            reqObj = requestObjects.activitySuggestions(activity_type, activity_uuid, offerer, requester);
+            reqObj = requestObjects.activitySuggestions(activity_type, activity_uuid, geo_location, geo_accuracy, radius);
             reqObj.then((val)=> {
                 console.log("Activity mapping suggestion request Object ")
                 console.log(val)
