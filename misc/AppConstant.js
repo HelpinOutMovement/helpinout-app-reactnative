@@ -99,6 +99,17 @@ const AppConstant = {
             Request:1,
             Offer:2
         },
+        activity_category_code:{
+            1:'FOOD',
+            2:'PEOPLE',
+            3:'SHELTER',
+            4:'MED_PPE',
+            5:'TESTING',
+            6:'MEDICINE',
+            7:'AMBULANCE',
+            8:'MED_EQUIPMENT',
+            0:'OTHER'
+        },
         activity_category:{
             FOOD:1,
             PEOPLE:2,

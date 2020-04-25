@@ -114,7 +114,24 @@
 "Your_Request_for_Help_has_been_registered":"Your Request for Help has been registered",
 "How_many_people":"How many people ?",
 "Submit":"Submit",
-"Should_others_take_help_from_them": "Should others take help from them?"
+"Should_others_take_help_from_them": "Should others take help from them?",
+"Month_1":"Jan",
+
+"Month_2":"Feb",
+"Month_3":"March",
+"Month_4":"April",
+"Month_5":"May",
+"Month_6":"Jun",
+"Month_7":"July",
+"Month_8":"Aug",
+"Month_9":"Sept",
+"Month_10":"Oct",
+"Month_11":"Nov",
+"Month_12":"Dec",
+"Period_am":"am ",
+"Period_pm":"pm",
+"offers":"offers"
+
 
 
 }

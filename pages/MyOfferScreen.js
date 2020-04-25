@@ -64,7 +64,7 @@ function MyOfferScreen(props) {
     return (
         <Container>
             <HeaderComponent {...props}
-                title="My Offers "
+                title={translate.t("My_Offers")}
                 bgColor={colorTheme} />
 
             <Content >

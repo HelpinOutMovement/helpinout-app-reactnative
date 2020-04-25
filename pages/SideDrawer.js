@@ -10,6 +10,7 @@ import { appLabelKey } from '../misc/AppStrings';
 import commonStyling from '../styling/commonStyle';
 
 import Dashboard from './Dashboard';
+import MyRequestScreen from './MyRequestScreen';
 import LogoComponent from './components/LogoComponent';
 
 const Drawer = createDrawerNavigator();
@@ -120,7 +121,8 @@ const CustomSideBarView = ({ navigation }) => {
                         onPress={() => {
                             if(singleMenu.pageName !== AppConstant.APP_PAGE.LOGOUT_ACTION) {
                                 navigation.closeDrawer();
-                                const pageProps = singleMenu.pageProps ? singleMenu.pageProps : {};
+                                let pageProps = singleMenu.pageProps ? singleMenu.pageProps : {};
+                                pageProps = {...pageProps , navigationIns :navigation}
                                 navigation.navigate(singleMenu.pageName, pageProps);
                             } else {
                                 navigation.closeDrawer();
@@ -164,7 +166,11 @@ const CustomSideBarView = ({ navigation }) => {
 }
 function MyDrawer(props) {
     return (
-        <Drawer.Navigator drawerContent={(props) => (<CustomSideBarView  {...props} />)}>
+        <Drawer.Navigator 
+        permanent={'front'}
+        drawerContent={(props) => (<CustomSideBarView  {...props} />)}>
+            
+            <Drawer.Screen name="MyRequestScreen12" {...props} component={MyRequestScreen} />
             <Drawer.Screen name="Feed" {...props} component={Dashboard} />
         </Drawer.Navigator>
     );

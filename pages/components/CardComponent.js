@@ -1,9 +1,13 @@
 import React from 'react';
 import { Image, TouchableOpacity, Linking, Platform, View } from 'react-native';
 import { Body, Text, Card, CardItem, Grid, Row, Col } from "native-base";
+import translate from 'react-native-i18n';
 import { default as MaterialIcon } from 'react-native-vector-icons/MaterialIcons';
 import { BasicButton } from './ButtonComponent';
 import AppConstant from '../../misc/AppConstant'
+import StaticImage from '../../styling/StaticImage';
+import Utilities from '../../misc/Utils';
+import { appLabelKey } from '../../misc/AppStrings';
 
 const CardComponent = (props) => {
   if (props.singleRow) {
@@ -26,10 +30,12 @@ const CardComponent = (props) => {
               <Row style={{}}>
                 <Col style={{ width: "30%" }}>
                   <Image
-                    style={{ alignSelf: "flex-start",
-                           width: 70, 
-                           height: 56,
-                          marginLeft: 10 }}
+                    style={{
+                      alignSelf: "flex-start",
+                      width: 70,
+                      height: 56,
+                      marginLeft: 10
+                    }}
                     source={props.path} />
                 </Col>
                 <Col style={{ width: "70%", alignItems: "flex-start" }}>
@@ -37,7 +43,7 @@ const CardComponent = (props) => {
                     style={{
                       fontFamily: "Roboto-Regular",
                       fontSize: 16,
-                      lineHeight:18,
+                      lineHeight: 18,
                       color: "#4F5065"
                     }}> {props.label} </Text>
                   <Text style={{
@@ -49,11 +55,11 @@ const CardComponent = (props) => {
                     fontFamily: "Roboto-Regular",
                     fontSize: 14,
                     color: "#4F50657A",
-                    alignSelf:"flex-end",
+                    alignSelf: "flex-end",
                     marginRight: 10
                   }}>{props.total} Total</Text>
                 </Col>
-                
+
               </Row>
 
             </Grid>
@@ -81,7 +87,7 @@ const CardComponent = (props) => {
         <Body>
           <Image
             style={{ alignSelf: "center", height: 65, width: 79 }}
-            source={props.path} resizeMode="contain"/>
+            source={props.path} resizeMode="contain" />
         </Body>
       </CardItem>
       <CardItem footer >
@@ -107,9 +113,9 @@ const TabCardComponent = (props) => {
     Linking.openURL(phoneNumber);
   };
 
-
-
-
+  //console.log(props.activity_category)
+  const helpOption = Utilities.getCategoryFromCode(props.activity_category);
+  const categoryName = translate.t(appLabelKey[helpOption.toLowerCase()]);
   return (
     <Card style={{
       marginTop: 25,
@@ -122,6 +128,31 @@ const TabCardComponent = (props) => {
       <CardItem >
         <View style={{ width: "100%", flexDirection: "column" }}>
           <View style={{ marginVertical: 10, flexDirection: "row", justifyContent: "space-between" }}>
+            <View style={{ width: "70%" }}>
+              <Text style={{
+                textAlign: "left",
+                fontFamily: "Roboto-Medium",
+                fontSize: 14,
+                color: "#EE6B6B"
+              }}> {categoryName}</Text>
+              <Text style={{
+                textAlign: "left",
+                fontFamily: "Roboto-Medium",
+                fontSize: 12,
+                color: "#EE6B6B"
+              }}>   {Utilities.getDateTime(props.date_time)}</Text>
+            </View>
+            <View style={{ width: "20%" }}>
+              <Text style={{
+                textAlign: "left",
+                fontFamily: "Roboto-Medium",
+                fontSize: 12,
+                color: "#EE6B6B"
+              }}> {props.activity_count + " " + props.count_suffix}</Text>
+            </View>
+          </View>
+
+          <View style={{ marginVertical: 10, flexDirection: "row", justifyContent: "space-between" }}>
             <Text style={{
               textAlign: "left",
               fontFamily: "Roboto-Medium",
@@ -130,7 +161,7 @@ const TabCardComponent = (props) => {
             }}> {props.name}</Text>
             <Image
               style={{ alignSelf: "center", width: 24, height: 19 }}
-              source={props.helpOption} />
+              source={StaticImage[helpOption]} />
           </View>
           <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
             <View style={{ width: "80%" }}>
