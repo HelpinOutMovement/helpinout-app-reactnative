@@ -169,8 +169,6 @@ function MyDrawer(props) {
         <Drawer.Navigator 
         permanent={'front'}
         drawerContent={(props) => (<CustomSideBarView  {...props} />)}>
-            
-            <Drawer.Screen name="MyRequestScreen12" {...props} component={MyRequestScreen} />
             <Drawer.Screen name="Feed" {...props} component={Dashboard} />
         </Drawer.Navigator>
     );

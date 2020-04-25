@@ -1,10 +1,11 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import { Container, Header, Grid, Row, Col, Title, Left, Icon, Right, Button, Body, Content, Text, Footer, FooterTab, Card, CardItem } from "native-base";
 import translate from 'react-native-i18n';
 import { DrawerActions } from '@react-navigation/native';
 import { TabCardComponent } from './components/CardComponent';
+import {apiInstance} from "../APIClient/API";
 
 
 import { appLabelKey } from '../misc/AppStrings';
@@ -203,37 +204,20 @@ const realReq = [
         ]
     }
 ]
-const primaryData = [
-    {
-        id: 412,
-        helpOption: StaticImage.FOOD,
-        name: "Tina 11111Jamna",
-        description: "has offered to help you. 14 April 2020, 10:45 am.as offered to help you. 14 April 2as offered to help you. 14 April 2",
-        callerInfo: "Call them on +91 543053490 Time: 6pm to 9pm.",
-        callerNumber: "+91543053490"
-    },
-    {
-        id: 122,
-        helpOption: StaticImage.MEDICINE,
-        name: " Bhaskar Rao ",
-        description: "has offered to help you. 14 April 2020, 10:45 am",
-        callerInfo: "Call them on +91 543053490 Time: 6pm to 9pm.",
-        callerNumber: "+91543053490"
-    }
-];
 
-const secondaryData = [
-    {
-        id: 121,
-        helpOption: StaticImage.AMBULANCE,
-        name: "Shyam Narayan ",
-        description: "was sent a help request on 14 April 2020, 10:45 am They will call you if they can help you.",
-    },
-];
 function MyRequestScreen(props) {
     const colorTheme = "#EE6B6B";
+    const activity_type = 1;
     const [showModal, setShowModal] = useState(false);
     const [modalInfo, setModalInfo] = useState({});
+    const [requestInformation, setRequestInformation] = useState([]);
+    useEffect(()=>{
+        apiInstance.userPastActivity(activity_type).then(resp => {
+            setRequestInformation(resp.data.requests);
+        }).catch((e)=>{
+            setRequestInformation([]);
+        })
+    },[]);
 
 
     const primaryActionHandler = (ele, actions) => {
@@ -256,7 +240,8 @@ function MyRequestScreen(props) {
 
     const getRequestList = () => {
         const cardListView = [];
-        realReq.forEach((singleOption, index) => {
+        // requestInformation.forEach((singleOption, index) => {
+            realReq.forEach((singleOption, index) => {
             cardListView.push((
                 <TabCardComponent
                     key={singleOption.activity_uuid}
@@ -269,15 +254,17 @@ function MyRequestScreen(props) {
         return cardListView;
 
     }
-
-    return (
-        <Container>
-            <HeaderComponent {...props}
-                hamburgerMenu={true}
-                navigationHandler={() => {
+    //hamburgerMenu={true}
+    /*
+     navigationHandler={() => {
                     console.log('HERE!!');
                     props.navigation.dispatch(DrawerActions.openDrawer())
                 }}
+    */
+    return (
+        <Container>
+            <HeaderComponent {...props}
+               
 
                 title={translate.t("My_Requests")}
                 bgColor={colorTheme} />

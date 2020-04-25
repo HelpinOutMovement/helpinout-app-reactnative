@@ -177,7 +177,7 @@ class API{
     userPastActivity = (activity_type) =>{
         return new Promise((resolve, reject) => {
             let  requestObjects = new RequestObjects();
-            reqObj = requestObjects.userPastActivity(activity_type);
+            reqObj = requestObjects.userPastActivityObject(activity_type);
             reqObj.then((val)=> {
                 console.log("pastactivity request Object ")
                 console.log(val)           
@@ -353,5 +353,9 @@ class API{
 
 }
 
+const apiInstance = new API();
+export {
+    apiInstance 
+}
 export default API;
 
