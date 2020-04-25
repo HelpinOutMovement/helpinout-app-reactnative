@@ -68,6 +68,7 @@ class API{
   geocode = (lat , lon) =>{
     return new Promise((resolve, reject) => {
         let addressData =  axios.get("https://nominatim.openstreetmap.org/reverse?format=json&lat="+lat+"&lon="+lon+"");
+        //let addressData =  axios.get("https://api.bigdatacloud.net/data/reverse-geocode-client?latitude="+lat+"&longitude="+lon+"&localityLanguage=en");
         addressData.then((addressDetails)=> {
             //console.log("daddressDetails : " + JSON.stringify(addressDetails))
             resolve(addressDetails.data.display_name)

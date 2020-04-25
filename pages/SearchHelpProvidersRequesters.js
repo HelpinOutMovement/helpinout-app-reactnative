@@ -86,9 +86,10 @@ class SearchHelpProvidersRequesters extends React.Component {
         //console.log("Dashboard callbackOnRegionChange : " + JSON.stringify(rgn), "       ---      " , addr)
         this.setState({region:rgn, address:mapState.address})
         // Use Geocoding and get address.
-        console.log(JSON.stringify(this.state))
+        console.log("Use Geocoding and get address  "+ JSON.stringify(mapState))
         this.getActivitySuggestions()
     }
+
 
     componentDidMount(){
         
@@ -146,7 +147,7 @@ class SearchHelpProvidersRequesters extends React.Component {
                                 <Text style={{fontSize:10, overflow:"hidden", height:10, textAlign:"left", width: "100%" , color:"grey", paddingTop:0, paddingBottom:0}}>You are here</Text>
                                 <Text style={{fontSize:12, overflow:"hidden", height:30,textAlign:"left", width: "100%", paddingTop:0}}>{this.state.address}</Text>
                             </View>
-                            <View style={{width: "20%", backgroundColor:"white", height: 50, borderRadius:6, borderTopLeftRadius:0,borderBottomLeftRadius:0 ,borderTopWidth:1,borderBottomWidth:1,borderRightWidth:1,alignItems:"center", justifyContent: 'center'}} ><Text>Change</Text></View>                            
+                            <View style={{width: "20%", backgroundColor:"white", height: 50, borderRadius:6, borderTopLeftRadius:0,borderBottomLeftRadius:0 ,borderTopWidth:1,borderBottomWidth:1,borderRightWidth:1,alignItems:"center", justifyContent: 'center'}} ><Text style={{fontFamily: "roboto-medium",fontSize:14 , color:"rgba(243,103,103,1)"}}>Change</Text></View>                            
                         </View>
 
                         <View style={{position:"absolute",bottom:this.state.bottom_panel_bottom, height:50}}>
@@ -195,7 +196,7 @@ class SearchHelpProvidersRequesters extends React.Component {
                                                         //selectedStar={(rating) => this.onStarRatingPress(rating)}
                                                     />
                                                     </View>
-                                                    <View style={styles.rect5}><Text style={{paddingLeft:5}}>{Utilities.timeSince(singleData.date_time)} ago  | {(this.getDistanceBetween({ latitude: this.state.region.latitude, longitude: this.state.region.longitude }, { latitude: singleData.geo_location.split(",")[0], longitude: singleData.geo_location.split(",")[1] }))/1000} kms away</Text></View>
+                                                    <View style={styles.rect5}><Text style={{paddingLeft:5}}>{Utilities.timeSince(singleData.date_time)} ago  | {((this.getDistanceBetween({ latitude: this.state.region.latitude, longitude: this.state.region.longitude }, { latitude: singleData.geo_location.split(",")[0], longitude: singleData.geo_location.split(",")[1] }))/1000).toFixed(2)} kms away</Text></View>
                                                 </View>
                                                 <View style={styles.rect6}><Text style={{paddingLeft:5, fontSize:10}}>Can help with</Text></View>
                                                 <View style={styles.rect7}>
@@ -227,12 +228,11 @@ class SearchHelpProvidersRequesters extends React.Component {
                                 Test data n Testdata
                             </Text>
                             <View style={styles.buttonContainer}>
-                                <TouchableOpacity style={styles.AskForHelp} onPress={() => this.navigate(AppConstant.APP_PAGE.ASK_FOR_HELP, {region:this.state.region, address:this.state.address})}>
-                                    <AskForHelpButton  />
-                                </TouchableOpacity>
-                                <TouchableOpacity style={styles.OfferHelp} onPress={() => this.navigate(AppConstant.APP_PAGE.OFFER_HELP_SCREEN, {region:this.state.region, address:this.state.address})}>
-                                    <OfferHelpButton  />
-                                </TouchableOpacity>                
+                                <TouchableOpacity  onPress={() => this.navigate(AppConstant.APP_PAGE.ASK_FOR_HELP, {region:this.state.region, address:this.state.address})}>
+                                <View style={[styles.ContinueButtonContainer]}>
+                                    <Text style={styles.ContinueButtonText}>{translate.t("Send_request")}</Text>
+                                </View>
+                                </TouchableOpacity>                                
                             </View>
                         </HView>
                                        
@@ -255,12 +255,7 @@ const styles =  StyleSheet.create({
       height:60  ,
     borderWidth:1  
     },
-    AskForHelp:{    
-      paddingRight:10,
-    },
-    OfferHelp:{
-      paddingLeft:10,
-    },
+   
 
 
 
@@ -337,7 +332,22 @@ const styles =  StyleSheet.create({
         borderWidth:1,
       },
 
-      
+ 
+        ContinueButtonContainer: {
+          backgroundColor: "rgba(243,103,103,1)",
+          justifyContent:'center',
+          height:50,
+          width:width*0.9,
+          alignItems: 'center',
+          borderRadius: 9,
+        },
+        ContinueButtonText: {
+          color: "rgba(245,245,245,1)",
+          fontSize: 20,
+          fontFamily: "roboto-regular", 
+          alignItems: 'center',    
+          justifyContent:'center',
+        }
 
 
 })

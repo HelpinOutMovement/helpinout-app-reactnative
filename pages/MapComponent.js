@@ -80,13 +80,23 @@ class MapComponent extends React.Component {
 
       console.log(this.state.region)
       this.map.animateToRegion({ latitude: this.state.region.latitude, longitude: this.state.region.longitude, latitudeDelta: LATITUDE_DELTA * Number(this.state.radius/15), longitudeDelta: LONGITUDE_DELTA * Number(this.state.radius/15) }, 2000); 
+      
+      let restApi = new API();
+      console.log("Component Did mount "+ JSON.stringify(this.state.region))
+      let address = restApi.geocode(this.state.region.latitude, this.state.region.longitude)
+        address.then((addr) => {
+        this.setState({address:addr})   
+        this.props.callbackOnRegionChange(this.state.region, this.state);
+        console.log("Address :::::: " + addr + "  " +JSON.stringify(this.state.region))
+      })
+    
       })
     }  
   }
 
 
   onRegionChange(region) {
-    this.setState({ region });
+    //this.setState({ region });
   }
 
   jumpRandom() {
@@ -173,43 +183,39 @@ class MapComponent extends React.Component {
 
 
   onRegionChangeComplete(region){
-    this.setState({ region });
-    //console.log("onRegionChangeComplete")
-    let mapBoundries = this.map.getMapBoundaries();
-    mapBoundries.then((val) => {
-      console.log("onRegionChangeComplete   " + JSON.stringify(val))
-      this.state.boundries = val;
-      var dis = getDistance(
-        val.northEast,
-        val.southWest
-      );
-      console.log(`Distance\n${dis} Meter\nor\n${dis / 1000} KM`);
-      console.log("this.state.region.    " + JSON.stringify(this.state))
-      /*
-      Geocoder.from(41.89, 12.49)
-      .then(json => {
-      var addressComponent = json.results[0].address_components[0];
-      console.log(addressComponent);
-      this.setState({address:addressComponent})
-      this.props.callbackOnRegionChange(region, this.state.address);
-      })
-      */
+ 
+
+    this.setState({ region },() => { 
       
-     let restApi = new API();
+        let mapBoundries = this.map.getMapBoundaries();
+        mapBoundries.then((val) => {
+          console.log("onRegionChangeComplete   " + JSON.stringify(val))
+          this.state.boundries = val;
+          var dis = getDistance(
+            val.northEast,
+            val.southWest
+          );
+          console.log(`Distance\n${dis} Meter\nor\n${dis / 1000} KM`);
+          console.log("this.state.region.    " + JSON.stringify(this.state))          
+        let restApi = new API();
 
-      let address = restApi.geocode(this.state.region.latitude, this.state.region.longitude)
-        address.then((addr) => {
-        this.setState({address:addr})   
-        console.log(addr)
-      })
-
-
-     this.props.callbackOnRegionChange(region, this.state);
-     //this.getLocationSuggestions();
-
-    })
+          let address = restApi.geocode(region.latitude, region.longitude)
+            address.then((addr) => {
+            this.setState({address:addr},() => { 
+              console.log(addr)
+              this.props.callbackOnRegionChange(region, this.state);
+            })              
+          })       
+        //this.getLocationSuggestions();
+        })
+     })
+    
   }
 
+  componentDidMount(){
+    
+    
+  }
 
   getLocationSuggestions = () =>{
 
@@ -228,10 +234,16 @@ class MapComponent extends React.Component {
         })
   }
 
-  componentDidMount() {
-    //this.map.fitToElements(true);
-   }
+  onMapPress(e) {
+    console.log("coordinates:" + JSON.stringify(e.nativeEvent.coordinate));
+    console.log(JSON.stringify(this.state.region));
+    
 
+    this.setLanLon(e.nativeEvent.coordinate.latitude, e.nativeEvent.coordinate.longitude)
+    this.map.animateToRegion({ latitude: e.nativeEvent.coordinate.latitude, longitude: e.nativeEvent.coordinate.longitude, latitudeDelta: LATITUDE_DELTA * Number(this.state.radius/15), longitudeDelta: LONGITUDE_DELTA * Number(this.state.radius/15) }, 2000); 
+
+    //this.onRegionChangeComplete(this.state.region)
+  }
   render() {
       console.log(DeviceInfo.getUniqueId());
     return (
@@ -242,6 +254,7 @@ class MapComponent extends React.Component {
           ref={ref => {
             this.map = ref;
           }}
+          onPress={this.onMapPress.bind(this)}
           //mapType={MAP_TYPES.TERRAIN}
           //provider={PROVIDER_GOOGLE}
           onRegionChangeComplete={region => this.onRegionChangeComplete(region)}   
@@ -255,6 +268,7 @@ class MapComponent extends React.Component {
                       title={""}
                       description={""}
                       tracksViewChanges={false}
+                      region={this.state.region}
                     >
                      <Image source={currentLocationIcon} style={{height:55, width:55}} resizeMode="contain" />
                     </Marker>
