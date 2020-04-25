@@ -2,6 +2,7 @@ import React from 'react';
 import { Image, TouchableOpacity, Linking, Platform, View } from 'react-native';
 import { Body, Text, Card, CardItem, Grid, Row, Col } from "native-base";
 import translate from 'react-native-i18n';
+import { Rating, AirbnbRating } from 'react-native-ratings';
 import { default as MaterialIcon } from 'react-native-vector-icons/MaterialIcons';
 import { BasicButton } from './ButtonComponent';
 import AppConstant from '../../misc/AppConstant'
@@ -9,6 +10,7 @@ import StaticImage from '../../styling/StaticImage';
 import Utilities from '../../misc/Utils';
 import { appLabelKey } from '../../misc/AppStrings';
 import { App } from 'react-native-firebase';
+
 
 const CardComponent = (props) => {
   if (props.singleRow) {
@@ -103,8 +105,26 @@ const CardComponent = (props) => {
 };
 
 
-const TabCardComponent = (props) => {
+const RequesterInfoCardComponent = (props) => {
 
+  const getCallerView = () => {
+    const callerView = [];
+    if (props.primayInfo && props.primayInfo.mobile_no_visibility && props.primayInfo.mobile_no_visibility == 1) {
+      callerView.push(
+        <TouchableOpacity
+          style={{ alignSelf: "center" }}
+          onPress={() => {
+            dialCall(props.callerNumber)
+          }}>
+          <MaterialIcon name="call" style={{
+            fontSize: 17
+          }} />
+        </TouchableOpacity>
+      );
+    }
+    return callerView;
+
+  }
   dialCall = (number) => {
     let phoneNumber = '';
     if (Platform.OS === 'android') { phoneNumber = `tel:${number}`; }
@@ -130,38 +150,46 @@ const TabCardComponent = (props) => {
     }} >
       <CardItem >
         <View style={{ width: "100%", flexDirection: "column" }}>
-          <View style={{ marginVertical: 10, flexDirection: "row", justifyContent: "space-between" }}>
-            <Text style={{
-              textAlign: "left",
-              fontFamily: "Roboto-Medium",
-              fontSize: 14,
-              color: "#EE6B6B"
-            }}> {props.name}</Text>
-            <Image
-              style={{ alignSelf: "center", width: 24, height: 19 }}
-              source={props.helpOption} />
+          <View style={{ marginVertical: 10, justifyContent: "space-between", flexDirection: "row" }}>
+            <View>
+              <Text style={{
+                textAlign: "left",
+                fontFamily: "Roboto-Medium",
+                fontSize: 14,
+                color: "#000000"
+              }}> {Utilities.getDateTime(props.dateTime)}</Text>
+              <Text style={{
+                textAlign: "left",
+                fontFamily: "Roboto-Medium",
+                fontSize: 14,
+                color: "#000000"
+              }}> {props.name}</Text>
+              <View style={{ alignItems: "flex-start" }}>
+                <AirbnbRating
+                  defaultRating={props.primayInfo.rating_avg}
+                  reviews={[]}
+                  ratingCount={5}
+                  fractions={1}
+                  size={20}
+                />
+              </View>
+            </View>
+            <View>
+              {
+                getCallerView()
+              }
+            </View>
+
           </View>
           <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
             <View style={{ width: "80%" }}>
               <Text style={{
-
                 fontFamily: "Roboto-Regular",
                 fontSize: 16,
                 color: "#4F5065B8"
-              }}> {props.description + " Call them on  "}</Text>
+              }}> {translate.t("They_will_call_you_if_they_can_help_you")}</Text>
               <Text style={{ fontSize: 17 }}>{props.callerInfo}</Text>
             </View>
-            {
-              (props.callerInfo) && (<TouchableOpacity
-                style={{ alignSelf: "center" }}
-                onPress={() => {
-                  dialCall(props.callerNumber)
-                }}>
-                <MaterialIcon name="call" style={{
-                  fontSize: 17
-                }} />
-              </TouchableOpacity>)
-            }
           </View>
           <View style={{ marginTop: 10, flexDirection: "row", justifyContent: "space-between" }}>
             <BasicButton
@@ -176,6 +204,6 @@ const TabCardComponent = (props) => {
   )
 }
 export {
-  TabCardComponent
+  RequesterInfoCardComponent
 }
 export default CardComponent;

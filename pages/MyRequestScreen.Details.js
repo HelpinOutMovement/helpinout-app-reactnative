@@ -6,7 +6,7 @@ import { BasicFilledButton } from './components/ButtonComponent';
 import { PastOfferRequestComponent } from './components/PastOfferRequestComponent';
 import { apiInstance } from "../APIClient/API";
 import AppConstant from '../misc/AppConstant';
-import { TabCardComponent } from './components/CardComponent';
+import { RequesterInfoCardComponent } from './components/CardComponent';
 import ModalComponent from './components/ModalComponent';
 import HeaderComponent from './components/HeaderComponent';
 
@@ -244,11 +244,31 @@ function MyRequestDetailScreen(props) {
         setShowModal(!showModal);
     }
 
+    const primaryActionHandler = (ele, actions) => {
+        console.log(ele, "$$$$", actions);
+
+        if (actions === AppConstant.APP_ACTION.RATE_REPORT) {
+            setModalInfo({
+                type: AppConstant.APP_ACTION.RATE_REPORT,
+                ...ele
+            });
+            setShowModal(!showModal);
+        }
+
+    }
+
     const getMappedRequestView = () => {
         const mappedRequestView = [];
         if (requestParams && requestParams.mapping && requestParams.mapping.length) {
-            requestParams.mapping.forEach((singleOption) => {
-                mappedRequestView.push(<TabCardComponent {...singleOption} />)
+            requestParams.mapping.forEach((singleMapping) => {
+                console.log("singleMapping:: ", singleMapping)
+                mappedRequestView.push(
+                    <RequesterInfoCardComponent
+                        name={singleMapping.offer_detail.user_detail.first_name + " " + singleMapping.offer_detail.user_detail.last_name}
+                        primayInfo={singleMapping.offer_detail.user_detail}
+                        dateTime={singleMapping.offer_detail.date_time}
+                        clickHandler={primaryActionHandler}
+                        {...singleMapping} />)
             });
         }
 
@@ -271,12 +291,6 @@ function MyRequestDetailScreen(props) {
                 bgColor={colorTheme} />
             <Content   >
                 {getMappedRequestView()}
-                <View style={{ marginTop: 10, justifyContent: "center", alignItems: "center" }}>
-                    <BasicFilledButton
-                        clickHandler={() => { props.closePopUp() }}
-                        label={translate.t("Cancel_This_Request")}
-                        colorTheme={colorTheme} />
-                </View>
             </Content>
             <ModalComponent
                 {...modalInfo}
@@ -284,20 +298,12 @@ function MyRequestDetailScreen(props) {
                 showModal={showModal}
                 closePopUp={closePopUp} />
             <Footer>
-                <FooterTab>
-                    <Button vertical onPress={() => props.navigation.navigate(AppConstant.APP_PAGE.DASHBOARD)}>
-                        <Icon name="ios-home" style={{ color: "red" }} />
-                        <Text>Home</Text>
-                    </Button>
-                    <Button vertical active onPress={() => props.navigation.navigate(AppConstant.APP_PAGE.MY_REQUEST_SCREEN)}>
-                        <Icon name="camera" />
-                        <Text>My Requests</Text>
-                    </Button>
-                    <Button vertical onPress={() => props.navigation.navigate(AppConstant.APP_PAGE.MY_OFFERS_SCREEN)}>
-                        <Icon active name="navigate" />
-                        <Text>My Offers</Text>
-                    </Button>
-                </FooterTab>
+                <View style={{ marginTop: 10, justifyContent: "center", alignItems: "center" }}>
+                    <BasicFilledButton
+                        clickHandler={() => { props.closePopUp() }}
+                        label={translate.t("Cancel_This_Request")}
+                        colorTheme={colorTheme} />
+                </View>
             </Footer>
         </Container>
     );
