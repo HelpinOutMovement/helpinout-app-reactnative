@@ -17,4 +17,3 @@ execute the commands as follows
 - Splash Screen
 - Localization
 - Aysnc Storage
-
