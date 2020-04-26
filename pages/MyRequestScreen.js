@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import {  View } from 'react-native';
-import { Container,  Icon,  Button,  Content, Text, Footer, FooterTab} from "native-base";
+import { Container, Content, Text, Footer} from "native-base";
 import translate from 'react-native-i18n';
 import { PastOfferRequestComponent } from './components/PastOfferRequestComponent';
 import {apiInstance} from "../APIClient/API";
@@ -339,6 +339,8 @@ function MyRequestScreen(props) {
                     count_suffix= {translate.t("offers")}
                     colorTheme={colorTheme}
                     {...singleOption}
+                    primayActionLabel={translate.t("Search_for_Help_Providers")}
+                    secondaryActionLabel={translate.t("Sent_Requests")}
                     clickHandler={primaryActionHandler}
                    />
             ));

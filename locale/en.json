@@ -79,7 +79,7 @@
 "Requested_on": "Requested on",
 "Your_phone_number_will_be_sent_to_these_help_requesters": "Your phone number will be sent to these help requesters",
 "Delete": "Delete",
-"Cancel": "Cancel",
+"Cancel": "Delete",
 "My_Requests": "My Requests",
 "Offers_Received": "Offers Received",
 "Rate": "Rate",
@@ -133,9 +133,17 @@
 "Period_pm":"pm",
 "offers":"offers",
 "You_have_not_requested_for_any_help":"You have not requested for any help",
+"You_have_not_offered_to_help_yet":"You have not offered to help yet",
 "Sent_Requests":"Sent Requests",
 "Request_have_been_sent_to":"Request have been sent to",
-"Cancel_This_Request":"Cancel This Request"
-
+"Cancel_This_Request":"Cancel This Request",
+"Cancel_This_Offer":"Cancel This Offer",
+"Search_for_Requesters":"Search for Requesters",
+"Sent_Offers":"Sent Offers",
+"Your_offer_was_registered_but_no_direct_offer_has_been_sent_to_anyone_yet":"Your offer was registered but no direct offer has been sent to anyone yet",
+"Others_may_request_your_help_when_they_see_your_offer_on_the_map":"Others may request your help when they see your offer on the map",
+"Your_request_was_registered_but_no_direct_request_has_been_sent_to_anyone_yet":"Your request was registered but no direct request has been sent to anyone yet",
+"Others_may_offer_to_help_you_when_they_see_your_request_on_the_map":"Others may offer to help you when they see your request on the map",
+"This_request_will_remain_active_until_you_cancel_it":"This request will remain active until you cancel it"
 
 }

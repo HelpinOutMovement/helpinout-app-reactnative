@@ -32,6 +32,7 @@ import OfferHelpScreen from './pages/OfferHelpScreen';
 import MyOfferScreen from './pages/MyOfferScreen';
 import MyRequestScreen from './pages/MyRequestScreen';
 import MyRequestSentRequestScreen from './pages/MyRequestScreen.SentRequest';
+import MyOfferSentOfferScreen from './pages/MyOfferScreen.SentOffer';
 import VerifyScreen from './pages/VerifyScreen';
 import AddActivityScreen from './pages/components/AddActivityScreen'
 import SearchHelpProvidersRequesters from './pages/SearchHelpProvidersRequesters'
@@ -81,6 +82,7 @@ function App() {
 
             <Stack.Screen key={`a_${AppConstant.APP_PAGE.MY_REQUEST_SCREEN}`} name={AppConstant.APP_PAGE.MY_REQUEST_SCREEN} component={MyRequestScreen} />
             <Stack.Screen key={`a_${AppConstant.APP_PAGE.MY_REQUEST_SENT_REQUEST_SCREEN}`} name={AppConstant.APP_PAGE.MY_REQUEST_SENT_REQUEST_SCREEN} component={MyRequestSentRequestScreen} />
+            <Stack.Screen key={`a_${AppConstant.APP_PAGE.MY_OFFER_SENT_OFFER_SCREEN}`} name={AppConstant.APP_PAGE.MY_OFFER_SENT_OFFER_SCREEN} component={MyOfferSentOfferScreen} />
             <Stack.Screen key={`a_${AppConstant.APP_PAGE.MY_OFFERS_SCREEN}`} name={AppConstant.APP_PAGE.MY_OFFERS_SCREEN} component={MyOfferScreen} />
 
             <Stack.Screen key={`a_${AppConstant.APP_PAGE.SPLASH}`} name={AppConstant.APP_PAGE.SPLASH} component={SplashScreen} />

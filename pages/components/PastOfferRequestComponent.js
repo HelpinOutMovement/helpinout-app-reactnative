@@ -157,10 +157,10 @@ const PastOfferRequestComponent = (props) => {
                     <View style={{ marginTop: 10, flexDirection: "row", justifyContent: "space-between" }}>
 
                         <BasicButton
-                            label={translate.t("Search_for_Help_Providers")}
+                            label={props.primayActionLabel}
                             clickHandler={() => { (props.clickHandler) && props.clickHandler(props, AppConstant.APP_ACTION.SEARCH_FOR_PROVIDERS) }} />
                         <BasicButton
-                            label={translate.t("Sent_Requests")}
+                            label={props.secondaryActionLabel }
                             clickHandler={() => { (props.clickHandler) && props.clickHandler(props, AppConstant.APP_ACTION.SENT_REQUEST) }} />
                     </View>
 

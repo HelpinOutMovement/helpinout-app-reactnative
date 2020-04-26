@@ -11,8 +11,8 @@ import HeaderComponent from './components/HeaderComponent';
 import SpinnerComponent from './components/SpinnerComponent';
 
 
-function MyRequestSentRequestScreen(props) {
-    const colorTheme = "#EE6B6B";
+function MyOfferSentOfferScreen(props) {
+    const colorTheme = "#4F5065";
     const [showModal, setShowModal] = useState(false);
     const [modalInfo, setModalInfo] = useState({});
     const [showSpinner, setShowSpinner] = useState(false);
@@ -70,8 +70,9 @@ function MyRequestSentRequestScreen(props) {
         if (mappedRequestView.length <= 0) {
             mappedRequestView.push(
                 <View>
-                    <Text> {translate.t("Your_request_was_registered_but_no_direct_request_has_been_sent_to_anyone_yet")} </Text>
-                    <Text> {translate.t("Others_may_offer_to_help_you_when_they_see_your_request_on_the_map")} </Text>
+                    <Text> {translate.t("Your_offer_was_registered_but_no_direct_offer_has_been_sent_to_anyone_yet")} </Text>
+                    <Text> {translate.t("Others_may_request_your_help_when_they_see_your_offer_on_the_map")} </Text>
+                    <Text> {translate.t("This_request_will_remain_active_until_you_cancel_it")} </Text>
                 </View>
             )
         }
@@ -132,7 +133,7 @@ function MyRequestSentRequestScreen(props) {
                             borderRadius: 10
                         }}
                         clickHandler={() => { cancelRequest() }}
-                        label={translate.t("Cancel_This_Request")}
+                        label={translate.t("Cancel_This_Offer")}
                         colorTheme={colorTheme} />
                 </View>
             </Footer>
@@ -142,4 +143,4 @@ function MyRequestSentRequestScreen(props) {
     );
 }
 
-export default MyRequestSentRequestScreen;
+export default MyOfferSentOfferScreen;
