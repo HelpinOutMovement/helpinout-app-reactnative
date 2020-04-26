@@ -28,17 +28,19 @@ var tempCheckValues = [];
 class SearchHelpProvidersRequesters extends React.Component {
     constructor(props){
         super(props);
+        this.navigate = this.props.navigation.navigate;
         this.state = {
-            region:{},
-            address:"",
-            activity_type:1,
-            activity_uuid:0,
+            region:this.props.route.params.region,
+            address:this.props.route.params.address,
+            activity_type:this.props.route.params.activity_type,
+            activity_uuid:this.props.route.params.activity_uuid,
             mapHeight:"50%",
             bottom_panel_icon:"ios-arrow-dropdown",
             bottom_panel_visible:true, 
             bottom_panel_bottom:height/2,
             activitySuggestionOfferResponse:[],
-            checkBoxChecked: {}
+            checkBoxChecked: {},
+            activity_data: []
                      
         }
 
@@ -65,6 +67,13 @@ class SearchHelpProvidersRequesters extends React.Component {
         this.setState({
           checkBoxChecked: this.state.checkBoxChecked
         })
+
+        if(value){
+            this.state.activity_data.push(id)
+        }else{
+            var index = this.state.activity_data.indexOf(item);
+            if (index !== -1) this.state.activity_data.splice(index, 1);
+        }
         console.log( JSON.stringify(this.state))
     
       }
@@ -97,20 +106,29 @@ class SearchHelpProvidersRequesters extends React.Component {
 
 
     getActivitySuggestions = () =>{
-        /*
+        
         let restApi = new API();
-        reqObj =  restApi.activitySuggestions(this.state.activity_type, this.state.activity_uuid, this.state.region.latitude+","+this.state.region.longitude, "10.424", getDistance(this.state.boundries.northEast,this.state.boundries.southWest)/2)
-                reqObj.then((response) => {
-                    console.log("getActivitySuggestions Response  : " + JSON.stringify(response))
-                    if(response.status === "1") {
-                      //this.showPopUp();
+        let reqObj =  restApi.activitySuggestions(this.state.activity_type, this.state.activity_uuid, this.state.region.latitude+","+this.state.region.longitude, "10.424", getDistance(this.state.boundries.northEast,this.state.boundries.southWest)/2)
+                reqObj.then((respObject) => {
+                    console.log("getActivitySuggestions Response  : " + JSON.stringify(respObject))
+                    if(respObject.status === "1") {
+                      //this.showPopUp();  
+                        if(this.state.activity_type === 1){
+                            this.setState({activitySuggestionOfferResponse:respObject.data.offers});
+                        }else{
+                            this.setState({activitySuggestionOfferResponse:respObject.data.requests});
+                        }                                          
+                        console.log(JSON.stringify(respObject.data.offers))
                     }
                 }).catch((err) => {console.log(err)})    
-        */
-        let respObject =  {"status":"1","message":"Success","data":{"offers":[{"activity_type":2,"activity_uuid":"3B5E9462-C9DC-4FBF-8183-49E68C6D8B15","date_time":"2020-03-24T00:51:14.000-05:30","activity_category":1,"activity_count":1,"geo_location":"17.78583400,78.40641700","status":1,"offer_condition":"Vegan","activity_detail":[{"detail":"Food","quantity":5}],"user_detail":{"country_code":"+1","mobile_no":"6505551234","first_name":"Raghu","last_name":"Test1","mobile_no_visibility":0,"user_type":2,"org_name":null,"org_type":null,"org_division":null,"rating_avg":0,"rating_count":0}},{"activity_type":2,"activity_uuid":"4901a942-05b9-4003-9fe5-a62358d48281","date_time":"2020-04-22T19:07:44.000+05:30","activity_category":1,"activity_count":2,"geo_location":"13.06345812,77.61847425","status":1,"offer_condition":"Between 9am and 12 noon mornings. You must pickup and bring serving vessels. Please come wearing masks.","activity_detail":[{"detail":"Basic food, per day","quantity":1000},{"detail":"Rice","quantity":500}],"user_detail":{"country_code":"+91","mobile_no":"8431064108","first_name":"Ved","last_name":"Chikarmane","mobile_no_visibility":1,"user_type":2,"org_name":"Jakkur Collective","org_type":2,"org_division":"The Boss","rating_avg":0.5,"rating_count":3}},{"activity_type":2,"activity_uuid":"84389c6a-8b8e-4533-b28d-563075898e8d","date_time":"2020-04-22T17:04:28.000+05:30","activity_category":1,"activity_count":1,"geo_location":"28.64440150,77.36175768","status":1,"offer_condition":"Vdhs","activity_detail":[{"detail":"Food","quantity":20}],"user_detail":{"country_code":"+91","mobile_no":"7303767448","first_name":"new ","last_name":"user","mobile_no_visibility":0,"user_type":2,"org_name":"","org_type":null,"org_division":"","rating_avg":3.5,"rating_count":10}},{"activity_type":2,"activity_uuid":"F390A4C5-81A6-481D-B926-34ECEB942B7B","date_time":"2020-03-21T22:41:31.000-05:30","activity_category":1,"activity_count":1,"geo_location":"19.23246073,74.80682373","status":1,"offer_condition":"","activity_detail":[{"detail":"Lunch","quantity":20}],"user_detail":{"country_code":"+91","mobile_no":"9730131849","first_name":"VSRV","last_name":"Raghavan","mobile_no_visibility":0,"user_type":2,"org_name":null,"org_type":null,"org_division":null,"rating_avg":0,"rating_count":0}},{"activity_type":2,"activity_uuid":"5cd3b2dc-e32b-4010-80c7-659ca0568a98","date_time":"2020-04-20T18:53:38.000+05:30","activity_category":1,"activity_count":1,"geo_location":"13.06343820,77.61851180","status":1,"offer_condition":"Give us 48 hours notice. We will deliver from our We need 48 hours notice. We can location to a radius of 10 km","activity_detail":[{"detail":"Meals, per day","quantity":1000}],"user_detail":{"country_code":"+91","mobile_no":"8431064108","first_name":"Ved","last_name":"Chikarmane","mobile_no_visibility":1,"user_type":2,"org_name":"Jakkur Collective","org_type":2,"org_division":"The Boss","rating_avg":0.5,"rating_count":3}}]}};
+        
+/*
+        let offers_data = [{"activity_type":2,"activity_uuid":"3B5E9462-C9DC-4FBF-8183-49E68C6D8B15","date_time":"2020-03-24T00:51:14.000-05:30","activity_category":1,"activity_count":1,"geo_location":"17.78583400,78.40641700","status":1,"offer_condition":"Vegan","activity_detail":[{"detail":"Food","quantity":5}],"user_detail":{"country_code":"+1","mobile_no":"6505551234","first_name":"Raghu","last_name":"Test1","mobile_no_visibility":0,"user_type":2,"org_name":null,"org_type":null,"org_division":null,"rating_avg":0,"rating_count":0}},{"activity_type":2,"activity_uuid":"4901a942-05b9-4003-9fe5-a62358d48281","date_time":"2020-04-22T19:07:44.000+05:30","activity_category":1,"activity_count":2,"geo_location":"13.06345812,77.61847425","status":1,"offer_condition":"Between 9am and 12 noon mornings. You must pickup and bring serving vessels. Please come wearing masks.","activity_detail":[{"detail":"Basic food, per day","quantity":1000},{"detail":"Rice","quantity":500}],"user_detail":{"country_code":"+91","mobile_no":"8431064108","first_name":"Ved","last_name":"Chikarmane","mobile_no_visibility":1,"user_type":2,"org_name":"Jakkur Collective","org_type":2,"org_division":"The Boss","rating_avg":0.5,"rating_count":3}},{"activity_type":2,"activity_uuid":"84389c6a-8b8e-4533-b28d-563075898e8d","date_time":"2020-04-22T17:04:28.000+05:30","activity_category":1,"activity_count":1,"geo_location":"28.64440150,77.36175768","status":1,"offer_condition":"Vdhs","activity_detail":[{"detail":"Food","quantity":20}],"user_detail":{"country_code":"+91","mobile_no":"7303767448","first_name":"new ","last_name":"user","mobile_no_visibility":0,"user_type":2,"org_name":"","org_type":null,"org_division":"","rating_avg":3.5,"rating_count":10}},{"activity_type":2,"activity_uuid":"F390A4C5-81A6-481D-B926-34ECEB942B7B","date_time":"2020-03-21T22:41:31.000-05:30","activity_category":1,"activity_count":1,"geo_location":"19.23246073,74.80682373","status":1,"offer_condition":"","activity_detail":[{"detail":"Lunch","quantity":20}],"user_detail":{"country_code":"+91","mobile_no":"9730131849","first_name":"VSRV","last_name":"Raghavan","mobile_no_visibility":0,"user_type":2,"org_name":null,"org_type":null,"org_division":null,"rating_avg":0,"rating_count":0}},{"activity_type":2,"activity_uuid":"5cd3b2dc-e32b-4010-80c7-659ca0568a98","date_time":"2020-04-20T18:53:38.000+05:30","activity_category":1,"activity_count":1,"geo_location":"13.06343820,77.61851180","status":1,"offer_condition":"Give us 48 hours notice. We will deliver from our We need 48 hours notice. We can location to a radius of 10 km","activity_detail":[{"detail":"Meals, per day","quantity":1000}],"user_detail":{"country_code":"+91","mobile_no":"8431064108","first_name":"Ved","last_name":"Chikarmane","mobile_no_visibility":1,"user_type":2,"org_name":"Jakkur Collective","org_type":2,"org_division":"The Boss","rating_avg":0.5,"rating_count":3}}]
+        //offers_data = [];
+        let respObject =  {"status":"1","message":"Success","data":{"offers":offers_data}};
         this.setState({activitySuggestionOfferResponse:respObject.data.offers});
         console.log(JSON.stringify(respObject.data.offers))
-       
+*/       
 
 
     }
@@ -133,6 +151,32 @@ class SearchHelpProvidersRequesters extends React.Component {
         return getDistance( source, destination)
         //getDistance( { latitude: this.state.region.latitude, longitude: this.state.region.longitude }, { latitude: singleData.latitude, longitude: singleData.longitude })
     }
+
+    submitActivity = () =>{
+        let offerer = [];
+        let requester = [];
+        (this.state.activity_type === 1) ? 
+                        requester = {activity_uuid:this.state.activity_uuid, activity_type:this.state.activity_type, request:this.state.activity_data}
+                        :
+                        offerer = {activity_uuid:this.state.activity_uuid, activity_type:this.state.activity_type, offer:this.state.activity_data} 
+            
+        console.log("requester : " + JSON.stringify(this.state.activity_data))
+        console.log("offerer : " + JSON.stringify(this.state.activity_data))
+        
+        let restApi = new API();
+        let reqObj =  restApi.activityMapping(this.state.activity_type, this.state.activity_uuid, offerer, requester)
+        reqObj.then((response) => {
+            console.log("Add activityMapping Response  : " + JSON.stringify(response))
+            if(response.status === "1") {
+                //this.showPopUp();
+                this.navigate(AppConstant.APP_PAGE.MY_REQUEST_SENT_REQUEST_SCREEN, {request:response.data})
+            }else{
+                this.navigate(AppConstant.APP_PAGE.MY_OFFER_SENT_OFFER_SCREEN, {request:response.data})
+            }
+        }).catch((err) => {console.log(err)})    
+                                         
+    }
+
 
     render() { 
         return (
@@ -158,84 +202,104 @@ class SearchHelpProvidersRequesters extends React.Component {
                                 </View>
                         </View> 
                         
-                        <HView hide={!this.state.bottom_panel_visible} style={{position:"absolute",bottom:10, height:(height/2),justifyContent:"center",alignItems: 'center',  width:"98%"}}>
-                            <ScrollView style={{height:250, borderWidth:2, marginTop:30}}>
-                                {this.state.activitySuggestionOfferResponse.map(singleData => {
-                                    return (
-                                        <View style={styles.container}>
-                                            <View style={styles.rect}>
-                                                <View style={styles.rect2Row}>
-                                                    <View style={styles.rect2}><Text style={{paddingLeft:5}}>{singleData.user_detail.first_name + " " + singleData.user_detail.last_name}</Text></View>                                     
-                                                        
-                                                        <Switch
-                                                            style={styles.rect3,{ marginTop:-5, transform: [{ scaleX: .5 }, { scaleY: .5 }] }}
-                                                            disabled={false}
-                                                            activeText={'On'}
-                                                            inActiveText={'Off'}
-                                                            backgroundActive={'green'}
-                                                            backgroundInactive={'gray'}
-                                                            circleActiveColor={'#30a566'}
-                                                            circleInActiveColor={'#000000'}           
-                                                            value={this.state.checkBoxChecked[singleData.activity_uuid] ? true : false}                            
-                                                            onValueChange ={(switchValue)=>{this.checkBoxChanged(singleData.activity_uuid, switchValue)}}                                
-                                                        />
-                                                
-                                                </View>
-                                                <View style={styles.rect4Row}>
-                                                    <View style={styles.rect4}>
-                                                    <StarRating
-                                                        disabled={false}
-                                                        maxStars={5}
-                                                        rating={singleData.user_detail.rating_avg}
-                                                        emptyStar={'ios-star-outline'}
-                                                        fullStar={'ios-star'}
-                                                        halfStar={'ios-star-half'}
-                                                        iconSet={'Ionicons'}
-                                                        fullStarColor={'orange'}
-                                                        starSize={18}
-                                                        //selectedStar={(rating) => this.onStarRatingPress(rating)}
-                                                    />
-                                                    </View>
-                                                    <View style={styles.rect5}><Text style={{paddingLeft:5}}>{Utilities.timeSince(singleData.date_time)} ago  | {((this.getDistanceBetween({ latitude: this.state.region.latitude, longitude: this.state.region.longitude }, { latitude: singleData.geo_location.split(",")[0], longitude: singleData.geo_location.split(",")[1] }))/1000).toFixed(2)} kms away</Text></View>
-                                                </View>
-                                                <View style={styles.rect6}><Text style={{paddingLeft:5, fontSize:10}}>Can help with</Text></View>
-                                                <View style={styles.rect7}>
-                                                    {(singleData.activity_detail && singleData.activity_detail.length > 0) ? 
-                                                        <>
-                                                        {
-                                                        singleData.activity_detail.map(singleActivityData => {
-                                                            return(
-                                                            <Text style={{paddingLeft:5}}>
-                                                                {singleActivityData.detail + "   (" + singleActivityData.quantity +")"}
-                                                            </Text>
-                                                            )
-                                                        })
-                                                        }
-                                                       </>
-                                                    :
-                                                        <Text style={{paddingLeft:5}}>{singleData.offer_condition}
-                                                        </Text>
-                                                    }    
+                            {(this.state.activitySuggestionOfferResponse.length > 0 ) 
+        
+
+                            ? 
+                            <HView hide={!this.state.bottom_panel_visible} style={{position:"absolute",bottom:10, height:(height/2),justifyContent:"center",alignItems: 'center',  width:"98%"}}>
+                                <ScrollView style={{height:250, borderWidth:2, marginTop:30}}>
+                                    {this.state.activitySuggestionOfferResponse.map(singleData => {
+                                        return (
+                                            <View style={styles.container}>
+                                                <View style={styles.rect}>
+                                                    <View style={styles.rect2Row}>
+                                                        <View style={styles.rect2}><Text style={{paddingLeft:5}}>{singleData.user_detail.first_name + " " + singleData.user_detail.last_name}</Text></View>                                     
+                                                            
+                                                            <Switch
+                                                                style={styles.rect3,{ marginTop:-5, transform: [{ scaleX: .5 }, { scaleY: .5 }] }}
+                                                                disabled={false}
+                                                                activeText={'On'}
+                                                                inActiveText={'Off'}
+                                                                backgroundActive={'green'}
+                                                                backgroundInactive={'gray'}
+                                                                circleActiveColor={'#30a566'}
+                                                                circleInActiveColor={'#000000'}           
+                                                                value={this.state.checkBoxChecked[singleData.activity_uuid] ? true : false}                            
+                                                                onValueChange ={(switchValue)=>{this.checkBoxChanged(singleData.activity_uuid, switchValue)}}                                
+                                                            />
                                                     
+                                                    </View>
+                                                    <View style={styles.rect4Row}>
+                                                        <View style={styles.rect4}>
+                                                        <StarRating
+                                                            disabled={false}
+                                                            maxStars={5}
+                                                            rating={singleData.user_detail.rating_avg}
+                                                            emptyStar={'ios-star-outline'}
+                                                            fullStar={'ios-star'}
+                                                            halfStar={'ios-star-half'}
+                                                            iconSet={'Ionicons'}
+                                                            fullStarColor={'orange'}
+                                                            starSize={18}
+                                                            //selectedStar={(rating) => this.onStarRatingPress(rating)}
+                                                        />
+                                                        </View>
+                                                        <View style={styles.rect5}><Text style={{paddingLeft:5}}>{Utilities.timeSince(singleData.date_time)} ago  | {((this.getDistanceBetween({ latitude: this.state.region.latitude, longitude: this.state.region.longitude }, { latitude: singleData.geo_location.split(",")[0], longitude: singleData.geo_location.split(",")[1] }))/1000).toFixed(2)} kms away</Text></View>
+                                                    </View>
+                                                    <View style={styles.rect6}><Text style={{paddingLeft:5, fontSize:10}}>Can help with</Text></View>
+                                                    <View style={styles.rect7}>
+                                                        {(singleData.activity_detail && singleData.activity_detail.length > 0) ? 
+                                                            <>
+                                                            {
+                                                            singleData.activity_detail.map(singleActivityData => {
+                                                                return(
+                                                                <Text style={{paddingLeft:5}}>
+                                                                    {singleActivityData.detail + "   (" + singleActivityData.quantity +")"}
+                                                                </Text>
+                                                                )
+                                                            })
+                                                            }
+                                                        </>
+                                                        :
+                                                            <Text style={{paddingLeft:5}}>{singleData.offer_condition}
+                                                            </Text>
+                                                        }    
+                                                        
+                                                    </View>
                                                 </View>
                                             </View>
-                                        </View>
-                                    )
-                                })}
-                                                                       
-                            </ScrollView>
-                            <Text style={{height:100}}>
-                                Test data n Testdata
-                            </Text>
-                            <View style={styles.buttonContainer}>
-                                <TouchableOpacity  onPress={() => this.navigate(AppConstant.APP_PAGE.ASK_FOR_HELP, {region:this.state.region, address:this.state.address})}>
-                                <View style={[styles.ContinueButtonContainer]}>
-                                    <Text style={styles.ContinueButtonText}>{translate.t("Send_request")}</Text>
+                                        )
+                                    })}
+                                                                        
+                                </ScrollView>
+                                <Text style={{height:100}}>
+                                    Test data n Testdata
+                                </Text>
+                                <View style={styles.buttonContainer}>
+                                    <TouchableOpacity  onPress={() => this.submitActivity()}>
+                                    <View style={[styles.ContinueButtonContainer_red]}>
+                                        <Text style={styles.ContinueButtonText}>{translate.t("Send_request")}</Text>
+                                    </View>
+                                    </TouchableOpacity>                                
+                                </View>
+                            </HView>
+                            :
+                            <HView hide={!this.state.bottom_panel_visible} style={{position:"absolute",bottom:10, height:(height/2),justifyContent:"center",alignItems: 'center',  width:"98%"}}>
+
+                                <View style={{height:250, borderWidth:2, marginTop:30}}>
+                                    <Text>
+                                        Currently there are no help requesters in the selected map area
+                                    </Text>
+                                </View>    
+                                <View style={styles.buttonContainer}>
+                                <TouchableOpacity  onPress={() => {(this.state.activity_type === 1) ?  this.navigate(AppConstant.APP_PAGE.MY_REQUEST_SENT_REQUEST_SCREEN) : this.navigate(AppConstant.APP_PAGE.MY_OFFER_SENT_OFFER_SCREEN)}}>
+                                <View style={[styles.ContinueButtonContainer_grey]}>
+                                    <Text style={styles.ContinueButtonText}>{translate.t("Continue")}</Text>
                                 </View>
                                 </TouchableOpacity>                                
-                            </View>
-                        </HView>
-                                       
+                                </View>                            
+                            </HView>
+                            }                                      
                     </Container>
            
         )
@@ -333,7 +397,7 @@ const styles =  StyleSheet.create({
       },
 
  
-        ContinueButtonContainer: {
+        ContinueButtonContainer_red: {
           backgroundColor: "rgba(243,103,103,1)",
           justifyContent:'center',
           height:50,
@@ -341,6 +405,16 @@ const styles =  StyleSheet.create({
           alignItems: 'center',
           borderRadius: 9,
         },
+
+        ContinueButtonContainer_grey: {
+            backgroundColor: "rgba(109,115,130,1)",
+            justifyContent:'center',
+            height:50,
+            width:width*0.9,
+            alignItems: 'center',
+            borderRadius: 9,
+          },
+
         ContinueButtonText: {
           color: "rgba(245,245,245,1)",
           fontSize: 20,
