@@ -95,14 +95,21 @@ const viewBasedOnCategory = (category, props) => {
     return viewList;
 }
 
+const getOfferList = (props) => {
+    const finalOfferList =[];
+    if(props.mapping && props.mapping.length > 0){
+       /*
+        props.mapping.forEach(singleOffer => {
+            if(singleOffer.mapping_initiator === AppConstant.APP_MAPPING_INDICATOR_CODE.)
+        })
+        */
+    }
+}
+
 const PastOfferRequestComponent = (props) => {
 
-    dialCall = (number) => {
-        let phoneNumber = '';
-        if (Platform.OS === 'android') { phoneNumber = `tel:${number}`; }
-        else { phoneNumber = `telprompt:${number}`; }
-        Linking.openURL(phoneNumber);
-    };
+
+    
 
     //console.log(props.activity_category)
     const helpOption = Utilities.getCategoryFromCode(props.activity_category);

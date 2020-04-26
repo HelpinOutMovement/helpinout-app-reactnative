@@ -19,7 +19,14 @@ const AppConstant = {
         SEARCH_FOR_PROVIDERS:'SEARCH_FOR_PROVIDERS',
         SENT_REQUEST:'SENT_REQUEST'
     },
-    
+    APP_MAPPING_INDICATOR:{
+        'REQUESTER':1,
+        'OFFERER':2
+    },
+    APP_MAPPING_INDICATOR_CODE:{
+        1:'REQUESTER',
+        2:'OFFERER'
+    },
     APP_CONFIRMATION:{
         YES:'yes',
         NO:'no',
