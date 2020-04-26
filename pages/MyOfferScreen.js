@@ -368,7 +368,7 @@ function MyOfferScreen(props) {
             {getRequestList()}
         </Content>
         <Footer>
-            <FooterTabComponent {...props} activeTab={AppConstant.APP_FOOTER_TABS.MY_REQUEST} />
+            <FooterTabComponent {...props} activeTab={AppConstant.APP_FOOTER_TABS.MY_OFFER} />
         </Footer>
         {showSpinner && (<SpinnerComponent />)}
     </Container>
