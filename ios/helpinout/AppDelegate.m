@@ -42,11 +42,11 @@ static void InitializeFlipper(UIApplication *application) {
   //}
   
   //return YES;
-/*
+
 #if DEBUG
   InitializeFlipper(application);
 #endif
-**/
+
   RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
   RCTRootView *rootView = [[RCTRootView alloc] initWithBridge:bridge
                                                    moduleName:@"helpinout"
