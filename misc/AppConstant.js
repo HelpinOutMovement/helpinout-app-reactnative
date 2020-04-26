@@ -10,7 +10,7 @@ const AppConstant = {
     },
     APP_ACTION:{
         RATE_REPORT:'rate_report',
-        DELETE:'delete',
+        CANCEL:'cancel',
         SEARCH_FOR_PROVIDERS:'SEARCH_FOR_PROVIDERS',
         SENT_REQUEST:'SENT_REQUEST'
     },

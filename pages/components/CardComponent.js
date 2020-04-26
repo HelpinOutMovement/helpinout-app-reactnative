@@ -192,7 +192,7 @@ const RequesterInfoCardComponent = (props) => {
               label={translate.t("Rate_Report")}
               clickHandler={() => { props.clickHandler(props, AppConstant.APP_ACTION.RATE_REPORT) }} />
             <BasicButton label={translate.t("Cancel")}
-              clickHandler={() => { props.clickHandler(props, AppConstant.APP_ACTION.DELETE) }} />
+              clickHandler={() => { props.clickHandler(props, AppConstant.APP_ACTION.CANCEL) }} />
           </View>
         </View>
       </CardItem>

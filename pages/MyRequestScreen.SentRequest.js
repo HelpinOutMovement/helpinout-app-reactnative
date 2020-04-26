@@ -1,21 +1,29 @@
 import React, { useState, useEffect } from 'react';
-import { TouchableOpacity, View } from 'react-native';
-import { Container, Header, Grid, Row, Col, Title, Left, Icon, Right, Button, Body, Content, Text, Footer, FooterTab, Card, CardItem } from "native-base";
+import { TouchableOpacity, View, Dimensions } from 'react-native';
+import { Container, Spinner, Content, Text, Footer, FooterTab, Card, CardItem } from "native-base";
 import translate from 'react-native-i18n';
 import { BasicFilledButton } from './components/ButtonComponent';
-import { PastOfferRequestComponent } from './components/PastOfferRequestComponent';
 import { apiInstance } from "../APIClient/API";
 import AppConstant from '../misc/AppConstant';
 import { RequesterInfoCardComponent } from './components/CardComponent';
 import ModalComponent from './components/ModalComponent';
 import HeaderComponent from './components/HeaderComponent';
+import SpinnerComponent from './components/SpinnerComponent';
 
 
 function MyRequestSentRequestScreen(props) {
     const colorTheme = "#EE6B6B";
     const [showModal, setShowModal] = useState(false);
     const [modalInfo, setModalInfo] = useState({});
+    const [showSpinner, setShowSpinner] = useState(false);
+    const [mappedRequestEntity, setMappedRequestEntity] = useState([]);
     const requestParams = (props.route && props.route.params && props.route.params.request) ? props.route.params.request : {};
+    // set the content
+    useEffect(()=>{
+        if (requestParams && requestParams.mapping && requestParams.mapping.length){
+               setMappedRequestEntity(requestParams.mapping);
+             }
+    }, [])
     const closePopUp = () => {
         setShowModal(!showModal);
     }
@@ -29,14 +37,25 @@ function MyRequestSentRequestScreen(props) {
                 ...ele
             });
             setShowModal(!showModal);
+        } else if (actions === AppConstant.APP_ACTION.CANCEL) {
+            apiInvocation(ele.offer_detail.activity_uuid, ele.offer_detail.activity_type, (resp)=>{
+                let mapLocalRequest = [];
+                mappedRequestEntity.forEach((singleMapping) => {
+                    if(singleMapping.offer_detail.activity_uuid !== ele.offer_detail.activity_uuid){
+                        mapLocalRequest.push(singleMapping);
+                    }
+                });
+                console.log(mapLocalRequest);
+                setMappedRequestEntity(mapLocalRequest);
+            });
         }
 
     }
 
     const getMappedRequestView = () => {
         const mappedRequestView = [];
-        if (requestParams && requestParams.mapping && requestParams.mapping.length) {
-            requestParams.mapping.forEach((singleMapping) => {
+        if (mappedRequestEntity.length > 0) {
+            mappedRequestEntity.forEach((singleMapping) => {
                 mappedRequestView.push(
                     <RequesterInfoCardComponent
                         name={singleMapping.offer_detail.user_detail.first_name + " " + singleMapping.offer_detail.user_detail.last_name}
@@ -59,6 +78,33 @@ function MyRequestSentRequestScreen(props) {
         return mappedRequestView;
     }
 
+    const onActionClick = (ratingPayload) => {
+        console.log(ratingPayload);
+        closePopUp();
+    }
+
+    const apiInvocation = (uuid, actType, successCallback) => {
+        console.log(uuid ,"::",actType)
+        if(uuid && actType) {
+            setShowSpinner(true);
+            // REPLACE AcTUAL DELETE
+            //same is used for cancellation & delete request
+            apiInstance.activityDelete(uuid,actType).then((resp) => {
+                    setShowSpinner(false);
+                    if(successCallback) {
+                        successCallback(resp)
+                    } else {
+                        props.navigation.goBack();
+                    }
+                }).catch((err) => {
+                    setShowSpinner(false);
+                    console.log(err)
+                });
+        }
+    }
+    const cancelRequest = ( ) => {
+        apiInvocation(props.route.params.request.activity_uuid, props.route.params.request.activity_type)
+    }
     return (
         <Container>
             <HeaderComponent {...props}
@@ -71,22 +117,26 @@ function MyRequestSentRequestScreen(props) {
                 {...modalInfo}
                 viewName={(modalInfo && modalInfo.type) ? modalInfo.type : ""}
                 showModal={showModal}
-                closePopUp={closePopUp} />
+                closePopUp={closePopUp}
+                onActionClick={onActionClick} />
             <Footer>
-                <View style={{ 
-                        marginTop: 10, 
-                        justifyContent: "center", 
-                        alignItems: "center",
-                        width:"90%" }}>
+                <View style={{
+                    marginTop: 10,
+                    justifyContent: "center",
+                    alignItems: "center",
+                    width: "90%"
+                }}>
                     <BasicFilledButton
                         buttonStyle={{
-                            borderRadius:10
+                            borderRadius: 10
                         }}
-                        clickHandler={() => { props.closePopUp() }}
+                        clickHandler={() => { cancelRequest() }}
                         label={translate.t("Cancel_This_Request")}
                         colorTheme={colorTheme} />
                 </View>
             </Footer>
+            {showSpinner && (<SpinnerComponent />)}
+
         </Container>
     );
 }
