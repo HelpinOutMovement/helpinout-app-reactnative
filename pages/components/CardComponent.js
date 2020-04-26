@@ -111,14 +111,18 @@ const RequesterInfoCardComponent = (props) => {
     const callerView = [];
     if (props.primayInfo && props.primayInfo.mobile_no_visibility && props.primayInfo.mobile_no_visibility == 1) {
       callerView.push(
+
         <TouchableOpacity
-          style={{ alignSelf: "center" }}
+          style={{ alignSelf: "center", alignItems: "center" }}
           onPress={() => {
             dialCall(props.callerNumber)
           }}>
           <MaterialIcon name="call" style={{
             fontSize: 17
           }} />
+          <Text style={{
+            fontSize: 12
+          }}> Call them </Text>
         </TouchableOpacity>
       );
     }
@@ -138,15 +142,7 @@ const RequesterInfoCardComponent = (props) => {
   return (
     <Card style={{
       alignItems: "center",
-      marginTop: 10,
-      marginBottom: 10,
-      marginLeft: 10,
-      marginRight: 10,
-      paddingVertical: 20,
-      borderRadius: 10,
-      borderBottomWidth: 1,
-      shadowColor: '#4F5065CC',
-      shadowOffset: { width: 5, height: 6 }
+      borderBottomWidth: 1
     }} >
       <CardItem >
         <View style={{ width: "100%", flexDirection: "column" }}>
@@ -193,9 +189,9 @@ const RequesterInfoCardComponent = (props) => {
           </View>
           <View style={{ marginTop: 10, flexDirection: "row", justifyContent: "space-between" }}>
             <BasicButton
-              label="Rate / Report"
+              label={translate.t("Rate_Report")}
               clickHandler={() => { props.clickHandler(props, AppConstant.APP_ACTION.RATE_REPORT) }} />
-            <BasicButton label="Delete"
+            <BasicButton label={translate.t("Cancel")}
               clickHandler={() => { props.clickHandler(props, AppConstant.APP_ACTION.DELETE) }} />
           </View>
         </View>

@@ -77,6 +77,12 @@ const BasicFilledButton = (props) => {
         shadowColor: '#2328321F',
 
     };
+    if(props.buttonStyle) {
+        buttonFilledStyle = {
+            ...buttonFilledStyle,
+            ...props.buttonStyle
+        }
+    }
     return (
         <TouchableOpacity
         style={buttonFilledStyle}

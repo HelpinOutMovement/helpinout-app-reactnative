@@ -109,6 +109,40 @@ const realReq = [
             "status": 1,
             "mapping_initiator": 1,
             "rate_report":  {}
+          },
+          {
+            "offer_detail": {
+              "activity_type": 2,
+              "activity_uuid": "89af57b3-f148-4162-bc08-d76d93bb6389",
+              "date_time": "2020-04-17T21:43:07.000+05:30",
+              "activity_category": 4,
+              "activity_count": 1,
+              "geo_location": "28.64426530,77.36177710",
+              "status": 1,
+              "offer_condition": "",
+              "activity_detail": [
+                {
+                  "detail": "Bdnd",
+                  "quantity": 98
+                }
+              ],
+              "user_detail": {
+                "country_code": "+91",
+                "mobile_no": "8800579215",
+                "first_name": "ANLC",
+                "last_name": " Gupta",
+                "mobile_no_visibility": 0,
+                "user_type": 2,
+                "org_name": "Organization",
+                "org_type": 4,
+                "org_division": "Unit2",
+                "rating_avg": 2,
+                "rating_count": 4
+              }
+            },
+            "status": 1,
+            "mapping_initiator": 1,
+            "rate_report":  {}
           }
         ]
       },
@@ -285,7 +319,7 @@ function MyRequestScreen(props) {
     const primaryActionHandler = (ele, actions) => {
         console.log(ele, "$$$$", actions);
         if(actions === AppConstant.APP_ACTION.SENT_REQUEST) {
-            props.navigation.navigate(AppConstant.APP_PAGE.MY_REQUEST_DETAILS_SCREEN,{
+            props.navigation.navigate(AppConstant.APP_PAGE.MY_REQUEST_SENT_REQUEST_SCREEN,{
                 request: ele
             });
         }
