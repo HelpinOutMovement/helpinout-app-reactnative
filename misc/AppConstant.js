@@ -8,6 +8,11 @@ const AppConstant = {
         VOLUNTEERS:'VOLUNTEERS',
         TECT_PERSONNEL:'TECT_PERSONNEL'
     },
+    APP_FOOTER_TABS:{
+        HOME:'HOME',
+        MY_REQUEST:'MY_REQUEST',
+        MY_OFFER:'MY_OFFER',
+    },
     APP_ACTION:{
         RATE_REPORT:'rate_report',
         CANCEL:'cancel',

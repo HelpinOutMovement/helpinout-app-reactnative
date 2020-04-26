@@ -1,13 +1,14 @@
 
 import React, { useState, useEffect } from 'react';
-import { TouchableOpacity, View } from 'react-native';
-import { Container, Header, Grid, Row, Col, Title, Left, Icon, Right, Button, Body, Content, Text, Footer, FooterTab, Card, CardItem } from "native-base";
+import {  View } from 'react-native';
+import { Container,  Icon,  Button,  Content, Text, Footer, FooterTab} from "native-base";
 import translate from 'react-native-i18n';
 import { PastOfferRequestComponent } from './components/PastOfferRequestComponent';
 import {apiInstance} from "../APIClient/API";
 import AppConstant from '../misc/AppConstant';
-import ModalComponent from './components/ModalComponent';
 import HeaderComponent from './components/HeaderComponent';
+import SpinnerComponent from './components/SpinnerComponent';
+import FooterTabComponent from './components/FooterTabComponent';
 
 const realReq = [
     {
@@ -304,17 +305,19 @@ const realReq = [
 function MyRequestScreen(props) {
     const colorTheme = "#EE6B6B";
     const activity_type = 1;
-    const [showModal, setShowModal] = useState(false);
-    const [modalInfo, setModalInfo] = useState({});
     const [requestInformation, setRequestInformation] = useState([]);
+    const [showSpinner, setShowSpinner] = useState(false);
+
     useEffect(()=>{
+        setShowSpinner(true);
         apiInstance.userPastActivity(activity_type).then(resp => {
+            setShowSpinner(false);
             setRequestInformation(resp.data.requests);
         }).catch((e)=>{
+            setShowSpinner(false);
             setRequestInformation([]);
         })
     },[]);
-
 
     const primaryActionHandler = (ele, actions) => {
         console.log(ele, "$$$$", actions);
@@ -323,28 +326,13 @@ function MyRequestScreen(props) {
                 request: ele
             });
         }
-        /*
-        if (actions === AppConstant.APP_ACTION.RATE_REPORT) {
-            setModalInfo({
-                type: AppConstant.APP_ACTION.RATE_REPORT,
-                ...ele
-            });
-            setShowModal(!showModal);
-        }
-        */
-    }
-    const secondaryActionHandler = (ele, actions) => {
-        console.log(ele.id, "$$$$", actions);
-    }
-
-    const closePopUp = () => {
-        setShowModal(!showModal);
     }
 
     const getRequestList = () => {
         let cardListView = [];
+        console.log(requestInformation);
         // requestInformation.forEach((singleOption, index) => {
-            realReq.forEach((singleOption, index) => {
+        realReq.forEach((singleOption, index) => {
             cardListView.push((
                 <PastOfferRequestComponent
                     key={singleOption.activity_uuid}
@@ -377,51 +365,15 @@ function MyRequestScreen(props) {
     return (
         <Container>
             <HeaderComponent {...props}
-               
-
                 title={translate.t("My_Requests")}
                 bgColor={colorTheme} />
             <Content   >
                 {getRequestList()}
-                {
-                    /**
-                     <Grid>
-                     {
-                     (<TabWrapperComponent 
-                     primaryTabTitle={translate.t(appLabelKey.offers_Received)}
-                     secondaryTabTitle={translate.t(appLabelKey.requests_Sent)}
-                     primayTabData={primaryData}
-                     primaryActionHandler={primaryActionHandler}
-                     secondaryActionHandler={secondaryActionHandler}
-                     secondaryTabData={secondaryData}
-                         />)
-                      }
-                 </Grid>
-                     */
-                }
-
             </Content>
-            <ModalComponent
-                {...modalInfo}
-                viewName={(modalInfo && modalInfo.type) ? modalInfo.type : ""}
-                showModal={showModal}
-                closePopUp={closePopUp} />
             <Footer>
-                <FooterTab>
-                    <Button vertical onPress={() => props.navigation.navigate(AppConstant.APP_PAGE.DASHBOARD)}>
-                        <Icon name="ios-home" style={{ color: "red" }} />
-                        <Text>Home</Text>
-                    </Button>
-                    <Button vertical active onPress={() => props.navigation.navigate(AppConstant.APP_PAGE.MY_REQUEST_SCREEN)}>
-                        <Icon name="camera" />
-                        <Text>My Requests</Text>
-                    </Button>
-                    <Button vertical onPress={() => props.navigation.navigate(AppConstant.APP_PAGE.MY_OFFERS_SCREEN)}>
-                        <Icon active name="navigate" />
-                        <Text>My Offers</Text>
-                    </Button>
-                </FooterTab>
+                <FooterTabComponent {...props} activeTab={AppConstant.APP_FOOTER_TABS.MY_REQUEST} />
             </Footer>
+            {showSpinner && (<SpinnerComponent />)}
         </Container>
     );
 }
