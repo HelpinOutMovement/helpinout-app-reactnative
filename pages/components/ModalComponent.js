@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Image, TouchableOpacity, StyleSheet, View } from 'react-native';
+import { Image, TouchableOpacity, Dimensions, View } from 'react-native';
 import { Container, Textarea, Grid, CheckBox, Row, Col, Form, Title, Item, Input, Label, Left, Right, Button, Body, Content, Text, Card, CardItem, Footer } from "native-base";
 import { Rating, AirbnbRating } from 'react-native-ratings';
 import Modal from 'react-native-modal';
@@ -11,6 +11,7 @@ import StaticImage from '../../styling/StaticImage';
 import translate from 'react-native-i18n';
 import { appLabelKey } from '../../misc/AppStrings';
 
+const windowHeight = Dimensions.get('window').height;
 const rateAndReviewModalContent = (props) => {
     const ratingCompleted = (val) => {
         console.log(val)
@@ -18,8 +19,8 @@ const rateAndReviewModalContent = (props) => {
     return (
         <View style={{
             backgroundColor: 'white',
-            padding: 22,
-            height: 490,
+            paddingHorizontal:10,
+            height: windowHeight- (windowHeight *0.4),
             justifyContent: 'center',
             alignItems: 'center',
             borderRadius: 4,
@@ -63,8 +64,6 @@ const rateAndReviewModalContent = (props) => {
                         startingValue={1.57}
                         imageSize={40}
                         onFinishRating={ratingCompleted}
-
-
                     />
                 </Col></Row>
                 <Row>
@@ -88,6 +87,20 @@ const rateAndReviewModalContent = (props) => {
                         <Text style={{ color: "#4F5065CC" }}>{translate.t(appLabelKey.no)}   </Text>
                     </Col>
                 </Row>
+               <Row>
+                   <Col>
+                   <Text> Comments </Text>
+                   <Textarea 
+                    placeholder="Test" 
+                    rowSpan={5}
+                    style={{
+                        borderRadius:10,
+                        borderWidth:2
+                    }}  >
+
+                   </Textarea>
+                   </Col>
+               </Row>
                 <Row>
                     <BasicFilledButton
                         clickHandler={() => { props.closePopUp() }}
