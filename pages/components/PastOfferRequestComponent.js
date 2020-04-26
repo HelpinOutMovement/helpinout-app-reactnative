@@ -98,11 +98,11 @@ const viewBasedOnCategory = (category, props) => {
 const getOfferList = (props) => {
     const finalOfferList =[];
     if(props.mapping && props.mapping.length > 0){
-       /*
         props.mapping.forEach(singleOffer => {
-            if(singleOffer.mapping_initiator === AppConstant.APP_MAPPING_INDICATOR_CODE.)
+            // consider the 
+            // if(singleOffer.mapping_initiator === AppConstant.APP_MAPPING_INDICATOR_CODE.)
         })
-        */
+       
     }
 }
 

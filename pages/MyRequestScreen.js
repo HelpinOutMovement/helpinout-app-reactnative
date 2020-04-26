@@ -312,7 +312,7 @@ function MyRequestScreen(props) {
         setShowSpinner(true);
         apiInstance.userPastActivity(activity_type).then(resp => {
             setShowSpinner(false);
-            setRequestInformation(resp.data.requests);
+            setRequestInformation((resp.data && resp.data.requests)?resp.data.requests:[]);
         }).catch((e)=>{
             setShowSpinner(false);
             setRequestInformation([]);
