@@ -73,7 +73,8 @@ function AskForHelpScreen(props) {
         address:props.route.params.address,
       })
       */
-     console.log(optionImage)
+
+     console.log(props.route.params.region)
      props.navigation.navigate(AppConstant.APP_PAGE.ADD_ACTIVITY_SCREEN, {
       activity_type: AppConstant.API_REQUEST_CONSTANTS.activity_type.Request,
       optionCode: optionCode,

@@ -142,13 +142,15 @@ export default class AddActivityScreen extends Component {
   constructor(props) {
     
     super(props);
-    console.log(JSON.stringify(this.props))
-    this.state = { valueArray: [], disabled: false , hideAddMore:true, hideConstrains: false, 
+    console.log("AddActivityScreen :  " + JSON.stringify(this.props))
+    this.state = { region:this.props.route.params.region , valueArray: [], disabled: false , hideAddMore:true, hideConstrains: false, 
       constrainsData:"", volunters_required:false, volunters_detail:"", volunters_quantity:0, technical_personal_required:false,technical_personal_detail:"", technical_personal_quantity:0, 
       enableVolunteers:false, enableTechPersonal:false,
       title:"Need help with...", headerBgColor:"#4F5065", showModal:false, address:this.props.route.params.address,
       activity_type:this.props.route.params.activity_type, activity_category:this.props.route.params.activity_category          
     }
+
+    console.log("AddActivityScreen :  " + JSON.stringify(this.state.region))
     this.addNewElement = false;
     this.index = 0;
 
@@ -217,7 +219,7 @@ export default class AddActivityScreen extends Component {
                   "technical_personal_required":techReq, "technical_personal_detail":this.state.technical_personal_detail, "technical_personal_quantity": this.state.technical_personal_quantity}
                   console.log(JSON.stringify(peopleData))
                 
-                  reqObj =  restApi.activityAdd(uuid, this.props.route.params.activity_type, this.props.route.params.region.latitude+","+this.props.route.params.region.longitude, "100", this.state.address, this.props.route.params.optionCode,1,peopleData,this.state.constrainsData,canPay)
+                  reqObj =  restApi.activityAdd(uuid, this.props.route.params.activity_type, this.state.region.latitude+","+this.state.region.longitude, "100", this.state.address, this.props.route.params.optionCode,1,peopleData,this.state.constrainsData,canPay)
                 reqObj.then((response) => {
                     console.log("Add Response Ambulance : " + JSON.stringify(response))
                     if(response.status === "1") {
@@ -231,7 +233,7 @@ export default class AddActivityScreen extends Component {
                 break;
               case AppConstant.API_REQUEST_CONSTANTS.activity_category.AMBULANCE:
                 console.log("Ambulance")
-                reqObj =  restApi.activityAdd(uuid, this.props.route.params.activity_type, this.props.route.params.region.latitude+","+this.props.route.params.region.longitude, "100", this.state.address, this.props.route.params.optionCode,1,{qty:""},this.state.constrainsData,canPay)
+                reqObj =  restApi.activityAdd(uuid, this.props.route.params.activity_type, this.state.region.latitude+","+this.state.region.longitude, "100", this.state.address, this.props.route.params.optionCode,1,{qty:""},this.state.constrainsData,canPay)
                 reqObj.then((response) => {
                     console.log("Add Response Ambulance : " + JSON.stringify(response))
                     if(response.status === "1") {
@@ -245,7 +247,7 @@ export default class AddActivityScreen extends Component {
               default:
                 console.log("Others") 
                 
-                reqObj =  restApi.activityAdd(uuid, this.props.route.params.activity_type, this.props.route.params.region.latitude+","+this.props.route.params.region.longitude, "100", this.state.address, this.props.route.params.optionCode,this.state.valueArray.length,this.state.valueArray,this.state.constrainsData,canPay)
+                reqObj =  restApi.activityAdd(uuid, this.props.route.params.activity_type, this.state.region.latitude+","+this.state.region.longitude, "100", this.state.address, this.props.route.params.optionCode,this.state.valueArray.length,this.state.valueArray,this.state.constrainsData,canPay)
                 
                 reqObj.then((response) => {
                     console.log("Add Response : " + JSON.stringify(response))
