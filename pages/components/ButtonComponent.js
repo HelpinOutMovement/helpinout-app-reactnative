@@ -108,6 +108,13 @@ const BasicButton = (props) => {
         alignItems: "flex-start",
         borderRadius: 10
     };
+    if(props.btnStyle) {
+        buttonFilledStyle = {
+            ...buttonFilledStyle,
+            ...props.btnStyle
+        }
+    }
+    
     return (
         <TouchableOpacity
         style={buttonFilledStyle}

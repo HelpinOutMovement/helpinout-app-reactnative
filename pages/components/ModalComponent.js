@@ -18,25 +18,25 @@ const rateAndReviewModalContent = (props) => {
     const [ratingVal, setRating] = useState(0);
     const [commentText, setCommentText] = useState('');
 
-    const resetComponent = ()=>{
-        setRecommended(false);   
+    const resetComponent = () => {
+        setRecommended(false);
         setCommentText('');
         setRating(0)
     }
 
-    const onClosePopUp = ()=> {
+    const onClosePopUp = () => {
         resetComponent();
-        if(props.closePopUp){
+        if (props.closePopUp) {
             props.closePopUp(true)
         }
     }
-    const onSubmitClick = ()=> {
+    const onSubmitClick = () => {
         const payload = {
-            recommendedForOthers:recommended,
-            comments:commentText,
-            rating:ratingVal
+            recommendedForOthers: recommended,
+            comments: commentText,
+            rating: ratingVal
         }
-        if(props.onActionClick) {
+        if (props.onActionClick) {
             props.onActionClick(payload);
         }
         resetComponent();
@@ -52,105 +52,119 @@ const rateAndReviewModalContent = (props) => {
             justifyContent: 'center',
             alignItems: 'center',
             borderRadius: 4,
-            borderColor: 'rgba(0, 0, 0, 0.1)',
-
+            borderColor: 'rgba(0, 0, 0, 0.1)'
         }}>
-            <Grid style={{ width: "100%" }}>
-                <Row style={{ borderColor: "green", borderWidth: 2 }}>
-                    <Col style={{ width: "80%" }}>
-                        <Text style={{ color: "#000000" }}>{translate.t(appLabelKey.rate_Report)}   </Text>
-                    </Col>
-                    <Col style={{ width: "20%" }}>
-                        <TouchableOpacity
-                            onPress={() => {
-                                onClosePopUp()
-                            }
-                            }>
-                            <EvilIcon name="close" style={{
-                                color: "#4F5065",
-                                fontSize: 34
-                            }} />
-                        </TouchableOpacity>
-                    </Col>
-                </Row>
-                <Row style={{ borderColor: "green", borderWidth: 2 }} >
-                    <Col style={{ width: "90%" }}>
-                        <Text style={{
-                            textAlign: "left",
-                            fontFamily: "Roboto-Medium",
-                            fontSize: 16,
-                            color: "#232832"
-                        }}>
-                            {props.name}  </Text>
-                    </Col>
-                </Row>
-                <Row><Col style={{ borderColor: "green", borderWidth: 2 }}>
+            <View style={{ width: "100%" }}>
+                <View style={{
+                    flexDirection: "row",
+                    justifyContent: "space-between"
+                }}>
+                    <Text style={{
+                        color: "#232832",
+                        fontFamily: "Roboto-Regular",
+                        fontSize: 16
+                    }}>{translate.t(appLabelKey.rate_Report)}   </Text>
+                    <TouchableOpacity
+                        onPress={() => { onClosePopUp() }}>
+                        <EvilIcon name="close" style={{
+                            color: "#4F5065",
+                            fontSize: 34
+                        }} />
+                    </TouchableOpacity>
+                </View>
+                <View>
+                    <Text style={{
+                        fontFamily: "Roboto-Medium",
+                        fontSize: 16,
+                        color: "#232832",
+                        marginTop: 15
+                    }}>{props.name}  </Text>
+                </View>
+                <View style={{ alignItems: "flex-start", marginBottom: 10 }}>
                     <AirbnbRating
                         reviews={[]}
-                        defaultRating={(props.primayInfo && props.primayInfo.rating_avg)?props.primayInfo.rating_avg:0}
+                        defaultRating={(props.primayInfo && props.primayInfo.rating_avg) ? props.primayInfo.rating_avg : 0}
                         ratingCount={5}
                         fractions={1}
                         startingValue={1.57}
                         size={30}
                         onFinishRating={ratingCompleted}
                     />
-                </Col></Row>
-                <Row>
-                    <Col>
-                        <Text style={{ color: "#4F5065CC" }}>{translate.t(appLabelKey.should_others_take_help_from_them)}   </Text>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col>
-                        <TouchableOpacity
-                            style={{ flexDirection: "row" }}
-                            onPress={() => {
-                                setRecommended(!recommended)
-                            }}>
-                            <CheckBox
-                                checked={recommended}
-                                color="#4F5065"
-                                style={{ marginRight: 20 }} />
-                            <Text style={{ color: "#4F5065CC" }}>{translate.t(appLabelKey.yes)}   </Text>
-                        </TouchableOpacity>
-                    </Col>
-                    <Col >
-                        <TouchableOpacity
-                            style={{ flexDirection: "row" }}
-                            onPress={() => {
-                                setRecommended(!recommended)
-                            }}>
-                            <CheckBox checked={!recommended} color="#4F5065" style={{ marginRight: 20 }} />
-                            <Text 
-                                style={{ color: "#4F5065CC" }}>{translate.t(appLabelKey.no)}   </Text>
-                        </TouchableOpacity>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col>
-                        <Text> Comments </Text>
+                </View>
+                <View style={{
+                    marginBottom: 15
+                }}>
+                    <Text style={{
+                        color: "#4F5065CC",
+                        fontFamily: "Roboto-Regular",
+                        fontSize: 16
+                    }}>{translate.t(appLabelKey.should_others_take_help_from_them)}</Text>
+                </View>
+                <View style={{
+                    flexDirection: "row", marginBottom: 20
+                }}>
+                    <TouchableOpacity
+                        style={{ flexDirection: "row" }}
+                        onPress={() => {
+                            setRecommended(!recommended)
+                        }}>
+                        <CheckBox
+                            checked={recommended}
+                            color="#4F5065"
+                            style={{ marginRight: 20 }} />
+                        <Text style={{
+                            color: "#4F5065",
+                            fontFamily: "Roboto-Regular",
+                            fontSize: 16
+                        }}>{translate.t(appLabelKey.yes)}   </Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={{ flexDirection: "row" }}
+                        onPress={() => {
+                            setRecommended(!recommended)
+                        }}>
+                        <CheckBox checked={!recommended} color="#4F5065" style={{ marginRight: 20 }} />
+                        <Text
+                            style={{ color: "#4F5065",
+                            fontFamily: "Roboto-Regular",
+                            fontSize: 16 }}>{translate.t(appLabelKey.no)}   </Text>
+                    </TouchableOpacity>
+
+                </View>
+                <View >
+                        <Text style={{
+                             color: "#4F5065CC",
+                             fontFamily: "Roboto-Regular",
+                             fontSize: 16,
+                             marginBottom: 5
+                        }}> Comments </Text>
                         <Textarea
-                            onChangeText={(txt)=>{
+                            onChangeText={(txt) => {
                                 console.log(txt)
                                 setCommentText(txt)
                             }}
-                            placeholder="Test"
+                            placeholder="Enter here"
                             rowSpan={5}
                             style={{
+                                marginHorizontal:10,
                                 borderRadius: 10,
-                                borderWidth: 2
-                            }}  >
+                                borderWidth: 2,
+                                borderColor:"#4F5065CC"
+                            }} >
 
                         </Textarea>
-                    </Col>
-                </Row>
-                <Row>
+                   
+                </View>
+                <View style={{alignItems:"center"}}>
                     <BasicFilledButton
+                        buttonStyle={{
+                           borderRadius:10
+                        }}
                         clickHandler={() => { onSubmitClick() }}
                         label={translate.t(appLabelKey.submit)}
                         colorTheme={props.colorTheme} />
-                </Row>
-            </Grid>
+                </View>
+            </View>
         </View>
     );
 

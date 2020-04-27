@@ -21,7 +21,7 @@ const realReq = [
         "status": 1,
         "activity_detail": [
           {
-            "detail": "Bshs",
+            "detail": "Description of the request comes here and maximum two lines...",
             "quantity": 1
           }
         ],
@@ -331,8 +331,8 @@ function MyRequestScreen(props) {
     const getRequestList = () => {
         let cardListView = [];
         console.log(requestInformation);
-        requestInformation.forEach((singleOption, index) => {
-        //realReq.forEach((singleOption, index) => {
+        //requestInformation.forEach((singleOption, index) => {
+        realReq.forEach((singleOption, index) => {
             cardListView.push((
                 <PastOfferRequestComponent
                     key={singleOption.activity_uuid}

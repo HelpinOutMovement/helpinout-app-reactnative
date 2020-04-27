@@ -19,11 +19,10 @@ const viewBasedOnCategory = (category, props) => {
                 const qtyText = (singleDetail.quantity) ? " " + singleDetail.quantity : "";
                 viewList.push(
                     <Text style={{
-                        textAlign: "left",
-                        fontFamily: "Roboto-Medium",
+                        fontFamily: "Roboto-Regular",
                         fontSize: 14,
-                        color: "#000000"
-                    }}> {qtyText}</Text>
+                        color: "#4F5065CC"
+                    }}>{qtyText}</Text>
                 )
             });
             break;
@@ -53,21 +52,19 @@ const viewBasedOnCategory = (category, props) => {
                         {
                             finalVolunteerText &&
                             <Text style={{
-                                textAlign: "left",
-                                fontFamily: "Roboto-Medium",
+                                fontFamily: "Roboto-Regular",
                                 fontSize: 14,
-                                color: "#000000"
-                            }}> {finalVolunteerText}</Text>
+                                color: "#4F5065CC"
+                            }}>{finalVolunteerText}</Text>
                         }
 
                         {
                             finalTechPersonnelText &&
                             <Text style={{
-                                textAlign: "left",
-                                fontFamily: "Roboto-Medium",
+                                fontFamily: "Roboto-Regular",
                                 fontSize: 14,
-                                color: "#000000"
-                            }}> {finalTechPersonnelText}</Text>
+                                color: "#4F5065CC"
+                            }}>{finalTechPersonnelText}</Text>
                         }
 
                     </View>
@@ -82,11 +79,10 @@ const viewBasedOnCategory = (category, props) => {
                 const qtyText = (singleDetail.quantity) ? " : " + singleDetail.quantity : "";
                 viewList.push(
                     <Text style={{
-                        textAlign: "left",
-                        fontFamily: "Roboto-Medium",
+                        fontFamily: "Roboto-Regular",
                         fontSize: 14,
-                        color: "#000000"
-                    }}> {singleDetail.detail + " " + qtyText}</Text>
+                        color: "#4F5065CC"
+                    }}>{singleDetail.detail + " " + qtyText}</Text>
                 )
             });
 
@@ -107,56 +103,71 @@ const getOfferList = (props) => {
 }
 
 const PastOfferRequestComponent = (props) => {
-
-
-    
-
     //console.log(props.activity_category)
     const helpOption = Utilities.getCategoryFromCode(props.activity_category);
     const categoryName = translate.t(appLabelKey[helpOption.toLowerCase()]);
     return (
         <Card style={{
-            marginTop: 25,
-            marginHorizontal: 10,
             alignSelf: "center",
-            width: "90%",
+            marginTop:10,
+            width: "94%",
             borderRadius: 10,
-            borderWidth: 4
+            borderWidth: 2,
+            shadowOpacity: 0.9,		
+            shadowOffset: { height: 5, width: 5 },		
+            shadowColor: '#EE6B6B3D'	
         }} >
             <CardItem >
                 <View style={{ width: "100%", flexDirection: "column" }}>
                     <View style={{ marginVertical: 10, flexDirection: "row", justifyContent: "space-between" }}>
                         <View style={{ width: "70%" }}>
                             <Text style={{
-                                textAlign: "left",
                                 fontFamily: "Roboto-Medium",
-                                fontSize: 14,
-                                color: "#EE6B6B"
-                            }}> {categoryName}</Text>
+                                fontSize: 16,
+                                color: "#4F5065"
+                            }}>{categoryName}</Text>
                             <Text style={{
-                                textAlign: "left",
-                                fontFamily: "Roboto-Medium",
+                                marginTop:5,
+                                fontFamily: "Roboto-Regular",
                                 fontSize: 12,
-                                color: "#EE6B6B"
-                            }}>   {Utilities.getDateTime(props.date_time)}</Text>
+                                color: "#4F50657A"
+                            }}>{Utilities.getDateTime(props.date_time)}</Text>
                         </View>
-                        <View style={{ width: "20%" }}>
+                        <View style={{ 
+                                width: "25%", 
+                                backgroundColor: "#EE6B6B",
+                                height:25,
+                                borderRadius:50,
+                                alignItems:"center",
+                                justifyContent:"center" }}>
                             <Text style={{
-                                textAlign: "left",
-                                fontFamily: "Roboto-Medium",
+                                fontFamily: "Roboto-Regular",
                                 fontSize: 12,
-                                color: "#EE6B6B"
+                                color: "#FFFFFF"
                             }}> {props.activity_count + " " + props.count_suffix}</Text>
                         </View>
                     </View>
 
-                    <View style={{ marginVertical: 10, flexDirection: "row", justifyContent: "space-between" }}>
-                        <View>
-                            {viewBasedOnCategory(helpOption, props)}
+                    <View style={{ 
+                            marginVertical: 10, 
+                            flexDirection: "row", 
+                            justifyContent: "space-between" }}>
+                        <View style={{
+                            width:"70%",
+                        }}>{viewBasedOnCategory(helpOption, props)}
                         </View>
+                        <View style={{
+                            width:"25%",
+                            alignItems:"flex-end",
+                             paddingRight:10
+                        }}>
                         <Image
-                            style={{ alignSelf: "center", width: 24, height: 19 }}
+                            style={{ 
+                                width: 28, 
+                                height: 22 }}
                             source={StaticImage[helpOption]} />
+                        </View>
+                        
                     </View>
 
 
@@ -164,9 +175,19 @@ const PastOfferRequestComponent = (props) => {
                     <View style={{ marginTop: 10, flexDirection: "row", justifyContent: "space-between" }}>
 
                         <BasicButton
+                            btnStyle={{
+                                fontFamily: "Roboto-Regular",
+                                fontSize: 14,
+                                color: "#4F5065"
+                             }}
                             label={props.primayActionLabel}
                             clickHandler={() => { (props.clickHandler) && props.clickHandler(props, AppConstant.APP_ACTION.SEARCH_FOR_PROVIDERS) }} />
                         <BasicButton
+                            btnStyle={{
+                                fontFamily: "Roboto-Regular",
+                                fontSize: 14,
+                                color: "#4F5065"
+                             }}
                             label={props.secondaryActionLabel }
                             clickHandler={() => { (props.clickHandler) && props.clickHandler(props, AppConstant.APP_ACTION.SENT_REQUEST) }} />
                     </View>
