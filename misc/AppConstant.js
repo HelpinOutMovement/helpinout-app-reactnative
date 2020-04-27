@@ -23,6 +23,10 @@ const AppConstant = {
         'REQUESTER':1,
         'OFFERER':2
     },
+    APP_DELET_ACTION:{
+        DELETE_ACTIVITY:'DELETE_ACTIVITY',
+        DELETE_MAPPING:'DELETE_MAPPING'
+    },
     APP_MAPPING_INDICATOR_CODE:{
         1:'REQUESTER',
         2:'OFFERER'

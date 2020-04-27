@@ -28,6 +28,16 @@ function MyOfferSentOfferScreen(props) {
         setShowModal(!showModal);
     }
 
+    const updateMappedRequest = () => {
+        let mapLocalRequest = [];
+        mappedRequestEntity.forEach((singleMapping) => {
+            if(singleMapping.offer_detail.activity_uuid !== ele.offer_detail.activity_uuid){
+                mapLocalRequest.push(singleMapping);
+            }
+        });
+        setMappedRequestEntity(mapLocalRequest)
+    }
+
     const primaryActionHandler = (ele, actions) => {
         console.log(ele, "$$$$", actions);
 
@@ -38,15 +48,11 @@ function MyOfferSentOfferScreen(props) {
             });
             setShowModal(!showModal);
         } else if (actions === AppConstant.APP_ACTION.CANCEL) {
-            apiInvocation(ele.offer_detail.activity_uuid, ele.offer_detail.activity_type, (resp)=>{
-                let mapLocalRequest = [];
-                mappedRequestEntity.forEach((singleMapping) => {
-                    if(singleMapping.offer_detail.activity_uuid !== ele.offer_detail.activity_uuid){
-                        mapLocalRequest.push(singleMapping);
-                    }
-                });
-                console.log(mapLocalRequest);
-                setMappedRequestEntity(mapLocalRequest);
+            apiInvocation({
+                uuid:ele.offer_detail.activity_uuid, 
+                actType:ele.offer_detail.activity_type,
+                successCallback:updateMappedRequest,
+                deleteType:AppConstant.APP_DELET_ACTION.DELETE_MAPPING
             });
         }
 
@@ -85,13 +91,18 @@ function MyOfferSentOfferScreen(props) {
         closePopUp();
     }
 
-    const apiInvocation = (uuid, actType, successCallback) => {
-        console.log(uuid ,"::",actType)
+    const apiInvocation = ({uuid, actType, successCallback, deleteType}) => {
+        
         if(uuid && actType) {
             setShowSpinner(true);
-            // REPLACE AcTUAL DELETE
+            let apiInstancePromise;
             //same is used for cancellation & delete request
-            apiInstance.activityDelete(uuid,actType).then((resp) => {
+            if(deleteType === AppConstant.APP_DELET_ACTION.DELETE_ACTIVITY) {
+                apiInstancePromise = apiInstance.activityDelete(uuid,actType);
+            } else if(deleteType === AppConstant.APP_DELET_ACTION.DELETE_MAPPING) {
+                apiInstancePromise = apiInstance.mappingDelete(uuid,actType);
+            }
+            apiInstancePromise.then((resp) => {
                     setShowSpinner(false);
                     if(successCallback) {
                         successCallback(resp)
@@ -105,8 +116,14 @@ function MyOfferSentOfferScreen(props) {
         }
     }
     const cancelRequest = ( ) => {
-        apiInvocation(props.route.params.request.activity_uuid, props.route.params.request.activity_type)
+        apiInvocation(
+            {
+                uuid: props.route.params.request.activity_uuid, 
+                actType:props.route.params.request.activity_type,
+                deleteType:AppConstant.APP_DELET_ACTION.DELETE_ACTIVITY
+            })
     }
+    
     return (
         <Container>
             <HeaderComponent {...props}
