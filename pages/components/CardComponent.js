@@ -11,7 +11,6 @@ import Utilities from '../../misc/Utils';
 import { appLabelKey } from '../../misc/AppStrings';
 import { App } from 'react-native-firebase';
 
-
 const CardComponent = (props) => {
   if (props.singleRow) {
     return (

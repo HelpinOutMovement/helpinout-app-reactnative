@@ -70,7 +70,7 @@ class Dashboard extends React.Component {
       }).catch(err => {
         if(err.response.status === 409){
           alert("appid expired ")
-          AppStorage.storeAppInfo(AppConstant.APP_STORE_KEY.IS_VEFIRIED, "false");
+          appStorage.storeAppInfo(AppConstant.APP_STORE_KEY.IS_VEFIRIED, "false");
           this.navigate(AppConstant.APP_PAGE.LOGIN);
         }
       })

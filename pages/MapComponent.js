@@ -43,7 +43,7 @@ class MapComponent extends React.Component {
   constructor(props) {
     super(props);
     console.log("MapComponent Constructor" )
-    Geocoder.init("AIzaSyCHfhUetk2cn4t29B2YxVBf-3yrTw7NH_g");
+    Geocoder.init("AIzaSyDgaOp_orkTcVpcH6NfNE3XtOH6tdiXlsg");
     console.log(this.props)
     this.navigate = this.props.mapProps.navigation.navigate;
     this.state = {
@@ -71,28 +71,44 @@ class MapComponent extends React.Component {
   setCurrentLocation(lat, lon){
     if(lat === 0 && lon === 0){
       Geolocation.getCurrentPosition((info) => {
-        console.log("getCurrentPosition "+ JSON.stringify(info))
-        this.setLanLon(info.coords.latitude, info.coords.longitude);
-        console.log("setCurrentLocation")
-      console.log("Current Location " + JSON.stringify(info))
-      this.setState({latitude: lat, longitude:lon});
-      // Use the below code to zoom to particular location with radius.
+          console.log("getCurrentPosition "+ JSON.stringify(info))
+          this.setLanLon(info.coords.latitude, info.coords.longitude);
+          console.log("setCurrentLocation")
+          console.log("Current Location " + JSON.stringify(info))
+          this.setState({latitude: lat, longitude:lon});
+          // Use the below code to zoom to particular location with radius.
 
-      console.log(this.state.region)
-      this.map.animateToRegion({ latitude: this.state.region.latitude, longitude: this.state.region.longitude, latitudeDelta: LATITUDE_DELTA * Number(this.state.radius/15), longitudeDelta: LONGITUDE_DELTA * Number(this.state.radius/15) }, 2000); 
-      
-      let restApi = new API();
-      console.log("Component Did mount "+ JSON.stringify(this.state.region))
-      let address = restApi.geocode(this.state.region.latitude, this.state.region.longitude)
-        address.then((addr) => {
-        this.setState({address:addr})   
-        this.props.callbackOnRegionChange(this.state.region, this.state);
-        console.log("Address :::::: " + addr + "  " +JSON.stringify(this.state.region))
-      }).catch(err => {
-        this.props.callbackOnRegionChange(this.state.region, this.state);
-        console.log("Geocode Error : " + err)})
-    
+          console.log(this.state.region)
+          this.map.animateToRegion({ latitude: this.state.region.latitude, longitude: this.state.region.longitude, latitudeDelta: LATITUDE_DELTA * Number(this.state.radius/15), longitudeDelta: LONGITUDE_DELTA * Number(this.state.radius/15) }, 2000); 
+          
+          let restApi = new API();
+          console.log("Component Did mount "+ JSON.stringify(this.state.region))
+          let address = restApi.geocode(this.state.region.latitude, this.state.region.longitude)
+            address.then((addr) => {
+            this.setState({address:addr})   
+            this.props.callbackOnRegionChange(this.state.region, this.state);
+            console.log("Address :::::: " + addr + "  " +JSON.stringify(this.state.region))
+          }).catch(err => {
+            this.props.callbackOnRegionChange(this.state.region, this.state);
+            console.log("Geocode Error : " + err)
+          })
+        /*
+         console.log("setCurrentLocation Region Data : "+ JSON.stringify(this.state.region))
+         Geocoder.from(this.state.region.latitude, this.state.region.longitude)
+         .then(json => {
+            var addressComponent = json.results[0].address_components[0];
+            console.log(addressComponent);
+            this.setState({address:JSON.stringify(addressComponent)},() => { 
+              console.log(" Geocoder.from 1 addressComponent   " + JSON.stringify(addressComponent))
+              this.props.callbackOnRegionChange(this.state.region, this.state);
+            })  
+         })
+         .catch(error => {          
+          console.log(" Geocoder.from 1 Geocode Error : " + JSON.stringify(error))
+         });
+        */
       })
+      
     }  
   }
 
@@ -192,25 +208,43 @@ class MapComponent extends React.Component {
         let mapBoundries = this.map.getMapBoundaries();
         mapBoundries.then((val) => {
           console.log("onRegionChangeComplete   " + JSON.stringify(val))
-          this.state.boundries = val;
+          this.setState({boundries:val})
+          //this.state.boundries = val;
           var dis = getDistance(
             val.northEast,
             val.southWest
           );
           console.log(`Distance\n${dis} Meter\nor\n${dis / 1000} KM`);
           console.log("this.state.region.    " + JSON.stringify(this.state))          
-        let restApi = new API();
+          
+          let restApi = new API();
 
           let address = restApi.geocode(region.latitude, region.longitude)
             address.then((addr) => {
-            this.setState({address:addr},() => { 
-              console.log(addr)
-              this.props.callbackOnRegionChange(region, this.state);
-            })              
-          }).catch(err => {
-            this.props.callbackOnRegionChange(this.state.region, this.state);
-            console.log("Geocode Error : " + err)
-          })    
+              this.setState({address:addr},() => { 
+                console.log(addr)
+                this.props.callbackOnRegionChange(region, this.state);
+              })              
+            }).catch(err => {
+              this.props.callbackOnRegionChange(this.state.region, this.state);
+              console.log("Geocode Error : " + err)
+            })    
+
+          
+          /*
+            Geocoder.from(region.latitude, region.longitude)
+            .then(json => {
+            var addressComponent = json.results[0].address_components[0];
+              console.log(addressComponent);
+              this.setState({address:JSON.stringify(addressComponent)},() => { 
+                console.log(" Geocoder.from 2 addressComponent   " + JSON.stringify(addressComponent))
+                this.props.callbackOnRegionChange(region, this.state);
+              })  
+            })
+            .catch(error => {          
+             console.log(" Geocoder.from 2 Geocode Error : " + JSON.stringify(error))
+            });
+         */
         //this.getLocationSuggestions();
         })
      })
@@ -230,7 +264,7 @@ class MapComponent extends React.Component {
         reqObj.then((val)=> {
           console.log("API Response Data  1  " + JSON.stringify(val))
           this.addMarker(val)
-        }).catch(err => {
+        }).catch((err) => {
           if(err.response.status === 409){
             alert("appid expired ")
             AppStorage.storeAppInfo(AppConstant.APP_STORE_KEY.IS_VEFIRIED, "false");

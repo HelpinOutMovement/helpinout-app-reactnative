@@ -75,7 +75,7 @@ class API{
         }).catch(err => {reject(err)})
     });
   }
-
+//https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=18.482630&longitude=73.892610
   //https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=18.482630&lon=73.892610
 
 

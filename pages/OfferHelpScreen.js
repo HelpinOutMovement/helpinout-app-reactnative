@@ -8,6 +8,7 @@ import AppConstant from '../misc/AppConstant';
 import StaticImage from '../styling/StaticImage';
 import CardComponent from './components/CardComponent';
 import HeaderComponent from './components/HeaderComponent';
+import AddActivityScreen from './components/AddActivityScreen';
 
 import API from "../APIClient/API";
 

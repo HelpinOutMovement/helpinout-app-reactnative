@@ -8,6 +8,7 @@ import StaticImage from '../styling/StaticImage';
 import CardComponent from './components/CardComponent';
 import HeaderComponent from './components/HeaderComponent';
 import AppConstant from '../misc/AppConstant';
+import AddActivityScreen from './components/AddActivityScreen';
 
 const optionsOnScreen = [
   {
@@ -79,7 +80,7 @@ function AskForHelpScreen(props) {
       optionImage:optionImage,
       region:props.route.params.region,
       address:props.route.params.address,
-      activity_category:optionCode,
+      activity_category:optionCode,      
     })
 
     }
