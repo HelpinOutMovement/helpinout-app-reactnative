@@ -68,13 +68,15 @@ function App() {
     switch (appState) {
       case AppConstant.APP_STATE.IS_AUTHENTICATED:
         stackedScreen.push((
-          //"Dashboard  SearchHelpProvidersRequesters"
-          <Stack.Navigator key='n_authen' initialRouteName="SplashScreen" screenOptions={{
+          //"Dashboard  SearchHelpProvidersRequesters MyOfferScreen 7429E07C-37AF-4F17-AD31-5721EA75D0F"
+          <Stack.Navigator key='n_authen' initialRouteName="Dashboard" screenOptions={{
             headerShown: false
           }} >
-            <Stack.Screen key={`a_${AppConstant.APP_PAGE.SEARCH_HELP_PROVIDERS_REQUESTERS}`} name={AppConstant.APP_PAGE.SEARCH_HELP_PROVIDERS_REQUESTERS} component={SearchHelpProvidersRequesters} initialParams={{activity_type:1, activity_uuid:"0C7ABDEE-F88B-46CD-8A40-445C04799ED1", region:{}, address:""}}/>
+            <Stack.Screen key={`a_${AppConstant.APP_PAGE.SEARCH_HELP_PROVIDERS_REQUESTERS}`} name={AppConstant.APP_PAGE.SEARCH_HELP_PROVIDERS_REQUESTERS} component={SearchHelpProvidersRequesters} /*initialParams={{activity_type:2, activity_uuid:"C923AB2B-2122-4674-98F6-809850172A27", region:{}, address:""}}*//>
+            <Stack.Screen key={`a_${AppConstant.APP_PAGE.DASHBOARD}`} name={AppConstant.APP_PAGE.DASHBOARD} component={MyDrawer} />
+            
 
-            <Stack.Screen key={`a_${AppConstant.APP_PAGE.DASHBOARD}`} name={AppConstant.APP_PAGE.DASHBOARD} component={Dashboard} />
+
             <Stack.Screen key={`a_${AppConstant.APP_PAGE.LOGIN}`} name={AppConstant.APP_PAGE.LOGIN} component={LoginScreen} />
             <Stack.Screen key={`a_${AppConstant.APP_PAGE.VERIFY}`} name={AppConstant.APP_PAGE.VERIFY} component={VerifyScreen} />
             <Stack.Screen key={`a_${AppConstant.APP_PAGE.ON_BOARDING}`} name={AppConstant.APP_PAGE.ON_BOARDING} component={OnBoardingScreen} />
@@ -95,6 +97,7 @@ function App() {
             <Stack.Screen key={`a_${AppConstant.APP_PAGE.OFFER_HELP_SCREEN}`} name={AppConstant.APP_PAGE.OFFER_HELP_SCREEN} component={OfferHelpScreen} />
 
             <Stack.Screen key={`a_${AppConstant.APP_PAGE.ADD_ACTIVITY_SCREEN}`} name={AppConstant.APP_PAGE.ADD_ACTIVITY_SCREEN} component={AddActivityScreen} />
+            
 
 
             {/*          <Stack.Screen key= 'n_login' name="Login" component={LoginScreen} />

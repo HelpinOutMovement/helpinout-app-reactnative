@@ -12,6 +12,7 @@ import commonStyling from '../styling/commonStyle';
 import Dashboard from './Dashboard';
 import MyRequestScreen from './MyRequestScreen';
 import LogoComponent from './components/LogoComponent';
+import SearchHelpProvidersRequesters from './SearchHelpProvidersRequesters'
 
 const Drawer = createDrawerNavigator();
 
@@ -170,6 +171,7 @@ function MyDrawer(props) {
         permanent={'front'}
         drawerContent={(props) => (<CustomSideBarView  {...props} />)}>
             <Drawer.Screen name="Feed" {...props} component={Dashboard} />
+            <Drawer.Screen name="Search Providers" {...props} component={SearchHelpProvidersRequesters} />
         </Drawer.Navigator>
     );
 }

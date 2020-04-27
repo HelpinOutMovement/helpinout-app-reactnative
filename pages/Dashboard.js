@@ -86,6 +86,7 @@ class Dashboard extends React.Component {
     render() { 
         return (
             <Container >
+              
                 <Header>
                   <Left>
                     <Button
@@ -99,8 +100,8 @@ class Dashboard extends React.Component {
                   </Body>
                   <Right />
                 </Header>   
-                <Content padder contentContainerStyle={{...StyleSheet.absoluteFillObject, justifyContent: 'flex-end', alignItems: 'center',}} >                
-                  <MapComponent callbackOnRegionChange={this.callbackOnRegionChange} mapProps={this.props} ref={this.mapComponentRef} onPress={() => this.callMapComponentMethod()} />      
+                <Content padder contentContainerStyle={{height:"100%", justifyContent: 'flex-end', alignItems: 'center',}} >                
+                  <MapComponent mapHeight={"100%"} callbackOnRegionChange={this.callbackOnRegionChange} mapProps={this.props} ref={this.mapComponentRef} onPress={() => this.callMapComponentMethod()} />      
                 </Content>
                   <HView style={styles(this.dimensions).hintTextContainer} hide={this.state.hintIsHidden}>
                       <Text style={styles(this.dimensions).hintText}>

@@ -79,6 +79,7 @@ function AskForHelpScreen(props) {
       optionImage:optionImage,
       region:props.route.params.region,
       address:props.route.params.address,
+      activity_category:optionCode,
     })
 
     }

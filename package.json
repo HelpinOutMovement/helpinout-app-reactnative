@@ -43,6 +43,8 @@
     "react-native-star-rating": "^1.1.0",
     "react-native-uuid-generator": "^6.1.1",
     "react-native-vector-icons": "^6.6.0",
+    "react-navigation": "^4.3.8",
+    "react-navigation-drawer": "^2.4.12",
     "uuid": "^7.0.3"
   },
   "devDependencies": {

@@ -144,9 +144,12 @@ export default class AddActivityScreen extends Component {
     this.state = { valueArray: [], disabled: false , hideAddMore:true, hideConstrains: false, 
       constrainsData:"", volunters_required:false, volunters_detail:"", volunters_quantity:0, technical_personal_required:false,technical_personal_detail:"", technical_personal_quantity:0, 
       enableVolunteers:false, enableTechPersonal:false,
-      title:"Need help with...", headerBgColor:"#4F5065", showModal:false, address:this.props.route.params.address}
+      title:"Need help with...", headerBgColor:"#4F5065", showModal:false, address:this.props.route.params.address,
+      activity_type:this.props.route.params.activity_type, activity_category:this.props.route.params.activity_category          
+    }
     this.addNewElement = false;
     this.index = 0;
+
 
 
     const colorTheme = "#4F5065";
@@ -216,7 +219,10 @@ export default class AddActivityScreen extends Component {
                 reqObj.then((response) => {
                     console.log("Add Response Ambulance : " + JSON.stringify(response))
                     if(response.status === "1") {
-                      this.showPopUp();
+                      this.setState({activity_category:response.data.activity_category, activity_uuid:response.data.activity_uuid, activity_type:response.data.activity_type},() => { 
+                        this.showPopUp();
+                      })              
+                     
                     }
                 }).catch((err) => {console.log(err)})    
                 
@@ -227,7 +233,9 @@ export default class AddActivityScreen extends Component {
                 reqObj.then((response) => {
                     console.log("Add Response Ambulance : " + JSON.stringify(response))
                     if(response.status === "1") {
-                      this.showPopUp();
+                      this.setState({activity_category:response.data.activity_category, activity_uuid:response.data.activity_uuid, activity_type:response.data.activity_type},() => { 
+                        this.showPopUp();
+                      })    
                     }
                 }).catch((err) => {console.log(err)})    
                 
@@ -240,7 +248,9 @@ export default class AddActivityScreen extends Component {
                 reqObj.then((response) => {
                     console.log("Add Response : " + JSON.stringify(response))
                     if(response.status === "1") {
-                      this.showPopUp();
+                      this.setState({activity_category:response.data.activity_category, activity_uuid:response.data.activity_uuid, activity_type:response.data.activity_type},() => { 
+                        this.showPopUp();
+                      })    
                     }
                 }).catch((err) => {console.log(err)})    
                 
@@ -477,12 +487,16 @@ componentDidMount(){
                     </View> 
                   </View>
         </Container>
+      
         <ModalComponent
                 {...this.props}
                 viewName={(this.props && this.props.type) ? this.props.type : ""}
                 showModal={this.state.showModal}
                 closePopUp={this.closePopUp} 
-                activity_type={AppConstant.API_REQUEST_CONSTANTS.activity_type.Offer} />
+                activity_uuid={this.state.activity_uuid} 
+                activity_type={this.state.activity_type} 
+                activity_category={this.state.activity_category}
+                />
       </View>
       
     );

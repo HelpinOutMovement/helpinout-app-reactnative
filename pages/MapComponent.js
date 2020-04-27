@@ -88,7 +88,9 @@ class MapComponent extends React.Component {
         this.setState({address:addr})   
         this.props.callbackOnRegionChange(this.state.region, this.state);
         console.log("Address :::::: " + addr + "  " +JSON.stringify(this.state.region))
-      })
+      }).catch(err => {
+        this.props.callbackOnRegionChange(this.state.region, this.state);
+        console.log("Geocode Error : " + err)})
     
       })
     }  
@@ -205,7 +207,10 @@ class MapComponent extends React.Component {
               console.log(addr)
               this.props.callbackOnRegionChange(region, this.state);
             })              
-          })       
+          }).catch(err => {
+            this.props.callbackOnRegionChange(this.state.region, this.state);
+            console.log("Geocode Error : " + err)
+          })    
         //this.getLocationSuggestions();
         })
      })

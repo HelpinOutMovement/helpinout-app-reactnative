@@ -188,6 +188,8 @@ const needHelpWithModalContent = (props) => {
                         buttonVal={AppConstant.APP_CONFIRMATION.YES}
                         colorTheme={props.colorTheme}
                         activity_type={props.activity_type}
+                        activity_category={props.activity_category}
+                        activity_uuid={props.activity_uuid}
                     />
                     <ButtonComponent
                         containerStyle={{ marginLeft: 10 }}
@@ -197,6 +199,8 @@ const needHelpWithModalContent = (props) => {
                         buttonVal={AppConstant.APP_CONFIRMATION.NO}
                         colorTheme={props.colorTheme}
                         activity_type={props.activity_type}
+                        activity_category={props.activity_category}
+                        activity_uuid={props.activity_uuid}
                     />
                 </Row>
             </Grid>

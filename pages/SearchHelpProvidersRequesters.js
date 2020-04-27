@@ -1,8 +1,7 @@
 import React from 'react';
-import {  Dimensions, StyleSheet, TouchableOpacity, Platform, Switch} from "react-native";
+import {  Dimensions, StyleSheet, TouchableOpacity, Platform, Switch, Image} from "react-native";
 import { Container, View, Text, Button, Icon}from "native-base";
-import Geolocation from '@react-native-community/geolocation';
-import ModalComponent from './components/ModalComponent';
+
 import AppConstant from '../misc/AppConstant';
 import Utilities from '../misc/Utils';
 import HView from "./components/HView"
@@ -12,12 +11,14 @@ import { getDistance, getPreciseDistance } from 'geolib';
 import MappingSuggestionResponseComponent from "./components/MappingSuggestionResponseComponent"
 import MapComponent from './MapComponent';
 import { ScrollView } from 'react-native-gesture-handler';
+import StaticImage from '../styling/StaticImage';
 
-import AskForHelpButton from "./components/AskForHelpButton";
-import OfferHelpButton from "./components/OfferHelpButton";
 
 import StarRating from 'react-native-star-rating';
-import { sin } from 'react-native-reanimated';
+
+
+
+import { DrawerActions } from 'react-navigation-drawer';
 
 //import { ifIphoneX } from 'react-native-iphone-x-helper'
 
@@ -28,10 +29,12 @@ var tempCheckValues = [];
 class SearchHelpProvidersRequesters extends React.Component {
     constructor(props){
         super(props);
+        this.navigation = this.props.navigation;     
         this.navigate = this.props.navigation.navigate;
         this.state = {
             region:this.props.route.params.region,
             address:this.props.route.params.address,
+            activity_category:this.props.route.params.activity_category,
             activity_type:this.props.route.params.activity_type,
             activity_uuid:this.props.route.params.activity_uuid,
             mapHeight:"50%",
@@ -40,8 +43,7 @@ class SearchHelpProvidersRequesters extends React.Component {
             bottom_panel_bottom:height/2,
             activitySuggestionOfferResponse:[],
             checkBoxChecked: {},
-            activity_data: []
-                     
+            activity_data: []                    
         }
 
         console.log(" ifIphoneX() : " + this.isIphoneX())
@@ -49,33 +51,25 @@ class SearchHelpProvidersRequesters extends React.Component {
         if(this.isIphoneX()){
             this.topBarPos = 40;
         }
-
-
-
         this.toggleBottomPanel()
+
+
+        const helpOption = Utilities.getCategoryFromCode(props.activity_category);
 
     }
 
 
       checkBoxChanged(id, value) {
-        console.log(id + " switchValue  : " + value)
-        console.log( JSON.stringify(this.state))
- 
-    
         this.state.checkBoxChecked[id] = value;
-        console.log(id + " checkBoxChecked  : " + JSON.stringify(this.state.checkBoxChecked))
         this.setState({
           checkBoxChecked: this.state.checkBoxChecked
         })
-
         if(value){
             this.state.activity_data.push(id)
         }else{
-            var index = this.state.activity_data.indexOf(item);
+            var index = this.state.activity_data.indexOf(id);
             if (index !== -1) this.state.activity_data.splice(index, 1);
         }
-        console.log( JSON.stringify(this.state))
-    
       }
 
 
@@ -90,9 +84,7 @@ class SearchHelpProvidersRequesters extends React.Component {
     }
 
     callbackOnRegionChange = (rgn, mapState) =>{
-
         this.setState({region:rgn, address:mapState.address, boundries:mapState.boundries})
-        //console.log("Dashboard callbackOnRegionChange : " + JSON.stringify(rgn), "       ---      " , addr)
         this.setState({region:rgn, address:mapState.address})
         // Use Geocoding and get address.
         console.log("Use Geocoding and get address  "+ JSON.stringify(mapState))
@@ -186,7 +178,7 @@ class SearchHelpProvidersRequesters extends React.Component {
                         </MapComponent>  
  
                         <View style={{ flex: 0, flexDirection: 'row',top:this.topBarPos , borderRadius:6 ,height:50, width:"90%", borderWidth:0, borderColor:"#000000" }}>                
-                            <View style={{width: "15%", backgroundColor:"white", height: 50, borderRadius:6, borderTopRightRadius:0,borderBottomRightRadius:0 ,borderLeftWidth:1,borderTopWidth:1,borderBottomWidth:1}} ><Button transparent style={{padding:0}}><Icon name="menu"/></Button></View>
+                            <View style={{width: "15%", backgroundColor:"white", height: 50, borderRadius:6, borderTopRightRadius:0,borderBottomRightRadius:0 ,borderLeftWidth:1,borderTopWidth:1,borderBottomWidth:1}} ><Button transparent style={{padding:0}} onPress={() => this.navigate(AppConstant.APP_PAGE.DASHBOARD)}><Icon name="menu"/></Button></View>
                             <View style={{width: "65%", backgroundColor:"white", height: 50, borderRadius:0, borderTopWidth:1,borderBottomWidth:1,alignItems:"center", justifyContent:"center"}} >
                                 <Text style={{fontSize:10, overflow:"hidden", height:10, textAlign:"left", width: "100%" , color:"grey", paddingTop:0, paddingBottom:0}}>You are here</Text>
                                 <Text style={{fontSize:12, overflow:"hidden", height:30,textAlign:"left", width: "100%", paddingTop:0}}>{this.state.address}</Text>
@@ -195,8 +187,14 @@ class SearchHelpProvidersRequesters extends React.Component {
                         </View>
 
                         <View style={{position:"absolute",bottom:this.state.bottom_panel_bottom, height:50}}>
-                                <View style={{ flex: 0, flexDirection: 'row',top:0 , borderRadius:6 ,height:60, width:"100%", borderWidth:5, borderColor:"#000000" }}>                
-                                        <View style={{width: "15%", backgroundColor:"white", height: 50, borderRadius:6, borderTopRightRadius:0,borderBottomRightRadius:0 , borderBottomLeftRadius:0,borderLeftWidth:0,borderTopWidth:0}} ><Button transparent style={{padding:0}}><Icon name="menu"/></Button></View>
+                                <View style={{ flex: 0, flexDirection: 'row',top:0 , borderRadius:6 ,height:60, width:"100%", borderWidth:0, borderColor:"#000000" }}>                
+                                        <View style={{width: "15%", backgroundColor:"white", height: 50, borderRadius:6, borderTopRightRadius:0,borderBottomRightRadius:0 , borderBottomLeftRadius:0,borderLeftWidth:0,borderTopWidth:0, alignItems:"flex-end", justifyContent: 'center'}} >
+                                            <Image
+                                                style={{ alignSelf: "center", width: 50, height: 30 }}
+                                                source={StaticImage[Utilities.getCategoryFromCode(this.state.activity_category)]} 
+                                                resizeMode='contain'/>
+                                                
+                                        </View>
                                         <View style={{width: "65%", backgroundColor:"white", height: 50, borderRadius:0, borderTopWidth:0,alignItems:"center", justifyContent:"center"}} ><Text style={{fontSize:14, overflow:"hidden"}}>{(this.state.activity_type === 1) ? "Select help providers" : "Select help requesters"}</Text></View>
                                         <View style={{width: "20%", backgroundColor:"white", height: 50, borderRadius:6, borderTopLeftRadius:0,borderBottomLeftRadius:0 ,borderBottomRightRadius:0, borderTopWidth:0,borderRightWidth:0,alignItems:"center", justifyContent: 'center'}} ><Button transparent style={{padding:0}} onPress={()=>{this.toggleBottomPanel()}}><Icon name={this.state.bottom_panel_icon}/></Button></View>                                                        
                                 </View>
@@ -207,13 +205,13 @@ class SearchHelpProvidersRequesters extends React.Component {
 
                             ? 
                             <HView hide={!this.state.bottom_panel_visible} style={{position:"absolute",bottom:10, height:(height/2),justifyContent:"center",alignItems: 'center',  width:"98%"}}>
-                                <ScrollView style={{height:250, borderWidth:2, marginTop:30}}>
+                                <ScrollView style={{height:250, borderWidth:0, marginTop:10}}>
                                     {this.state.activitySuggestionOfferResponse.map(singleData => {
                                         return (
                                             <View style={styles.container}>
                                                 <View style={styles.rect}>
                                                     <View style={styles.rect2Row}>
-                                                        <View style={styles.rect2}><Text style={{paddingLeft:5}}>{singleData.user_detail.first_name + " " + singleData.user_detail.last_name}</Text></View>                                     
+                                                        <View style={styles.rect2}><Text style={{paddingLeft:5, fontFamily:'Roboto-Medium'}}>{singleData.user_detail.first_name + " " + singleData.user_detail.last_name}</Text></View>                                     
                                                             
                                                             <Switch
                                                                 style={styles.rect3,{ marginTop:-5, transform: [{ scaleX: .5 }, { scaleY: .5 }] }}
@@ -244,7 +242,7 @@ class SearchHelpProvidersRequesters extends React.Component {
                                                             //selectedStar={(rating) => this.onStarRatingPress(rating)}
                                                         />
                                                         </View>
-                                                        <View style={styles.rect5}><Text style={{paddingLeft:5}}>{Utilities.timeSince(singleData.date_time)} ago  | {((this.getDistanceBetween({ latitude: this.state.region.latitude, longitude: this.state.region.longitude }, { latitude: singleData.geo_location.split(",")[0], longitude: singleData.geo_location.split(",")[1] }))/1000).toFixed(2)} kms away</Text></View>
+                                                        <View style={styles.rect5}><Text style={{paddingLeft:5, fontSize:12, marginLeft:10}}>{Utilities.timeSince(singleData.date_time)} ago  | {((this.getDistanceBetween({ latitude: this.state.region.latitude, longitude: this.state.region.longitude }, { latitude: singleData.geo_location.split(",")[0], longitude: singleData.geo_location.split(",")[1] }))/1000).toFixed(2)} kms away</Text></View>
                                                     </View>
                                                     <View style={styles.rect6}><Text style={{paddingLeft:5, fontSize:10}}>Can help with</Text></View>
                                                     <View style={styles.rect7}>
@@ -277,8 +275,8 @@ class SearchHelpProvidersRequesters extends React.Component {
                                 </Text>
                                 <View style={styles.buttonContainer}>
                                     <TouchableOpacity  onPress={() => this.submitActivity()}>
-                                    <View style={[styles.ContinueButtonContainer_red]}>
-                                        <Text style={styles.ContinueButtonText}>{translate.t("Send_request")}</Text>
+                                    <View style={this.state.activity_type === 1 ? styles.ContinueButtonContainer_red : styles.ContinueButtonContainer_grey }>
+                                        <Text style={styles.ContinueButtonText}>{ this.state.activity_type === 1 ? translate.t("Send_request") : "Send Offer"}</Text>
                                     </View>
                                     </TouchableOpacity>                                
                                 </View>
@@ -339,7 +337,8 @@ const styles =  StyleSheet.create({
         height: 20,
         backgroundColor: "rgba(230, 230, 230,1)",
         marginRight:"4%",
-        borderWidth:1,
+        borderWidth:0,
+        fontFamily:"roboto-bold"
 
       },
       rect3: {
@@ -347,7 +346,7 @@ const styles =  StyleSheet.create({
         height: 20,
         backgroundColor: "rgba(230, 230, 230,1)",
         marginLeft: 2,
-        borderWidth:1,
+        borderWidth:0,
       },
       rect2Row: {
         width: "90%",
@@ -356,20 +355,20 @@ const styles =  StyleSheet.create({
         marginTop: 7,
         marginLeft: 0,
         marginRight: 12,
-        borderWidth:1,
+        borderWidth:0,
       },
       rect4: {
         width: "30%",
         height: 20,
         backgroundColor: "rgba(230, 230, 230,1)",
-        borderWidth:1,
+        borderWidth:0,
       },
       rect5: {
         width: "60%",
         height: 20,
         backgroundColor: "rgba(230, 230, 230,1)",
         marginLeft: "0%",
-        borderWidth:1,
+        borderWidth:0,
       },
       rect4Row: {
         width:"100%",
@@ -384,7 +383,7 @@ const styles =  StyleSheet.create({
         height: 15,
         backgroundColor: "rgba(230, 230, 230,1)",
         marginLeft: 0,
-        borderWidth:1,
+        borderWidth:0,
         marginTop:0
       },
       rect7: {
