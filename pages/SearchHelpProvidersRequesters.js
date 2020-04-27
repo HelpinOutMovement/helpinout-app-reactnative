@@ -270,8 +270,8 @@ class SearchHelpProvidersRequesters extends React.Component {
                                     })}
                                                                         
                                 </ScrollView>
-                                <Text style={{height:100}}>
-                                    Test data n Testdata
+                                <Text style={{height:80, textAlign:"center", paddingLeft:15, paddingRight:15, paddingTop:20, color:"grey"}}>
+                                    Your phone nummber will be sent to these help providers.
                                 </Text>
                                 <View style={styles.buttonContainer}>
                                     <TouchableOpacity  onPress={() => this.submitActivity()}>
@@ -315,7 +315,7 @@ const styles =  StyleSheet.create({
       justifyContent:'center',
       alignItems: 'center',  
       height:60  ,
-    borderWidth:1  
+    borderWidth:0  
     },
    
 
@@ -327,15 +327,16 @@ const styles =  StyleSheet.create({
     rect: {
         width: "100%",
         height: 150,
-        backgroundColor: "rgba(230, 230, 230,1)",
+        backgroundColor: "#FFFFFF",//"rgba(230, 230, 230,1)",
         marginTop: 5,
         alignSelf: "center",
-        borderWidth:1,
+        borderWidth:0,
+        borderRadius:6
       },
       rect2: {
         width: "85%",
         height: 20,
-        backgroundColor: "rgba(230, 230, 230,1)",
+        backgroundColor: "#FFFFFF",//"rgba(230, 230, 230,1)",
         marginRight:"4%",
         borderWidth:0,
         fontFamily:"roboto-bold"
@@ -344,7 +345,7 @@ const styles =  StyleSheet.create({
       rect3: {
         width: "8%",
         height: 20,
-        backgroundColor: "rgba(230, 230, 230,1)",
+        backgroundColor: "#FFFFFF",//"rgba(230, 230, 230,1)",
         marginLeft: 2,
         borderWidth:0,
       },
@@ -360,13 +361,14 @@ const styles =  StyleSheet.create({
       rect4: {
         width: "30%",
         height: 20,
-        backgroundColor: "rgba(230, 230, 230,1)",
+        backgroundColor: "#FFFFFF",//"rgba(230, 230, 230,1)",
         borderWidth:0,
+        paddingLeft:5
       },
       rect5: {
         width: "60%",
         height: 20,
-        backgroundColor: "rgba(230, 230, 230,1)",
+        backgroundColor: "#FFFFFF",//"rgba(230, 230, 230,1)",
         marginLeft: "0%",
         borderWidth:0,
       },
@@ -381,18 +383,21 @@ const styles =  StyleSheet.create({
       rect6: {
         width: "50%",
         height: 15,
-        backgroundColor: "rgba(230, 230, 230,1)",
+        backgroundColor: "#FFFFFF",//"rgba(230, 230, 230,1)",
         marginLeft: 0,
         borderWidth:0,
-        marginTop:0
+        marginTop:0,
+        paddingLeft:1
       },
       rect7: {
         width: "100%",
         height: 75,
-        backgroundColor: "rgba(230, 230, 230,1)",
+        backgroundColor: "#FFFFFF",//"rgba(230, 230, 230,1)",
         marginTop: 2,
         marginLeft: 0,
-        borderWidth:1,
+        borderWidth:0,
+        paddingLeft:3
+
       },
 
  

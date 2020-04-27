@@ -1,3 +1,4 @@
+import { Dimensions , Platform} from "react-native";
 import UUID from "uuid";
 import AppConstant from './AppConstant';
 import translate from 'react-native-i18n';

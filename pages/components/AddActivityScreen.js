@@ -369,8 +369,8 @@ componentDidMount(){
                 
                 {this.props.route.params.optionCode === AppConstant.API_REQUEST_CONSTANTS.activity_category.PEOPLE 
                   ? 
-                    <View style={{width:"90%",flex: 1, flexDirection: 'column',justifyContent:"flex-start", marginBottom:0, borderWidth:1, marginTop:0}}>
-                        <View style={{borderWidth:2, height:180}}>
+                    <View style={{width:"90%",flex: 1, flexDirection: 'column',justifyContent:"center", marginBottom:0, borderWidth:0, marginTop:0}}>
+                        <View style={{borderWidth:0, height:180, marginBottom:20}}>
                             <View style={styles.SwitchRow}>
                             <Switch
                                         disabled={false}
@@ -382,11 +382,11 @@ componentDidMount(){
                                         circleInActiveColor={'#000000'}
                                             
                                 value={this.state.volunters_required ? true : false}                            
-                                style={styles.Switch, {borderWidth:1}} 
+                                style={styles.Switch, {borderWidth:0}} 
                                 onValueChange ={(switchValue)=>{this.setPeopleData("volunters_required",switchValue)}}                              
                             ></Switch><Text style={{marginLeft:20}}>Volunteers</Text>
                             </View>
-                        <View style={{flex: 1, flexDirection: 'row',justifyContent:"space-evenly", marginTop:10, marginBottom:0, borderWidth:1}}>
+                        <View style={{flex: 1, flexDirection: 'row',justifyContent:"space-evenly", marginTop:0, marginBottom:0, borderWidth:0}}>
                           <Textarea rowSpan={5} style={{borderWidth:1, borderRadius:4, width:"80%"}} 
                               onChangeText={(val) => this.setPeopleData("volunters_detail",val)}  
                               disabled={!this.state.volunters_required}></Textarea>  
@@ -401,7 +401,7 @@ componentDidMount(){
                           </TextInput>
                         </View>
                       </View> 
-                      <View style={{borderWidth:2, height:180}}>
+                      <View style={{borderWidth:0, height:180}}>
                             <View style={styles.SwitchRow}>
                             <Switch
                                         disabled={false}
@@ -413,11 +413,11 @@ componentDidMount(){
                                         circleInActiveColor={'#000000'}
                                             
                                 value={this.state.technical_personal_required ? true : false}                            
-                                style={styles.Switch, {borderWidth:1}} 
+                                style={styles.Switch, {borderWidth:0}} 
                                 onValueChange ={(switchValue)=>{this.setPeopleData("technical_personal_required",switchValue)}}                                
                             ></Switch><Text style={{marginLeft:20}}>Technicla Personal</Text>
                             </View>
-                        <View style={{flex: 1, flexDirection: 'row',justifyContent:"space-evenly",marginTop:10, marginBottom:0, borderWidth:1}}>
+                        <View style={{flex: 1, flexDirection: 'row',justifyContent:"space-evenly",marginTop:0, marginBottom:0, borderWidth:0}}>
                           <Textarea rowSpan={5} style={{borderWidth:1, borderRadius:4, width:"80%"}} 
                           onChangeText={(val) => this.setPeopleData("technical_personal_detail",val)}   
                           disabled={!this.state.technical_personal_required}></Textarea>  
@@ -475,7 +475,7 @@ componentDidMount(){
                                 }}
                             >{translate.t(appLabelKey.add_more)} </Text>
                         </TouchableOpacity>
-                    </HView>  
+                      </HView>  
                   </Content>      
                   <View style={{alignItems: "center", marginTop:10, marginBottom:10}}>
                     <View style={styles.buttonContainer}>
@@ -594,7 +594,9 @@ const styles = StyleSheet.create({
   hintTextContainer: {
     width: dimensions.width,
     alignItems: 'center',      
-    justifyContent:'center',    
+    justifyContent:'center', 
+    position:"absolute",
+    bottom:0   
   },
   buttonContainer:{
     padding: 10,        
