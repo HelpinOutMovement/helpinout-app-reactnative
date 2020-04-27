@@ -74,7 +74,8 @@ const AppConstant = {
         ADD_ACTIVITY_SCREEN:"AddActivityScreen",
         MY_REQUEST_SENT_REQUEST_SCREEN:"MyRequestSentRequestScreen",
         SEARCH_HELP_PROVIDERS_REQUESTERS:"SearchHelpProvidersRequesters",
-        MY_OFFER_SENT_OFFER_SCREEN:"MyOfferSentOfferScreen"
+        MY_OFFER_SENT_OFFER_SCREEN:"MyOfferSentOfferScreen",
+        ADD_ACTIVITY_SCREEN:"AddActivityScreen"
     },
 
     APP_TEXT_INPUT : {

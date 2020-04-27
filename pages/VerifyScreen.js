@@ -68,20 +68,20 @@ export default class VerifyScreen extends React.Component {
 
     handleSendCode = () => {
         // Request to send OTP
-        alert("handleSendCode");
+        console.log("handleSendCode");
         if (this.validatePhoneNumber(this.state.selectedCountryDialCode+""+this.state.phoneNumber)) {
           firebase
             .auth()
             .signInWithPhoneNumber(this.state.selectedCountryDialCode+""+this.state.phoneNumber)
             .then(confirmResult => {
-                alert("confirmResult");
+                console.log("confirmResult");
               console.log("confirmResult")
               console.log(confirmResult)
               this.setState({ confirmResult: confirmResult });
                          
             })
             .catch(error => {
-                alert(" handleSendCode " + error)
+                console.log(" handleSendCode " + error)
               console.log(error)
             })
         } else {

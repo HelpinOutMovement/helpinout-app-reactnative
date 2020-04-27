@@ -27,6 +27,7 @@ import HView from "./HView"
 import ModalComponent from './ModalComponent';
 import UUIDGenerator from 'react-native-uuid-generator';
 import API from '../../APIClient/API'
+import Utils from '../../misc/Utils'
 
  
 const width = Dimensions.get('window').width;
@@ -328,7 +329,7 @@ componentDidMount(){
     return (
       <View style={styles.container}>
         <Container >
-          
+
             <HeaderComponent {...this.props} title={this.state.title} bgColor={this.state.headerBgColor} />
             <Content padder contentContainerStyle={{...StyleSheet.absoluteFillObject, justifyContent: 'flex-start', alignItems: 'center',}} > 
                 <Row style={{ marginVertical: 10  ,height: 76}}>
@@ -339,7 +340,7 @@ componentDidMount(){
                             source={this.props.route.params.optionImage} />
                     </Col>
                 </Row> 
-                <HView style={styles.hintTextContainer, {borderWidth:0, height:"75%"}} hide={this.state.hideAddMore}>
+                <HView style={styles.hintTextContainer, (this.state.activity_type == 2) ? {borderWidth:0, height:"35%"} : {borderWidth:0, height:"70%"}} hide={this.state.hideAddMore}>
                   <ScrollView
                       ref={scrollView => this.scrollView = scrollView}
                       onContentSizeChange={() => {
@@ -437,7 +438,7 @@ componentDidMount(){
               
                 }
 
-            </Content>                      
+                                  
                       <HView style={styles.hintTextContainer} hide={this.state.hideAddMore}>                      
                         <HView style={{textAlign:"left", borderWidth:0, width:"100%", alignItems: "center", marginBottom:20}} hide={this.state.hideConstrains}>
                             <Text style={{textAlign:"left", borderWidth:0, width:"90%"}}>Note to requesters</Text>
@@ -473,6 +474,7 @@ componentDidMount(){
                             >{translate.t(appLabelKey.add_more)} </Text>
                         </TouchableOpacity>
                     </HView>  
+                  </Content>      
                   <View style={{alignItems: "center", marginTop:10, marginBottom:10}}>
                     <View style={styles.buttonContainer}>
                       <TouchableOpacity style={styles.NonFilled} onPress={() => this.submitData(1)}>
