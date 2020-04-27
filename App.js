@@ -34,8 +34,8 @@ import MyRequestScreen from './pages/MyRequestScreen';
 import MyRequestSentRequestScreen from './pages/MyRequestScreen.SentRequest';
 import MyOfferSentOfferScreen from './pages/MyOfferScreen.SentOffer';
 import VerifyScreen from './pages/VerifyScreen';
-import AddActivityScreen from './pages/components/AddActivityScreen'
-import SearchHelpProvidersRequesters from './pages/SearchHelpProvidersRequesters'
+import AddActivityScreen from './pages/components/AddActivityScreen';
+import SearchHelpProvidersRequesters from './pages/SearchHelpProvidersRequesters';
 
 
 console.disableYellowBox = true;
@@ -123,6 +123,9 @@ function App() {
             <Stack.Screen key={`a_${AppConstant.APP_PAGE.MY_REQUEST_SENT_REQUEST_SCREEN}`} name={AppConstant.APP_PAGE.MY_REQUEST_SENT_REQUEST_SCREEN} component={MyRequestSentRequestScreen} />
             <Stack.Screen key={`a_${AppConstant.APP_PAGE.MY_OFFER_SENT_OFFER_SCREEN}`} name={AppConstant.APP_PAGE.MY_OFFER_SENT_OFFER_SCREEN} component={MyOfferSentOfferScreen} />
             <Stack.Screen key={`a_${AppConstant.APP_PAGE.MY_OFFERS_SCREEN}`} name={AppConstant.APP_PAGE.MY_OFFERS_SCREEN} component={MyOfferScreen} />
+            <Stack.Screen key={`a_${AppConstant.APP_PAGE.ADD_ACTIVITY_SCREEN}`} name={AppConstant.APP_PAGE.ADD_ACTIVITY_SCREEN} component={AddActivityScreen} />
+            <Stack.Screen key={`a_${AppConstant.APP_PAGE.SEARCH_HELP_PROVIDERS_REQUESTERS}`} name={AppConstant.APP_PAGE.SEARCH_HELP_PROVIDERS_REQUESTERS} component={SearchHelpProvidersRequesters} /*initialParams={{activity_type:2, activity_uuid:"C923AB2B-2122-4674-98F6-809850172A27", region:{}, address:""}}*//>
+            <Stack.Screen key={`a_${AppConstant.APP_PAGE.SIDE_DRAWER}`} name={AppConstant.APP_PAGE.SIDE_DRAWER} component={MyDrawer} />
 
 
           </Stack.Navigator>

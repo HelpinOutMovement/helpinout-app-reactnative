@@ -72,8 +72,6 @@
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>This app needs to get your location...</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>This app needs to get your location... in the background</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Roboto-Medium.ttf</string>
