@@ -340,8 +340,8 @@ function MyRequestScreen(props) {
     const getRequestList = () => {
         let cardListView = [];
         console.log(requestInformation);
-        // requestInformation.forEach((singleOption, index) => {
-        realReq.forEach((singleOption, index) => {
+        requestInformation.forEach((singleOption, index) => {
+        // realReq.forEach((singleOption, index) => {
             cardListView.push((
                 <PastOfferRequestComponent
                     key={singleOption.activity_uuid}
