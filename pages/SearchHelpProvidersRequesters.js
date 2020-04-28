@@ -161,9 +161,9 @@ class SearchHelpProvidersRequesters extends React.Component {
             console.log("Add activityMapping Response  : " + JSON.stringify(response))
             if(response.status === "1") {
                 //this.showPopUp();
-                this.navigate(AppConstant.APP_PAGE.MY_REQUEST_SENT_REQUEST_SCREEN, {request:response.data})
+                this.navigate(AppConstant.APP_PAGE.MY_REQUEST_SENT_REQUEST_SCREEN, {request:{}, created_activity:response.data})
             }else{
-                this.navigate(AppConstant.APP_PAGE.MY_OFFER_SENT_OFFER_SCREEN, {request:response.data})
+                this.navigate(AppConstant.APP_PAGE.MY_OFFER_SENT_OFFER_SCREEN, {request:{}, created_activity:response.data})
             }
         }).catch((err) => {console.log(err)})    
                                          
@@ -290,7 +290,7 @@ class SearchHelpProvidersRequesters extends React.Component {
                                     </Text>
                                 </View>    
                                 <View style={styles.buttonContainer}>
-                                <TouchableOpacity  onPress={() => {(this.state.activity_type === 1) ?  this.navigate(AppConstant.APP_PAGE.MY_REQUEST_SENT_REQUEST_SCREEN) : this.navigate(AppConstant.APP_PAGE.MY_OFFER_SENT_OFFER_SCREEN)}}>
+                                <TouchableOpacity  onPress={() => {(this.state.activity_type === 1) ?  this.navigate(AppConstant.APP_PAGE.MY_REQUEST_SENT_REQUEST_SCREEN, {request:{}, created_activity:{}}) : this.navigate(AppConstant.APP_PAGE.MY_OFFER_SENT_OFFER_SCREEN, {request:{}, created_activity:{}})}}>
                                 <View style={[styles.ContinueButtonContainer_grey]}>
                                     <Text style={styles.ContinueButtonText}>{translate.t("Continue")}</Text>
                                 </View>

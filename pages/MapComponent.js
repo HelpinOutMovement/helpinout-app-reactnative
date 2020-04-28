@@ -114,7 +114,7 @@ class MapComponent extends React.Component {
 
 
   onRegionChange(region) {
-    //this.setState({ region });
+    this.setState({ region });
   }
 
   jumpRandom() {
@@ -299,7 +299,7 @@ class MapComponent extends React.Component {
           onRegionChangeComplete={region => this.onRegionChangeComplete(region)}   
           style={{...StyleSheet.absoluteFillObject, height:this.props.mapHeight}}
           initialRegion={this.state.region}
-          //onRegionChange={region => this.onRegionChange(region)}          
+          onRegionChange={region => this.onRegionChange(region)}          
         >
                     <Marker
                       showsUserLocation={true}
