@@ -219,12 +219,29 @@
         }
 
 
-        mappingDelete = (activity_uuid, activity_type, mapping_id) =>{
+        mappingDelete = (activity_uuid, activity_type,  mapping_initiator , uuid) =>{
             let data = {
                 "activity_uuid": activity_uuid, 
-                "activity_type": activity_type, 
-                "mapping_id": mapping_id
+                "activity_type": activity_type
             }
+            /**
+             Based on discussion with VIKAS
+             within mapping there is a key "mapping_initiator", 
+             possible values are 1 or 2., 1 
+             means the mapping initiator is from "Requester" and 2 means mapping is from the offerer side.
+             */
+            if(mapping_initiator === 1) {
+                data['requester'] = {
+                    "activity_uuid": uuid, 
+                     "activity_type": mapping_initiator, 
+                }
+            } else if(mapping_initiator === 2) {
+                data['offerer'] = {
+                    "activity_uuid": uuid, 
+                     "activity_type": mapping_initiator, 
+                }
+            }
+
             return new Promise((resolve, reject) => {
                 let reqObject = this.stuffHeader(data, true);
                 reqObject.then((val)=> {

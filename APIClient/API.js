@@ -293,10 +293,10 @@ class API{
     }
 
 
-    mappingDelete = (activity_uuid, activity_type, mapping_id) =>{
+    mappingDelete = (activity_uuid, activity_type, mapping_initiator , uuid) =>{
         return new Promise((resolve, reject) => {
             let  requestObjects = new RequestObjects();
-            reqObj = requestObjects.mappingDelete(activity_uuid, activity_type, mapping_id);
+            reqObj = requestObjects.mappingDelete(activity_uuid, activity_type,   mapping_initiator , uuid);
             reqObj.then((val)=> {
                 console.log("Mapping delete request Object ")
                 console.log(val)
