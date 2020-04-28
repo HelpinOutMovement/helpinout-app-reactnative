@@ -37,6 +37,13 @@ import VerifyScreen from './pages/VerifyScreen';
 import AddActivityScreen from './pages/components/AddActivityScreen';
 import SearchHelpProvidersRequesters from './pages/SearchHelpProvidersRequesters';
 
+import PushNotificationIOS from "@react-native-community/push-notification-ios";
+
+import firebase from "react-native-firebase";
+
+//import firebase from 'react-native-firebase';
+//import  { Notification, NotificationOpen } from 'react-native-firebase';
+
 
 console.disableYellowBox = true;
 const Stack = createStackNavigator();
@@ -44,6 +51,216 @@ const Stack = createStackNavigator();
 
 
 function App() {
+
+
+
+
+/*
+
+  const [permissions, setPermissions] = useState({});
+
+  useEffect(() => {
+    PushNotificationIOS.requestPermissions();
+    PushNotificationIOS.addEventListener('register', onRegistered);
+    PushNotificationIOS.addEventListener(
+      'registrationError',
+      onRegistrationError,
+    );
+    PushNotificationIOS.addEventListener('notification', onRemoteNotification);
+    PushNotificationIOS.addEventListener(
+      'localNotification',
+      onLocalNotification,
+    );
+    
+    return () => {
+      PushNotificationIOS.removeEventListener('register', onRegistered);
+      PushNotificationIOS.removeEventListener(
+        'registrationError',
+        onRegistrationError,
+      );
+      PushNotificationIOS.removeEventListener(
+        'notification',
+        onRemoteNotification,
+      );
+      PushNotificationIOS.removeEventListener(
+        'localNotification',
+        onLocalNotification,
+      );
+    };
+  }, []);
+
+
+
+  const sendNotification = () => {
+    DeviceEventEmitter.emit('remoteNotificationReceived', {
+      remote: true,
+      aps: {
+        alert: 'Sample notification',
+        badge: '+1',
+        sound: 'default',
+        category: 'REACT_NATIVE',
+        'content-available': 1,
+      },
+    });
+  };
+
+  const sendLocalNotification = () => {
+    PushNotificationIOS.presentLocalNotification({
+      alertBody: 'Sample local notification',
+      fireDate: new Date().toISOString(),
+      applicationIconBadgeNumber: 1,
+    });
+  };
+
+  const scheduleLocalNotification = () => {
+    PushNotificationIOS.scheduleLocalNotification({
+      alertBody: 'Test Local Notification',
+      fireDate: new Date().toISOString(),
+    });
+  };
+
+  const onRegistered = deviceToken => {
+    alert('Registered For Remote Push', `Device Token: ${deviceToken}`, [
+      {
+        text: 'Dismiss',
+        onPress: null,
+      },
+    ]);
+  };
+
+  const onRegistrationError = error => {
+    alert(
+      'Failed To Register For Remote Push',
+      `Error (${error.code}): ${error.message}`,
+      [
+        {
+          text: 'Dismiss',
+          onPress: null,
+        },
+      ],
+    );
+  };
+
+  const onRemoteNotification = notification => {
+    const result = `Message: ${notification.getMessage()};\n
+      badge: ${notification.getBadgeCount()};\n
+      sound: ${notification.getSound()};\n
+      category: ${notification.getCategory()};\n
+      content-available: ${notification.getContentAvailable()}.`;
+
+    alert('Push Notification Received', result, [
+      {
+        text: 'Dismiss',
+        onPress: null,
+      },
+    ]);
+  };
+
+  const onLocalNotification = notification => {
+    alert(
+      'Local Notification Received',
+      'Alert message: ' + notification.getMessage(),
+      [
+        {
+          text: 'Dismiss',
+          onPress: null,
+        },
+      ],
+    );
+  };
+
+  const showPermissions = () => {
+    PushNotificationIOS.checkPermissions(permissions => {
+      setPermissions({permissions});
+    });
+  };
+
+  const onRegister = (token) => {
+    console.log("TOKEN:", token);
+  }
+
+*/
+
+
+useEffect(() => {
+  this.checkPermission();
+  this.messageListener();
+ }, []);
+
+
+ checkPermission = async () => {
+  const enabled = await firebase.messaging().hasPermission();
+  if (enabled) {
+    this.getFcmToken();
+  } else {
+    this.requestPermission();
+  }
+ }
+
+
+ getFcmToken = async () => {
+  const fcmToken = await firebase.messaging().getToken();
+  if (fcmToken) {
+   console.log("Your Firebase Token is:" + fcmToken);
+   //this.showAlert("Your Firebase Token is:", fcmToken);
+  } else {
+    console.log("Failed", "No token received")
+   //this.showAlert("Failed", "No token received");
+  }
+ }
+
+
+ requestPermission = async () => {
+  try {
+   await firebase.messaging().requestPermission();
+   // User has authorised
+  } catch (error) {
+    // User has rejected permissions
+  }
+ }
+
+
+ messageListener = async () => {
+  this.notificationListener = firebase.notifications().onNotification((notification) => {
+    const { title, body } = notification;
+    console.log(title , " ", body)
+    //this.showAlert(title, body);
+  });
+ 
+  this.notificationOpenedListener = firebase.notifications().onNotificationOpened((notificationOpen) => {
+    const { title, body } = notificationOpen.notification;
+    console.log(title , " ", body)
+    //this.showAlert(title, body);
+  });
+ 
+  const notificationOpen = await firebase.notifications().getInitialNotification();
+  if (notificationOpen) {
+    const { title, body } = notificationOpen.notification;
+    console.log(title , " ", body)
+    //this.showAlert(title, body);
+  }
+ 
+  this.messageListener = firebase.messaging().onMessage((message) => {
+   console.log(JSON.stringify(message));
+  });
+ }
+
+
+ showAlert = (title, message) => {
+  alert(
+   title,
+   message,
+   [
+    {text: "OK", onPress: () => console.log("OK Pressed")},
+   ],
+   {cancelable: false},
+  );
+ }
+
+
+
+
+
 
   const [appState, setAppState] = useState(AppConstant.APP_STATE.IS_LOADING);
   //AppStorage.storeAppInfo(AppConstant.APP_STORE_KEY.IS_VEFIRIED, "false");

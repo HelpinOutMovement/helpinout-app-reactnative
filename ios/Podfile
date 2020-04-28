@@ -67,6 +67,9 @@ target 'helpinout' do
   # For example, to use Firebase Authentication and Cloud Firestore
   pod 'GoogleSignIn'
   
+  # Pods for fcm
+  pod 'Firebase/Messaging'
+
   target 'helpinoutTests' do
     inherit! :complete
     # Pods for testing

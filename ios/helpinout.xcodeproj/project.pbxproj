@@ -32,6 +32,7 @@
 		7DFC94A48523452BAC1F5E91 /* Roboto-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7E6521122BDD4482BC2298C0 /* Roboto-Thin.ttf */; };
 		8A75C2FC243DBACE00ACCB50 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A75C2FB243DBACE00ACCB50 /* MapKit.framework */; };
 		8A75C359243DD5B900ACCB50 /* libRNDeviceInfo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A75C358243DD5B900ACCB50 /* libRNDeviceInfo.a */; };
+		8AB113CD245868C900F72C70 /* libRNCPushNotificationIOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AB113CC245868C900F72C70 /* libRNCPushNotificationIOS.a */; };
 		8AC74059244483050029FEF6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8AC74058244483050029FEF6 /* GoogleService-Info.plist */; };
 		8AC7405C2444919E0029FEF6 /* AuthenticationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AC7405B2444919E0029FEF6 /* AuthenticationServices.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		A10E17F7DC2C4CB9BE7DD91C /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6EAB73EBBA5A4FA0BB546BAC /* Roboto-Medium.ttf */; };
@@ -95,6 +96,7 @@
 		8A75C2FB243DBACE00ACCB50 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		8A75C358243DD5B900ACCB50 /* libRNDeviceInfo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRNDeviceInfo.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A98B548243C8349007FC0B1 /* ta */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ta; path = ta.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		8AB113CC245868C900F72C70 /* libRNCPushNotificationIOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRNCPushNotificationIOS.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AC72C5D244A1FC500BFBEAB /* hi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hi; path = hi.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		8AC74058244483050029FEF6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8AC7405A2444919E0029FEF6 /* helpinout.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = helpinout.entitlements; path = helpinout/helpinout.entitlements; sourceTree = "<group>"; };
@@ -129,6 +131,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8AB113CD245868C900F72C70 /* libRNCPushNotificationIOS.a in Frameworks */,
 				8AC7405C2444919E0029FEF6 /* AuthenticationServices.framework in Frameworks */,
 				8A75C359243DD5B900ACCB50 /* libRNDeviceInfo.a in Frameworks */,
 				8A75C2FC243DBACE00ACCB50 /* MapKit.framework in Frameworks */,
@@ -191,6 +194,7 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8AB113CC245868C900F72C70 /* libRNCPushNotificationIOS.a */,
 				8AC7405B2444919E0029FEF6 /* AuthenticationServices.framework */,
 				8A75C358243DD5B900ACCB50 /* libRNDeviceInfo.a */,
 				8A75C2FB243DBACE00ACCB50 /* MapKit.framework */,
@@ -778,7 +782,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = helpinout/helpinout.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 18;
 				DEVELOPMENT_TEAM = JDLPTBKAVL;
@@ -815,7 +819,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = helpinout/helpinout.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 18;
 				DEVELOPMENT_TEAM = JDLPTBKAVL;

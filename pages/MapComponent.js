@@ -23,7 +23,7 @@ import AppStringContext from '../misc/AppStringContext';
 import API from "../APIClient/API";
 import DeviceInfo from 'react-native-device-info';
 import Geolocation from '@react-native-community/geolocation';
-import Geocoder from 'react-native-geocoding';
+//import Geocoder from 'react-native-geocoding';
 
 import MapView, { Marker, MAP_TYPES, ProviderPropType , PROVIDER_GOOGLE} from 'react-native-maps';
 import { getDistance, getPreciseDistance } from 'geolib';
@@ -39,11 +39,16 @@ const currentLocationIcon = require("../images/current_location_icon.png")
 const requesterIcon = require("../images/red-pin.png")
 const offererIcon = require("../images/black-pin.png")
 
+import Geocoder from 'react-native-geocoder';
+
+
+Geocoder.fallbackToGoogle("AIzaSyDgaOp_orkTcVpcH6NfNE3XtOH6tdiXlsg");
+
 class MapComponent extends React.Component {
   constructor(props) {
     super(props);
     console.log("MapComponent Constructor" )
-    Geocoder.init("AIzaSyDgaOp_orkTcVpcH6NfNE3XtOH6tdiXlsg");
+    //Geocoder.init("AIzaSyDgaOp_orkTcVpcH6NfNE3XtOH6tdiXlsg");
     console.log(this.props)
     this.navigate = this.props.mapProps.navigation.navigate;
     this.state = {
@@ -80,7 +85,7 @@ class MapComponent extends React.Component {
 
           console.log(this.state.region)
           this.map.animateToRegion({ latitude: this.state.region.latitude, longitude: this.state.region.longitude, latitudeDelta: LATITUDE_DELTA * Number(this.state.radius/15), longitudeDelta: LONGITUDE_DELTA * Number(this.state.radius/15) }, 2000); 
-          
+          /*
           let restApi = new API();
           console.log("Component Did mount "+ JSON.stringify(this.state.region))
           let address = restApi.geocode(this.state.region.latitude, this.state.region.longitude)
@@ -92,6 +97,16 @@ class MapComponent extends React.Component {
             this.props.callbackOnRegionChange(this.state.region, this.state);
             console.log("Geocode Error : " + err)
           })
+          */
+          Geocoder.geocodePosition({lat:info.coords.latitude, lon:info.coords.longitude}).then((retval) => {
+            console.log("Google Geo Coder :  " + JSON.stringify(retval))
+            this.setState({address:JSON.stringify(retval[0].formattedAddress)},() => { 
+              console.log(" Geocoder.from 1 addressComponent   " + JSON.stringify(retval[0].formattedAddress))
+              this.props.callbackOnRegionChange(this.state.region, this.state);
+            })  
+          }).catch(error => {          
+            console.log(" Geocoder.from 1 Geocode Error : " + JSON.stringify(error))
+           });
         /*
          console.log("setCurrentLocation Region Data : "+ JSON.stringify(this.state.region))
          Geocoder.from(this.state.region.latitude, this.state.region.longitude)
@@ -217,6 +232,7 @@ class MapComponent extends React.Component {
           console.log(`Distance\n${dis} Meter\nor\n${dis / 1000} KM`);
           console.log("this.state.region.    " + JSON.stringify(this.state))          
           
+          /*
           let restApi = new API();
 
           let address = restApi.geocode(region.latitude, region.longitude)
@@ -230,7 +246,18 @@ class MapComponent extends React.Component {
               console.log("Geocode Error : " + err)
             })    
 
-          
+          */  
+          Geocoder.geocodePosition({lat:region.latitude, lng:region.longitude}).then((retval) => {
+            
+            console.log("Google Geo Coder 237 :  " + JSON.stringify(retval))
+            this.setState({address:JSON.stringify(retval[0].formattedAddress)},() => { 
+              console.log(" Geocoder.from 2 addressComponent   " + JSON.stringify(retval[0].formattedAddress))
+              this.props.callbackOnRegionChange(this.state.region, this.state);
+            })  
+          }).catch(error => {          
+            console.log(" Geocoder.from 12Geocode Error : " + JSON.stringify(error))
+           });
+
           /*
             Geocoder.from(region.latitude, region.longitude)
             .then(json => {
