@@ -336,7 +336,8 @@ function MyOfferScreen(props) {
                activity_uuid:ele.activity_uuid,
                activity_category:ele.activity_category, 
                region:{}, 
-               address:""
+               address:"",
+               latlon:ele.geo_location
               })
         }
     }
