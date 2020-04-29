@@ -331,7 +331,7 @@ function MyRequestScreen(props) {
         } else if (actions === AppConstant.APP_ACTION.SEARCH_FOR_PROVIDERS) {
           props.navigation.navigate(AppConstant.APP_PAGE.SEARCH_HELP_PROVIDERS_REQUESTERS,
              {  
-               activity_type:props.activity_type, 
+               activity_type:activity_type,
                activity_uuid:ele.activity_uuid,
                activity_category:ele.activity_category, 
                region:{}, 
