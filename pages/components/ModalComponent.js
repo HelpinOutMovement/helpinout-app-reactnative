@@ -37,7 +37,7 @@ const rateAndReviewModalContent = (props) => {
             rating: ratingVal
         }
         if (props.onActionClick) {
-            props.onActionClick(payload);
+            props.onActionClick(payload,props);
         }
         resetComponent();
     }

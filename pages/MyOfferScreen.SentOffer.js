@@ -13,16 +13,38 @@ import SpinnerComponent from './components/SpinnerComponent';
 
 function MyOfferSentOfferScreen(props) {
     const colorTheme = "#4F5065";
+    const typeRestriction = 'offers';
     const [showModal, setShowModal] = useState(false);
     const [modalInfo, setModalInfo] = useState({});
     const [showSpinner, setShowSpinner] = useState(false);
     const [mappedRequestEntity, setMappedRequestEntity] = useState([]);
     const requestParams = (props.route && props.route.params && props.route.params.request) ? props.route.params.request : {};
+    const createdIdParams = (props.route && props.route.params && props.route.params.created_activity) ? props.route.params.created_activity : {};
     // set the content
     useEffect(()=>{
         if (requestParams && requestParams.mapping && requestParams.mapping.length){
                setMappedRequestEntity(requestParams.mapping);
-             }
+             } else if (createdIdParams && createdIdParams.activity_uuid) {
+                // work-around for now
+                apiInstance.userPastActivity(activity_type).then(resp => {
+                    setShowSpinner(false);
+                    let localRequestParam = {};
+                    if(resp.data && resp.data[typeRestriction] && resp.data[typeRestriction].length > 0) {
+                        resp.data[typeRestriction].every(singleRequest => {
+                            if(singleRequest.activity_uuid == createdIdParams.activity_uuid) {
+                                localRequestParam = singleRequest;
+                                return false;
+                            }
+                            return true;
+                        });
+                        setMappedRequestEntity(localRequestParam.mapping);
+                    }
+                }).catch((e)=>{
+                    setShowSpinner(false);
+                    setMappedRequestEntity([]);
+                })
+            }
+            
     }, [])
     const closePopUp = () => {
         setShowModal(!showModal);
@@ -37,7 +59,6 @@ function MyOfferSentOfferScreen(props) {
         });
         setMappedRequestEntity(mapLocalRequest)
     }
-
     const primaryActionHandler = (ele, actions) => {
         console.log(ele, "$$$$", actions);
 
@@ -51,6 +72,7 @@ function MyOfferSentOfferScreen(props) {
             apiInvocation({
                 uuid:ele.offer_detail.activity_uuid, 
                 actType:ele.offer_detail.activity_type,
+                mapping_initiator:ele.mapping_initiator,
                 successCallback:updateMappedRequest,
                 deleteType:AppConstant.APP_DELET_ACTION.DELETE_MAPPING
             });
@@ -86,13 +108,36 @@ function MyOfferSentOfferScreen(props) {
         return mappedRequestView;
     }
 
-    const onActionClick = (ratingPayload) => {
+    const onActionClick = (ratingPayload, modalProps) => {
         console.log(ratingPayload);
+        /*
+        recommendedForOthers: recommended,
+            comments: commentText,
+            rating: ratingVal
+        */
         closePopUp();
+        setShowSpinner(true);
+       let rootActivityUUID = (requestParams && requestParams.activity_uuid) ? 
+                requestParams.activity_uuid : (createdIdParams && 
+                createdIdParams.activity_uuid)? createdIdParams.activity_uuid : '';
+       let mapping_initiator= (modalProps && modalProps.mapping_initiator) ? modalProps.mapping_initiator : '';
+       let uuid = (modalProps && modalProps.offer_detail && modalProps.offer_detail.activity_uuid) ? 
+                        modalProps.offer_detail.activity_uuid : '';
+       apiInstance.mappingRating(
+            rootActivityUUID, 
+            mapping_initiator , 
+            uuid, 
+            ratingPayload.rating, 
+            (ratingPayload.recommendedForOthers)?1:0, 
+            ratingPayload.comments).then((resp)=>{
+                console.log(resp)
+                setShowSpinner(false);
+       }).catch(()=>{
+        setShowSpinner(false);
+       });
     }
 
-    const apiInvocation = ({uuid, actType, successCallback, deleteType}) => {
-        
+    const apiInvocation = ({uuid, actType, successCallback, deleteType, mapping_initiator}) => {
         if(uuid && actType) {
             setShowSpinner(true);
             let apiInstancePromise;
@@ -100,7 +145,10 @@ function MyOfferSentOfferScreen(props) {
             if(deleteType === AppConstant.APP_DELET_ACTION.DELETE_ACTIVITY) {
                 apiInstancePromise = apiInstance.activityDelete(uuid,actType);
             } else if(deleteType === AppConstant.APP_DELET_ACTION.DELETE_MAPPING) {
-                apiInstancePromise = apiInstance.mappingDelete(uuid,actType);
+                let rootActivityUUID = (requestParams && requestParams.activity_uuid) ? 
+                                        requestParams.activity_uuid : (createdIdParams && 
+                                        createdIdParams.activity_uuid)? createdIdParams.activity_uuid : '';
+                apiInstancePromise = apiInstance.mappingDelete(rootActivityUUID, actType, mapping_initiator , uuid);
             }
             apiInstancePromise.then((resp) => {
                     setShowSpinner(false);
@@ -123,7 +171,6 @@ function MyOfferSentOfferScreen(props) {
                 deleteType:AppConstant.APP_DELET_ACTION.DELETE_ACTIVITY
             })
     }
-    
     return (
         <Container>
             <HeaderComponent {...props}

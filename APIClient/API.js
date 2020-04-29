@@ -293,10 +293,10 @@ class API{
     }
 
 
-    mappingDelete = (activity_uuid, activity_type, mapping_id) =>{
+    mappingDelete = (activity_uuid, activity_type, mapping_initiator , uuid) =>{
         return new Promise((resolve, reject) => {
             let  requestObjects = new RequestObjects();
-            reqObj = requestObjects.mappingDelete(activity_uuid, activity_type, mapping_id);
+            reqObj = requestObjects.mappingDelete(activity_uuid, activity_type,   mapping_initiator , uuid);
             reqObj.then((val)=> {
                 console.log("Mapping delete request Object ")
                 console.log(val)
@@ -313,15 +313,20 @@ class API{
 
 
 
-    mappingRating = (activity_uuid, mapping_id, rating, recommend_other) =>{
+    mappingRating = (activity_uuid, mapping_initiator , uuid, rating, recommend_other, comments) =>{
         return new Promise((resolve, reject) => {
             let  requestObjects = new RequestObjects();
-            reqObj = requestObjects.mappingRating(activity_uuid, mapping_id, rating, recommend_other);
+            reqObj = requestObjects.mappingRating(activity_uuid, mapping_initiator , uuid, rating, recommend_other, comments);
             reqObj.then((val)=> {
                 console.log("Mapping rating request Object ")
                 console.log(val)
                 let apicall = 'mapping/rating';
-                apicall = this.createEntity(apicall)
+                try {
+                    apicall = this.createEntity(apicall)
+                } catch(e){
+                    console.log(e);
+                }
+                
                 let data = this.endpoints[apicall].post(val);        
                 data.then(({data})=> {
                     resolve(data);
@@ -332,10 +337,10 @@ class API{
     }
 
 
-    mappingCall = (activity_uuid, mapping_id) =>{
+    mappingCall = (activity_uuid, mapping_initiator , uuid) =>{
         return new Promise((resolve, reject) => {
             let  requestObjects = new RequestObjects();
-            reqObj = requestObjects.mappingCall(activity_uuid, mapping_id);
+            reqObj = requestObjects.mappingCall(activity_uuid, mapping_initiator , uuid);
             reqObj.then((val)=> {
                 console.log("Mapping Call Initiate request Object ")
                 console.log(val)

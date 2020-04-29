@@ -326,6 +326,15 @@ function MyOfferScreen(props) {
             props.navigation.navigate(AppConstant.APP_PAGE.MY_OFFER_SENT_OFFER_SCREEN,{
                 request: ele,
             });
+        }  else if (actions === AppConstant.APP_ACTION.SEARCH_FOR_PROVIDERS) {
+          props.navigation.navigate(AppConstant.APP_PAGE.SEARCH_HELP_PROVIDERS_REQUESTERS,
+             {  
+               activity_type:props.activity_type, 
+               activity_uuid:ele.activity_uuid,
+               activity_category:ele.activity_category, 
+               region:{}, 
+               address:""
+              })
         }
     }
 
