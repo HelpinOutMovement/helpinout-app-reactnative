@@ -95,12 +95,13 @@ const viewBasedOnCategory = (category, props) => {
 const getOfferList = (props) => {
     const finalOfferList =[];
     if(props.mapping && props.mapping.length > 0){
-       /*
         props.mapping.forEach(singleOffer => {
-            if(singleOffer.mapping_initiator === AppConstant.APP_MAPPING_INDICATOR_CODE.)
+            if(singleOffer.mapping_initiator == AppConstant.APP_MAPPING_INDICATOR.OFFERER) {
+                finalOfferList.push(singleOffer);
+            }            
         })
-        */
     }
+    return finalOfferList;
 }
 
 const PastOfferRequestComponent = (props) => {
@@ -145,7 +146,7 @@ const PastOfferRequestComponent = (props) => {
                                 fontFamily: "Roboto-Regular",
                                 fontSize: 12,
                                 color: "#FFFFFF"
-                            }}> {props.activity_count + " " + props.count_suffix}</Text>
+                            }}> {getOfferList(props).length + " " + props.count_suffix}</Text>
                         </View>
                     </View>
 
