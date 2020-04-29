@@ -231,15 +231,13 @@
              means the mapping initiator is from "Requester" and 2 means mapping is from the offerer side.
              */
             if(mapping_initiator === 1) {
-                data['requester'] = {
-                    "activity_uuid": uuid, 
-                     "activity_type": mapping_initiator 
-                }
+                data['requester'] =[{
+                    "activity_uuid": uuid
+                }]
             } else if(mapping_initiator === 2) {
-                data['offerer'] = {
-                    "activity_uuid": uuid, 
-                     "activity_type": mapping_initiator 
-                }
+                data['offerer'] = [{
+                    "activity_uuid": uuid
+                }]
             }
 
             return new Promise((resolve, reject) => {
@@ -260,15 +258,13 @@
                 "comments":comments
             };
             if(mapping_initiator === 1) {
-                data['requester'] = {
-                    "activity_uuid": uuid, 
-                    "activity_type": mapping_initiator 
-                }
+                data['requester'] = [{
+                    "activity_uuid": uuid
+                }]
             } else if(mapping_initiator === 2) {
-                data['offerer'] = {
-                    "activity_uuid": uuid, 
-                    "activity_type": mapping_initiator 
-                }
+                data['offerer'] = [{
+                    "activity_uuid": uuid
+                }]
             }
             return new Promise((resolve, reject) => {
                 let reqObject = this.stuffHeader(data, true);
