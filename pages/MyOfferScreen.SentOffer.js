@@ -53,10 +53,10 @@ function MyOfferSentOfferScreen(props) {
         setShowModal(!showModal);
     }
 
-    const updateMappedRequest = () => {
+    const updateMappedRequest = (resp, uuid) => {
         let mapLocalRequest = [];
         mappedRequestEntity.forEach((singleMapping) => {
-            if(singleMapping.request_detail.activity_uuid !== ele.request_detail.activity_uuid){
+            if(singleMapping.request_detail.activity_uuid !== uuid){
                 mapLocalRequest.push(singleMapping);
             }
         });
@@ -74,7 +74,7 @@ function MyOfferSentOfferScreen(props) {
         } else if (actions === AppConstant.APP_ACTION.CANCEL) {
             apiInvocation({
                 uuid:ele.request_detail.activity_uuid, 
-                actType:ele.request_detail.activity_type,
+                actType:AppConstant.APP_MAPPING_INDICATOR.OFFERER,
                 mapping_initiator:ele.mapping_initiator,
                 successCallback:updateMappedRequest,
                 deleteType:AppConstant.APP_DELET_ACTION.DELETE_MAPPING
@@ -128,6 +128,7 @@ function MyOfferSentOfferScreen(props) {
                         modalProps.request_detail.activity_uuid : '';
        apiInstance.mappingRating(
             rootActivityUUID, 
+            AppConstant.APP_MAPPING_INDICATOR.OFFERER,
             mapping_initiator , 
             uuid, 
             ratingPayload.rating, 
@@ -156,7 +157,7 @@ function MyOfferSentOfferScreen(props) {
             apiInstancePromise.then((resp) => {
                     setShowSpinner(false);
                     if(successCallback) {
-                        successCallback(resp)
+                        successCallback(resp,uuid)
                     } else {
                         props.navigation.goBack();
                     }

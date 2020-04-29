@@ -313,10 +313,10 @@ class API{
 
 
 
-    mappingRating = (activity_uuid, mapping_initiator , uuid, rating, recommend_other, comments) =>{
+    mappingRating = (activity_uuid, activity_type, mapping_initiator , uuid, rating, recommend_other, comments) =>{
         return new Promise((resolve, reject) => {
             let  requestObjects = new RequestObjects();
-            reqObj = requestObjects.mappingRating(activity_uuid, mapping_initiator , uuid, rating, recommend_other, comments);
+            reqObj = requestObjects.mappingRating(activity_uuid,activity_type, mapping_initiator , uuid, rating, recommend_other, comments);
             reqObj.then((val)=> {
                 console.log("Mapping rating request Object ")
                 console.log(val)

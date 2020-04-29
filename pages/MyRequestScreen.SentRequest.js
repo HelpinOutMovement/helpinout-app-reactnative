@@ -52,10 +52,10 @@ function MyRequestSentRequestScreen(props) {
         setShowModal(!showModal);
     }
 
-    const updateMappedRequest = () => {
+    const updateMappedRequest = (resp, uuid) => {
         let mapLocalRequest = [];
         mappedRequestEntity.forEach((singleMapping) => {
-            if(singleMapping.offer_detail.activity_uuid !== ele.offer_detail.activity_uuid){
+            if(singleMapping.offer_detail.activity_uuid !== uuid){
                 mapLocalRequest.push(singleMapping);
             }
         });
@@ -73,7 +73,7 @@ function MyRequestSentRequestScreen(props) {
         } else if (actions === AppConstant.APP_ACTION.CANCEL) {
             apiInvocation({
                     uuid:ele.offer_detail.activity_uuid, 
-                    actType:ele.offer_detail.activity_type,
+                    actType:AppConstant.APP_MAPPING_INDICATOR.REQUESTER,
                     mapping_initiator:ele.mapping_initiator,
                     successCallback:updateMappedRequest,
                     deleteType:AppConstant.APP_DELET_ACTION.DELETE_MAPPING
@@ -126,6 +126,7 @@ function MyRequestSentRequestScreen(props) {
                         modalProps.offer_detail.activity_uuid : '';
        apiInstance.mappingRating(
             rootActivityUUID, 
+            AppConstant.APP_MAPPING_INDICATOR.REQUESTER,
             mapping_initiator , 
             uuid, 
             ratingPayload.rating, 
@@ -154,7 +155,7 @@ function MyRequestSentRequestScreen(props) {
             apiInstancePromise.then((resp) => {
                     setShowSpinner(false);
                     if(successCallback) {
-                        successCallback(resp)
+                        successCallback(resp,uuid)
                     } else {
                         props.navigation.goBack();
                     }

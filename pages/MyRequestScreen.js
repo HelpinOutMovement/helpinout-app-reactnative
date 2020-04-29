@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import {  View } from 'react-native';
 import { Container, Content, Text, Footer} from "native-base";
 import translate from 'react-native-i18n';
+import { useFocusEffect } from '@react-navigation/native';
 import { PastOfferRequestComponent } from './components/PastOfferRequestComponent';
 import {apiInstance} from "../APIClient/API";
 import AppConstant from '../misc/AppConstant';
@@ -308,7 +309,8 @@ function MyRequestScreen(props) {
     const [requestInformation, setRequestInformation] = useState([]);
     const [showSpinner, setShowSpinner] = useState(false);
 
-    useEffect(()=>{
+    useFocusEffect(
+      React.useCallback(() => {
         setShowSpinner(true);
         apiInstance.userPastActivity(activity_type).then(resp => {
             setShowSpinner(false);
@@ -317,8 +319,9 @@ function MyRequestScreen(props) {
             setShowSpinner(false);
             setRequestInformation([]);
         })
-    },[]);
-
+      }, [])
+    );
+  
     const primaryActionHandler = (ele, actions) => {
         console.log(ele, "$$$$", actions);
         if(actions === AppConstant.APP_ACTION.SENT_REQUEST) {
@@ -326,7 +329,7 @@ function MyRequestScreen(props) {
                 request: ele
             });
         } else if (actions === AppConstant.APP_ACTION.SEARCH_FOR_PROVIDERS) {
-          navigation.navigate(AppConstant.APP_PAGE.SEARCH_HELP_PROVIDERS_REQUESTERS,
+          props.navigation.navigate(AppConstant.APP_PAGE.SEARCH_HELP_PROVIDERS_REQUESTERS,
              {  
                activity_type:props.activity_type, 
                activity_uuid:ele.activity_uuid,

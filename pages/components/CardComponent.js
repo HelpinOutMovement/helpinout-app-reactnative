@@ -161,6 +161,7 @@ const RequesterInfoCardComponent = (props) => {
               }}> {props.name}</Text>
               <View style={{ alignItems: "flex-start" }}>
                 <AirbnbRating
+                  isDisabled={true}
                   defaultRating={props.primayInfo.rating_avg}
                   reviews={[]}
                   ratingCount={5}

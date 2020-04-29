@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import {  View } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
 import { Container, Content, Text, Footer} from "native-base";
 import translate from 'react-native-i18n';
 import { PastOfferRequestComponent } from './components/PastOfferRequestComponent';
@@ -309,7 +310,8 @@ function MyOfferScreen(props) {
     const [requestInformation, setRequestInformation] = useState([]);
     const [showSpinner, setShowSpinner] = useState(false);
 
-    useEffect(()=>{
+    useFocusEffect(
+      React.useCallback(() => {
         setShowSpinner(true);
         apiInstance.userPastActivity(activity_type).then(resp => {
             setShowSpinner(false);
@@ -318,8 +320,9 @@ function MyOfferScreen(props) {
             setShowSpinner(false);
             setRequestInformation([]);
         })
-    },[]);
-
+      }, [])
+    );
+    
     const primaryActionHandler = (ele, actions) => {
         console.log(ele, "$$$$", actions);
         if(actions === AppConstant.APP_ACTION.SENT_REQUEST) {
