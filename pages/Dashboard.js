@@ -32,11 +32,13 @@ const dimensions = Dimensions.get('window');
 class Dashboard extends React.Component {
     constructor(props){
         super(props);
+        console.log("Props :   " + JSON.stringify(props))
         this.mapComponentRef = React.createRef();
         this.navigation = this.props.navigation;                
         //this.state = this.props.route.params.loginState;
         this.state = {hintIsHidden:false,userDetails: {}, region:{}, address:"Default Address"};
         this.navigate = this.props.navigation.navigate;
+        
         console.log("VerifyScreen Constructor")
         console.log(JSON.stringify(this.state)); 
         setTimeout(() => {
@@ -44,8 +46,9 @@ class Dashboard extends React.Component {
             hintIsHidden: true,
             userDetails: {}
           })
-          }, 5000);   
-  
+          }, 5000);  
+
+      this.props.route.latlon ? this.setState({latlon:this.props.route.latlon}) : this.setState({latlon:""})
           
     }
 
@@ -88,12 +91,11 @@ class Dashboard extends React.Component {
     }
 
 
-    
     render() { 
       return (
           <Container style={{ alignItems:"center"}}>
-                                    <MapComponent  mapHeight={this.state.mapHeight} callbackOnRegionChange={this.callbackOnRegionChange} mapProps={this.props} ref={this.mapComponentRef}>                      
-                        </MapComponent>  
+              <MapComponent  mapLatLon={this.state.latlon} mapHeight={this.state.mapHeight} callbackOnRegionChange={this.callbackOnRegionChange} mapProps={this.props} ref={this.mapComponentRef}>                      
+              </MapComponent>  
  
           <SafeAreaView style={{width:"100%", alignItems:"center"}}>
                         <View style={{ flex: 0, flexDirection: 'row',top:this.topBarPos , borderRadius:6 ,height:50, width:"90%", borderWidth:0, borderColor:"#000000" }}>                

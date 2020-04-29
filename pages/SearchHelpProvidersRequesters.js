@@ -43,8 +43,12 @@ class SearchHelpProvidersRequesters extends React.Component {
             bottom_panel_bottom:height/2,
             activitySuggestionOfferResponse:[],
             checkBoxChecked: {},
-            activity_data: []                    
+            activity_data: [],   
+            latlon:"",                
         }
+        console.log("this.props.route.params.latlon  : " + this.props.route.params.latlon)
+        
+        this.props.route.params.latlon ? this.setState({latlon:this.props.route.params.latlon}) : this.setState({latlon:""})
 
         console.log(" ifIphoneX() : " + this.isIphoneX())
         this.topBarPos = 20;
@@ -108,7 +112,7 @@ class SearchHelpProvidersRequesters extends React.Component {
 
 
     componentDidMount(){
-        
+        console.log(" Lat Lon : " + this.state.latlon)
     }
 
 
@@ -196,7 +200,7 @@ class SearchHelpProvidersRequesters extends React.Component {
         return (
                     <Container style={{ alignItems:"center"}}>
                         
-                        <MapComponent  mapHeight={this.state.mapHeight} callbackOnRegionChange={this.callbackOnRegionChange} mapProps={this.props} ref={this.mapComponentRef}>                      
+                        <MapComponent  mapLatLon={this.props.route.params.latlon} mapHeight={this.state.mapHeight} callbackOnRegionChange={this.callbackOnRegionChange} mapProps={this.props} ref={this.mapComponentRef}>                      
                         </MapComponent>  
  
                         <View style={{ flex: 0, flexDirection: 'row',top:this.topBarPos , borderRadius:6 ,height:50, width:"90%", borderWidth:0, borderColor:"#000000" }}>                

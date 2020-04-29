@@ -135,10 +135,24 @@ class MapComponent extends React.Component {
         })
       })
 
+    }else{
+      this.setState({region:{latitude: lat, longitude:lon, latitudeDelta: LATITUDE_DELTA, longitudeDelta: LONGITUDE_DELTA}}, () => {
 
+        this.map.animateToRegion({ latitude: this.state.region.latitude, longitude: this.state.region.longitude, latitudeDelta: LATITUDE_DELTA * Number(this.state.radius/15), longitudeDelta: LONGITUDE_DELTA * Number(this.state.radius/15) }, 2000); 
+
+        Geocoder.geocodePosition({lat:lat, lon:lon}).then((retval) => {
+          console.log("Google Geo Coder :  " + JSON.stringify(retval))
+          this.setState({address:JSON.stringify(retval[0].formattedAddress)},() => { 
+            console.log(" Geocoder.from 1 addressComponent   " + JSON.stringify(retval[0].formattedAddress))
+            this.props.callbackOnRegionChange(this.state.region, this.state);
+          })  
+        }).catch(error => {          
+          console.log(" Geocoder.from 1 Geocode Error : " + JSON.stringify(error))
+        });
+
+      })
       
-      
-    }  
+    }
   }
 
 
@@ -299,7 +313,12 @@ class MapComponent extends React.Component {
   }
 
   componentDidMount(){
-    this.setCurrentLocation(0,0);    
+    if(this.props.mapLatLon && this.props.mapLatLon.length >0){
+      this.setCurrentLocation(this.props.mapLatLon.split(",")[0],this.props.mapLatLon.split(",")[1]);    
+    }else{
+      this.setCurrentLocation(0,0)
+    }
+    
     
   }
 
