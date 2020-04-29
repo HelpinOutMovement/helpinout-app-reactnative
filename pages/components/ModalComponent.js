@@ -187,12 +187,12 @@ const needHelpWithModalContent = (props) => {
             <Grid style={{ width: "100%", alignItems: "center" }}>
                 <Row>
                     <Col>
-                        <Text style={{ color: "#000000" }}>{translate.t(appLabelKey.your_Request_for_Help_has_been_registered)}   </Text>
+                        <Text style={{ color: "grey" }}>{translate.t(appLabelKey.your_Request_for_Help_has_been_registered)}   </Text>
                     </Col>
                 </Row>
                 <Row>
                     <Col>
-                        <Text> {translate.t(appLabelKey.would_you_like_to_search_for_Help_Providers_in_your_location)}</Text>
+                        <Text style={{ color: "grey" }}> {translate.t(appLabelKey.would_you_like_to_search_for_Help_Providers_in_your_location)}</Text>
                     </Col>
                 </Row>
                 <Row>

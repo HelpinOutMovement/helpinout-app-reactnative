@@ -334,15 +334,15 @@ componentDidMount(){
 
             <HeaderComponent {...this.props} title={this.state.title} bgColor={this.state.headerBgColor} />
             <Content padder contentContainerStyle={{...StyleSheet.absoluteFillObject, justifyContent: 'flex-start', alignItems: 'center',}} > 
-                <Row style={{ marginVertical: 10  ,height: 76}}>
+                <Row style={{ marginVertical: 10  ,height: "15%"}}>
                     <Col>
                         <Image
                             resizeMode="contain" 
-                            style={{ alignSelf: "center", height: 76, width: 75 }}
+                            style={{ alignSelf: "center", height: "100%", width: "100%" }}
                             source={this.props.route.params.optionImage} />
                     </Col>
                 </Row> 
-                <HView style={styles.hintTextContainer, (this.state.activity_type == 2) ? {borderWidth:0, height:"35%"} : {borderWidth:0, height:"70%"}} hide={this.state.hideAddMore}>
+                <HView style={styles.hintTextContainer, (this.state.activity_type == 2) ? {borderWidth:0, height:"25%"} : {borderWidth:0, height:"60%"}} hide={this.state.hideAddMore}>
                   <ScrollView
                       ref={scrollView => this.scrollView = scrollView}
                       onContentSizeChange={() => {

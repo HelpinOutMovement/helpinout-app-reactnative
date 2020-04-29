@@ -105,13 +105,13 @@ class Dashboard extends React.Component {
                             <View style={{width: "20%", backgroundColor:"white", height: 50, borderRadius:6, borderTopLeftRadius:0,borderBottomLeftRadius:0 ,borderTopWidth:1,borderBottomWidth:1,borderRightWidth:1,alignItems:"center", justifyContent: 'center'}} ><Text style={{fontFamily: "roboto-medium",fontSize:14 , color:"rgba(243,103,103,1)"}}>Change</Text></View>                            
                         </View>
  
-                          <View style={{position:"absolute", left:0, top:bottomPanelTop, width:"100%"}}>  
+                          <View style={{position:"absolute", left:0, top:footerTop-100, width:"100%", backgroundColor:"#FFFFFF"}}>  
                           <HView style={styles(this.dimensions).hintTextContainer} hide={this.state.hintIsHidden}>
                               <Text style={styles(this.dimensions).hintText}>
                                 Inentify your location above, then select below
                               </Text>
                           </HView> 
-                              <View style={{position:"absolute", left:0, top:20, width:"100%",alignItems: "center", marginTop:10, marginBottom:10}}>
+                              <View style={{position:"absolute", left:0, top:20, width:"100%",alignItems: "center", marginTop:10, marginBottom:10, backgroundColor:"#FFFFFF"}}>
                                 <View style={styles(this.dimensions).buttonContainer}>
                                   <TouchableOpacity style={styles(this.dimensions).AskForHelp} onPress={() => this.navigate(AppConstant.APP_PAGE.ASK_FOR_HELP, {region:this.state.region, address:this.state.address})}>
                                     <AskForHelpButton  />

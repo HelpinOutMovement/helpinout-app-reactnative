@@ -84,11 +84,15 @@ class SearchHelpProvidersRequesters extends React.Component {
     }
 
     callbackOnRegionChange = (rgn, mapState) =>{
-        this.setState({region:rgn, address:mapState.address, boundries:mapState.boundries})
-        this.setState({region:rgn, address:mapState.address})
-        // Use Geocoding and get address.
-        console.log("Use Geocoding and get address  "+ JSON.stringify(mapState))
-        this.getActivitySuggestions()
+        this.setState({region:rgn, address:mapState.address, boundries:mapState.boundries}, () => {
+
+            //this.setState({region:rgn, address:mapState.address})
+            // Use Geocoding and get address.
+            console.log("Use Geocoding and get address  "+ JSON.stringify(mapState))
+            this.getActivitySuggestions()
+
+        })
+        
     }
 
 

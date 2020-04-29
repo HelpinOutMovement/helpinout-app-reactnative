@@ -213,6 +213,7 @@ useEffect(() => {
  requestPermission = async () => {
   try {
    await firebase.messaging().requestPermission();
+   
    // User has authorised
   } catch (error) {
     // User has rejected permissions
@@ -221,28 +222,28 @@ useEffect(() => {
 
 
  messageListener = async () => {
-  this.notificationListener = firebase.notifications().onNotification((notification) => {
-    const { title, body } = notification;
-    console.log(title , " ", body)
-    //this.showAlert(title, body);
-  });
- 
-  this.notificationOpenedListener = firebase.notifications().onNotificationOpened((notificationOpen) => {
-    const { title, body } = notificationOpen.notification;
-    console.log(title , " ", body)
-    //this.showAlert(title, body);
-  });
- 
-  const notificationOpen = await firebase.notifications().getInitialNotification();
-  if (notificationOpen) {
-    const { title, body } = notificationOpen.notification;
-    console.log(title , " ", body)
-    //this.showAlert(title, body);
-  }
- 
-  this.messageListener = firebase.messaging().onMessage((message) => {
-   console.log(JSON.stringify(message));
-  });
+      this.notificationListener = firebase.notifications().onNotification((notification) => {
+        const { title, body } = notification;
+        console.log("Notification Data : " + title , " ", body)
+        //this.showAlert(title, body);
+      });
+    
+      this.notificationOpenedListener = firebase.notifications().onNotificationOpened((notificationOpen) => {
+        const { title, body } = notificationOpen.notification;
+        console.log(title , " ", body)
+        //this.showAlert(title, body);
+      });
+    
+      const notificationOpen = await firebase.notifications().getInitialNotification();
+      if (notificationOpen) {
+        const { title, body } = notificationOpen.notification;
+        console.log(title , " ", body)
+        //this.showAlert(title, body);
+      }
+    
+      this.messageListener = firebase.messaging().onMessage((message) => {
+      console.log(JSON.stringify(message));
+      });
  }
 
 
