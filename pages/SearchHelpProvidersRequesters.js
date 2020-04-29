@@ -64,12 +64,23 @@ class SearchHelpProvidersRequesters extends React.Component {
         this.setState({
           checkBoxChecked: this.state.checkBoxChecked
         })
+        /*
         if(value){
             this.state.activity_data.push(id)
         }else{
             var index = this.state.activity_data.indexOf(id);
             if (index !== -1) this.state.activity_data.splice(index, 1);
         }
+        */
+       if(value){
+        this.state.activity_data.push({activity_uuid:id})
+        }else{
+            var index = this.state.activity_data.indexOf(x => x.activity_uuid === id);
+            if (index !== -1) this.state.activity_data.splice(index, 1);
+        }
+
+
+
       }
 
 
@@ -104,6 +115,7 @@ class SearchHelpProvidersRequesters extends React.Component {
     getActivitySuggestions = () =>{
         
         let restApi = new API();
+        console.log("  getActivitySuggestions this.state.activity_type  " + this.state.activity_type)
         let reqObj =  restApi.activitySuggestions(this.state.activity_type, this.state.activity_uuid, this.state.region.latitude+","+this.state.region.longitude, "10.424", getDistance(this.state.boundries.northEast,this.state.boundries.southWest)/2)
                 reqObj.then((respObject) => {
                     console.log("getActivitySuggestions Response  : " + JSON.stringify(respObject))
@@ -151,13 +163,15 @@ class SearchHelpProvidersRequesters extends React.Component {
     submitActivity = () =>{
         let offerer = [];
         let requester = [];
-        (this.state.activity_type === 1) ? 
-                        requester = {activity_uuid:this.state.activity_uuid, activity_type:this.state.activity_type, request:this.state.activity_data}
+        (this.state.activity_type === 2) ? 
+                        //requester = {activity_uuid:this.state.activity_uuid, activity_type:this.state.activity_type, request:this.state.activity_data}
+                        requester = this.state.activity_data
                         :
-                        offerer = {activity_uuid:this.state.activity_uuid, activity_type:this.state.activity_type, offer:this.state.activity_data} 
+                        //offerer = {activity_uuid:this.state.activity_uuid, activity_type:this.state.activity_type, offer:this.state.activity_data} 
+                        offerer = this.state.activity_data 
             
-        console.log("requester : " + JSON.stringify(this.state.activity_data))
-        console.log("offerer : " + JSON.stringify(this.state.activity_data))
+        console.log("requester : " + JSON.stringify(requester))
+        console.log("offerer : " + JSON.stringify(offerer))
         
         let restApi = new API();
         let reqObj =  restApi.activityMapping(this.state.activity_type, this.state.activity_uuid, offerer, requester)
@@ -165,9 +179,13 @@ class SearchHelpProvidersRequesters extends React.Component {
             console.log("Add activityMapping Response  : " + JSON.stringify(response))
             if(response.status === "1") {
                 //this.showPopUp();
-                this.navigate(AppConstant.APP_PAGE.MY_REQUEST_SENT_REQUEST_SCREEN, {request:{}, created_activity:response.data})
+                if(this.state.activity_type === 1){
+                    this.navigate(AppConstant.APP_PAGE.MY_REQUEST_SENT_REQUEST_SCREEN, {request:response.data, created_activity:response.data})
+                }else{
+                    this.navigate(AppConstant.APP_PAGE.MY_OFFER_SENT_OFFER_SCREEN, {request:response.data, created_activity:response.data})
+                }                
             }else{
-                this.navigate(AppConstant.APP_PAGE.MY_OFFER_SENT_OFFER_SCREEN, {request:{}, created_activity:response.data})
+                
             }
         }).catch((err) => {console.log(err)})    
                                          

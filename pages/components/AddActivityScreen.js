@@ -233,7 +233,7 @@ export default class AddActivityScreen extends Component {
                 break;
               case AppConstant.API_REQUEST_CONSTANTS.activity_category.AMBULANCE:
                 console.log("Ambulance")
-                reqObj =  restApi.activityAdd(uuid, this.props.route.params.activity_type, this.state.region.latitude+","+this.state.region.longitude, "100", this.state.address, this.props.route.params.optionCode,1,{qty:""},this.state.constrainsData,canPay)
+                reqObj =  restApi.activityAdd(uuid, this.props.route.params.activity_type, this.state.region.latitude+","+this.state.region.longitude, "100", this.state.address, this.props.route.params.optionCode,1,{qty:0},this.state.constrainsData,canPay)
                 reqObj.then((response) => {
                     console.log("Add Response Ambulance : " + JSON.stringify(response))
                     if(response.status === "1") {

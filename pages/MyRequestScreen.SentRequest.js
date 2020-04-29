@@ -12,6 +12,8 @@ import SpinnerComponent from './components/SpinnerComponent';
 
 
 function MyRequestSentRequestScreen(props) {
+    console.log("MyORequestScreen.SentOffer")
+
     const colorTheme = "#EE6B6B";
     const typeRestriction = 'requests';
     const [showModal, setShowModal] = useState(false);

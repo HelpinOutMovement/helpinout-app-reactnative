@@ -12,6 +12,9 @@ import SpinnerComponent from './components/SpinnerComponent';
 
 
 function MyOfferSentOfferScreen(props) {
+
+
+    console.log("MyOffersScreen.SentOffer")
     const colorTheme = "#4F5065";
     const typeRestriction = 'offers';
     const [showModal, setShowModal] = useState(false);
@@ -53,7 +56,7 @@ function MyOfferSentOfferScreen(props) {
     const updateMappedRequest = () => {
         let mapLocalRequest = [];
         mappedRequestEntity.forEach((singleMapping) => {
-            if(singleMapping.offer_detail.activity_uuid !== ele.offer_detail.activity_uuid){
+            if(singleMapping.request_detail.activity_uuid !== ele.request_detail.activity_uuid){
                 mapLocalRequest.push(singleMapping);
             }
         });
@@ -70,8 +73,8 @@ function MyOfferSentOfferScreen(props) {
             setShowModal(!showModal);
         } else if (actions === AppConstant.APP_ACTION.CANCEL) {
             apiInvocation({
-                uuid:ele.offer_detail.activity_uuid, 
-                actType:ele.offer_detail.activity_type,
+                uuid:ele.request_detail.activity_uuid, 
+                actType:ele.request_detail.activity_type,
                 mapping_initiator:ele.mapping_initiator,
                 successCallback:updateMappedRequest,
                 deleteType:AppConstant.APP_DELET_ACTION.DELETE_MAPPING
@@ -86,9 +89,9 @@ function MyOfferSentOfferScreen(props) {
             mappedRequestEntity.forEach((singleMapping) => {
                 mappedRequestView.push(
                     <RequesterInfoCardComponent
-                        name={singleMapping.offer_detail.user_detail.first_name + " " + singleMapping.offer_detail.user_detail.last_name}
-                        primayInfo={singleMapping.offer_detail.user_detail}
-                        dateTime={singleMapping.offer_detail.date_time}
+                        name={singleMapping.request_detail.user_detail.first_name + " " + singleMapping.request_detail.user_detail.last_name}
+                        primayInfo={singleMapping.request_detail.user_detail}
+                        dateTime={singleMapping.request_detail.date_time}
                         clickHandler={primaryActionHandler}
                         {...singleMapping} />)
             });
@@ -121,8 +124,8 @@ function MyOfferSentOfferScreen(props) {
                 requestParams.activity_uuid : (createdIdParams && 
                 createdIdParams.activity_uuid)? createdIdParams.activity_uuid : '';
        let mapping_initiator= (modalProps && modalProps.mapping_initiator) ? modalProps.mapping_initiator : '';
-       let uuid = (modalProps && modalProps.offer_detail && modalProps.offer_detail.activity_uuid) ? 
-                        modalProps.offer_detail.activity_uuid : '';
+       let uuid = (modalProps && modalProps.request_detail && modalProps.request_detail.activity_uuid) ? 
+                        modalProps.request_detail.activity_uuid : '';
        apiInstance.mappingRating(
             rootActivityUUID, 
             mapping_initiator , 
