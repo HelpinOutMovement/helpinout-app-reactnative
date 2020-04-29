@@ -10,20 +10,34 @@ import { appLabelKey } from '../../misc/AppStrings';
 
 
 
-
+const getViewIfExist = (textInformation)=>{
+    if(textInformation) {
+        return (
+            <Text style={{
+                fontFamily: "Roboto-Regular",
+                fontSize: 14,
+                color: "#4F5065CC"
+            }}>{textInformation}</Text>
+        )
+    }
+}
 const viewBasedOnCategory = (category, props) => {
+
+    
     const viewList = []
     switch (category) {
         case AppConstant.APP_OPTIONS.AMBULANCE:
             props.activity_detail && props.activity_detail.length && props.activity_detail.forEach(singleDetail => {
                 const qtyText = (singleDetail.quantity) ? " " + singleDetail.quantity : "";
-                viewList.push(
-                    <Text style={{
-                        fontFamily: "Roboto-Regular",
-                        fontSize: 14,
-                        color: "#4F5065CC"
-                    }}>{qtyText}</Text>
-                )
+                if(qtyText) {
+                    viewList.push(
+                        <Text style={{
+                            fontFamily: "Roboto-Regular",
+                            fontSize: 14,
+                            color: "#4F5065CC"
+                        }}>{qtyText}</Text>
+                    )
+                }
             });
             break;
         case AppConstant.APP_OPTIONS.PEOPLE:
@@ -49,24 +63,8 @@ const viewBasedOnCategory = (category, props) => {
 
                 viewList.push(
                     <View>
-                        {
-                            finalVolunteerText &&
-                            <Text style={{
-                                fontFamily: "Roboto-Regular",
-                                fontSize: 14,
-                                color: "#4F5065CC"
-                            }}>{finalVolunteerText}</Text>
-                        }
-
-                        {
-                            finalTechPersonnelText &&
-                            <Text style={{
-                                fontFamily: "Roboto-Regular",
-                                fontSize: 14,
-                                color: "#4F5065CC"
-                            }}>{finalTechPersonnelText}</Text>
-                        }
-
+                        {getViewIfExist(finalVolunteerText)}
+                        {getViewIfExist(finalTechPersonnelText)}
                     </View>
 
                 )
@@ -77,13 +75,16 @@ const viewBasedOnCategory = (category, props) => {
             // {singleDetail.detail+" "+singleDetail.quantity}
             props.activity_detail && props.activity_detail.length && props.activity_detail.forEach(singleDetail => {
                 const qtyText = (singleDetail.quantity) ? " : " + singleDetail.quantity : "";
-                viewList.push(
-                    <Text style={{
-                        fontFamily: "Roboto-Regular",
-                        fontSize: 14,
-                        color: "#4F5065CC"
-                    }}>{singleDetail.detail + " " + qtyText}</Text>
-                )
+                if(qtyText){
+                    viewList.push(
+                        <Text style={{
+                            fontFamily: "Roboto-Regular",
+                            fontSize: 14,
+                            color: "#4F5065CC"
+                        }}>{singleDetail.detail + " " + qtyText}</Text>
+                    )
+                }
+                
             });
 
             break;
