@@ -233,12 +233,12 @@
             if(mapping_initiator === 1) {
                 data['requester'] = {
                     "activity_uuid": uuid, 
-                     "activity_type": mapping_initiator, 
+                     "activity_type": mapping_initiator 
                 }
             } else if(mapping_initiator === 2) {
                 data['offerer'] = {
                     "activity_uuid": uuid, 
-                     "activity_type": mapping_initiator, 
+                     "activity_type": mapping_initiator 
                 }
             }
 
@@ -252,12 +252,23 @@
         }
 
 
-        mappingRating = (activity_uuid, mapping_id, rating, recommend_other) =>{
+        mappingRating = (activity_uuid, mapping_initiator , uuid, rating, recommend_other, comments) =>{
             let data = {
                 "activity_uuid":activity_uuid, 
-                "mapping_id":mapping_id, 
                 "rating":rating, 
-                "recommend_other":recommend_other
+                "recommend_other":recommend_other,
+                "comments":comments
+            };
+            if(mapping_initiator === 1) {
+                data['requester'] = {
+                    "activity_uuid": uuid, 
+                    "activity_type": mapping_initiator 
+                }
+            } else if(mapping_initiator === 2) {
+                data['offerer'] = {
+                    "activity_uuid": uuid, 
+                    "activity_type": mapping_initiator 
+                }
             }
             return new Promise((resolve, reject) => {
                 let reqObject = this.stuffHeader(data, true);

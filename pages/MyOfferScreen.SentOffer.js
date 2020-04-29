@@ -20,7 +20,6 @@ function MyOfferSentOfferScreen(props) {
     const [mappedRequestEntity, setMappedRequestEntity] = useState([]);
     const requestParams = (props.route && props.route.params && props.route.params.request) ? props.route.params.request : {};
     const createdIdParams = (props.route && props.route.params && props.route.params.created_activity) ? props.route.params.created_activity : {};
-    
     // set the content
     useEffect(()=>{
         if (requestParams && requestParams.mapping && requestParams.mapping.length){
@@ -60,7 +59,6 @@ function MyOfferSentOfferScreen(props) {
         });
         setMappedRequestEntity(mapLocalRequest)
     }
-
     const primaryActionHandler = (ele, actions) => {
         console.log(ele, "$$$$", actions);
 
@@ -110,13 +108,36 @@ function MyOfferSentOfferScreen(props) {
         return mappedRequestView;
     }
 
-    const onActionClick = (ratingPayload) => {
+    const onActionClick = (ratingPayload, modalProps) => {
         console.log(ratingPayload);
+        /*
+        recommendedForOthers: recommended,
+            comments: commentText,
+            rating: ratingVal
+        */
         closePopUp();
+        setShowSpinner(true);
+       let rootActivityUUID = (requestParams && requestParams.activity_uuid) ? 
+                requestParams.activity_uuid : (createdIdParams && 
+                createdIdParams.activity_uuid)? createdIdParams.activity_uuid : '';
+       let mapping_initiator= (modalProps && modalProps.mapping_initiator) ? modalProps.mapping_initiator : '';
+       let uuid = (modalProps && modalProps.offer_detail && modalProps.offer_detail.activity_uuid) ? 
+                        modalProps.offer_detail.activity_uuid : '';
+       apiInstance.mappingRating(
+            rootActivityUUID, 
+            mapping_initiator , 
+            uuid, 
+            ratingPayload.rating, 
+            (ratingPayload.recommendedForOthers)?1:0, 
+            ratingPayload.comments).then((resp)=>{
+                console.log(resp)
+                setShowSpinner(false);
+       }).catch(()=>{
+        setShowSpinner(false);
+       });
     }
 
     const apiInvocation = ({uuid, actType, successCallback, deleteType, mapping_initiator}) => {
-        
         if(uuid && actType) {
             setShowSpinner(true);
             let apiInstancePromise;
@@ -150,7 +171,6 @@ function MyOfferSentOfferScreen(props) {
                 deleteType:AppConstant.APP_DELET_ACTION.DELETE_ACTIVITY
             })
     }
-    
     return (
         <Container>
             <HeaderComponent {...props}

@@ -326,7 +326,7 @@ function MyRequestScreen(props) {
                 request: ele
             });
         } else if (actions === AppConstant.APP_ACTION.SEARCH_FOR_PROVIDERS) {
-          props.navigation.navigate(AppConstant.APP_PAGE.SEARCH_HELP_PROVIDERS_REQUESTERS,
+          navigation.navigate(AppConstant.APP_PAGE.SEARCH_HELP_PROVIDERS_REQUESTERS,
              {  
                activity_type:props.activity_type, 
                activity_uuid:ele.activity_uuid,
@@ -339,7 +339,6 @@ function MyRequestScreen(props) {
 
     const getRequestList = () => {
         let cardListView = [];
-        console.log(requestInformation);
         requestInformation.forEach((singleOption, index) => {
         // realReq.forEach((singleOption, index) => {
             cardListView.push((
