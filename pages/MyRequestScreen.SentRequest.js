@@ -26,7 +26,7 @@ function MyRequestSentRequestScreen(props) {
                setMappedRequestEntity(requestParams.mapping);
         } else if (createdIdParams && createdIdParams.activity_uuid) {
             // work-around for now
-            apiInstance.userPastActivity(activity_type).then(resp => {
+            apiInstance.userPastActivity(createdIdParams.activity_type).then(resp => {
                 setShowSpinner(false);
                 let localRequestParam = {};
                 if(resp.data && resp.data[typeRestriction] && resp.data[typeRestriction].length > 0) {
@@ -37,7 +37,7 @@ function MyRequestSentRequestScreen(props) {
                         }
                         return true;
                     });
-                    setMappedRequestEntity(localRequestParam.mapping);
+                    setMappedRequestEntity((localRequestParam.mapping && localRequestParam.mapping.length && localRequestParam.mapping.length > 0)? localRequestParam.mapping : []);
                 }
             }).catch((e)=>{
                 setShowSpinner(false);
