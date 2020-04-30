@@ -96,7 +96,7 @@ export default class LoginScreen extends React.Component {
                     <View style={{ alignItems: "center" ,  marginVertical: 0, width:"98%"}} >
                         <Text style={commonStyling.appLabelInout}>{translate.t('Enter_your_mobile_number')}</Text>
                         <View style={commonStyling.appPhoneNumberInputView}>
-                            <View style={{flex: 1,  flexDirection: "row",alignItems: 'center', justifyContent:'center'}}>
+                            <View style={{flex: 1,  flexDirection: "row",alignItems: 'center', justifyContent:'center', width: "92%",}}>
                                 <TextInput style={commonStyles.phoneCountryCode}> {this.state.selectedCountryCode} </TextInput>
                                 <RNPickerSelect                            
                                         onValueChange ={(value, key) => {this.onCountryValueChange(value, key)}}
@@ -119,9 +119,9 @@ export default class LoginScreen extends React.Component {
                     </View>
                 </View>
                 <View style={{alignItems: "center",  width:"100%"}} >                                        
-                    <View style={{ alignItems: "center" ,  marginVertical: 0, width:"98%"}} >
-                        <TouchableOpacity style={{borderRadius: 9, marginVertical: 30,alignItems: "center",backgroundColor: "#4F5065",height: 56,width: "92%",shadowOpacity: 0.9,shadowOffset: { height: 3 },shadowColor: '#2328321F',}} onPress={() =>{this.verifyPhone()}}>
-                            <Text style={{textAlign: "center",fontFamily: "Roboto-Medium",fontSize: 20,lineHeight: 56,color: "#FFFFFF"}}>{translate.t("Login_Sign_Up")}</Text>
+                    <View style={{ alignItems: "center" , justifyContent:"center", marginVertical: 50, width:"98%"}} >
+                        <TouchableOpacity style={{borderRadius: 9, alignItems: "center", justifyContent:"center", backgroundColor: "#4F5065",height: 56,width: "92%",shadowOpacity: 0.9,shadowOffset: { height: 3 },shadowColor: '#2328321F',}} onPress={() =>{this.verifyPhone()}}>
+                            <Text style={{textAlign: "center",fontFamily: "Roboto-Medium",fontSize: 20,color: "#FFFFFF"}}>{translate.t("Login_Sign_Up")}</Text>
                         </TouchableOpacity>                    
                     </View>                
                     <Text style={{

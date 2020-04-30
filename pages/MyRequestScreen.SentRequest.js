@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { TouchableOpacity, View, Dimensions } from 'react-native';
-import { Container, Spinner, Content, Text, Footer, FooterTab, Card, CardItem } from "native-base";
+import { TouchableOpacity, View, Dimensions, ScrollView, SafeAreaView} from 'react-native';
+import { Container, Spinner, Content, Text, Footer, FooterTab, Card, CardItem,  } from "native-base";
 import translate from 'react-native-i18n';
 import { BasicFilledButton } from './components/ButtonComponent';
 import { apiInstance } from "../APIClient/API";
@@ -175,9 +175,11 @@ function MyRequestSentRequestScreen(props) {
     }
     return (
         <Container>
+            <View style={{height:"100%" }}>
             <HeaderComponent {...props}
                 title={translate.t("Request_have_been_sent_to")}
                 bgColor={colorTheme} />
+
             <Content   >
                 {getMappedRequestView()}
             </Content>
@@ -187,12 +189,13 @@ function MyRequestSentRequestScreen(props) {
                 showModal={showModal}
                 closePopUp={closePopUp}
                 onActionClick={onActionClick} />
-            <Footer>
+            <Footer style={{height:100}}>
                 <View style={{
-                    marginTop: 10,
+                    marginTop: 0,
                     justifyContent: "center",
                     alignItems: "center",
-                    width: "90%"
+                    width: "90%",
+                    
                 }}>
                     <BasicFilledButton
                         buttonStyle={{
@@ -203,6 +206,7 @@ function MyRequestSentRequestScreen(props) {
                         colorTheme={colorTheme} />
                 </View>
             </Footer>
+            </View>
             {showSpinner && (<SpinnerComponent />)}
 
         </Container>

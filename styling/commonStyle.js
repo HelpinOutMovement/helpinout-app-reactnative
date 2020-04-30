@@ -81,7 +81,7 @@ const commonStyling = StyleSheet.create({
     appLabelInout: {
         textAlign: "center",
         fontFamily: "Roboto-Medium",
-        fontSize: 24,
+        fontSize: 20,
         color:"#4F5065"
     },
     appPhoneNumberInputView:{
@@ -127,7 +127,7 @@ const commonStyling = StyleSheet.create({
       paddingHorizontal: 1,
       borderTopLeftRadius:0,
       borderBottomLeftRadius:0,
-      width:240,
+      width:"55%",
       borderTopWidth:1,
       borderLeftWidth:0,
       borderWidth: 4,

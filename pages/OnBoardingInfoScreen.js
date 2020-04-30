@@ -1,6 +1,6 @@
 
 import React, { useContext } from 'react';
-import { View, Image, Text, TouchableOpacity, Linking, Dimensions } from 'react-native';
+import { View, Image, Text, TouchableOpacity, Linking, Dimensions, SafeAreaView } from 'react-native';
 import AppStorage from '../storage/AppStorage';
 import AppConstant from '../misc/AppConstant';
 import commonStyling from '../styling/commonStyle';
@@ -29,8 +29,8 @@ function OnBoardingInfoScreen({ navigation }) {
 
 
     return (
-        <View style={{ flexDirection: "column" }}>
-            <LogoComponent marginVertical={15} marginTop={100}/>
+        <SafeAreaView style={{ flexDirection: "column" }}>
+            <LogoComponent marginVertical={15} />
             <View style={{ alignItems:"center"}}>
                 <TouchableOpacity
                     style={{
@@ -86,7 +86,7 @@ function OnBoardingInfoScreen({ navigation }) {
                     >{translate.t("Search_for_help-providers_and_help-requesters_around_you")}</Text>
                 </View>
 
-                <View style={{ alignItems: "center" , marginTop:50}} >
+                <View style={{ alignItems: "center"}} >
                     <TouchableOpacity
                         style={{
                             marginVertical: 30,
@@ -95,7 +95,7 @@ function OnBoardingInfoScreen({ navigation }) {
                             height: 56,
                             width: "92%",
                             shadowOpacity: 0.9,
-                            shadowOffset: { height: 3 },
+                            //shadowOffset: { height: 3 },
                             shadowColor: '#2328321F',
                             borderRadius: 9,
 
@@ -119,7 +119,7 @@ function OnBoardingInfoScreen({ navigation }) {
                 </View>
             </View>
 
-        </View>
+        </SafeAreaView>
     );
 }
 
