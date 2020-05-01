@@ -13,6 +13,7 @@ import OfferHelpButton from "./components/OfferHelpButton";
 import HView from "./components/HView"
 import API from "../APIClient/API";
 import Utils from "../misc/Utils"
+import FooterTabComponent from './components/FooterTabComponent';
 
 import translate from 'react-native-i18n';
 import appStorage from '../storage/AppStorage';
@@ -61,7 +62,7 @@ class Dashboard extends React.Component {
     callbackOnRegionChange = (rgn, mapState) =>{
         this.setState({region:rgn, address:mapState.address})
         console.log("Dashboard callbackOnRegionChange : " + JSON.stringify(rgn), "       ---      " , mapState.address)
-        
+        this.setState({latlon:rgn.latitude+","+ rgn.longitude})
         // Use Geocoding and get address.
         this.getLocationSuggestions(mapState);
 
@@ -94,7 +95,7 @@ class Dashboard extends React.Component {
     render() { 
       return (
           <Container style={{ alignItems:"center"}}>
-              <MapComponent  mapLatLon={this.state.latlon} mapHeight={this.state.mapHeight} callbackOnRegionChange={this.callbackOnRegionChange} mapProps={this.props} ref={this.mapComponentRef}>                      
+              <MapComponent   mapHeight={this.state.mapHeight} callbackOnRegionChange={this.callbackOnRegionChange} mapProps={this.props} ref={this.mapComponentRef}>                      
               </MapComponent>  
  
           <SafeAreaView style={{width:"100%", alignItems:"center"}}>
@@ -125,18 +126,7 @@ class Dashboard extends React.Component {
                               </View>       
                         </View>  
                         <FooterTab style={{position:"absolute", left:0, top:footerTop,width:"100%", backgroundColor:"#FFFFFF"}}>
-                          <Button vertical active  onPress={() => this.navigate(AppConstant.APP_PAGE.DASHBOARD)}>
-                            <Icon name="ios-home" style={{color:"red"}}/>
-                            <Text>{translate.t("Home")}</Text>
-                          </Button>
-                          <Button vertical onPress={() => this.navigate(AppConstant.APP_PAGE.MY_REQUEST_SCREEN)}>
-                            <Icon name="camera" />
-                            <Text>{translate.t("My_Requests")}</Text>
-                          </Button>
-                          <Button vertical onPress={() => this.navigate(AppConstant.APP_PAGE.MY_OFFERS_SCREEN)}>
-                            <Icon active name="navigate" />
-                            <Text>{translate.t("My_Offers")}</Text>
-                          </Button>          
+                            <FooterTabComponent {...this.props} activeTab={AppConstant.APP_FOOTER_TABS.HOME} latlon={this.state.latlon} />
                         </FooterTab>
           </SafeAreaView>
           

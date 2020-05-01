@@ -107,13 +107,13 @@ class MapComponent extends React.Component {
               */
               Geocoder.geocodePosition({lat:info.coords.latitude, lon:info.coords.longitude}).then((retval) => {
                 console.log("Google Geo Coder :  " + JSON.stringify(retval))
-                this.setState({address:JSON.stringify(retval[0].formattedAddress)},() => { 
+                this.setState({address:retval[0].formattedAddress},() => { 
                   console.log(" Geocoder.from 1 addressComponent   " + JSON.stringify(retval[0].formattedAddress))
                   this.props.callbackOnRegionChange(this.state.region, this.state);
                 })  
               }).catch(error => {          
                 console.log(" Geocoder.from 1 Geocode Error : " + JSON.stringify(error))
-                this.props.callbackOnRegionChange(this.state.region, this.state);
+                //this.props.callbackOnRegionChange(this.state.region, this.state);
               });
             /*
             console.log("setCurrentLocation Region Data : "+ JSON.stringify(this.state.region))
@@ -143,13 +143,13 @@ class MapComponent extends React.Component {
 
         Geocoder.geocodePosition({lat:lat, lon:lon}).then((retval) => {
           console.log("Google Geo Coder :  " + JSON.stringify(retval))
-          this.setState({address:JSON.stringify(retval[0].formattedAddress)},() => { 
+          this.setState({address:retval[0].formattedAddress},() => { 
             console.log(" Geocoder.from 1 addressComponent   " + JSON.stringify(retval[0].formattedAddress))
             this.props.callbackOnRegionChange(this.state.region, this.state);
           })  
         }).catch(error => {          
           console.log(" Geocoder.from 1 Geocode Error : " + JSON.stringify(error))
-          this.props.callbackOnRegionChange(this.state.region, this.state);
+          //this.props.callbackOnRegionChange(this.state.region, this.state);
         });
 
       })
@@ -282,13 +282,13 @@ class MapComponent extends React.Component {
               Geocoder.geocodePosition({lat:region.latitude, lng:region.longitude}).then((retval) => {
                 
                 console.log("Google Geo Coder 237 :  " + JSON.stringify(retval))
-                this.setState({address:JSON.stringify(retval[0].formattedAddress)},() => { 
+                this.setState({address:retval[0].formattedAddress},() => { 
                   console.log(" Geocoder.from 2 addressComponent   " + JSON.stringify(retval[0].formattedAddress))
                   this.props.callbackOnRegionChange(this.state.region, this.state);
                 })  
               }).catch(error => {          
                 console.log(" Geocoder.from 12Geocode Error : " + JSON.stringify(error))
-                this.props.callbackOnRegionChange(this.state.region, this.state);
+                //this.props.callbackOnRegionChange(this.state.region, this.state);
               });
 
               /*
