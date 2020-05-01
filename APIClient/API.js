@@ -1,6 +1,10 @@
+9
+
+import NetInfo from "@react-native-community/netinfo";
 const axios = require('axios')
 import AppConstants from "../misc/AppConstant";
 import RequestObjects from '../APIClient/RequestResponseObjects/RequestObjects';
+import AppStorage from '../storage/AppStorage';
 
 function kebabCaseToCamel(str) {
       return str.replace( /(\-\w)/g, (matches) => matches[1].toUpperCase())
@@ -9,6 +13,11 @@ class API{
   constructor(){
     this.url = AppConstants.API_SERVER.baseURL;
     this.endpoints = {}
+    NetInfo.fetch().then(state => {
+        console.log("Connection type", state.type);
+        console.log("Is connected?", state.isConnected);
+      });
+    
   }
   /**
    * Create and store a single entity's endpoints
@@ -147,23 +156,36 @@ class API{
 
 
     locationSuggestion = (lat, lon, geo_accuracy, radius, activity_type , activity_uuid)=>{
+        console.log("locationSuggestion")
         return new Promise((resolve, reject) => {
             let  requestObjects = new RequestObjects();
             reqObj = requestObjects.locationSuggestionObject(lat, lon, geo_accuracy, radius, activity_type , activity_uuid);          
             reqObj.then((val)=> {
                 let apicall = 'user/locationsuggestion';
-                this.createEntity(apicall).then((call) => {
-                    let data = this.endpoints[call].post(val);        
-                    data.then(({data})=> {
-                        resolve(data);
-                    })
-                    .catch(err => {reject(err)})
-                })  
+                              
+                NetInfo.fetch().then(networkState => {
+                    if(networkState.isConnected){
+                        this.createEntity(apicall).then((call) => {
+                            let data = this.endpoints[call].post(val);        
+                            data.then(({data})=> {
+                                console.log("Calling AppStorage")
+                                AppStorage.storeAppInfo("API_CALL_CACHE_"+apicall, JSON.stringify(data))
+                                resolve(data);
+                            })
+                            .catch(err => {reject(err)})
+                        })
+                    }else{
+                        AppStorage.getAppInfo("API_CALL_CACHE_"+apicall).then((data) =>{
+                            console.log("Cached Data " + data)
+                            resolve(JSON.parse(data));
+                        })
+                    }
+                })
+                                
             })
             .catch(err => {reject(err)})
         });
     }
-
 
     locationRequesterSummary = (lat, lon, geo_accuracy)=>{
         return new Promise((resolve, reject) => {
@@ -172,13 +194,24 @@ class API{
             reqObj.then((val)=> {
                 console.log("locationRequesterSummary request Object ")
                 let apicall = 'user/locationrequestersummary';
-                this.createEntity(apicall).then((call) => {
-                    let data = this.endpoints[call].post(val);        
-                    data.then(({data})=> {
-                        resolve(data);
-                    })
-                    .catch(err => {reject(err)})
-                })  
+                NetInfo.fetch().then(networkState => {
+                    if(networkState.isConnected){
+                        this.createEntity(apicall).then((call) => {
+                            let data = this.endpoints[call].post(val);        
+                            data.then(({data})=> {
+                                console.log("Calling AppStorage")
+                                AppStorage.storeAppInfo("API_CALL_CACHE_"+apicall, JSON.stringify(data))
+                                resolve(data);
+                            })
+                            .catch(err => {reject(err)})
+                        })
+                    }else{
+                        AppStorage.getAppInfo("API_CALL_CACHE_"+apicall).then((data) =>{
+                            console.log("Cached Data " + data)
+                            resolve(JSON.parse(data));
+                        })
+                    }
+                }) 
             })
              .catch(err => {reject(err)})
         });
@@ -192,13 +225,24 @@ class API{
                 console.log("pastactivity request Object ")
                 console.log(val)           
                 let apicall = 'user/pastactivity';
-                this.createEntity(apicall).then((call) => {
-                    let data = this.endpoints[call].post(val);        
-                    data.then(({data})=> {
-                        resolve(data);
-                    })
-                    .catch(err => {reject(err)})
-                })  
+                NetInfo.fetch().then(networkState => {
+                    if(networkState.isConnected){
+                        this.createEntity(apicall).then((call) => {
+                            let data = this.endpoints[call].post(val);        
+                            data.then(({data})=> {
+                                console.log("Calling AppStorage")
+                                AppStorage.storeAppInfo("API_CALL_CACHE_"+apicall, JSON.stringify(data))
+                                resolve(data);
+                            })
+                            .catch(err => {reject(err)})
+                        })
+                    }else{
+                        AppStorage.getAppInfo("API_CALL_CACHE_"+apicall).then((data) =>{
+                            console.log("Cached Data " + data)
+                            resolve(JSON.parse(data));
+                        })
+                    }
+                })
             })
             .catch(err => {reject(err)})
         });    
@@ -232,13 +276,24 @@ class API{
                 console.log("Activity mapping suggestion request Object ")
                 console.log(val)
                 let apicall = 'activity/suggestions';
-                this.createEntity(apicall).then((call) => {
-                    let data = this.endpoints[call].post(val);        
-                    data.then(({data})=> {
-                        resolve(data);
-                    })
-                    .catch(err => {reject(err)})
-                })  
+                NetInfo.fetch().then(networkState => {
+                    if(networkState.isConnected){
+                        this.createEntity(apicall).then((call) => {
+                            let data = this.endpoints[call].post(val);        
+                            data.then(({data})=> {
+                                console.log("Calling AppStorage")
+                                AppStorage.storeAppInfo("API_CALL_CACHE_"+apicall, JSON.stringify(data))
+                                resolve(data);
+                            })
+                            .catch(err => {reject(err)})
+                        })
+                    }else{
+                        AppStorage.getAppInfo("API_CALL_CACHE_"+apicall).then((data) =>{
+                            console.log("Cached Data " + data)
+                            resolve(JSON.parse(data));
+                        })
+                    }
+                }) 
             })
             .catch(err => {reject(err)})
         });    

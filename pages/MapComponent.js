@@ -113,6 +113,7 @@ class MapComponent extends React.Component {
                 })  
               }).catch(error => {          
                 console.log(" Geocoder.from 1 Geocode Error : " + JSON.stringify(error))
+                this.props.callbackOnRegionChange(this.state.region, this.state);
               });
             /*
             console.log("setCurrentLocation Region Data : "+ JSON.stringify(this.state.region))
@@ -148,6 +149,7 @@ class MapComponent extends React.Component {
           })  
         }).catch(error => {          
           console.log(" Geocoder.from 1 Geocode Error : " + JSON.stringify(error))
+          this.props.callbackOnRegionChange(this.state.region, this.state);
         });
 
       })
@@ -286,6 +288,7 @@ class MapComponent extends React.Component {
                 })  
               }).catch(error => {          
                 console.log(" Geocoder.from 12Geocode Error : " + JSON.stringify(error))
+                this.props.callbackOnRegionChange(this.state.region, this.state);
               });
 
               /*
