@@ -22,10 +22,12 @@ class API{
      * myApi.createEntity({ name : 'foo-bar'})
      * myApi.endpoints.fooBar.getAll(...)
      */
-
-    const name = kebabCaseToCamel(apiEndpoint)
-    this.endpoints[name] = this.createBasicCRUDEndpoints(name)
-    return name;
+    return new Promise((resolve, reject) => {
+        const name = kebabCaseToCamel(apiEndpoint)
+        this.endpoints[name] = this.createBasicCRUDEndpoints(name)
+        resolve(name);
+    }).catch((err) => {reject(err)})
+    
   }
 
   createEntities(arrayOfEntity) {
@@ -88,12 +90,13 @@ class API{
                 console.log("login request Object ")
                 console.log(reqObj)
                 let apicall = 'user/login';
-                apicall = this.createEntity(apicall)
-                let data = this.endpoints[apicall].post(val);        
-                data.then(({data})=> {
-                    resolve(data);
-                })
-                .catch(err => {reject(err)})
+                this.createEntity(apicall).then((call) => {
+                    let data = this.endpoints[call].post(val);        
+                    data.then(({data})=> {
+                        resolve(data);
+                    })
+                    .catch(err => {reject(err)})
+                })                
             })
             .catch(err => {reject(err)})
         });
@@ -108,12 +111,13 @@ class API{
             console.log("register request Object ")
             console.log(val)
             let apicall = 'user/register';
-            apicall = this.createEntity(apicall)
-            let data = this.endpoints[apicall].post(val);        
-            data.then(({data})=> {
-                resolve(data);
-            })
-            .catch(err => {reject(err)})
+            this.createEntity(apicall).then((call) => {
+                let data = this.endpoints[call].post(val);        
+                data.then(({data})=> {
+                    resolve(data);
+                })
+                .catch(err => {reject(err)})
+            })  
         })
         .catch(err => {reject(err)})
       });
@@ -128,12 +132,13 @@ class API{
                 console.log("update request Object ")
                 console.log(val)
                 let apicall = 'user/update';
-                apicall = this.createEntity(apicall)
-                let data = this.endpoints[apicall].post(val);        
-                data.then(({data})=> {
-                    resolve(data);
-                })
-                .catch(err => {reject(err)})
+                this.createEntity(apicall).then((call) => {
+                    let data = this.endpoints[call].post(val);        
+                    data.then(({data})=> {
+                        resolve(data);
+                    })
+                    .catch(err => {reject(err)})
+                })  
             })
             .catch(err => {reject(err)})
         });
@@ -147,12 +152,13 @@ class API{
             reqObj = requestObjects.locationSuggestionObject(lat, lon, geo_accuracy, radius, activity_type , activity_uuid);          
             reqObj.then((val)=> {
                 let apicall = 'user/locationsuggestion';
-                apicall = this.createEntity(apicall)
-                let data = this.endpoints[apicall].post(val);  
-                data.then((response)=> {
-                    resolve(response.data);
-                })
-                .catch(err => {reject(err)})
+                this.createEntity(apicall).then((call) => {
+                    let data = this.endpoints[call].post(val);        
+                    data.then(({data})=> {
+                        resolve(data);
+                    })
+                    .catch(err => {reject(err)})
+                })  
             })
             .catch(err => {reject(err)})
         });
@@ -166,11 +172,13 @@ class API{
             reqObj.then((val)=> {
                 console.log("locationRequesterSummary request Object ")
                 let apicall = 'user/locationrequestersummary';
-                apicall = this.createEntity(apicall)
-                let data = this.endpoints[apicall].post(val);        
-                data.then(({data})=> {
-                    resolve(data);
-                })
+                this.createEntity(apicall).then((call) => {
+                    let data = this.endpoints[call].post(val);        
+                    data.then(({data})=> {
+                        resolve(data);
+                    })
+                    .catch(err => {reject(err)})
+                })  
             })
              .catch(err => {reject(err)})
         });
@@ -184,11 +192,13 @@ class API{
                 console.log("pastactivity request Object ")
                 console.log(val)           
                 let apicall = 'user/pastactivity';
-                apicall = this.createEntity(apicall)
-                let data = this.endpoints[apicall].post(val);        
-                data.then(({data})=> {
-                    resolve(data);
-                })
+                this.createEntity(apicall).then((call) => {
+                    let data = this.endpoints[call].post(val);        
+                    data.then(({data})=> {
+                        resolve(data);
+                    })
+                    .catch(err => {reject(err)})
+                })  
             })
             .catch(err => {reject(err)})
         });    
@@ -202,13 +212,13 @@ class API{
                 console.log("Add Activity request Object ")
                 console.log(val)
                 let apicall = 'activity/add';
-                apicall = this.createEntity(apicall)
-                let data = this.endpoints[apicall].post(val);        
-                data.then(({data})=> {
-                    console.log(val)
-                    resolve(data);
-                })
-                .catch(err => {console.log(err);console.log(err);reject(err)})
+                this.createEntity(apicall).then((call) => {
+                    let data = this.endpoints[call].post(val);        
+                    data.then(({data})=> {
+                        resolve(data);
+                    })
+                    .catch(err => {reject(err)})
+                })  
             })
             .catch(err => {console.log(err);reject(err)})
         });    
@@ -221,13 +231,14 @@ class API{
             reqObj.then((val)=> {
                 console.log("Activity mapping suggestion request Object ")
                 console.log(val)
-
                 let apicall = 'activity/suggestions';
-                apicall = this.createEntity(apicall)
-                let data = this.endpoints[apicall].post(val);        
-                data.then(({data})=> {
-                    resolve(data);
-                })
+                this.createEntity(apicall).then((call) => {
+                    let data = this.endpoints[call].post(val);        
+                    data.then(({data})=> {
+                        resolve(data);
+                    })
+                    .catch(err => {reject(err)})
+                })  
             })
             .catch(err => {reject(err)})
         });    
@@ -242,11 +253,13 @@ class API{
                 console.log("Activity mapping suggestion request Object ")
                 console.log(val)
                 let apicall = 'activity/mapping';
-                apicall = this.createEntity(apicall)
-                let data = this.endpoints[apicall].post(val);        
-                data.then(({data})=> {
-                    resolve(data);
-                })
+                this.createEntity(apicall).then((call) => {
+                    let data = this.endpoints[call].post(val);        
+                    data.then(({data})=> {
+                        resolve(data);
+                    })
+                    .catch(err => {reject(err)})
+                })  
             })
             .catch(err => {reject(err)})
         }); 
@@ -263,11 +276,13 @@ class API{
                 console.log("Activity Add request Object ")
                 console.log(val)
                 let apicall = 'activity/add';
-                apicall = this.createEntity(apicall)
-                let data = this.endpoints[apicall].post(val);        
-                data.then(({data})=> {
-                    resolve(data);
-                })
+                this.createEntity(apicall).then((call) => {
+                    let data = this.endpoints[call].post(val);        
+                    data.then(({data})=> {
+                        resolve(data);
+                    })
+                    .catch(err => {reject(err)})
+                })  
             })
             .catch(err => {reject(err)})
         });     
@@ -282,11 +297,13 @@ class API{
                 console.log("Activity delete request Object ")
                 console.log(val)
                 let apicall = 'activity/delete';
-                apicall = this.createEntity(apicall)
-                let data = this.endpoints[apicall].post(val);        
-                data.then(({data})=> {
-                    resolve(data);
-                })
+                this.createEntity(apicall).then((call) => {
+                    let data = this.endpoints[call].post(val);        
+                    data.then(({data})=> {
+                        resolve(data);
+                    })
+                    .catch(err => {reject(err)})
+                })  
         })
             .catch(err => {reject(err)})
         });     
@@ -301,11 +318,13 @@ class API{
                 console.log("Mapping delete request Object ")
                 console.log(val)
                 let apicall = 'mapping/delete';
-                apicall = this.createEntity(apicall)
-                let data = this.endpoints[apicall].post(val);        
-                data.then(({data})=> {
-                    resolve(data);
-                })
+                this.createEntity(apicall).then((call) => {
+                    let data = this.endpoints[call].post(val);        
+                    data.then(({data})=> {
+                        resolve(data);
+                    })
+                    .catch(err => {reject(err)})
+                })  
             })
             .catch(err => {reject(err)})
         });     
@@ -321,16 +340,13 @@ class API{
                 console.log("Mapping rating request Object ")
                 console.log(val)
                 let apicall = 'mapping/rating';
-                try {
-                    apicall = this.createEntity(apicall)
-                } catch(e){
-                    console.log(e);
-                }
-                
-                let data = this.endpoints[apicall].post(val);        
-                data.then(({data})=> {
-                    resolve(data);
-                })
+                this.createEntity(apicall).then((call) => {
+                    let data = this.endpoints[call].post(val);        
+                    data.then(({data})=> {
+                        resolve(data);
+                    })
+                    .catch(err => {reject(err)})
+                })  
             })
             .catch(err => {reject(err)})
         });   
@@ -345,11 +361,13 @@ class API{
                 console.log("Mapping Call Initiate request Object ")
                 console.log(val)
                 let apicall = 'mapping/call';
-                apicall = this.createEntity(apicall)
-                let data = this.endpoints[apicall].post(val);        
-                data.then(({data})=> {
-                    resolve(data);
-                })
+                this.createEntity(apicall).then((call) => {
+                    let data = this.endpoints[call].post(val);        
+                    data.then(({data})=> {
+                        resolve(data);
+                    })
+                    .catch(err => {reject(err)})
+                })  
             })
             .catch(err => {reject(err)})
         });     
