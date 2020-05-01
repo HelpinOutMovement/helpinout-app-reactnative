@@ -87,6 +87,7 @@ function MyOfferSentOfferScreen(props) {
         const mappedRequestView = [];
         if (mappedRequestEntity.length > 0) {
             mappedRequestEntity.forEach((singleMapping) => {
+                if(singleMapping.mapping_initiator === AppConstant.APP_MAPPING_INDICATOR.OFFERER) {
                 mappedRequestView.push(
                     <RequesterInfoCardComponent
                         name={singleMapping.request_detail.user_detail.first_name + " " + singleMapping.request_detail.user_detail.last_name}
@@ -94,6 +95,7 @@ function MyOfferSentOfferScreen(props) {
                         dateTime={singleMapping.request_detail.date_time}
                         clickHandler={primaryActionHandler}
                         {...singleMapping} />)
+                }
             });
         }
 
