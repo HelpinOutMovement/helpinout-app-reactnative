@@ -275,7 +275,7 @@ const viewDetailsModalContent = (props) => {
                     </TouchableOpacity>
                 </View>
                 <View>
-                    <Text> {translate.t("Can_Help_You_With")}</Text>
+                    <Text> {translate.t("can_help_with")}</Text>
                     {getRequestAndOfferDetails()}
                 </View>
             </View>

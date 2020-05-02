@@ -94,7 +94,7 @@ export default class LoginScreen extends React.Component {
                 <LogoComponent />
                 <View style={{alignItems: "center",  width:"100%"}} >                                        
                     <View style={{ alignItems: "center" ,  marginVertical: 0, width:"98%"}} >
-                        <Text style={commonStyling.appLabelInout}>{translate.t('Enter_your_mobile_number')}</Text>
+                        <Text style={commonStyling.appLabelInout}>{translate.t('label_enter_your_mobile_no')}</Text>
                         <View style={commonStyling.appPhoneNumberInputView}>
                             <View style={{flex: 1,  flexDirection: "row",alignItems: 'center', justifyContent:'center', width: "92%",}}>
                                 <TextInput style={commonStyles.phoneCountryCode}> {this.state.selectedCountryCode} </TextInput>
@@ -110,7 +110,7 @@ export default class LoginScreen extends React.Component {
                                 <TextInput style={commonStyles.phoneLoginInput} 
                                     keyboardType={'numeric'}
                                     placeholderTextColor="grey"
-                                    placeholder={translate.t('Enter_your_mobile_number')}                
+                                    placeholder={translate.t('label_enter_your_mobile_no')}                
                                     onChangeText={text => this.setState({phoneNumber: text})}                 
                                 >  
                                 </TextInput>
@@ -121,7 +121,7 @@ export default class LoginScreen extends React.Component {
                 <View style={{alignItems: "center",  width:"100%"}} >                                        
                     <View style={{ alignItems: "center" , justifyContent:"center", marginVertical: 50, width:"98%"}} >
                         <TouchableOpacity style={{borderRadius: 9, alignItems: "center", justifyContent:"center", backgroundColor: "#4F5065",height: 56,width: "92%",shadowOpacity: 0.9,shadowOffset: { height: 3 },shadowColor: '#2328321F',}} onPress={() =>{this.verifyPhone()}}>
-                            <Text style={{textAlign: "center",fontFamily: "Roboto-Medium",fontSize: 20,color: "#FFFFFF"}}>{translate.t("Login_Sign_Up")}</Text>
+                            <Text style={{textAlign: "center",fontFamily: "Roboto-Medium",fontSize: 20,color: "#FFFFFF"}}>{translate.t("label_login")}</Text>
                         </TouchableOpacity>                    
                     </View>                
                     <Text style={{
@@ -131,7 +131,7 @@ export default class LoginScreen extends React.Component {
                         lineHeight: 36,
                         color: "Grey"
 
-                    }}> By Signing up you  agree to {"\n"} Terms of service | Privacy  Policy </Text>
+                    }}> {translate.t("by_signing_you_are_agree")} {"\n"} {translate.t("terms_Of_service")} | {translate.t("privacy_policy")} </Text>
                 </View>
             </View>
         );           

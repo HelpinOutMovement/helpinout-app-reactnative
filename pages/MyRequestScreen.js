@@ -365,11 +365,11 @@ function MyRequestScreen(props) {
             cardListView.push((
                 <PastOfferRequestComponent
                     key={singleOption.activity_uuid}
-                    count_suffix= {translate.t("offers")}
+                    count_suffix= {translate.t("total_offers")}
                     colorTheme={colorTheme}
                     {...singleOption}
-                    primayActionLabel={translate.t("Search_for_Help_Providers")}
-                    secondaryActionLabel={translate.t("Sent_Requests")}
+                    primayActionLabel={translate.t("search_for_help_provider")}
+                    secondaryActionLabel={translate.t("sent_requests")}
                     clickHandler={primaryActionHandler}
                    />
             ));
@@ -379,7 +379,7 @@ function MyRequestScreen(props) {
         if(cardListView.length <= 0) {
             cardListView.push(<View>
                 <Text>
-                    {translate.t("You_have_not_requested_for_any_help")}
+                    {translate.t("label_no_request_send")}
                 </Text>
             </View>)
         }
@@ -396,7 +396,7 @@ function MyRequestScreen(props) {
     return (
         <Container>
             <HeaderComponent {...props}
-                title={translate.t("My_Requests")}
+                title={translate.t("title_my_request")}
                 bgColor={colorTheme} />
             <Content   >
                 {getRequestList()}

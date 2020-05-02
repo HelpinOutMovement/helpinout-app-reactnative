@@ -23,8 +23,10 @@ export default class RegisterMobile extends React.Component {
         ///const { navigate } = this.props.navigation;
         this.navigate = this.props.navigation.navigate;
         console.log(JSON.stringify("Register Constructor")); 
-        console.log(JSON.stringify(this.props.route.params.loginState));
-        this.state = this.props.route.params.loginState;
+       // console.log(JSON.stringify(this.props.route.params.loginState));
+        //this.state = this.props.route.params.loginState;
+
+        this.state = {}//this.props.route.params.loginState;
         console.log(JSON.stringify(this.state));
     }
    
@@ -135,12 +137,12 @@ export default class RegisterMobile extends React.Component {
         return (            
             <View style={{ flexDirection: "column", padding: 10, flex: 1}}>
                 <LogoComponent />
-                <Text style={commonStyling.appLabelInout}>{translate.t('Register')}</Text>
+                <Text style={commonStyling.appLabelInout}>{translate.t('label_register')}</Text>
                 <ScrollView style={{flex: 1,borderWidth: StyleSheet.hairlineWidth, borderWidth:0, borderColor: 'red'}}>
                     <View style={{ alignItems: "center" , marginBottom:50}} >            
                 
-                        <TextInput onChangeText={text => this.setState({firstName: text})} style={commonStyles.RegistrationInput} placeholderTextColor="grey" placeholder={translate.t('First_name')}/>
-                        <TextInput onChangeText={text => this.setState({lastName: text})} style={commonStyles.RegistrationInput} placeholderTextColor="grey"  placeholder={translate.t('Last_name')}/> 
+                        <TextInput onChangeText={text => this.setState({firstName: text})} style={commonStyles.RegistrationInput} placeholderTextColor="grey" placeholder={translate.t('label_first_name')}/>
+                        <TextInput onChangeText={text => this.setState({lastName: text})} style={commonStyles.RegistrationInput} placeholderTextColor="grey"  placeholder={translate.t('label_last_name')}/> 
                         <View style={{marginTop:20}}></View>
                         <View></View>
                         <View style={commonStyles.registerSwitchRow}>
@@ -157,7 +159,7 @@ export default class RegisterMobile extends React.Component {
                                 style={commonStyles.registerSwitch} 
                                 onValueChange ={(switchValue)=>{this.setState({contactVisible: switchValue})}}
                             ></Switch>
-                            <Text style={commonStyles.registerSwitchText}> Let my contact number be visible to {"\n"} those who need help </Text>
+                            <Text style={commonStyles.registerSwitchText}>{translate.t("label_visible_text")}</Text>
                         </View> 
                         <View style={commonStyles.registerSwitchRow}>
                             <Switch
@@ -173,11 +175,11 @@ export default class RegisterMobile extends React.Component {
                                 style={commonStyles.registerSwitch} 
                                 onValueChange ={(switchValue)=>{this.setState({representOrg: switchValue})}}                                
                             ></Switch>
-                            <Text style={commonStyles.registerSwitchText}>  Representing an Organisation </Text>
+                            <Text style={commonStyles.registerSwitchText}>{translate.t("label_representing_as_org")} </Text>
                         </View>    
                         {this.state.representOrg ?  
                         <View style={{width:'100%' }}>                                
-                        <TextInput onChangeText={text => this.setState({organisationName: text})} style={commonStyles.RegistrationInput} placeholderTextColor="grey"  placeholder={translate.t('Organization_Name')}/>                                                                           
+                        <TextInput onChangeText={text => this.setState({organisationName: text})} style={commonStyles.RegistrationInput} placeholderTextColor="grey"  placeholder={translate.t('label_org_name')}/>                                                                           
                         
                         <RNPickerSelect                            
                                 onValueChange ={(value) => {this.setState({organisationType: value})}}
@@ -187,7 +189,7 @@ export default class RegisterMobile extends React.Component {
                                 return <Ionicons  style={{marginVertical: 30, marginRight:6}} family={"Ionicons"}  name={"md-arrow-dropdown"}  color={"#OOOOOO"} size={30} />}}             
                                 value={this.state.organisationType}
                         />
-                        <TextInput onChangeText={text => this.setState({organisationUnit: text})} style={commonStyles.RegistrationInput} placeholderTextColor="grey"  placeholder={translate.t('Unit_Div_Function_Location')}/> 
+                        <TextInput onChangeText={text => this.setState({organisationUnit: text})} style={commonStyles.RegistrationInput} placeholderTextColor="grey"  placeholder={translate.t('label_unit_division')}/> 
                         <View style={{width:'100%', marginTop:20}}>  
                             <TouchableOpacity style={{backgroundColor: "#4F5065",height: 56,
                                         marginTop: 10,                                     
@@ -199,7 +201,7 @@ export default class RegisterMobile extends React.Component {
                                         shadowOffset: { height: 3 },
                                         shadowColor: '#2328321F',}} 
                                         onPress={() =>{this.register()}}>
-                                            <Text style={{borderRadius: 9, textAlign: "center",fontFamily: "Roboto-Medium",fontSize: 20,lineHeight: 56,color: "#FFFFFF"}}>{translate.t("Start")}</Text>
+                                            <Text style={{borderRadius: 9, textAlign: "center",fontFamily: "Roboto-Medium",fontSize: 20,lineHeight: 56,color: "#FFFFFF"}}>{translate.t("label_start")}</Text>
                             </TouchableOpacity>
                         </View>
                         </View>
@@ -215,7 +217,7 @@ export default class RegisterMobile extends React.Component {
                                         shadowOffset: { height: 3 },
                                         shadowColor: '#2328321F',}} 
                                         onPress={() =>{this.register()}}>
-                                            <Text style={{borderRadius: 9, textAlign: "center",fontFamily: "Roboto-Medium",fontSize: 20,lineHeight: 56,color: "#FFFFFF"}}>{translate.t("Start")}</Text>
+                                            <Text style={{borderRadius: 9, textAlign: "center",fontFamily: "Roboto-Medium",fontSize: 20,lineHeight: 56,color: "#FFFFFF"}}>{translate.t("label_start")}</Text>
                             </TouchableOpacity>
                         </View>
                             }

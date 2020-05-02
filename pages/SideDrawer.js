@@ -46,7 +46,8 @@ const SideMenuOptions = {
         label: translate.t(appLabelKey.logout),
         pageName: AppConstant.APP_PAGE.LOGOUT_ACTION
     }],
-    secondary: [{
+    secondary: [
+    {
         label: translate.t(appLabelKey.lang_eng_label),
         localeCode: AppConstant.APP_LANGUAGE.ENGLISH
     }, {
@@ -71,8 +72,26 @@ const SideMenuOptions = {
     }]
 }
 
+
+
+
 const CustomSideBarView = ({ navigation }) => {
-    const { setLanguage, language } = useContext(AppStringContext);
+
+
+    const { translate } = useContext(AppStringContext);
+    const { setLanguage , language} = useContext(AppStringContext);
+
+    const onLanguageClicked = (lang) => {
+        AppStorage.storeAppInfo("locale", lang).then(function (value) {
+            setLanguage(lang);
+            console.log(lang)
+            //navigation.navigate(AppConstant.APP_PAGE.ON_BOARDING_INFO);
+        });
+    }
+
+
+
+   // const { setLanguage, language } = useContext(AppStringContext);
     const getSecondaryMenu = () => {
         const primaryMenu = []
         SideMenuOptions.secondary.forEach((singleMenu, index) => {
@@ -83,7 +102,7 @@ const CustomSideBarView = ({ navigation }) => {
                             flexDirection: 'row'
                         }]}
                         onPress={() =>
-                            setLanguage(singleMenu.localeCode)
+                            onLanguageClicked(singleMenu.localeCode)
                         }>
                         <Text
                             style={commonStyling.sideDrawerText}
@@ -160,7 +179,25 @@ const CustomSideBarView = ({ navigation }) => {
                 }}
             />
             <View>
-                {getSecondaryMenu()}
+                <View style={{ alignItems: "center", marginVertical: 15 }} >
+                    <TouchableOpacity
+                            style={[{
+                                flexDirection: 'row'
+                            }]}
+                            onPress={() =>{
+                                    navigation.closeDrawer();
+                                    navigation.navigate(AppConstant.APP_PAGE.ON_BOARDING, {date: new Date(),languagedChanged:true})
+                                }
+                            }>
+                        <Text
+                            style={commonStyling.sideDrawerText}
+                        >Select Language</Text>
+                        <View style={{
+                            marginLeft: 10
+                        }}>
+                        </View>
+                    </TouchableOpacity>               
+                </View>
             </View>
         </View>
     )

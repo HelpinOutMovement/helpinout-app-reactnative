@@ -7,6 +7,8 @@ import commonStyling from '../styling/commonStyle';
 import { appLabelKey } from '../misc/AppStrings';
 import translate from 'react-native-i18n';
 import LogoComponent from './components/LogoComponent';
+import HTML from 'react-native-render-html';
+import HTMLView from 'react-native-htmlview';
 
 function OnBoardingInfoScreen({ navigation }) {
 
@@ -49,41 +51,13 @@ function OnBoardingInfoScreen({ navigation }) {
                             marginLeft: 0,
                             color: "#4F5065CC"
                         }}
-                    >{translate.t(appLabelKey.app_website)}</Text>                    
+                    >{translate.t("website_name")}</Text>                    
                 </TouchableOpacity>
             </View>
-            <View style={{top:(dimensions.height*.25)}}>
-                <View style={{ alignItems: "center", flexDirection: "row", justifyContent: "center"}}>
-                    <Text
-                        style={{
-                            textAlign: "center",
-                             fontFamily: "Roboto-Regular",
-                            fontSize: 16,
-                            marginLeft: 0,
-                            color: "#EE6B6B"
-                        }}
-                    >{translate.t("Ask_for_Help_Offer_Help")}</Text>    
-                    <Text
-                        style={{
-                            textAlign: "center",
-                             fontFamily: "Roboto-Regular",
-                            fontSize: 16,
-                            color: "#4F5065CC"
-                        }}
-                    >{translate.t("wherever_you_are")}</Text>         
-                </View>
-            
+            <View style={{top:(dimensions.height*.05)}}>
+                
                 <View style={{alignItems: "center" ,marginTop:50}}>
-                    <Text
-                        style={{
-                             fontFamily: "Roboto-Regular",
-                            fontSize: 16,
-                            marginLeft: 0,
-                            color: "#4F5065CC",
-                            textAlign: "center",
-                            width:275,
-                        }}
-                    >{translate.t("Search_for_help-providers_and_help-requesters_around_you")}</Text>
+                <HTMLView value={translate.t("instruction_text")}  />
                 </View>
 
                 <View style={{ alignItems: "center"}} >
@@ -113,7 +87,7 @@ function OnBoardingInfoScreen({ navigation }) {
                                 color: "#FFFFFF"
 
                             }}
-                        >{translate.t("Continue")}</Text>
+                        >{translate.t("btn_continue")}</Text>
                     </TouchableOpacity>
 
                 </View>

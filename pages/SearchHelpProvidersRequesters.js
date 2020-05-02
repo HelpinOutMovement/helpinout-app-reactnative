@@ -221,7 +221,7 @@ class SearchHelpProvidersRequesters extends React.Component {
                                                 resizeMode='contain'/>
                                                 
                                         </View>
-                                        <View style={{width: "65%", backgroundColor:"white", height: 50, borderRadius:0, borderTopWidth:0,alignItems:"center", justifyContent:"center"}} ><Text style={{fontSize:14, overflow:"hidden"}}>{(this.state.activity_type === 1) ? "Select help providers" : "Select help requesters"}</Text></View>
+                                        <View style={{width: "65%", backgroundColor:"white", height: 50, borderRadius:0, borderTopWidth:0,alignItems:"center", justifyContent:"center"}} ><Text style={{fontSize:14, overflow:"hidden"}}>{(this.state.activity_type === 1) ? translate.t("select_help_provider") : translate.t("select_help_requester")}</Text></View>
                                         <View style={{width: "20%", backgroundColor:"white", height: 50, borderRadius:6, borderTopLeftRadius:0,borderBottomLeftRadius:0 ,borderBottomRightRadius:0, borderTopWidth:0,borderRightWidth:0,alignItems:"center", justifyContent: 'center'}} ><Button transparent style={{padding:0}} onPress={()=>{this.toggleBottomPanel()}}><Icon name={this.state.bottom_panel_icon}/></Button></View>                                                        
                                 </View>
                         </View> 
@@ -297,12 +297,12 @@ class SearchHelpProvidersRequesters extends React.Component {
                                                                         
                                 </ScrollView>
                                 <Text style={{height:80, textAlign:"center", paddingLeft:15, paddingRight:15, paddingTop:20, color:"grey"}}>
-                                    Your phone nummber will be sent to these help providers.
+                                    {(this.state.activity_type === 1) ? translate.t("phone_number_will_be_send_to_provider") : translate.t("phone_number_will_be_send_to_requester")}
                                 </Text>
                                 <View style={styles.buttonContainer}>
                                     <TouchableOpacity  onPress={() => this.submitActivity()}>
                                     <View style={this.state.activity_type === 1 ? styles.ContinueButtonContainer_red : styles.ContinueButtonContainer_grey }>
-                                        <Text style={styles.ContinueButtonText}>{ this.state.activity_type === 1 ? translate.t("Send_request") : "Send Offer"}</Text>
+                                        <Text style={styles.ContinueButtonText}>{ this.state.activity_type === 1 ? translate.t("send_request") :translate.t("send_offer")}</Text>
                                     </View>
                                     </TouchableOpacity>                                
                                 </View>
@@ -312,13 +312,13 @@ class SearchHelpProvidersRequesters extends React.Component {
 
                                 <View style={{height:250, borderWidth:2, marginTop:30}}>
                                     <Text>
-                                        Currently there are no help requesters in the selected map area
+                                        {translate.t("no_help_requeter")}
                                     </Text>
                                 </View>    
                                 <View style={styles.buttonContainer}>
                                 <TouchableOpacity  onPress={() => {(this.state.activity_type === 1) ?  this.navigate(AppConstant.APP_PAGE.MY_REQUEST_SENT_REQUEST_SCREEN, {request:{}, created_activity:{}}) : this.navigate(AppConstant.APP_PAGE.MY_OFFER_SENT_OFFER_SCREEN, {request:{}, created_activity:{}})}}>
                                 <View style={[styles.ContinueButtonContainer_grey]}>
-                                    <Text style={styles.ContinueButtonText}>{translate.t("Continue")}</Text>
+                                    <Text style={styles.ContinueButtonText}>{translate.t("btn_continue")}</Text>
                                 </View>
                                 </TouchableOpacity>                                
                                 </View>                            

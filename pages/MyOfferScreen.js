@@ -354,11 +354,11 @@ function MyOfferScreen(props) {
       cardListView.push((
         <PastOfferRequestComponent
           key={singleOption.activity_uuid}
-          count_suffix={translate.t("offers")}
+          count_suffix={translate.t("total_requests")}
           colorTheme={colorTheme}
           {...singleOption}
-          primayActionLabel={translate.t("Search_for_Requesters")}
-          secondaryActionLabel={translate.t("Sent_Offers")}
+          primayActionLabel={translate.t("search_for_help_requester")}
+          secondaryActionLabel={translate.t("sent_requests")}
           clickHandler={primaryActionHandler}
         />
       ));
@@ -368,7 +368,7 @@ function MyOfferScreen(props) {
     if (cardListView.length <= 0) {
       cardListView.push(<View>
         <Text>
-          {translate.t("You_have_not_offered_to_help_yet")}
+          {translate.t("no_offer_sended")}
         </Text>
       </View>)
     }
@@ -379,7 +379,7 @@ function MyOfferScreen(props) {
   return (
     <Container>
       <HeaderComponent {...props}
-        title={translate.t("My_Offers")}
+        title={translate.t("title_my_offers")}
         bgColor={colorTheme} />
       <Content   >
         {getRequestList()}

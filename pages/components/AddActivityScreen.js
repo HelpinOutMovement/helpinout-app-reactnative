@@ -109,7 +109,7 @@ class Animated_Item extends Component {
         <View style={{flex: 1, flexDirection: 'row',justifyContent:"space-evenly", marginBottom:10}}>
                 <TextInput 
                     placeholderTextColor="grey"
-                    placeholder={"Enter Items"}                
+                    placeholder={translate.t("hint_enter_item")}                
                     style={{borderWidth:1, borderRadius:3, borderColor:"grey", height:40, width:200, marginRight:10, padding:10, color:"#000000"}}    
                     onChangeText={(val) => this.itemDataOnChange("detail", this.props.item.id, val)} 
                 >   
@@ -117,7 +117,7 @@ class Animated_Item extends Component {
                 <TextInput 
                         keyboardType={'numeric'}
                         placeholderTextColor="grey"
-                        placeholder={"Qty"}                
+                        placeholder={translate.t("hint_qty")}                
                         style={{borderWidth:1, borderRadius:3, borderColor:"grey",height:40, width:80, marginLeft:10, marginRight:10, padding:10, color:"#000000"}} 
                         onChangeText={(val) => this.itemDataOnChange("qty", this.props.item.id, val)}                   
                 >  
@@ -384,7 +384,7 @@ componentDidMount(){
                                 value={this.state.volunters_required ? true : false}                            
                                 style={styles.Switch, {borderWidth:0}} 
                                 onValueChange ={(switchValue)=>{this.setPeopleData("volunters_required",switchValue)}}                              
-                            ></Switch><Text style={{marginLeft:20}}>Volunteers</Text>
+                            ></Switch><Text style={{marginLeft:20}}>{translate.t("volunteers")}</Text>
                             </View>
                         <View style={{flex: 1, flexDirection: 'row',justifyContent:"space-evenly", marginTop:0, marginBottom:0, borderWidth:0}}>
                           <Textarea rowSpan={5} style={{borderWidth:1, borderRadius:4, width:"80%"}} 
@@ -393,7 +393,7 @@ componentDidMount(){
                           <TextInput 
                               keyboardType={'numeric'}
                               placeholderTextColor="grey"
-                              placeholder={"Qty"}                
+                              placeholder={translate.t("hint_qty")}                
                               style={{borderWidth:1, borderRadius:3, borderColor:"grey", color:"#000000" ,height:40, width:60, marginLeft:10, marginRight:10, padding:10}} 
                               onChangeText={(val) => this.setPeopleData("volunters_quantity",val)}    
                               editable={this.state.volunters_required}               
@@ -415,7 +415,7 @@ componentDidMount(){
                                 value={this.state.technical_personal_required ? true : false}                            
                                 style={styles.Switch, {borderWidth:0}} 
                                 onValueChange ={(switchValue)=>{this.setPeopleData("technical_personal_required",switchValue)}}                                
-                            ></Switch><Text style={{marginLeft:20}}>Technicla Personal</Text>
+                              ></Switch><Text style={{marginLeft:20}}>{translate.t("technical_personnel")}</Text>
                             </View>
                         <View style={{flex: 1, flexDirection: 'row',justifyContent:"space-evenly",marginTop:0, marginBottom:0, borderWidth:0}}>
                           <Textarea rowSpan={5} style={{borderWidth:1, borderRadius:4, width:"80%"}} 
@@ -424,7 +424,7 @@ componentDidMount(){
                           <TextInput 
                               keyboardType={'numeric'}
                               placeholderTextColor="grey"
-                              placeholder={"Qty"}                
+                              placeholder={translate.t("hint_qty")}                
                               style={{borderWidth:1, borderRadius:3, borderColor:"grey", color:"#000000", height:40, width:60, marginLeft:10, marginRight:10, padding:10}} 
                               onChangeText={(val) => this.setPeopleData("technical_personal_quantity",val)}   
                               editable={this.state.technical_personal_required}       
@@ -443,11 +443,11 @@ componentDidMount(){
                                   
                       <HView style={styles.hintTextContainer} hide={this.state.hideAddMore}>                      
                         <HView style={{textAlign:"left", borderWidth:0, width:"100%", alignItems: "center", marginBottom:20}} hide={this.state.hideConstrains}>
-                            <Text style={{textAlign:"left", borderWidth:0, width:"90%"}}>Note to requesters</Text>
+                            <Text style={{textAlign:"left", borderWidth:0, width:"90%"}}>{translate.t("availability_condition")}</Text>
                             <Textarea style={{borderWidth:1, borderRadius:3, width:"90%"}} 
                                 rowSpan={5} 
                                 onChangeText={(val) => this.constrainsDataOnChange(val)} 
-                                placeholder={"Enter constrains on timing , delivery, selection, Any infor useful for the requester to know"}></Textarea>
+                                placeholder={translate.t("hint_conditions")}></Textarea>
                         </HView>
                         <TouchableOpacity
                             style={{
@@ -473,7 +473,7 @@ componentDidMount(){
                                     fontSize: 17,
                                     color: "#4F5065",
                                 }}
-                            >{translate.t(appLabelKey.add_more)} </Text>
+                            >{translate.t("add_more_items")} </Text>
                         </TouchableOpacity>
                       </HView>  
                   </Content>      
@@ -481,12 +481,12 @@ componentDidMount(){
                     <View style={styles.buttonContainer}>
                       <TouchableOpacity style={styles.NonFilled} onPress={() => this.submitData(1)}>
                         <View style={(this.props.route.params.activity_type === 1) ? styles.nonfilled_red : styles.nonfilled_grey }>                         
-                            <Text style={(this.props.route.params.activity_type === 1) ? styles.buttonTextNonFilled_red : styles.buttonTextNonFilled_grey}>{(this.props.route.params.activity_type === 1) ? translate.t("We_can_pay") : translate.t("We_Charge")}</Text>
+                            <Text style={(this.props.route.params.activity_type === 1) ? styles.buttonTextNonFilled_red : styles.buttonTextNonFilled_grey}>{(this.props.route.params.activity_type === 1) ? translate.t("we_can_pay") : translate.t("we_charge")}</Text>
                         </View> 
                       </TouchableOpacity>
                       <TouchableOpacity style={styles.Filled} onPress={() => this.submitData(0)}>
                         <View style={(this.props.route.params.activity_type === 1) ? styles.filled_red : styles.filled_grey }>                        
-                            <Text style={(this.props.route.params.activity_type === 1) ? styles.buttonTextFilled_red : styles.buttonTextFilled_grey}>{(this.props.route.params.activity_type === 1) ? translate.t("We_cannot_pay") : translate.t("For_Free")}</Text>
+                            <Text style={(this.props.route.params.activity_type === 1) ? styles.buttonTextFilled_red : styles.buttonTextFilled_grey}>{(this.props.route.params.activity_type === 1) ? translate.t("we_can_not_pay") : translate.t("for_free")}</Text>
                         </View>
                       </TouchableOpacity>                
                     </View> 

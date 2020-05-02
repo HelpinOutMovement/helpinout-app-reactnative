@@ -7,6 +7,7 @@ const AppStringContext = React.createContext()
 export const AppStringConsumer = AppStringContext.Consumer
 import I18n, { getLanguages } from 'react-native-i18n';
 
+import AppStorage from '../storage/AppStorage';
 
 I18n.fallbacks = true;
 
@@ -22,13 +23,15 @@ I18n.translations = {
 class AppStringProvider extends React.Component {
     // Context state
     state = {
-      language: 'en',
+      //language: 'en',
     }
   
     // Method to update state
     setLanguage = language => {
-      console.log("lan set  ===>",language);
-      this.setState(prevState => ({ language }))
+      console.log("lan set  ===>",language);      
+      AppStorage.storeAppInfo("locale", language);
+      this.setState({ language })
+      I18n.locale = language;
     }
     translate = (stringLabelKey, selectedLanguage)  => {
         const currentLang = selectedLanguage ?  selectedLanguage : this.state.language;

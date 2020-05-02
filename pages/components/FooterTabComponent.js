@@ -10,19 +10,19 @@ const FooterTabComponent = (props) => {
                 active={props.activeTab === AppConstant.APP_FOOTER_TABS.HOME}
                  onPress={() => props.navigation.navigate(AppConstant.APP_PAGE.DASHBOARD)}>
                 <Icon name="ios-home" style={{ color: "red" }} />
-                <Text>{translate.t("Home")}</Text>
+                <Text style={{overflow:"hidden"}}>{translate.t("title_home")}</Text>
             </Button>
             <Button vertical
             active={props.activeTab === AppConstant.APP_FOOTER_TABS.MY_REQUEST}
               onPress={() => props.navigation.navigate(AppConstant.APP_PAGE.MY_REQUEST_SCREEN)}>
                 <Icon name="camera" />
-                <Text>{translate.t("My_Requests")}</Text>
+                <Text style={{overflow:"hidden"}}>{translate.t("title_my_request")}</Text>
             </Button>
             <Button vertical 
             active={props.activeTab === AppConstant.APP_FOOTER_TABS.MY_OFFER}
             onPress={() => props.navigation.navigate(AppConstant.APP_PAGE.MY_OFFERS_SCREEN)}>
                 <Icon active name="navigate" />
-                <Text>{translate.t("My_Offers")}</Text>
+                <Text style={{overflow:"hidden"}}>{translate.t("title_my_offers")}</Text>
             </Button>
         </FooterTab>
     

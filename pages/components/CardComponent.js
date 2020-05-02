@@ -183,20 +183,20 @@ const RequesterInfoCardComponent = (props) => {
                 fontFamily: "Roboto-Regular",
                 fontSize: 16,
                 color: "#4F5065B8"
-              }}> {translate.t("They_will_call_you_if_they_can_help_you")}</Text>
+              }}> {translate.t("request_call_him")}</Text>
               <Text style={{ fontSize: 17 }}>{props.callerInfo}</Text>
             </View>
           </View>
           <View style={{ marginTop: 10, flexDirection: "row", justifyContent: "space-between" }}>
             <BasicButton
-              label={translate.t("View_Details")}
+              label={translate.t("view_details")}
               clickHandler={() => { props.clickHandler(props, AppConstant.APP_ACTION.VIEW_DETAILS) }} />
           </View>
           <View style={{ marginTop: 10, flexDirection: "row", justifyContent: "space-between" }}>
             <BasicButton
-              label={translate.t("Rate_Report")}
+              label={translate.t("rate_report")}
               clickHandler={() => { props.clickHandler(props, AppConstant.APP_ACTION.RATE_REPORT) }} />
-            <BasicButton label={translate.t("Cancel")}
+            <BasicButton label={translate.t("canceled")}
               clickHandler={() => { props.clickHandler(props, AppConstant.APP_ACTION.CANCEL) }} />
           </View>
         </View>

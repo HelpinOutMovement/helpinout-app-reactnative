@@ -120,7 +120,7 @@ function OfferHelpScreen(props) {
 
     return (
         <Container>
-            <HeaderComponent {...props} title="Offer help with " bgColor="#4F5065" />
+            <HeaderComponent {...props} title={translate.t("toolbar_offer_help_with")} bgColor="#4F5065" />
             <Content padder  >
                 <Grid>
                     {getHelpOptionsView()}

@@ -178,10 +178,10 @@ function MyOfferSentOfferScreen(props) {
 */
     const inputMappingObject = 'request_detail';
     let mappingIndicator = AppConstant.APP_MAPPING_INDICATOR.OFFERER;
-    let screenTitle = translate.t("Offers_have_been_sent_to");
-    let cancelButtonLabel = translate.t("Cancel_This_Offer");
+    let screenTitle = translate.t("offer_send_to");
+    let cancelButtonLabel = translate.t("cancel_this_offer");
 
-    let noDataOnScreenText1 =  translate.t("Your_offer_was_registered_but_no_direct_offer_has_been_sent_to_anyone_yet");
+    let noDataOnScreenText1 =  translate.t("no_offer_sent");
     let noDataOnScreenText2 =  translate.t("Others_may_request_your_help_when_they_see_your_offer_on_the_map");
     let noDataOnScreenText3 =  translate.t("This_request_will_remain_active_until_you_cancel_it");
 
@@ -189,7 +189,7 @@ function MyOfferSentOfferScreen(props) {
     let createdIdParams = (props.route && props.route.params && props.route.params.created_activity) ? props.route.params.created_activity : {};
     let screenType = (props.route && props.route.params && props.route.params.screenType) ? props.route.params.screenType : '';
     if(screenType === AppConstant.APP_ACTION.OFFERS_RCVD) {
-        screenTitle = translate.t("Help_Offers_Received_from");
+        screenTitle = translate.t("help_offers_received_from");
         mappingIndicator = AppConstant.APP_MAPPING_INDICATOR.OFFERER;
     }
     return (
@@ -203,8 +203,8 @@ function MyOfferSentOfferScreen(props) {
                     screenTitle={screenTitle}
                     cancelButtonLabel={cancelButtonLabel}
                     noDataOnScreenText1={noDataOnScreenText1}
-                    noDataOnScreenText2={noDataOnScreenText2}
-                    noDataOnScreenText3={noDataOnScreenText3}
+                    noDataOnScreenText2={""}
+                    noDataOnScreenText3={""}
 
                      />
     );

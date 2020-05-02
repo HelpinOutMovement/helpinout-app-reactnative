@@ -92,6 +92,21 @@ class Dashboard extends React.Component {
     }
 
 
+    componentDidMount = () =>{
+      alert("componentDidMount ")
+    }
+
+    componentDidUpdate = () =>{
+
+      alert("componentDidUpdate ")
+    }
+
+    componentWillReceiveProps = () =>{
+      alert("componentWillReceiveProps ")
+    }
+
+    
+
     render() { 
       return (
           <Container style={{ alignItems:"center"}}>
@@ -105,13 +120,13 @@ class Dashboard extends React.Component {
                                 <Text style={{fontSize:10, overflow:"hidden", height:10, textAlign:"left", width: "100%" , color:"grey", paddingTop:0, paddingBottom:0}}>You are here</Text>
                                 <Text style={{fontSize:12, overflow:"hidden", height:30,textAlign:"left", width: "100%", paddingTop:0}}>{this.state.address}</Text>
                             </View>
-                            <View style={{width: "20%", backgroundColor:"white", height: 50, borderRadius:6, borderTopLeftRadius:0,borderBottomLeftRadius:0 ,borderTopWidth:1,borderBottomWidth:1,borderRightWidth:1,alignItems:"center", justifyContent: 'center'}} ><Text style={{fontFamily: "roboto-medium",fontSize:14 , color:"rgba(243,103,103,1)"}}>Change</Text></View>                            
+                            <View style={{width: "20%", backgroundColor:"white", height: 50, borderRadius:6, borderTopLeftRadius:0,borderBottomLeftRadius:0 ,borderTopWidth:1,borderBottomWidth:1,borderRightWidth:1,alignItems:"center", justifyContent: 'center'}} ><Text style={{fontFamily: "roboto-medium",fontSize:14 , color:"rgba(243,103,103,1)"}}></Text></View>                            
                         </View>
  
                           <View style={{position:"absolute", left:0, top:footerTop-100, width:"100%", backgroundColor:"#FFFFFF"}}>  
                           <HView style={styles(this.dimensions).hintTextContainer} hide={this.state.hintIsHidden}>
                               <Text style={styles(this.dimensions).hintText}>
-                                Inentify your location above, then select below
+                                {translate.t("identify_location")}
                               </Text>
                           </HView> 
                               <View style={{position:"absolute", left:0, top:20, width:"100%",alignItems: "center", marginTop:10, marginBottom:10, backgroundColor:"#FFFFFF"}}>
@@ -133,64 +148,6 @@ class Dashboard extends React.Component {
           </Container>
       )
     }
-  /*
-    render() { 
-        return (
-            <Container >
-              
-                <Header>
-                  <Left>
-                    <Button
-                      transparent
-                      onPress={() => this.navigation.openDrawer()}>
-                      <Icon name="menu" />
-                    </Button>
-                  </Left>
-                  <Body>
-                    <Title>Dashboard</Title>
-                  </Body>
-                  <Right />
-                </Header>   
-                <Content padder contentContainerStyle={{height:"100%", justifyContent: 'flex-end', alignItems: 'center',}} >                
-                  <MapComponent mapHeight={"100%"} callbackOnRegionChange={this.callbackOnRegionChange} mapProps={this.props} ref={this.mapComponentRef} onPress={() => this.callMapComponentMethod()} />      
-                </Content>
-                  <HView style={styles(this.dimensions).hintTextContainer} hide={this.state.hintIsHidden}>
-                      <Text style={styles(this.dimensions).hintText}>
-                        Inentify your location above, then select below
-                      </Text>
-                  </HView>  
-                  <View style={{alignItems: "center", marginTop:10, marginBottom:10}}>
-                    <View style={styles(this.dimensions).buttonContainer}>
-                      <TouchableOpacity style={styles(this.dimensions).AskForHelp} onPress={() => this.navigate(AppConstant.APP_PAGE.ASK_FOR_HELP, {region:this.state.region, address:this.state.address})}>
-                        <AskForHelpButton  />
-                      </TouchableOpacity>
-                      <TouchableOpacity style={styles(this.dimensions).OfferHelp} onPress={() => this.navigate(AppConstant.APP_PAGE.OFFER_HELP_SCREEN, {region:this.state.region, address:this.state.address})}>
-                        <OfferHelpButton  />
-                      </TouchableOpacity>                
-                    </View> 
-                  </View>
-                  <Footer>                        
-                    <FooterTab>
-                      <Button vertical active  onPress={() => this.navigate(AppConstant.APP_PAGE.DASHBOARD)}>
-                        <Icon name="ios-home" style={{color:"red"}}/>
-                        <Text>{translate.t("Home")}</Text>
-                      </Button>
-                      <Button vertical onPress={() => this.navigate(AppConstant.APP_PAGE.MY_REQUEST_SCREEN)}>
-                        <Icon name="camera" />
-                        <Text>{translate.t("My_Requests")}</Text>
-                      </Button>
-                      <Button vertical onPress={() => this.navigate(AppConstant.APP_PAGE.MY_OFFERS_SCREEN)}>
-                        <Icon active name="navigate" />
-                        <Text>{translate.t("My_Offers")}</Text>
-                      </Button>          
-                    </FooterTab>
-                  </Footer>
-            </Container>
-          
-        ); 
-                   
-    }
-    */
   }
 
 

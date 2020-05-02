@@ -13,7 +13,7 @@ import geolocation from '@react-native-community/geolocation';
 import API from "../APIClient/API";
 import LogoComponent from './components/LogoComponent';
 import firebase from 'react-native-firebase'
-
+import Toast from 'react-native-tiny-toast'
 
 
 export default class VerifyScreen extends React.Component {
@@ -23,11 +23,20 @@ export default class VerifyScreen extends React.Component {
         this.state = this.props.route.params.loginState;
         this.navigate = this.props.navigation.navigate;
         this.phoneNumber = this.props.phoneNumber;
-        console.log("VerifyScreen Constructor")
-        console.log(JSON.stringify(this.state));
-        if (this.isEmpty(this.state.confirmResult)) {
-            //this.handleSendCode();
+        
+        console.log("VerifyScreen Constructor  " +JSON.stringify(props))
+        //console.log(JSON.stringify(this.state));
+
+
+        this.state = {           
+            contdownValue:60, 
+            verificationCodeEditable:false,
+            resendVerificationCodeEnabled:false,
+            ...this.props.route.params.loginState
         }
+
+
+        this.resendVerificationCode(false)
 /*
         var config = {
             apiKey: "AIzaSyAfct3wQWfE5r914mqbw8bLTrtovql6XtU",
@@ -39,7 +48,7 @@ export default class VerifyScreen extends React.Component {
           };
           firebase.initializeApp(config);
 */          
-        this.handleSendCode();
+        
     }
 
     dimensions = Dimensions.get('window');
@@ -48,6 +57,29 @@ export default class VerifyScreen extends React.Component {
         this.forceUpdate();
     };
 
+    resendVerificationCode = (forceResend) => {
+        //Toast.show("starting timer " , {duration:1000, position:0, animation:true, shadow:true, animationDuration:1000})
+        this.setState({contdownValue:60, verificationCodeEditable:false, resendVerificationCodeEnabled:false})
+        setTimeout(() =>{
+            this.updateTimer();
+            this.handleSendCode(forceResend);
+        }, 1000)
+            
+   
+    }
+
+    updateTimer = async () => {
+        let interval = setInterval(() =>{
+            console.log(this.state.contdownValue)
+            this.setState({contdownValue:--this.state.contdownValue})
+            if(this.state.contdownValue < 0){
+                this.setState({verificationCodeEditable:true, resendVerificationCodeEnabled:true})
+                clearInterval(interval);
+                this.setState({contdownValue:0})            
+                this.forceUpdate()
+            }
+        }, 1000);
+    }
 
     isEmpty = (value) => {
         return (typeof value === "undefined" || value === null || value.length === 0);
@@ -66,26 +98,25 @@ export default class VerifyScreen extends React.Component {
 
 
 
-    handleSendCode = () => {
+    handleSendCode = (forceResend) => {
         // Request to send OTP
-        console.log("handleSendCode");
+        console.log("handleSendCode  : " + this.state.selectedCountryDialCode+""+this.state.phoneNumber);
         if (this.validatePhoneNumber(this.state.selectedCountryDialCode+""+this.state.phoneNumber)) {
           firebase
             .auth()
-            .signInWithPhoneNumber(this.state.selectedCountryDialCode+""+this.state.phoneNumber)
+            .signInWithPhoneNumber(this.state.selectedCountryDialCode+""+this.state.phoneNumber, forceResend)
             .then(confirmResult => {
-                console.log("confirmResult");
-              console.log("confirmResult")
+                this.setState({verificationCodeEditable:true})
+                Toast.show(translate.t('otp_send_success') , {duration:1000, position:0, animation:true, shadow:true, animationDuration:1000})
               console.log(confirmResult)
               this.setState({ confirmResult: confirmResult });
                          
             })
             .catch(error => {
-                console.log(" handleSendCode " + error)
-              console.log(error)
+                Toast.show('Error : ' + JSON.stringify(error) , {duration:1000, position:0, animation:true, shadow:true, animationDuration:1000})
             })
         } else {
-          alert('Invalid Phone Number')
+            Toast.show('Invalid Phone Number' , {duration:1000, position:0, animation:true, shadow:true, animationDuration:1000})
         }
     }
     
@@ -99,29 +130,25 @@ export default class VerifyScreen extends React.Component {
             reqObj.then(
                 result => {
                     if (result.status === "0") {
-                        console.log("Login  === 0");
-                        console.log("Login  " + JSON.stringify(result));
                         this.navigate(AppConstant.APP_PAGE.REGISTER_MOBILE, { loginState: this.state });
                     } else {
-                        console.log("Login  === 1");
-                        console.log("Login  " + JSON.stringify(result));
                         AppStorage.storeAppInfo(AppConstant.APP_STORE_KEY.USER_REG_DETAILS, JSON.stringify(result.data));
                         AppStorage.getAppInfo(AppConstant.APP_STORE_KEY.IS_VEFIRIED).then((value) => {
                             if (value === "true") {
                                 this.navigate(AppConstant.APP_PAGE.DASHBOARD, JSON.stringify(result.data));
                             } else {
-                                //this.handleSendCode();     
+                                //this.handleSendCode();  //////   
                                 this.navigate(AppConstant.APP_PAGE.LOGIN);
                             }
                         });
                     }
                 },
                 error => {
-                    alert(" login " + error)
+                    Toast.show('Login Error ' + JSON.stringify(error) , {duration:1000, position:0, animation:true, shadow:true, animationDuration:1000})
                 }
             );
         } else {
-            console.log("invalid Phone  Number")
+            Toast.show(translate.t('toast_error_invalid_phone_number') , {duration:1000, position:0, animation:true, shadow:true, animationDuration:1000})
             // Add Error Toasts
         }
     }
@@ -131,6 +158,7 @@ export default class VerifyScreen extends React.Component {
         const { confirmResult, verificationCode } = this.state;
         if (verificationCode.length == 6) {
             //console.log(verificationCode);
+            this.setState({verificationCodeEditable:false})
             confirmResult.confirm(verificationCode)
                 .then(user => {
                     //console.log(user);
@@ -142,10 +170,10 @@ export default class VerifyScreen extends React.Component {
                     });
                 })
                 .catch(error => {
-                    alert(" handleVerifyCode " + error)
+                    Toast.show('Verification Error ' + JSON.stringify(error) , {duration:1000, position:0, animation:true, shadow:true, animationDuration:1000})
                 })
         } else {
-            alert('Please enter a 6 digit OTP code.')
+            Toast.show(translate.t('toast_error_please_enter_otp') , {duration:1000, position:0, animation:true, shadow:true, animationDuration:1000})
         }
     }
 
@@ -167,12 +195,12 @@ export default class VerifyScreen extends React.Component {
                 <LogoComponent />
                 <View style={{ alignItems: "center", width: "96%" }} >
                     <View style={{ alignItems: "center", marginVertical: 0, width: "94%" }} >
-                        <Text style={commonStyling.appLabelInout}>{"Enter verification code"}</Text>
+                        <Text style={commonStyling.appLabelInout}>{translate.t("label_enter_otp")}</Text>
                         <View style={commonStyling.appPhoneNumberInputView}>
                             <View style={{ flex: 1, flexDirection: "row", alignItems: 'center', justifyContent: 'center', }}>
                                 <TextInput
                                     style={commonStyles.RegistrationInput}
-                                    placeholder='Verification code'
+                                    placeholder={translate.t('label_enter_otp')}
                                     placeholderTextColor='grey'
                                     value={this.state.verificationCode}
                                     keyboardType='numeric'
@@ -180,9 +208,15 @@ export default class VerifyScreen extends React.Component {
                                         this.setState({ verificationCode: verificationCode })
                                     }}
                                     maxLength={6}
+                                    editable={this.state.verificationCodeEditable}
                                 />
                             </View>
                         </View>
+                    </View>
+                </View>
+                <View style={{ alignItems: "center", width: "96%" }} >
+                    <View style={{ alignItems: "center", marginVertical: 0, width: "94%" }} > 
+                        <Text style={{ borderRadius: 9, textAlign: "center", fontFamily: "Roboto", fontSize: 16, lineHeight: 56, color: "blue" }}>00:{this.state.contdownValue}</Text>
                     </View>
                 </View>
                 <View style={{ alignItems: "center", width: "96%" }} >
@@ -199,8 +233,31 @@ export default class VerifyScreen extends React.Component {
                                 shadowOffset: { height: 3 },
                                 shadowColor: '#2328321F',
                             }}
-                            onPress={this.handleVerifyCode}>
-                            <Text style={{ borderRadius: 9, textAlign: "center", fontFamily: "Roboto-Medium", fontSize: 20, lineHeight: 56, color: "#FFFFFF" }}>Verify Code</Text>
+                            onPress={this.handleVerifyCode}
+                            disabled={!this.state.verificationCodeEditable}
+                            >
+                            <Text style={{ borderRadius: 9, textAlign: "center", fontFamily: "Roboto-Medium", fontSize: 20, lineHeight: 56, color: "#FFFFFF" }}>{translate.t('button_verify')}</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+                
+                <View style={{ alignItems: "center", width: "96%" }} >
+                    <View style={{ alignItems: "center", marginVertical: 0, width: "94%" }} > 
+                        {this.state.resendVerificationCodeEnabled ? 
+                        <TouchableOpacity onPress={() => {this.resendVerificationCode(true)}}>
+                            <Text  style={{ borderRadius: 9, textAlign: "center", fontFamily: "Roboto", fontSize: 16, lineHeight: 56, color: "blue" }}>{translate.t("retry_msg")}</Text>
+                        </TouchableOpacity>                        
+                        :
+                         <></>
+                        }                        
+                    </View>
+                </View>
+                
+
+                <View style={{ alignItems: "center", width: "96%" }} >
+                    <View style={{ alignItems: "center", marginVertical: 0, width: "94%" }} > 
+                        <TouchableOpacity onPress={() => this.navigate(AppConstant.APP_PAGE.LOGIN)}>
+                            <Text style={{ borderRadius: 9, textAlign: "center", fontFamily: "Roboto", fontSize: 16, lineHeight: 56, color: "blue" }}>{translate.t("change_phone_number")}</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
