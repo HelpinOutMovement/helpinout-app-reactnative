@@ -10,6 +10,7 @@ import AppConstant from '../misc/AppConstant';
 import HeaderComponent from './components/HeaderComponent';
 import SpinnerComponent from './components/SpinnerComponent';
 import FooterTabComponent from './components/FooterTabComponent';
+import ModalComponent from './components/ModalComponent';
 
 
 const realReq = [
@@ -307,8 +308,10 @@ const realReq = [
 function MyOfferScreen(props) {
   const colorTheme = "#4F5065";
   const activity_type = 2;
+  const [showModal, setShowModal] = useState(false);
   const [requestInformation, setRequestInformation] = useState([]);
   const [showSpinner, setShowSpinner] = useState(false);
+  const [modalInfo, setModalInfo] = useState({});
 
   useFocusEffect(
     React.useCallback(() => {
@@ -325,7 +328,7 @@ function MyOfferScreen(props) {
 
   const primaryActionHandler = (ele, actions) => {
     console.log(ele, "$$$$", actions);
-    if (actions === AppConstant.APP_ACTION.SENT_REQUEST) {
+    if (actions === AppConstant.APP_ACTION.OFFERER_RCVD_REQUESTS) {
       props.navigation.navigate(AppConstant.APP_PAGE.MY_OFFER_SENT_OFFER_SCREEN, {
         request: ele,
       });
@@ -339,12 +342,22 @@ function MyOfferScreen(props) {
           address: "",
           latlon: ele.geo_location
         })
-    } else if (actions === AppConstant.APP_ACTION.OFFERS_RCVD) {
+    } else if (actions === AppConstant.APP_ACTION.OFFERER_SENT_OFFERS) {
       props.navigation.navigate(AppConstant.APP_PAGE.MY_OFFER_SENT_OFFER_SCREEN, {
         request: ele,
         screenType: AppConstant.APP_ACTION.OFFERS_RCVD
       });
+    } else if (actions === AppConstant.APP_ACTION.VIEW_DETAILS) {
+      setModalInfo({
+        type: AppConstant.APP_ACTION.VIEW_DETAILS,
+        ...ele,
+        inputMappingObject: 'request_detail'
+      });
+      setShowModal(!showModal);
     }
+  }
+  const closePopUp = () => {
+    setShowModal(!showModal);
   }
 
   const getRequestList = () => {
@@ -358,7 +371,13 @@ function MyOfferScreen(props) {
           colorTheme={colorTheme}
           {...singleOption}
           primayActionLabel={translate.t("search_for_help_requester")}
-          secondaryActionLabel={translate.t("sent_requests")}
+          secondaryActionLabel={translate.t("offers_sent")}
+          secondaryCompareWith={AppConstant.APP_MAPPING_INDICATOR.OFFERER}
+          secondaryAction={AppConstant.APP_ACTION.OFFERER_SENT_OFFERS}
+          
+          tertiaryActionLabel={translate.t("request_received")}
+          tertiaryCompareWith={AppConstant.APP_MAPPING_INDICATOR.REQUESTER}
+          tertiaryAction={AppConstant.APP_ACTION.OFFERER_RCVD_REQUESTS}
           clickHandler={primaryActionHandler}
         />
       ));
@@ -387,6 +406,13 @@ function MyOfferScreen(props) {
       <Footer>
         <FooterTabComponent {...props} activeTab={AppConstant.APP_FOOTER_TABS.MY_OFFER} />
       </Footer>
+      <ModalComponent
+        {...modalInfo}
+        viewName={(modalInfo && modalInfo.type) ? modalInfo.type : ""}
+        showModal={showModal}
+        closePopUp={closePopUp}
+        requestOfferScreen={true}
+      />
       {showSpinner && (<SpinnerComponent />)}
     </Container>
   );

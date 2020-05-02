@@ -49,7 +49,7 @@ const RequesterAndOffererListing = (props) => {
     const updateMappedRequest = (resp, uuid) => {
         let mapLocalRequest = [];
         mappedRequestEntity.forEach((singleMapping) => {
-            if (singleMapping[props.inputMappingObject].activity_uuid !== uuid) {
+            if (singleMapping[props.inputMappingObject].activity_uuid !== uuid && singleMapping.mapping_initiator == props.mappingIndicator) {
                 mapLocalRequest.push(singleMapping);
             }
         });
@@ -74,7 +74,8 @@ const RequesterAndOffererListing = (props) => {
             setModalInfo({
                 type: AppConstant.APP_ACTION.VIEW_DETAILS,
                 ...ele,
-                inputMappingObject: props.inputMappingObject
+                inputMappingObject: props.inputMappingObject,
+                showLabelInModal:props.showLabelInModal
             });
             setShowModal(!showModal);
         }

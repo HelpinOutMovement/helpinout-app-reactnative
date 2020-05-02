@@ -92,11 +92,11 @@ const viewBasedOnCategory = (category, props) => {
     return viewList;
 }
 
-const getOfferList = (props) => {
+const getOfferList = (props, compareWith) => {
     const finalOfferList = [];
     if (props.mapping && props.mapping.length > 0) {
         props.mapping.forEach(singleOffer => {
-            if (singleOffer.mapping_initiator == AppConstant.APP_MAPPING_INDICATOR.OFFERER) {
+            if (singleOffer.mapping_initiator == compareWith) {
                 finalOfferList.push(singleOffer);
             }
         })
@@ -104,45 +104,33 @@ const getOfferList = (props) => {
     return finalOfferList;
 }
 
-const getOfferListingView = (props) => {
-    const offerListLength = getOfferList(props).length ;
-    if (offerListLength > 0) {
-        return (
-            <TouchableOpacity
-                                onPress={() => {
-                                    if (props.clickHandler) {
-                                        props.clickHandler(props, AppConstant.APP_ACTION.OFFERS_RCVD)
-                                    }
-                                }}
-                                style={{
-                                    width: "25%",
-                                    backgroundColor: "#EE6B6B",
-                                    height: 25,
-                                    borderRadius: 50,
-                                    alignItems: "center",
-                                    justifyContent: "center"
-                                }}>
-                                <View style={{
-                                    width: "100%",
-                                    backgroundColor: (props.colorTheme)?props.colorTheme:"#EE6B6B",
-                                    height: 25,
-                                    borderRadius: 50,
-                                    alignItems: "center",
-                                    justifyContent: "center"
-                                }}
-                                >
-    
-                                    <Text style={{
-                                        fontFamily: "Roboto-Regular",
-                                        fontSize: 12,
-                                        color: "#FFFFFF"
-                                    }}> {getOfferList(props).length + " " + props.count_suffix}</Text>
-                                </View>
-                            </TouchableOpacity>
-                        
-        )
-    }
-   
+const getOfferListingView = (props, compareWith) => {
+    const offerListLength = getOfferList(props, (compareWith ? compareWith : AppConstant.APP_MAPPING_INDICATOR.OFFERER)).length;
+
+    return (
+        <TouchableOpacity
+            onPress={() => {
+                if (props.clickHandler) {
+                    props.clickHandler(props, AppConstant.APP_ACTION.OFFERS_RCVD)
+                }
+            }}
+            style={{
+                width: "25%",
+                height: 25,
+                borderRadius: 50,
+                alignItems: "center",
+                justifyContent: "center"
+            }}>
+            <Text style={{
+                fontFamily: "Roboto-Regular",
+                fontSize: 12,
+                color: "#4F5065"
+            }}> {offerListLength}</Text>
+
+        </TouchableOpacity>
+
+    )
+
 }
 const PastOfferRequestComponent = (props) => {
     //console.log(props.activity_category)
@@ -174,18 +162,30 @@ const PastOfferRequestComponent = (props) => {
                                 fontSize: 12,
                                 color: "#4F50657A"
                             }}>{Utilities.getDateTime(props.date_time)}</Text>
-                        </View>
-                            {getOfferListingView(props)}
-                        </View>
+                            <TouchableOpacity
+                                style={{
+                                    marginVertical: 10
+                                }}
+                                onPress={() => {
+                                    if (props.clickHandler) {
+                                        props.clickHandler(props, AppConstant.APP_ACTION.VIEW_DETAILS)
+                                    }
+                                }}
+                            >
+                                <View style={{
+                                    backgroundColor: "#4F5065",
+                                    width: "40%",
+                                    borderRadius: 10,
+                                    alignItems: "center"
+                                }}>
+                                    <Text style={{
+                                        fontFamily: "Roboto-Regular",
+                                        fontSize: 12,
+                                        color: "#ffffff"
+                                    }}>{translate.t("view_details")}</Text>
+                                </View>
 
-                    <View style={{
-                        marginVertical: 10,
-                        flexDirection: "row",
-                        justifyContent: "space-between"
-                    }}>
-                        <View style={{
-                            width: "70%",
-                        }}>{viewBasedOnCategory(helpOption, props)}
+                            </TouchableOpacity>
                         </View>
                         <View style={{
                             width: "25%",
@@ -199,30 +199,63 @@ const PastOfferRequestComponent = (props) => {
                                 }}
                                 source={StaticImage[helpOption]} />
                         </View>
-
                     </View>
 
-
-
-                    <View style={{ marginTop: 10, flexDirection: "row", justifyContent: "space-between" }}>
-
-                        <BasicButton
-                            btnStyle={{
-                                fontFamily: "Roboto-Regular",
+                    <TouchableOpacity
+                        style={{ marginVertical: 10, flexDirection: "row", justifyContent: "space-between" }}
+                        onPress={() => {
+                            if (props.clickHandler) {
+                                props.clickHandler(props, (props.tertiaryAction)? props.tertiaryAction:AppConstant.APP_ACTION.OFFERS_RCVD)
+                            }
+                        }}
+                    >
+                        <View style={{ width: "70%" }}>
+                            <Text style={{
+                                fontFamily: "Roboto-Medium",
                                 fontSize: 14,
                                 color: "#4F5065"
-                            }}
-                            label={props.primayActionLabel}
-                            clickHandler={() => { (props.clickHandler) && props.clickHandler(props, AppConstant.APP_ACTION.SEARCH_FOR_PROVIDERS) }} />
-                        <BasicButton
-                            btnStyle={{
-                                fontFamily: "Roboto-Regular",
+                            }}>{(props.tertiaryActionLabel)? props.tertiaryActionLabel : translate.t("niu_offfer_received")}</Text>
+                        </View>
+                        {getOfferListingView(props, (props.tertiaryCompareWith)? props.tertiaryCompareWith : AppConstant.APP_MAPPING_INDICATOR.OFFERER)}
+                    </TouchableOpacity>
+
+
+
+                    <TouchableOpacity
+                        style={{ marginVertical: 10, flexDirection: "row", justifyContent: "space-between" }}
+                        onPress={() => {
+                            if (props.clickHandler) {
+                                props.clickHandler(props,(props.secondaryAction)?props.secondaryAction: AppConstant.APP_ACTION.SENT_REQUEST)
+                            }
+                        }}
+                    >
+                        <View style={{ width: "70%" }}>
+                            <Text style={{
+                                fontFamily: "Roboto-Medium",
                                 fontSize: 14,
                                 color: "#4F5065"
-                            }}
-                            label={props.secondaryActionLabel}
-                            clickHandler={() => { (props.clickHandler) && props.clickHandler(props, AppConstant.APP_ACTION.SENT_REQUEST) }} />
-                    </View>
+                            }}>{props.secondaryActionLabel}</Text>
+                        </View>
+                        {getOfferListingView(props, (props.secondaryCompareWith)? props.secondaryCompareWith :AppConstant.APP_MAPPING_INDICATOR.REQUESTER)}
+                    </TouchableOpacity>
+
+
+                    <TouchableOpacity
+                        style={{ marginVertical: 10, flexDirection: "row", justifyContent: "space-between" }}
+                        onPress={() => {
+                            if (props.clickHandler) {
+                                props.clickHandler(props, AppConstant.APP_ACTION.SEARCH_FOR_PROVIDERS)
+                            }
+                        }}
+                    >
+                        <View style={{ width: "70%" }}>
+                            <Text style={{
+                                fontFamily: "Roboto-Medium",
+                                fontSize: 14,
+                                color: "#4F5065"
+                            }}>{props.primayActionLabel}</Text>
+                        </View>
+                    </TouchableOpacity>
 
 
                 </View>

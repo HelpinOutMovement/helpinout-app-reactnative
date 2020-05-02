@@ -151,5 +151,12 @@
     "need_help_with": "Needs help with...",
     "request_call_him": "They will call you, or you may call them",
     "toast_error_some_error": "Some error occurred",
-    "loading": "Loading..."
+    "loading": "Loading...",
+
+
+
+    "TODO_SANDEEP":"TODO_SANDEEP",
+    "request_sent" :"Requests sent",
+    "offers_sent" :"Offers sent",
+    "request_received" :"Requests received"
 }

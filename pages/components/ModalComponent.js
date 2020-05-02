@@ -358,11 +358,70 @@ const viewDetailsModalContent = (props) => {
                         color: "#232832",
                         fontFamily: "Roboto-Regular",
                         fontSize: 16
-                    }} > {translate.t("can_help_with")}</Text>
+                    }} > {(props.showLabelInModal)? props.showLabelInModal : translate.t("can_help_with")}</Text>
                     <View style={{ marginVertical: 10 }}>
                         {viewBasedOnCategory(helpOption, mainDetails)}
                     </View>
 
+                </View>
+            </View>
+        </View>
+    );
+}
+
+
+const viewDetailsForRequestAndOfferModalContent = (props) => {
+
+    const helpOption = Utilities.getCategoryFromCode(props.activity_category);
+    const categoryName = translate.t(appLabelKey[helpOption.toLowerCase()]);
+    const onClosePopUp = () => {
+        if (props.closePopUp) {
+            props.closePopUp(true)
+        }
+    }
+
+
+    return (
+        <View style={{
+            backgroundColor: 'white',
+            paddingHorizontal: 10,
+            justifyContent: 'center',
+            alignItems: 'center',
+            borderRadius: 4,
+            borderColor: 'rgba(0, 0, 0, 0.1)',
+            paddingVertical: 15,
+            paddingHorizontal: 15
+        }}>
+            <View style={{ width: "100%" }}>
+                <View style={{
+                    flexDirection: "row",
+                    justifyContent: "space-between"
+                }}>
+                    <View>
+                        <Text style={{
+                            fontFamily: "Roboto-Medium",
+                            fontSize: 16,
+                            color: "#4F5065"
+                        }}>{categoryName}</Text>
+                        <Text style={{
+                            marginTop: 5,
+                            fontFamily: "Roboto-Regular",
+                            fontSize: 12,
+                            color: "#4F50657A"
+                        }}>{Utilities.getDateTime(props.date_time)}</Text>
+                    </View>
+                    <TouchableOpacity
+                        onPress={() => { onClosePopUp() }}>
+                        <EvilIcon name="close" style={{
+                            color: "#232832",
+                            fontSize: 28
+                        }} />
+                    </TouchableOpacity>
+                </View>
+                <View style={{
+                    marginVertical: 15,
+                }}>
+                    {viewBasedOnCategory(helpOption, props)}
                 </View>
             </View>
         </View>
@@ -377,7 +436,12 @@ const ModalComponent = (props) => {
                 modalContent = rateAndReviewModalContent(props)
                 break;
             case AppConstant.APP_ACTION.VIEW_DETAILS:
-                modalContent = viewDetailsModalContent(props)
+                if (props.requestOfferScreen) {
+                    modalContent = viewDetailsForRequestAndOfferModalContent(props)
+                } else {
+                    modalContent = viewDetailsModalContent(props)
+                }
+
                 break;
             default:
                 modalContent = needHelpWithModalContent(props)
