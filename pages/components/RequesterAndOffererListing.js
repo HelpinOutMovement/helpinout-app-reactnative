@@ -15,7 +15,7 @@ const RequesterAndOffererListing = (props) => {
     const [modalInfo, setModalInfo] = useState({});
     const [showSpinner, setShowSpinner] = useState(false);
     const [mappedRequestEntity, setMappedRequestEntity] = useState([]);
-    
+
     // set the content
     useEffect(() => {
         if (props.requestParams && props.requestParams.mapping && props.requestParams.mapping.length) {
@@ -56,28 +56,48 @@ const RequesterAndOffererListing = (props) => {
         setMappedRequestEntity(mapLocalRequest)
     }
     const primaryActionHandler = (ele, actions) => {
-        if (actions === AppConstant.APP_ACTION.RATE_REPORT) {
-            setModalInfo({
-                type: AppConstant.APP_ACTION.RATE_REPORT,
-                ...ele
-            });
-            setShowModal(!showModal);
-        } else if (actions === AppConstant.APP_ACTION.CANCEL) {
-            apiInvocation({
-                uuid: ele[props.inputMappingObject].activity_uuid,
-                actType: props.mappingIndicator,
-                mapping_initiator: ele.mapping_initiator,
-                successCallback: updateMappedRequest,
-                deleteType: AppConstant.APP_DELET_ACTION.DELETE_MAPPING
-            });
-        }else if (actions === AppConstant.APP_ACTION.VIEW_DETAILS) {
-            setModalInfo({
-                type: AppConstant.APP_ACTION.VIEW_DETAILS,
-                ...ele,
-                inputMappingObject: props.inputMappingObject,
-                showLabelInModal:props.showLabelInModal
-            });
-            setShowModal(!showModal);
+        switch (actions) {
+            case AppConstant.APP_ACTION.RATE_REPORT:
+                setModalInfo({
+                    type: AppConstant.APP_ACTION.RATE_REPORT,
+                    ...ele
+                });
+                setShowModal(!showModal);
+                break;
+            case AppConstant.APP_ACTION.CANCEL:
+                apiInvocation({
+                    uuid: ele[props.inputMappingObject].activity_uuid,
+                    actType: props.mappingIndicator,
+                    mapping_initiator: ele.mapping_initiator,
+                    successCallback: updateMappedRequest,
+                    deleteType: AppConstant.APP_DELET_ACTION.DELETE_MAPPING
+                });
+                break;
+            case AppConstant.APP_ACTION.VIEW_DETAILS:
+                setModalInfo({
+                    type: AppConstant.APP_ACTION.VIEW_DETAILS,
+                    ...ele,
+                    inputMappingObject: props.inputMappingObject,
+                    showLabelInModal: props.showLabelInModal
+                });
+                setShowModal(!showModal);
+                break;
+            case AppConstant.APP_ACTION.CALL_THEM:
+                let rootActivityUUID = (props.requestParams && props.requestParams.activity_uuid) ?
+                    props.requestParams.activity_uuid : (props.createdIdParams &&
+                        props.createdIdParams.activity_uuid) ? props.createdIdParams.activity_uuid : '';
+                let mapping_initiator = (ele && ele.mapping_initiator) ? ele.mapping_initiator : '';
+                let uuid = (ele && ele[props.inputMappingObject] && ele[props.inputMappingObject].activity_uuid) ?
+                    ele[props.inputMappingObject].activity_uuid : '';
+                apiInstance.mappingCall(
+                    rootActivityUUID,
+                    props.mappingIndicator,
+                    mapping_initiator,
+                    uuid);
+                break;
+            default:
+                break;
+
         }
 
     }
@@ -98,15 +118,15 @@ const RequesterAndOffererListing = (props) => {
             });
         }
 
-        
-        
+
+
         // if no items 
         if (mappedRequestView.length <= 0) {
             const textList = [];
-            textList.push( <Text> {props.noDataOnScreenText1} </Text>);
-            textList.push( <Text> {props.noDataOnScreenText2} </Text>);
+            textList.push(<Text> {props.noDataOnScreenText1} </Text>);
+            textList.push(<Text> {props.noDataOnScreenText2} </Text>);
             if (props.noDataOnScreenText3) {
-                textList.push( <Text> {props.noDataOnScreenText3} </Text>);
+                textList.push(<Text> {props.noDataOnScreenText3} </Text>);
             }
             mappedRequestView.push(
                 <View>

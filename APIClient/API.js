@@ -408,10 +408,10 @@ class API{
     }
 
 
-    mappingCall = (activity_uuid, mapping_initiator , uuid) =>{
+    mappingCall = (activity_uuid, activity_type, mapping_initiator , uuid) =>{
         return new Promise((resolve, reject) => {
             let  requestObjects = new RequestObjects();
-            reqObj = requestObjects.mappingCall(activity_uuid, mapping_initiator , uuid);
+            reqObj = requestObjects.mappingCall(activity_uuid,activity_type, mapping_initiator , uuid);
             reqObj.then((val)=> {
                 console.log("Mapping Call Initiate request Object ")
                 console.log(val)

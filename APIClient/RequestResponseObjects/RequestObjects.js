@@ -282,10 +282,20 @@
         }
 
 
-        mappingCall = (activity_uuid, mapping_id) =>{        
+        mappingCall = (activity_uuid,activity_type, mapping_initiator , uuid) =>{        
             let data = {
-                "activity_uuid":activity_uuid, 
-                "mapping_id":mapping_id
+                "activity_uuid":activity_uuid,
+                "activity_type": activity_type
+            };
+            
+            if(mapping_initiator === 1) {
+                data['offerer'] =[{
+                    "activity_uuid": uuid
+                }]
+            } else if(mapping_initiator === 2) {
+                data['requester'] = [{
+                    "activity_uuid": uuid
+                }]
             }
             return new Promise((resolve, reject) => {
                 let reqObject = this.stuffHeader(data, true);

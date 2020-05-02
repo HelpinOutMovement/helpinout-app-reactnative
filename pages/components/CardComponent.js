@@ -114,7 +114,7 @@ const RequesterInfoCardComponent = (props) => {
         <TouchableOpacity
           style={{ alignSelf: "center", alignItems: "center" }}
           onPress={() => {
-            dialCall(props.callerNumber)
+            dialCall(props.primayInfo.country_code+""+props.primayInfo.mobile_no)
           }}>
           <MaterialIcon name="call" style={{
             fontSize: 17
@@ -128,7 +128,10 @@ const RequesterInfoCardComponent = (props) => {
     return callerView;
 
   }
-  dialCall = (number) => {
+  const dialCall = (number) => {
+    if( props.clickHandler){
+      props.clickHandler(props, AppConstant.APP_ACTION.CALL_THEM); 
+    }
     let phoneNumber = '';
     if (Platform.OS === 'android') { phoneNumber = `tel:${number}`; }
     else { phoneNumber = `telprompt:${number}`; }
