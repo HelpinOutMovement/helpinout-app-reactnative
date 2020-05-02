@@ -311,7 +311,7 @@ function MyRequestScreen(props) {
   const [requestInformation, setRequestInformation] = useState([]);
   const [showSpinner, setShowSpinner] = useState(false);
   const [modalInfo, setModalInfo] = useState({});
-
+/*
   useEffect(() => {
     setShowSpinner(true);
     apiInstance.userPastActivity(activity_type).then(resp => {
@@ -323,7 +323,7 @@ function MyRequestScreen(props) {
     })
   }, [])
 
-  /*
+  */
   useFocusEffect(
     React.useCallback(() => {
       setShowSpinner(true);
@@ -336,7 +336,7 @@ function MyRequestScreen(props) {
       })
     }, [])
   );
-*/
+
   const primaryActionHandler = (ele, actions) => {
     console.log(ele, "$$$$", actions);
     if (actions === AppConstant.APP_ACTION.SENT_REQUEST) {
