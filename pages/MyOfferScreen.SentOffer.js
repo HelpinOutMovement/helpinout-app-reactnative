@@ -9,14 +9,16 @@ import { RequesterInfoCardComponent } from './components/CardComponent';
 import ModalComponent from './components/ModalComponent';
 import HeaderComponent from './components/HeaderComponent';
 import SpinnerComponent from './components/SpinnerComponent';
+import RequesterAndOffererListing from './components/RequesterAndOffererListing';
 
 
 function MyOfferSentOfferScreen(props) {
-
-
-    console.log("MyOffersScreen.SentOffer")
     const colorTheme = "#4F5065";
     const typeRestriction = 'offers';
+
+/*
+    console.log("MyOffersScreen.SentOffer")
+    
     const [showModal, setShowModal] = useState(false);
     const [modalInfo, setModalInfo] = useState({});
     const [showSpinner, setShowSpinner] = useState(false);
@@ -115,11 +117,7 @@ function MyOfferSentOfferScreen(props) {
 
     const onActionClick = (ratingPayload, modalProps) => {
         console.log(ratingPayload);
-        /*
-        recommendedForOthers: recommended,
-            comments: commentText,
-            rating: ratingVal
-        */
+        
         closePopUp();
         setShowSpinner(true);
        let rootActivityUUID = (requestParams && requestParams.activity_uuid) ? 
@@ -177,6 +175,40 @@ function MyOfferSentOfferScreen(props) {
                 deleteType:AppConstant.APP_DELET_ACTION.DELETE_ACTIVITY
             })
     }
+*/
+    const inputMappingObject = 'request_detail';
+    let mappingIndicator = AppConstant.APP_MAPPING_INDICATOR.OFFERER;
+    let screenTitle = translate.t("Offers_have_been_sent_to");
+    let cancelButtonLabel = translate.t("Cancel_This_Offer");
+
+    let noDataOnScreenText1 =  translate.t("Your_offer_was_registered_but_no_direct_offer_has_been_sent_to_anyone_yet");
+    let noDataOnScreenText2 =  translate.t("Others_may_request_your_help_when_they_see_your_offer_on_the_map");
+    let noDataOnScreenText3 =  translate.t("This_request_will_remain_active_until_you_cancel_it");
+
+    let requestParams = (props.route && props.route.params && props.route.params.request) ? props.route.params.request : {};
+    let createdIdParams = (props.route && props.route.params && props.route.params.created_activity) ? props.route.params.created_activity : {};
+    let screenType = (props.route && props.route.params && props.route.params.screenType) ? props.route.params.screenType : '';
+    if(screenType === AppConstant.APP_ACTION.OFFERS_RCVD) {
+        screenTitle = translate.t("Help_Offers_Received_from");
+        mappingIndicator = AppConstant.APP_MAPPING_INDICATOR.OFFERER;
+    }
+    return (
+        <RequesterAndOffererListing {...props} 
+                    requestParams={requestParams}
+                    createdIdParams={createdIdParams}
+                    mappingIndicator={mappingIndicator} 
+                    inputMappingObject={inputMappingObject} 
+                    typeRestriction={typeRestriction} 
+                    colorTheme={colorTheme}
+                    screenTitle={screenTitle}
+                    cancelButtonLabel={cancelButtonLabel}
+                    noDataOnScreenText1={noDataOnScreenText1}
+                    noDataOnScreenText2={noDataOnScreenText2}
+                    noDataOnScreenText3={noDataOnScreenText3}
+
+                     />
+    );
+    /*
     return (
         <Container>
             <View style={{height:"100%" }}>
@@ -213,6 +245,8 @@ function MyOfferSentOfferScreen(props) {
 
         </Container>
     );
+    */
+
 }
 
 export default MyOfferSentOfferScreen;

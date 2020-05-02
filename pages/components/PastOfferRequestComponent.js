@@ -10,8 +10,8 @@ import { appLabelKey } from '../../misc/AppStrings';
 
 
 
-const getViewIfExist = (textInformation)=>{
-    if(textInformation) {
+const getViewIfExist = (textInformation) => {
+    if (textInformation) {
         return (
             <Text style={{
                 fontFamily: "Roboto-Regular",
@@ -23,13 +23,13 @@ const getViewIfExist = (textInformation)=>{
 }
 const viewBasedOnCategory = (category, props) => {
 
-    
+
     const viewList = []
     switch (category) {
         case AppConstant.APP_OPTIONS.AMBULANCE:
             props.activity_detail && props.activity_detail.length && props.activity_detail.forEach(singleDetail => {
                 const qtyText = (singleDetail.quantity) ? " " + singleDetail.quantity : "";
-                if(qtyText) {
+                if (qtyText) {
                     viewList.push(
                         <Text style={{
                             fontFamily: "Roboto-Regular",
@@ -75,7 +75,7 @@ const viewBasedOnCategory = (category, props) => {
             // {singleDetail.detail+" "+singleDetail.quantity}
             props.activity_detail && props.activity_detail.length && props.activity_detail.forEach(singleDetail => {
                 const qtyText = (singleDetail.quantity) ? " : " + singleDetail.quantity : "";
-                if(qtyText){
+                if (qtyText) {
                     viewList.push(
                         <Text style={{
                             fontFamily: "Roboto-Regular",
@@ -84,7 +84,7 @@ const viewBasedOnCategory = (category, props) => {
                         }}>{singleDetail.detail + " " + qtyText}</Text>
                     )
                 }
-                
+
             });
 
             break;
@@ -93,17 +93,57 @@ const viewBasedOnCategory = (category, props) => {
 }
 
 const getOfferList = (props) => {
-    const finalOfferList =[];
-    if(props.mapping && props.mapping.length > 0){
+    const finalOfferList = [];
+    if (props.mapping && props.mapping.length > 0) {
         props.mapping.forEach(singleOffer => {
-            if(singleOffer.mapping_initiator == AppConstant.APP_MAPPING_INDICATOR.OFFERER) {
+            if (singleOffer.mapping_initiator == AppConstant.APP_MAPPING_INDICATOR.OFFERER) {
                 finalOfferList.push(singleOffer);
-            }            
+            }
         })
     }
     return finalOfferList;
 }
 
+const getOfferListingView = (props) => {
+    const offerListLength = getOfferList(props).length ;
+    if (offerListLength > 0) {
+        return (
+            <TouchableOpacity
+                                onPress={() => {
+                                    if (props.clickHandler) {
+                                        props.clickHandler(props, AppConstant.APP_ACTION.OFFERS_RCVD)
+                                    }
+                                }}
+                                style={{
+                                    width: "25%",
+                                    backgroundColor: "#EE6B6B",
+                                    height: 25,
+                                    borderRadius: 50,
+                                    alignItems: "center",
+                                    justifyContent: "center"
+                                }}>
+                                <View style={{
+                                    width: "100%",
+                                    backgroundColor: (props.colorTheme)?props.colorTheme:"#EE6B6B",
+                                    height: 25,
+                                    borderRadius: 50,
+                                    alignItems: "center",
+                                    justifyContent: "center"
+                                }}
+                                >
+    
+                                    <Text style={{
+                                        fontFamily: "Roboto-Regular",
+                                        fontSize: 12,
+                                        color: "#FFFFFF"
+                                    }}> {getOfferList(props).length + " " + props.count_suffix}</Text>
+                                </View>
+                            </TouchableOpacity>
+                        
+        )
+    }
+   
+}
 const PastOfferRequestComponent = (props) => {
     //console.log(props.activity_category)
     const helpOption = Utilities.getCategoryFromCode(props.activity_category);
@@ -111,13 +151,13 @@ const PastOfferRequestComponent = (props) => {
     return (
         <Card style={{
             alignSelf: "center",
-            marginTop:10,
+            marginTop: 10,
             width: "94%",
             borderRadius: 10,
             borderWidth: 2,
-            shadowOpacity: 0.9,		
-            shadowOffset: { height: 5, width: 5 },		
-            shadowColor: '#EE6B6B3D'	
+            shadowOpacity: 0.9,
+            shadowOffset: { height: 5, width: 5 },
+            shadowColor: '#EE6B6B3D'
         }} >
             <CardItem >
                 <View style={{ width: "100%", flexDirection: "column" }}>
@@ -129,47 +169,37 @@ const PastOfferRequestComponent = (props) => {
                                 color: "#4F5065"
                             }}>{categoryName}</Text>
                             <Text style={{
-                                marginTop:5,
+                                marginTop: 5,
                                 fontFamily: "Roboto-Regular",
                                 fontSize: 12,
                                 color: "#4F50657A"
                             }}>{Utilities.getDateTime(props.date_time)}</Text>
                         </View>
-                        <View style={{ 
-                                width: "25%", 
-                                backgroundColor: "#EE6B6B",
-                                height:25,
-                                borderRadius:50,
-                                alignItems:"center",
-                                justifyContent:"center" }}>
-                            <Text style={{
-                                fontFamily: "Roboto-Regular",
-                                fontSize: 12,
-                                color: "#FFFFFF"
-                            }}> {getOfferList(props).length + " " + props.count_suffix}</Text>
+                            {getOfferListingView(props)}
                         </View>
-                    </View>
 
-                    <View style={{ 
-                            marginVertical: 10, 
-                            flexDirection: "row", 
-                            justifyContent: "space-between" }}>
+                    <View style={{
+                        marginVertical: 10,
+                        flexDirection: "row",
+                        justifyContent: "space-between"
+                    }}>
                         <View style={{
-                            width:"70%",
+                            width: "70%",
                         }}>{viewBasedOnCategory(helpOption, props)}
                         </View>
                         <View style={{
-                            width:"25%",
-                            alignItems:"flex-end",
-                             paddingRight:10
+                            width: "25%",
+                            alignItems: "flex-end",
+                            paddingRight: 10
                         }}>
-                        <Image
-                            style={{ 
-                                width: 28, 
-                                height: 22 }}
-                            source={StaticImage[helpOption]} />
+                            <Image
+                                style={{
+                                    width: 28,
+                                    height: 22
+                                }}
+                                source={StaticImage[helpOption]} />
                         </View>
-                        
+
                     </View>
 
 
@@ -181,7 +211,7 @@ const PastOfferRequestComponent = (props) => {
                                 fontFamily: "Roboto-Regular",
                                 fontSize: 14,
                                 color: "#4F5065"
-                             }}
+                            }}
                             label={props.primayActionLabel}
                             clickHandler={() => { (props.clickHandler) && props.clickHandler(props, AppConstant.APP_ACTION.SEARCH_FOR_PROVIDERS) }} />
                         <BasicButton
@@ -189,8 +219,8 @@ const PastOfferRequestComponent = (props) => {
                                 fontFamily: "Roboto-Regular",
                                 fontSize: 14,
                                 color: "#4F5065"
-                             }}
-                            label={props.secondaryActionLabel }
+                            }}
+                            label={props.secondaryActionLabel}
                             clickHandler={() => { (props.clickHandler) && props.clickHandler(props, AppConstant.APP_ACTION.SENT_REQUEST) }} />
                     </View>
 

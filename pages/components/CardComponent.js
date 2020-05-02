@@ -189,6 +189,11 @@ const RequesterInfoCardComponent = (props) => {
           </View>
           <View style={{ marginTop: 10, flexDirection: "row", justifyContent: "space-between" }}>
             <BasicButton
+              label={translate.t("View_Details")}
+              clickHandler={() => { props.clickHandler(props, AppConstant.APP_ACTION.VIEW_DETAILS) }} />
+          </View>
+          <View style={{ marginTop: 10, flexDirection: "row", justifyContent: "space-between" }}>
+            <BasicButton
               label={translate.t("Rate_Report")}
               clickHandler={() => { props.clickHandler(props, AppConstant.APP_ACTION.RATE_REPORT) }} />
             <BasicButton label={translate.t("Cancel")}

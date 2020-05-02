@@ -17,7 +17,9 @@ const AppConstant = {
         RATE_REPORT:'rate_report',
         CANCEL:'cancel',
         SEARCH_FOR_PROVIDERS:'SEARCH_FOR_PROVIDERS',
-        SENT_REQUEST:'SENT_REQUEST'
+        SENT_REQUEST:'SENT_REQUEST',
+        OFFERS_RCVD:'OFFERS_RCVD',
+        VIEW_DETAILS:'VIEW_DETAILS'
     },
     APP_MAPPING_INDICATOR:{
         'REQUESTER':1,

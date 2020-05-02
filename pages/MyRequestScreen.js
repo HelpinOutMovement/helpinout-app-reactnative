@@ -350,6 +350,11 @@ function MyRequestScreen(props) {
                address:"",
                latlon:ele.geo_location
               })
+        } else if (actions === AppConstant.APP_ACTION.OFFERS_RCVD) {
+          props.navigation.navigate(AppConstant.APP_PAGE.MY_REQUEST_SENT_REQUEST_SCREEN,{
+            request: ele,
+            screenType:AppConstant.APP_ACTION.OFFERS_RCVD
+        });
         }
     }
 

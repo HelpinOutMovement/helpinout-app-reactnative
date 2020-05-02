@@ -223,12 +223,61 @@ const needHelpWithModalContent = (props) => {
 
 }
 
+const viewDetailsModalContent = (props) => {
+
+    const onClosePopUp = () => {
+        if (props.closePopUp) {
+            props.closePopUp(true)
+        }
+    }
+    return (
+        <View style={{
+            backgroundColor: 'white',
+            paddingHorizontal: 10,
+            justifyContent: 'center',
+            alignItems: 'center',
+            borderRadius: 4,
+            borderColor: 'rgba(0, 0, 0, 0.1)',
+            paddingVertical:15,
+            paddingHorizontal: 15
+        }}>
+            <View style={{ width: "100%" }}>
+                <View style={{
+                    flexDirection: "row",
+                    justifyContent: "space-between"
+                }}>
+                    <Text style={{
+                        color: "#232832",
+                        fontFamily: "Roboto-Regular",
+                        fontSize: 16
+                    }}>{props.name}   </Text>
+                    <TouchableOpacity
+                        onPress={() => { onClosePopUp() }}>
+                        <EvilIcon name="close" style={{
+                            color: "#4F5065",
+                            fontSize: 34
+                        }} />
+                    </TouchableOpacity>
+                </View>
+                <View>
+                    <Text> Can Help You With</Text>
+                    <Text> Can Help You With</Text>
+                    <Text> Can Help You With</Text>
+                </View>
+            </View>
+        </View>
+    );
+} 
+
 const ModalComponent = (props) => {
     const getModalContent = () => {
         let modalContent;
         switch (props.viewName) {
             case AppConstant.APP_ACTION.RATE_REPORT:
                 modalContent = rateAndReviewModalContent(props)
+                break;
+            case AppConstant.APP_ACTION.VIEW_DETAILS:
+                modalContent = viewDetailsModalContent(props)
                 break;
             default:
                 modalContent = needHelpWithModalContent(props)
