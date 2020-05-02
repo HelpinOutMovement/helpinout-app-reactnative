@@ -35,7 +35,7 @@ const viewBasedOnCategory = (category, props) => {
                             fontFamily: "Roboto-Regular",
                             fontSize: 14,
                             color: "#4F5065CC"
-                        }}>{qtyText}</Text>
+                        }}>({qtyText})</Text>
                     )
                 }
             });

@@ -6,6 +6,7 @@ import Modal from 'react-native-modal';
 import { default as EvilIcon } from 'react-native-vector-icons/EvilIcons';
 import AppConstant from '../../misc/AppConstant';
 import ButtonComponent, { BasicFilledButton } from './ButtonComponent';
+import Utilities from '../../misc/Utils';
 
 
 import translate from 'react-native-i18n';
@@ -37,7 +38,7 @@ const rateAndReviewModalContent = (props) => {
             rating: ratingVal
         }
         if (props.onActionClick) {
-            props.onActionClick(payload,props);
+            props.onActionClick(payload, props);
         }
         resetComponent();
     }
@@ -125,40 +126,42 @@ const rateAndReviewModalContent = (props) => {
                         }}>
                         <CheckBox checked={!recommended} color="#4F5065" style={{ marginRight: 20 }} />
                         <Text
-                            style={{ color: "#4F5065",
-                            fontFamily: "Roboto-Regular",
-                            fontSize: 16 }}>{translate.t(appLabelKey.no)}   </Text>
+                            style={{
+                                color: "#4F5065",
+                                fontFamily: "Roboto-Regular",
+                                fontSize: 16
+                            }}>{translate.t(appLabelKey.no)}   </Text>
                     </TouchableOpacity>
 
                 </View>
                 <View >
-                        <Text style={{
-                             color: "#4F5065CC",
-                             fontFamily: "Roboto-Regular",
-                             fontSize: 16,
-                             marginBottom: 5
-                        }}> Comments </Text>
-                        <Textarea
-                            onChangeText={(txt) => {
-                                console.log(txt)
-                                setCommentText(txt)
-                            }}
-                            placeholder="Enter here"
-                            rowSpan={5}
-                            style={{
-                                marginHorizontal:10,
-                                borderRadius: 10,
-                                borderWidth: 2,
-                                borderColor:"#4F5065CC"
-                            }} >
+                    <Text style={{
+                        color: "#4F5065CC",
+                        fontFamily: "Roboto-Regular",
+                        fontSize: 16,
+                        marginBottom: 5
+                    }}> Comments </Text>
+                    <Textarea
+                        onChangeText={(txt) => {
+                            console.log(txt)
+                            setCommentText(txt)
+                        }}
+                        placeholder="Enter here"
+                        rowSpan={5}
+                        style={{
+                            marginHorizontal: 10,
+                            borderRadius: 10,
+                            borderWidth: 2,
+                            borderColor: "#4F5065CC"
+                        }} >
 
-                        </Textarea>
-                   
+                    </Textarea>
+
                 </View>
-                <View style={{alignItems:"center"}}>
+                <View style={{ alignItems: "center" }}>
                     <BasicFilledButton
                         buttonStyle={{
-                           borderRadius:10
+                            borderRadius: 10
                         }}
                         clickHandler={() => { onSubmitClick() }}
                         label={translate.t(appLabelKey.submit)}
@@ -223,7 +226,98 @@ const needHelpWithModalContent = (props) => {
 
 }
 
+const getViewIfExist = (textInformation, extra) => {
+    if (textInformation) {
+        if (extra) {
+            return (
+                <Text style={{
+                    fontFamily: "Roboto-Regular",
+                    fontSize: 14,
+                    color: "#4F5065CC"
+                }}> ({textInformation} )</Text>)
+        }
+        return (
+            <Text style={{
+                fontFamily: "Roboto-Regular",
+                fontSize: 14,
+                color: "#4F5065CC"
+            }}>{textInformation} </Text>
+        )
+    }
+}
+
+const viewBasedOnCategory = (category, props) => {
+    const viewList = []
+    switch (category) {
+        case AppConstant.APP_OPTIONS.AMBULANCE:
+            props.activity_detail && props.activity_detail.length && props.activity_detail.forEach(singleDetail => {
+                const qtyText = (singleDetail.quantity) ? " " + singleDetail.quantity : "";
+                if (qtyText) {
+                    viewList.push(
+                        <>
+                            {getViewIfExist(qtyText, 'round')}
+                        </>
+                    )
+                }
+            });
+            break;
+        case AppConstant.APP_OPTIONS.PEOPLE:
+            /**
+             {
+                              "volunters_required": 1,
+                              "volunters_detail": "Clean\t\t ",
+                              "volunters_quantity": 5,
+                              "technical_personal_required": 1,
+                              "technical_personal_detail": "Lab ",
+                              "technical_personal_quantity": 4
+                          }
+             */
+
+            props.activity_detail && props.activity_detail.length && props.activity_detail.forEach(singleDetail => {
+                const volunteers_detail = (singleDetail.volunters_detail) ? singleDetail.volunters_detail : "";
+                const volunteers_qty = (singleDetail.volunters_quantity) ? singleDetail.volunters_quantity : "";
+                const finalVolunteerText = (volunteers_detail) ? translate.t("Volunteers") + ":" + volunteers_detail + " " + volunteers_qty : ""
+
+                const techPersonnel_detail = (singleDetail.technical_personal_detail) ? singleDetail.technical_personal_detail : "";
+                const techPersonnel_qty = (singleDetail.technical_personal_quantity) ? singleDetail.technical_personal_quantity : "";
+                const finalTechPersonnelText = (techPersonnel_detail) ? translate.t("Technical_Personnel") + ":" + techPersonnel_detail + " " + techPersonnel_qty : ""
+
+                viewList.push(
+                    <View>
+                        {getViewIfExist(finalVolunteerText)}
+                        {getViewIfExist(finalTechPersonnelText)}
+                    </View>
+
+                )
+            });
+
+            break;
+        default:
+            // {singleDetail.detail+" "+singleDetail.quantity}
+            props.activity_detail && props.activity_detail.length && props.activity_detail.forEach(singleDetail => {
+                const qtyText = (singleDetail.quantity) ? singleDetail.quantity : "";
+                viewList.push(
+                    <View style={{ flexDirection: "row" }}>
+
+                        {getViewIfExist(singleDetail.detail)}
+                        {getViewIfExist(qtyText, 'round')}
+                    </View>
+                )
+
+            });
+
+            break;
+    }
+    return viewList;
+}
+
 const viewDetailsModalContent = (props) => {
+
+    const helpOption = Utilities.getCategoryFromCode(props.activity_category);
+    const mainDetails = (props &&
+        props.inputMappingObject &&
+        props[props.inputMappingObject]) ?
+        props[props.inputMappingObject] : [];
 
     const onClosePopUp = () => {
         if (props.closePopUp) {
@@ -231,20 +325,7 @@ const viewDetailsModalContent = (props) => {
         }
     }
 
-    const getRequestAndOfferDetails = ()=> {
-        const mainArray = (props && props.inputMappingObject && props[props.inputMappingObject] && props[props.inputMappingObject].activity_detail) ? props[props.inputMappingObject].activity_detail: [];
-        const detailedList = [];
-        mainArray.forEach(singleElement => {
-            if(singleElement.detail )
-            detailedList.push(
-                <View style={{flexDirection:"row"}}>
-                <Text> {singleElement.detail}</Text>
-                {(singleElement.quantity) && (<Text> ({singleElement.quantity})</Text>)}
-                </View>
-            )
-        });
-        return detailedList;
-    }
+
     return (
         <View style={{
             backgroundColor: 'white',
@@ -253,7 +334,7 @@ const viewDetailsModalContent = (props) => {
             alignItems: 'center',
             borderRadius: 4,
             borderColor: 'rgba(0, 0, 0, 0.1)',
-            paddingVertical:15,
+            paddingVertical: 15,
             paddingHorizontal: 15
         }}>
             <View style={{ width: "100%" }}>
@@ -262,26 +343,36 @@ const viewDetailsModalContent = (props) => {
                     justifyContent: "space-between"
                 }}>
                     <Text style={{
+                        fontFamily: "Roboto-Medium",
+                        fontSize: 16,
                         color: "#232832",
-                        fontFamily: "Roboto-Regular",
-                        fontSize: 16
+                        marginVertical: 15
                     }}>{props.name}   </Text>
                     <TouchableOpacity
                         onPress={() => { onClosePopUp() }}>
                         <EvilIcon name="close" style={{
-                            color: "#4F5065",
-                            fontSize: 34
+                            color: "#232832",
+                            fontSize: 28
                         }} />
                     </TouchableOpacity>
                 </View>
-                <View>
-                    <Text> {translate.t("Can_Help_You_With")}</Text>
-                    {getRequestAndOfferDetails()}
+                <View style={{
+                    marginVertical: 15
+                }}>
+                    <Text style={{
+                        color: "#232832",
+                        fontFamily: "Roboto-Regular",
+                        fontSize: 16
+                    }} > {translate.t("Can_Help_You_With")}</Text>
+                    <View style={{ marginVertical: 10 }}>
+                        {viewBasedOnCategory(helpOption, mainDetails)}
+                    </View>
+
                 </View>
             </View>
         </View>
     );
-} 
+}
 
 const ModalComponent = (props) => {
     const getModalContent = () => {
