@@ -230,6 +230,21 @@ const viewDetailsModalContent = (props) => {
             props.closePopUp(true)
         }
     }
+
+    const getRequestAndOfferDetails = ()=> {
+        const mainArray = (props && props.inputMappingObject && props[props.inputMappingObject] && props[props.inputMappingObject].activity_detail) ? props[props.inputMappingObject].activity_detail: [];
+        const detailedList = [];
+        mainArray.forEach(singleElement => {
+            if(singleElement.detail )
+            detailedList.push(
+                <View style={{flexDirection:"row"}}>
+                <Text> {singleElement.detail}</Text>
+                {(singleElement.quantity) && (<Text> ({singleElement.quantity})</Text>)}
+                </View>
+            )
+        });
+        return detailedList;
+    }
     return (
         <View style={{
             backgroundColor: 'white',
@@ -260,9 +275,8 @@ const viewDetailsModalContent = (props) => {
                     </TouchableOpacity>
                 </View>
                 <View>
-                    <Text> Can Help You With</Text>
-                    <Text> Can Help You With</Text>
-                    <Text> Can Help You With</Text>
+                    <Text> {translate.t("Can_Help_You_With")}</Text>
+                    {getRequestAndOfferDetails()}
                 </View>
             </View>
         </View>
@@ -290,6 +304,7 @@ const ModalComponent = (props) => {
         <Modal
             testID={'modal'}
             isVisible={props.showModal}
+            onBackdropPress={() => { props.closePopUp() }}
             onSwipeComplete={() => { props.closePopUp() }}
             style={{
                 justifyContent: 'flex-end',

@@ -73,7 +73,8 @@ const RequesterAndOffererListing = (props) => {
         }else if (actions === AppConstant.APP_ACTION.VIEW_DETAILS) {
             setModalInfo({
                 type: AppConstant.APP_ACTION.VIEW_DETAILS,
-                ...ele
+                ...ele,
+                inputMappingObject: props.inputMappingObject
             });
             setShowModal(!showModal);
         }
