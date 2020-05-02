@@ -312,12 +312,23 @@ const viewDetailsModalContent = (props) => {
     const mainDetails = (props &&
         props.inputMappingObject &&
         props[props.inputMappingObject]) ?
-        props[props.inputMappingObject] : [];
+        props[props.inputMappingObject] : {};
 
+   
     const onClosePopUp = () => {
         if (props.closePopUp) {
             props.closePopUp(true)
         }
+    }
+
+    const getNoteView = () => {
+        if (mainDetails.offer_condition) {
+            return (<View style={{ marginVertical: 10 }}>
+                <Text>{translate.t("availability_condition")}</Text>
+                <Text>{mainDetails.offer_condition}</Text>
+            </View>);
+        }
+
     }
 
 
@@ -358,11 +369,11 @@ const viewDetailsModalContent = (props) => {
                         color: "#232832",
                         fontFamily: "Roboto-Regular",
                         fontSize: 16
-                    }} > {(props.showLabelInModal)? props.showLabelInModal : translate.t("can_help_with")}</Text>
+                    }} > {(props.showLabelInModal) ? props.showLabelInModal : translate.t("can_help_with")}</Text>
                     <View style={{ marginVertical: 10 }}>
                         {viewBasedOnCategory(helpOption, mainDetails)}
                     </View>
-
+                    {getNoteView()}
                 </View>
             </View>
         </View>
@@ -378,6 +389,16 @@ const viewDetailsForRequestAndOfferModalContent = (props) => {
         if (props.closePopUp) {
             props.closePopUp(true)
         }
+    }
+
+    const getNoteView = () => {
+        if (props.offer_condition) {
+            return (<View style={{ marginVertical: 10 }}>
+                <Text>{translate.t("availability_condition")}</Text>
+                <Text>{props.offer_condition}</Text>
+            </View>);
+        }
+
     }
 
 
@@ -423,6 +444,7 @@ const viewDetailsForRequestAndOfferModalContent = (props) => {
                 }}>
                     {viewBasedOnCategory(helpOption, props)}
                 </View>
+                {getNoteView()}
             </View>
         </View>
     );
