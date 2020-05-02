@@ -9,7 +9,7 @@ function MyOfferSentOfferScreen(props) {
     const typeRestriction = 'offers';
     const inputMappingObject = 'request_detail';
     let mappingIndicator = AppConstant.APP_MAPPING_INDICATOR.REQUESTER;
-    let screenTitle = translate.t("offer_send_to");
+    let screenTitle = translate.t("help_request_received_from");
     let cancelButtonLabel = translate.t("cancel_this_offer");
 
     let noDataOnScreenText1 =  translate.t("no_offer_sent");
@@ -20,7 +20,7 @@ function MyOfferSentOfferScreen(props) {
     let createdIdParams = (props.route && props.route.params && props.route.params.created_activity) ? props.route.params.created_activity : {};
     let screenType = (props.route && props.route.params && props.route.params.screenType) ? props.route.params.screenType : '';
     if(screenType === AppConstant.APP_ACTION.OFFERS_RCVD) {
-        screenTitle = translate.t("help_request_received_from");
+        screenTitle = translate.t("offer_send_to");
         mappingIndicator = AppConstant.APP_MAPPING_INDICATOR.OFFERER;
     }
     return (
