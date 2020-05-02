@@ -6,6 +6,7 @@ import AppConstant from '../misc/AppConstant';
 import AppStorage from '../storage/AppStorage';
 import translate from 'react-native-i18n';
 import AppStringContext from '../misc/AppStringContext';
+import UserContext from '../misc/UserContext';
 import { appLabelKey } from '../misc/AppStrings';
 import commonStyling from '../styling/commonStyle';
 
@@ -23,10 +24,16 @@ const SideMenuOptions = {
 
     }, {
         label: translate.t(appLabelKey.ask_for_Help),
-        pageName: AppConstant.APP_PAGE.ASK_FOR_HELP
+        pageName: AppConstant.APP_PAGE.ASK_FOR_HELP,
+        pageProps: {
+            addRegionInfo: true
+        }
     }, {
         label: translate.t(appLabelKey.offer_Help),
-        pageName: AppConstant.APP_PAGE.OFFER_HELP_SCREEN
+        pageName: AppConstant.APP_PAGE.OFFER_HELP_SCREEN,
+        pageProps: {
+            addRegionInfo: true
+        }
     }, {
         label: translate.t(appLabelKey.my_Requests),
         pageName: AppConstant.APP_PAGE.MY_REQUEST_SCREEN
@@ -75,11 +82,13 @@ const SideMenuOptions = {
 
 
 
-const CustomSideBarView = ({ navigation }) => {
+const CustomSideBarView = (props) => {
+    const {navigation} = props
 
-
-    const { translate } = useContext(AppStringContext);
+    const { latlon } = useContext(UserContext);
     const { setLanguage , language} = useContext(AppStringContext);
+    const { translate } = useContext(AppStringContext);
+    console.log(latlon);
 
     const onLanguageClicked = (lang) => {
         AppStorage.storeAppInfo("locale", lang).then(function (value) {
@@ -143,6 +152,12 @@ const CustomSideBarView = ({ navigation }) => {
                                 navigation.closeDrawer();
                                 let pageProps = singleMenu.pageProps ? singleMenu.pageProps : {};
                                 pageProps = {...pageProps , navigationIns :navigation}
+                                if(pageProps.addRegionInfo) {
+                                    pageProps = {
+                                        ...pageProps,
+                                        ...latlon
+                                    }
+                                }
                                 navigation.navigate(singleMenu.pageName, pageProps);
                             } else {
                                 navigation.closeDrawer();
