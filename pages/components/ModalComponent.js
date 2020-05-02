@@ -64,7 +64,7 @@ const rateAndReviewModalContent = (props) => {
                         color: "#232832",
                         fontFamily: "Roboto-Regular",
                         fontSize: 16
-                    }}>{translate.t(appLabelKey.rate_Report)}   </Text>
+                    }}>{translate.t("rate_report")}   </Text>
                     <TouchableOpacity
                         onPress={() => { onClosePopUp() }}>
                         <EvilIcon name="close" style={{
@@ -99,7 +99,7 @@ const rateAndReviewModalContent = (props) => {
                         color: "#4F5065CC",
                         fontFamily: "Roboto-Regular",
                         fontSize: 16
-                    }}>{translate.t(appLabelKey.should_others_take_help_from_them)}</Text>
+                    }}>{translate.t("help_from_them")}</Text>
                 </View>
                 <View style={{
                     flexDirection: "row", marginBottom: 20
@@ -140,7 +140,7 @@ const rateAndReviewModalContent = (props) => {
                         fontFamily: "Roboto-Regular",
                         fontSize: 16,
                         marginBottom: 5
-                    }}> Comments </Text>
+                    }}> {translate.t("comment")} </Text>
                     <Textarea
                         onChangeText={(txt) => {
                             console.log(txt)
@@ -190,12 +190,7 @@ const needHelpWithModalContent = (props) => {
             <Grid style={{ width: "100%", alignItems: "center" }}>
                 <Row>
                     <Col>
-                        <Text style={{ color: "grey" }}>{translate.t(appLabelKey.your_Request_for_Help_has_been_registered)}   </Text>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col>
-                        <Text style={{ color: "grey" }}> {translate.t(appLabelKey.would_you_like_to_search_for_Help_Providers_in_your_location)}</Text>
+                        <Text style={{ color: "grey" }}>{translate.t("request_confirmation")}   </Text>
                     </Col>
                 </Row>
                 <Row>
@@ -276,11 +271,11 @@ const viewBasedOnCategory = (category, props) => {
             props.activity_detail && props.activity_detail.length && props.activity_detail.forEach(singleDetail => {
                 const volunteers_detail = (singleDetail.volunters_detail) ? singleDetail.volunters_detail : "";
                 const volunteers_qty = (singleDetail.volunters_quantity) ? singleDetail.volunters_quantity : "";
-                const finalVolunteerText = (volunteers_detail) ? translate.t("Volunteers") + ":" + volunteers_detail + " " + volunteers_qty : ""
+                const finalVolunteerText = (volunteers_detail) ? translate.t("volunteers") + ":" + volunteers_detail + " " + volunteers_qty : ""
 
                 const techPersonnel_detail = (singleDetail.technical_personal_detail) ? singleDetail.technical_personal_detail : "";
                 const techPersonnel_qty = (singleDetail.technical_personal_quantity) ? singleDetail.technical_personal_quantity : "";
-                const finalTechPersonnelText = (techPersonnel_detail) ? translate.t("Technical_Personnel") + ":" + techPersonnel_detail + " " + techPersonnel_qty : ""
+                const finalTechPersonnelText = (techPersonnel_detail) ? translate.t("technical_personnel") + ":" + techPersonnel_detail + " " + techPersonnel_qty : ""
 
                 viewList.push(
                     <View>
@@ -363,7 +358,7 @@ const viewDetailsModalContent = (props) => {
                         color: "#232832",
                         fontFamily: "Roboto-Regular",
                         fontSize: 16
-                    }} > {translate.t("Can_Help_You_With")}</Text>
+                    }} > {translate.t("can_help_with")}</Text>
                     <View style={{ marginVertical: 10 }}>
                         {viewBasedOnCategory(helpOption, mainDetails)}
                     </View>
