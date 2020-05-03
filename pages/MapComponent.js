@@ -27,6 +27,8 @@ import Geolocation from '@react-native-community/geolocation';
 
 import MapView, { Marker, MAP_TYPES, ProviderPropType , PROVIDER_GOOGLE} from 'react-native-maps';
 import { getDistance, getPreciseDistance } from 'geolib';
+import Toast from 'react-native-tiny-toast'
+
 
 const LATITUDE = 0;
 const LONGITUDE = 0;
@@ -335,7 +337,7 @@ class MapComponent extends React.Component {
           this.addMarker(val)
         }).catch((err) => {
           if(err.response.status === 409){
-            alert("appid expired ")
+            Toast.show('appid expired : ', {duration:2000, position:0, animation:true, shadow:true, animationDuration:1000})
             AppStorage.storeAppInfo(AppConstant.APP_STORE_KEY.IS_VEFIRIED, "false");
             this.navigate(AppConstant.APP_PAGE.LOGIN);
           }
@@ -392,50 +394,7 @@ class MapComponent extends React.Component {
                   </Marker>
             ))}
         </MapView>
-        {/*  
-        <View style={[styles.bubble, styles.latlng]}>
-          <Text style={styles.centeredText}>
-            {this.state.region.latitude.toPrecision(7)},
-            {this.state.region.longitude.toPrecision(7)}
-          </Text>
-        </View>
-        
-        
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity
-            onPress={() => this.jumpRandom()}
-            style={[styles.bubble, styles.button]}
-          >
-            <Text style={styles.buttonText}>Jump</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => this.animateRandom()}
-            style={[styles.bubble, styles.button]}
-          >
-            <Text style={styles.buttonText}>Animate (Region)</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => this.animateRandomCoordinate()}
-            style={[styles.bubble, styles.button]}
-          >
-            <Text style={styles.buttonText}>Animate (Coordinate)</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => this.animateToRandomBearing()}
-            style={[styles.bubble, styles.button]}
-          >
-            <Text style={styles.buttonText}>Animate (Bearing)</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => this.animateToRandomViewingAngle()}
-            style={[styles.bubble, styles.button]}
-          >
-            <Text style={styles.buttonText}>Animate (View Angle)</Text>
-          </TouchableOpacity>
-        </View>
-        */
-        }
-       
+     
       </View>
     );
   }

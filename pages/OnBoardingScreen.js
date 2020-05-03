@@ -53,7 +53,7 @@ function OnBoardingScreen({ navigation }) {
                     }>
                     <Text
                         style={commonStyling.languageButtonText}
-                    >{translate(singleLang.label)}</Text>
+                    >{singleLang.label}</Text>
                 </TouchableOpacity>
             ));
         });

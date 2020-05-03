@@ -19,6 +19,8 @@ import translate from 'react-native-i18n';
 import appStorage from '../storage/AppStorage';
 import Geolocation from '@react-native-community/geolocation';
 import { getDistance, getPreciseDistance } from 'geolib';
+import Toast from 'react-native-tiny-toast'
+
 
 const { width, height } = Dimensions.get('window');
 const ASPECT_RATIO = width / height;
@@ -82,7 +84,7 @@ class Dashboard extends React.Component {
         this.mapComponentRef.current.addMarker(val)
       }).catch(err => {
         if(err.response.status === 409){
-          alert("appid expired ")
+          Toast.show('appid expired : ', {duration:2000, position:0, animation:true, shadow:true, animationDuration:1000})
           appStorage.storeAppInfo(AppConstant.APP_STORE_KEY.IS_VEFIRIED, "false");
           this.navigate(AppConstant.APP_PAGE.LOGIN);
         }
@@ -95,16 +97,13 @@ class Dashboard extends React.Component {
 
 
     componentDidMount = () =>{
-      alert("componentDidMount ")
     }
 
     componentDidUpdate = () =>{
 
-      alert("componentDidUpdate ")
     }
 
     componentWillReceiveProps = () =>{
-      alert("componentWillReceiveProps ")
     }
 
     
