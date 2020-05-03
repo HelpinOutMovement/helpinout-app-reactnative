@@ -371,7 +371,7 @@ function MyOfferScreen(props) {
           colorTheme={colorTheme}
           {...singleOption}
           primayActionLabel={translate.t("search_for_help_requester")}
-          secondaryActionLabel={translate.t("offers_sent")}
+          secondaryActionLabel={translate.t("sent_offers")}
           secondaryCompareWith={AppConstant.APP_MAPPING_INDICATOR.OFFERER}
           secondaryAction={AppConstant.APP_ACTION.OFFERER_SENT_OFFERS}
           

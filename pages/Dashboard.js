@@ -117,11 +117,11 @@ class Dashboard extends React.Component {
           <SafeAreaView style={{width:"100%", alignItems:"center"}}>
                         <View style={{ flex: 0, flexDirection: 'row',top:this.topBarPos , borderRadius:6 ,height:50, width:"90%", borderWidth:0, borderColor:"#000000" }}>                
                             <View style={{width: "15%", backgroundColor:"white", height: 50, borderRadius:6, borderTopRightRadius:0,borderBottomRightRadius:0 ,borderLeftWidth:1,borderTopWidth:1,borderBottomWidth:1}} ><Button transparent style={{padding:0}} onPress={() => {this.context.setLatLon({region:this.state.region, address:this.state.address}); this.navigation.openDrawer()}}><Icon name="menu"/></Button></View>
-                            <View style={{width: "65%", backgroundColor:"white", height: 50, borderRadius:0, borderTopWidth:1,borderBottomWidth:1,alignItems:"center", justifyContent:"center"}} >
+                            <View style={{width: "85%", backgroundColor:"white", height: 50, borderRadius:6, borderTopLeftRadius:0,borderBottomLeftRadius:0 ,borderTopWidth:1,borderBottomWidth:1,borderRightWidth:1,alignItems:"center", justifyContent: 'center'}} >
                                 <Text style={{fontSize:10, overflow:"hidden", height:10, textAlign:"left", width: "100%" , color:"grey", paddingTop:0, paddingBottom:0}}>You are here</Text>
                                 <Text style={{fontSize:12, overflow:"hidden", height:30,textAlign:"left", width: "100%", paddingTop:0}}>{this.state.address}</Text>
                             </View>
-                            <View style={{width: "20%", backgroundColor:"white", height: 50, borderRadius:6, borderTopLeftRadius:0,borderBottomLeftRadius:0 ,borderTopWidth:1,borderBottomWidth:1,borderRightWidth:1,alignItems:"center", justifyContent: 'center'}} ><Text style={{fontFamily: "roboto-medium",fontSize:14 , color:"rgba(243,103,103,1)"}}></Text></View>                            
+                           {/*} <View style={{width: "20%", backgroundColor:"white", height: 50, borderRadius:6, borderTopLeftRadius:0,borderBottomLeftRadius:0 ,borderTopWidth:1,borderBottomWidth:1,borderRightWidth:1,alignItems:"center", justifyContent: 'center'}} ><Text style={{fontFamily: "roboto-medium",fontSize:14 , color:"rgba(243,103,103,1)"}}></Text></View>*/}
                         </View>
  
                           <View style={{position:"absolute", left:0, top:footerTop-100, width:"100%", backgroundColor:"#FFFFFF"}}>  

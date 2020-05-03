@@ -12,7 +12,7 @@ import AddActivityScreen from './components/AddActivityScreen';
 
 const optionsOnScreen = [
   {
-    label: translate.t(appLabelKey.food),
+    label: translate.t("food"),
     path: StaticImage.FOOD,
     code: AppConstant.API_REQUEST_CONSTANTS.activity_category.FOOD
   },

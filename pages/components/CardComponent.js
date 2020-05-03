@@ -52,14 +52,14 @@ const CardComponent = (props) => {
                     fontFamily: "Roboto-Regular",
                     fontSize: 14,
                     color: "#4F50657A"
-                  }}> {props.nearMe} Requests near me </Text>
+                  }}> {props.nearMe} {translate.t("request_near_me")} </Text>
                   <Text style={{
                     fontFamily: "Roboto-Regular",
                     fontSize: 14,
                     color: "#4F50657A",
                     alignSelf: "flex-end",
                     marginRight: 10
-                  }}>{props.total} Total</Text>
+                  }}>{props.total} {translate.t("request_total")}</Text>
                 </Col>
               </Row>
             </Grid>
