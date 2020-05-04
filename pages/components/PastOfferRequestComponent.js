@@ -7,6 +7,7 @@ import AppConstant from '../../misc/AppConstant'
 import StaticImage from '../../styling/StaticImage';
 import Utilities from '../../misc/Utils';
 import { appLabelKey } from '../../misc/AppStrings';
+import {verticalScale, scale, moderateScale} from 'react-native-size-matters';
 
 
 
@@ -115,8 +116,8 @@ const getOfferListingView = (props, compareWith) => {
                 }
             }}
             style={{
-                width: "25%",
-                height: 25,
+                width: scale(60),
+                marginBottom:moderateScale(15),
                 borderRadius: 50,
                 alignItems: "center",
                 justifyContent: "center"
@@ -139,8 +140,8 @@ const PastOfferRequestComponent = (props) => {
     return (
         <Card style={{
             alignSelf: "center",
-            marginTop: 10,
-            width: "94%",
+            marginTop: moderateScale(10),
+            width: scale(330),
             borderRadius: 10,
             borderWidth: 2,
             shadowOpacity: 0.9,
@@ -148,23 +149,23 @@ const PastOfferRequestComponent = (props) => {
             shadowColor: '#EE6B6B3D'
         }} >
             <CardItem >
-                <View style={{ width: "100%", flexDirection: "column" }}>
-                    <View style={{ marginVertical: 10, flexDirection: "row", justifyContent: "space-between" }}>
-                        <View style={{ width: "70%" }}>
+                <View style={{ width: scale(300), flexDirection: "column" }}>
+                    <View style={{ marginVertical:moderateScale(10), flexDirection: "row", justifyContent: "center" }}>
+                        <View style={{ width: scale(240) , borderWidth:0, marginBottom:moderateScale(5)}}>
                             <Text style={{
                                 fontFamily: "Roboto-Medium",
                                 fontSize: 16,
                                 color: "#4F5065"
                             }}>{categoryName}</Text>
                             <Text style={{
-                                marginTop: 5,
+                                marginTop: moderateScale(5),
                                 fontFamily: "Roboto-Regular",
                                 fontSize: 12,
                                 color: "#4F50657A"
                             }}>{Utilities.getDateTime(props.date_time)}</Text>
                             <TouchableOpacity
                                 style={{
-                                    marginVertical: 10
+                                    marginVertical: moderateScale(10)
                                 }}
                                 onPress={() => {
                                     if (props.clickHandler) {
@@ -174,8 +175,10 @@ const PastOfferRequestComponent = (props) => {
                             >
                                 <View style={{
                                     backgroundColor: "#4F5065",
-                                    width: "40%",
-                                    borderRadius: 10,
+                                    width: scale(100),
+                                    height:verticalScale(20),
+                                    justifyContent:"center",
+                                    borderRadius: 6,
                                     alignItems: "center"
                                 }}>
                                     <Text style={{
@@ -188,28 +191,30 @@ const PastOfferRequestComponent = (props) => {
                             </TouchableOpacity>
                         </View>
                         <View style={{
-                            width: "25%",
-                            alignItems: "flex-end",
-                            paddingRight: 10
+                            width: scale(60),
+                            alignItems: "center",
+                            paddingRight: moderateScale(10),
+                            borderWidth:0
                         }}>
                             <Image
                                 style={{
-                                    width: 28,
-                                    height: 22
+                                    width: scale(40),
+                                    height: verticalScale(40),
+                                    resizeMode: "contain"
                                 }}
                                 source={StaticImage[helpOption]} />
                         </View>
                     </View>
 
                     <TouchableOpacity
-                        style={{ marginVertical: 10, flexDirection: "row", justifyContent: "space-between" }}
+                        style={{ marginVertical: 0, flexDirection: "row", justifyContent: "space-between" }}
                         onPress={() => {
                             if (props.clickHandler) {
                                 props.clickHandler(props, (props.tertiaryAction)? props.tertiaryAction:AppConstant.APP_ACTION.OFFERS_RCVD)
                             }
                         }}
                     >
-                        <View style={{ width: "70%" }}>
+                        <View style={{ width: scale(240), marginBottom:moderateScale(15) }}>
                             <Text style={{
                                 fontFamily: "Roboto-Medium",
                                 fontSize: 14,
@@ -222,14 +227,14 @@ const PastOfferRequestComponent = (props) => {
 
 
                     <TouchableOpacity
-                        style={{ marginVertical: 10, flexDirection: "row", justifyContent: "space-between" }}
+                        style={{ marginVertical: 0, flexDirection: "row", justifyContent: "space-between" }}
                         onPress={() => {
                             if (props.clickHandler) {
                                 props.clickHandler(props,(props.secondaryAction)?props.secondaryAction: AppConstant.APP_ACTION.SENT_REQUEST)
                             }
                         }}
                     >
-                        <View style={{ width: "70%" }}>
+                        <View style={{ width: scale(240), marginBottom:moderateScale(15) }}>
                             <Text style={{
                                 fontFamily: "Roboto-Medium",
                                 fontSize: 14,
@@ -241,14 +246,14 @@ const PastOfferRequestComponent = (props) => {
 
 
                     <TouchableOpacity
-                        style={{ marginVertical: 10, flexDirection: "row", justifyContent: "space-between" }}
+                        style={{ marginVertical: 0, flexDirection: "row", justifyContent: "space-between" }}
                         onPress={() => {
                             if (props.clickHandler) {
                                 props.clickHandler(props, AppConstant.APP_ACTION.SEARCH_FOR_PROVIDERS)
                             }
                         }}
                     >
-                        <View style={{ width: "70%" }}>
+                        <View style={{ width: scale(240) }}>
                             <Text style={{
                                 fontFamily: "Roboto-Medium",
                                 fontSize: 14,

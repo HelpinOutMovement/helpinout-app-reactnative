@@ -23,10 +23,10 @@ export default class RegisterMobile extends React.Component {
         ///const { navigate } = this.props.navigation;
         this.navigate = this.props.navigation.navigate;
         console.log(JSON.stringify("Register Constructor")); 
-       // console.log(JSON.stringify(this.props.route.params.loginState));
-        //this.state = this.props.route.params.loginState;
+        console.log(JSON.stringify(this.props.route.params.loginState));
+        this.state = this.props.route.params.loginState;
 
-        this.state = {}//this.props.route.params.loginState;
+        //this.state = {}//this.props.route.params.loginState;
         console.log(JSON.stringify(this.state));
     }
    

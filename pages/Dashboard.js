@@ -22,13 +22,12 @@ import { getDistance, getPreciseDistance } from 'geolib';
 import Toast from 'react-native-tiny-toast'
 import {verticalScale, scale, moderateScale} from 'react-native-size-matters';
 
-
 const { width, height } = Dimensions.get('window');
 const ASPECT_RATIO = width / height;
 const LATITUDE_DELTA = (Platform.OS === global.platformIOS ? 1.5 : 0.5);
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
-const footerTop = Utils.isIphoneX() ?  verticalScale(620) : verticalScale(600);
+const footerTop = Utils.isIphoneX() ?  verticalScale(620) : verticalScale(620);
 const bottomPanelTop = Utils.isIphoneX() ? height-190 : height-180;
 
 
@@ -112,7 +111,7 @@ class Dashboard extends React.Component {
     render() { 
       return (
           <Container style={{ alignItems:"center"}}>
-              <MapComponent   mapHeight={this.state.mapHeight} callbackOnRegionChange={this.callbackOnRegionChange} mapProps={this.props} ref={this.mapComponentRef}>                      
+              <MapComponent   mapHeight={verticalScale(590)} callbackOnRegionChange={this.callbackOnRegionChange} mapProps={this.props} ref={this.mapComponentRef}>                      
               </MapComponent>  
  
           <SafeAreaView style={{width:scale(350), alignItems:"center"}}>

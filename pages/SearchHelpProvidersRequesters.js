@@ -16,6 +16,7 @@ import StaticImage from '../styling/StaticImage';
 
 import StarRating from 'react-native-star-rating';
 
+import {verticalScale, scale, moderateScale} from 'react-native-size-matters';
 
 
 import { DrawerActions } from 'react-navigation-drawer';
@@ -37,7 +38,7 @@ class SearchHelpProvidersRequesters extends React.Component {
             activity_category:this.props.route.params.activity_category,
             activity_type:this.props.route.params.activity_type,
             activity_uuid:this.props.route.params.activity_uuid,
-            mapHeight:"50%",
+            mapHeight:verticalScale(340),
             bottom_panel_icon:"ios-arrow-dropdown",
             bottom_panel_visible:true, 
             bottom_panel_bottom:height/2,
@@ -149,12 +150,12 @@ class SearchHelpProvidersRequesters extends React.Component {
         if(this.state.bottom_panel_visible){
             this.setState({bottom_panel_visible:false})
             this.setState({bottom_panel_icon:"ios-arrow-dropup"})
-            this.setState({mapHeight:"100%"})
+            this.setState({mapHeight:verticalScale(680)})
             this.setState({bottom_panel_bottom:10})            
         }else{
             this.setState({bottom_panel_visible:true})
             this.setState({bottom_panel_icon:"ios-arrow-dropdown"})
-            this.setState({mapHeight:"50%"})
+            this.setState({mapHeight:verticalScale(340)})
             this.setState({bottom_panel_bottom:height/2})   
         }
     }
@@ -203,26 +204,26 @@ class SearchHelpProvidersRequesters extends React.Component {
                         <MapComponent  mapLatLon={this.props.route.params.latlon} mapHeight={this.state.mapHeight} callbackOnRegionChange={this.callbackOnRegionChange} mapProps={this.props} ref={this.mapComponentRef}>                      
                         </MapComponent>  
  
-                        <View style={{ flex: 0, flexDirection: 'row',top:this.topBarPos , borderRadius:6 ,height:50, width:"90%", borderWidth:0, borderColor:"#000000" }}>                
-                            <View style={{width: "15%", backgroundColor:"white", height: 50, borderRadius:6, borderTopRightRadius:0,borderBottomRightRadius:0 ,borderLeftWidth:1,borderTopWidth:1,borderBottomWidth:1}} ><Button transparent style={{padding:0}} onPress={() => this.navigate(AppConstant.APP_PAGE.DASHBOARD)}><Icon name="menu"/></Button></View>
-                            <View style={{width: "65%", backgroundColor:"white", height: 50, borderRadius:0, borderTopWidth:1,borderBottomWidth:1,alignItems:"center", justifyContent:"center"}} >
-                                <Text style={{fontSize:10, overflow:"hidden", height:10, textAlign:"left", width: "100%" , color:"grey", paddingTop:0, paddingBottom:0}}>You are here</Text>
-                                <Text style={{fontSize:12, overflow:"hidden", height:30,textAlign:"left", width: "100%", paddingTop:0}}>{this.state.address}</Text>
+                        <View style={{ width:scale(330), flex: 0, flexDirection: 'row',top:this.topBarPos , borderRadius:6 ,height: verticalScale(50), borderWidth:0, borderColor:"#000000" }}>                
+                            <View style={{width: scale(50), backgroundColor:"white", height: verticalScale(50), borderRadius:6, borderTopRightRadius:0,borderBottomRightRadius:0 ,borderLeftWidth:1,borderTopWidth:1,borderBottomWidth:1, justifyContent:"center"}} ><Button transparent style={{padding:0}} onPress={() => {this.context.setLatLon({region:this.state.region, address:this.state.address}); this.navigation.openDrawer()}}><Icon name="menu"/></Button></View>
+                            <View style={{width: scale(200), backgroundColor:"white", height: verticalScale(50), borderRightWidth:0,  borderRadius:0, borderTopLeftRadius:0,borderBottomLeftRadius:0 ,borderTopWidth:1,borderBottomWidth:1,alignItems:"center", justifyContent: 'center'}} >
+                                <Text style={{fontSize:10, overflow:"hidden", height:verticalScale(10), textAlign:"left", width:  scale(200) , color:"grey", paddingTop:0, paddingBottom:0}}>You are here</Text>
+                                <Text style={{fontSize:12, overflow:"hidden", height:verticalScale(30),textAlign:"left", width:  scale(200), paddingTop:0}}>{this.state.address}</Text>
                             </View>
-                            <View style={{width: "20%", backgroundColor:"white", height: 50, borderRadius:6, borderTopLeftRadius:0,borderBottomLeftRadius:0 ,borderTopWidth:1,borderBottomWidth:1,borderRightWidth:1,alignItems:"center", justifyContent: 'center'}} ><Text style={{fontFamily: "roboto-medium",fontSize:14 , color:"rgba(243,103,103,1)"}}>Change</Text></View>                            
+                           <View style={{width: scale(80), backgroundColor:"white", height: verticalScale(50), borderRadius:6, borderTopLeftRadius:0,borderBottomLeftRadius:0 ,borderTopWidth:1,borderBottomWidth:1,borderRightWidth:1,alignItems:"center", justifyContent: 'center'}} ><Text style={{fontFamily: "roboto-medium",fontSize:14 , color:"rgba(243,103,103,1)"}}>Change</Text></View>
                         </View>
 
-                        <View style={{position:"absolute",bottom:this.state.bottom_panel_bottom, height:50}}>
-                                <View style={{ flex: 0, flexDirection: 'row',top:0 , borderRadius:6 ,height:60, width:"100%", borderWidth:0, borderColor:"#000000" }}>                
-                                        <View style={{width: "15%", backgroundColor:"white", height: 50, borderRadius:6, borderTopRightRadius:0,borderBottomRightRadius:0 , borderBottomLeftRadius:0,borderLeftWidth:0,borderTopWidth:0, alignItems:"flex-end", justifyContent: 'center'}} >
+                        <View style={{position:"absolute",bottom:this.state.bottom_panel_bottom, height:verticalScale(50), justifyContent:"center"}}>
+                                <View style={{ flex: 0, flexDirection: 'row',justifyContent:"center", top:0 , borderRadius:6 ,height:verticalScale(38), width:scale(350), borderWidth:0, borderColor:"#000000" }}>                
+                                        <View style={{width: scale(52.5), backgroundColor:"white", height: verticalScale(50), borderRadius:6, borderTopRightRadius:0,borderBottomRightRadius:0 , borderBottomLeftRadius:0,borderLeftWidth:0,borderTopWidth:0, alignItems:"flex-end", justifyContent: 'center'}} >
                                             <Image
-                                                style={{ alignSelf: "center", width: 50, height: 30 }}
+                                                style={{ alignSelf: "center", width: scale(50), height: verticalScale(50) }}
                                                 source={StaticImage[Utilities.getCategoryFromCode(this.state.activity_category)]} 
                                                 resizeMode='contain'/>
                                                 
                                         </View>
-                                        <View style={{width: "65%", backgroundColor:"white", height: 50, borderRadius:0, borderTopWidth:0,alignItems:"center", justifyContent:"center"}} ><Text style={{fontSize:14, overflow:"hidden"}}>{(this.state.activity_type === 1) ? translate.t("select_help_provider") : translate.t("select_help_requester")}</Text></View>
-                                        <View style={{width: "20%", backgroundColor:"white", height: 50, borderRadius:6, borderTopLeftRadius:0,borderBottomLeftRadius:0 ,borderBottomRightRadius:0, borderTopWidth:0,borderRightWidth:0,alignItems:"center", justifyContent: 'center'}} ><Button transparent style={{padding:0}} onPress={()=>{this.toggleBottomPanel()}}><Icon name={this.state.bottom_panel_icon}/></Button></View>                                                        
+                                        <View style={{width: scale(227.5), justifyContent:"center", backgroundColor:"white", height: verticalScale(50), borderRadius:0, borderTopWidth:0,alignItems:"center", justifyContent:"center"}} ><Text style={{fontSize:14, overflow:"hidden", justifyContent:"center"}}>{(this.state.activity_type === 1) ? translate.t("select_help_provider") : translate.t("select_help_requester")}</Text></View>
+                                        <View style={{width: scale(70), justifyContent:"center", backgroundColor:"white", height: verticalScale(50), borderRadius:6, borderTopLeftRadius:0,borderBottomLeftRadius:0 ,borderBottomRightRadius:0, borderTopWidth:0,borderRightWidth:0,alignItems:"center", justifyContent: 'center'}} ><Button transparent style={{padding:0}} onPress={()=>{this.toggleBottomPanel()}}><Icon name={this.state.bottom_panel_icon}/></Button></View>                                                        
                                 </View>
                         </View> 
                         
@@ -230,17 +231,17 @@ class SearchHelpProvidersRequesters extends React.Component {
         
 
                             ? 
-                            <HView hide={!this.state.bottom_panel_visible} style={{position:"absolute",bottom:10, height:(height/2),justifyContent:"center",alignItems: 'center',  width:"98%"}}>
-                                <ScrollView style={{height:250, borderWidth:0, marginTop:10}}>
+                            <HView hide={!this.state.bottom_panel_visible} style={{position:"absolute",bottom:10, height:(height/2),justifyContent:"center",alignItems: 'center',  width:scale(340) , borderWidth:0}}>
+                                <ScrollView style={{height:verticalScale(250), borderWidth:0, marginTop:moderateScale(10)}}>
                                     {this.state.activitySuggestionOfferResponse.map(singleData => {
                                         return (
                                             <View style={styles.container}>
                                                 <View style={styles.rect}>
                                                     <View style={styles.rect2Row}>
-                                                        <View style={styles.rect2}><Text style={{paddingLeft:5, fontFamily:'Roboto-Medium'}}>{singleData.user_detail.first_name + " " + singleData.user_detail.last_name}</Text></View>                                     
+                                                        <View style={styles.rect2}><Text style={{paddingLeft:5, borderWidth:0, fontFamily:'Roboto-Medium'}}>{singleData.user_detail.first_name + " " + singleData.user_detail.last_name}</Text></View>                                     
                                                             
                                                             <Switch
-                                                                style={styles.rect3,{ marginTop:-5, transform: [{ scaleX: .5 }, { scaleY: .5 }] }}
+                                                                style={styles.rect3,{ borderWidth:0, marginTop:-5, transform: [{ scaleX: .5 }, { scaleY: .5 }] }}
                                                                 disabled={false}
                                                                 activeText={'On'}
                                                                 inActiveText={'Off'}
@@ -268,9 +269,9 @@ class SearchHelpProvidersRequesters extends React.Component {
                                                             //selectedStar={(rating) => this.onStarRatingPress(rating)}
                                                         />
                                                         </View>
-                                                        <View style={styles.rect5}><Text style={{paddingLeft:5, fontSize:12, marginLeft:10}}>{Utilities.timeSince(singleData.date_time)} ago  | {((this.getDistanceBetween({ latitude: this.state.region.latitude, longitude: this.state.region.longitude }, { latitude: singleData.geo_location.split(",")[0], longitude: singleData.geo_location.split(",")[1] }))/1000).toFixed(2)} kms away</Text></View>
+                                                        <View style={styles.rect5}><Text style={{paddingLeft:moderateScale(5), fontSize:12, marginLeft:moderateScale(5)}}>{Utilities.timeSince(singleData.date_time)} ago  | {((this.getDistanceBetween({ latitude: this.state.region.latitude, longitude: this.state.region.longitude }, { latitude: singleData.geo_location.split(",")[0], longitude: singleData.geo_location.split(",")[1] }))/1000).toFixed(2)} kms away</Text></View>
                                                     </View>
-                                                    <View style={styles.rect6}><Text style={{paddingLeft:5, fontSize:10}}>Can help with</Text></View>
+                                                    <View style={styles.rect6}><Text style={{paddingLeft:moderateScale(5), fontSize:10}}>Can help with</Text></View>
                                                     <View style={styles.rect7}>
                                                         {(singleData.activity_detail && singleData.activity_detail.length > 0) ? 
                                                             <>
@@ -296,7 +297,7 @@ class SearchHelpProvidersRequesters extends React.Component {
                                     })}
                                                                         
                                 </ScrollView>
-                                <Text style={{height:80, textAlign:"center", paddingLeft:15, paddingRight:15, paddingTop:20, color:"grey"}}>
+                                <Text style={{height:verticalScale(80), textAlign:"center", paddingLeft:moderateScale(15), paddingRight:moderateScale(15), paddingTop:moderateScale(20), color:"grey"}}>
                                     {(this.state.activity_type === 1) ? translate.t("phone_number_will_be_send_to_provider") : translate.t("phone_number_will_be_send_to_requester")}
                                 </Text>
                                 <View style={styles.buttonContainer}>
@@ -308,9 +309,9 @@ class SearchHelpProvidersRequesters extends React.Component {
                                 </View>
                             </HView>
                             :
-                            <HView hide={!this.state.bottom_panel_visible} style={{position:"absolute",bottom:10, height:(height/2),justifyContent:"center",alignItems: 'center',  width:"98%"}}>
+                            <HView hide={!this.state.bottom_panel_visible} style={{position:"absolute",bottom:verticalScale(10), height:verticalScale(340),justifyContent:"center",alignItems: 'center',  width:scale(340)}}>
 
-                                <View style={{height:250, borderWidth:2, marginTop:30}}>
+                                <View style={{height:verticalScale(250), borderWidth:0, marginTop:moderateScale(30)}}>
                                     <Text>
                                         {translate.t("no_help_requeter")}
                                     </Text>
@@ -335,12 +336,12 @@ const styles =  StyleSheet.create({
 
     
     buttonContainer:{
-      padding: 10,        
+      padding:  moderateScale(10),        
       flexDirection: "row",     
-      width: (dimensions.width*.95),             
+      width: scale(300),             
       justifyContent:'center',
       alignItems: 'center',  
-      height:60  ,
+      height:verticalScale(60)  ,
     borderWidth:0  
     },
    
@@ -351,33 +352,33 @@ const styles =  StyleSheet.create({
 
 
     rect: {
-        width: "100%",
-        height: 150,
+        width: scale(330),
+        height:verticalScale(120),
         backgroundColor: "#FFFFFF",//"rgba(230, 230, 230,1)",
-        marginTop: 5,
+        marginTop: moderateScale(5),
         alignSelf: "center",
         borderWidth:0,
         borderRadius:6
       },
       rect2: {
-        width: "85%",
+        width: scale(280),
         height: 20,
         backgroundColor: "#FFFFFF",//"rgba(230, 230, 230,1)",
-        marginRight:"4%",
+        marginRight:moderateScale(10),
         borderWidth:0,
         fontFamily:"roboto-bold"
 
       },
       rect3: {
-        width: "8%",
-        height: 20,
+        width: scale(50),
+        height: verticalScale(20),
         backgroundColor: "#FFFFFF",//"rgba(230, 230, 230,1)",
-        marginLeft: 2,
+        marginLeft: moderateScale(2),
         borderWidth:0,
       },
       rect2Row: {
-        width: "90%",
-        height: 20,
+        width: scale(280),
+        height: verticalScale(20),
         flexDirection: "row",
         marginTop: 7,
         marginLeft: 0,
@@ -385,29 +386,29 @@ const styles =  StyleSheet.create({
         borderWidth:0,
       },
       rect4: {
-        width: "30%",
-        height: 20,
+        width: scale(105),
+        height: verticalScale(20),
         backgroundColor: "#FFFFFF",//"rgba(230, 230, 230,1)",
         borderWidth:0,
-        paddingLeft:5
+        paddingLeft:moderateScale(5)
       },
       rect5: {
-        width: "60%",
+        width: scale(210),
         height: 20,
         backgroundColor: "#FFFFFF",//"rgba(230, 230, 230,1)",
         marginLeft: "0%",
         borderWidth:0,
       },
       rect4Row: {
-        width:"100%",
-        height: 25,
+        width:scale(330),
+        height: verticalScale(25),
         flexDirection: "row",
-        marginTop: 4,
+        marginTop: moderateScale(4),
         marginLeft: 0,
-        marginRight: 10
+        marginRight: moderateScale(10)
       },
       rect6: {
-        width: "50%",
+        width: scale(175),
         height: 15,
         backgroundColor: "#FFFFFF",//"rgba(230, 230, 230,1)",
         marginLeft: 0,
@@ -416,8 +417,8 @@ const styles =  StyleSheet.create({
         paddingLeft:1
       },
       rect7: {
-        width: "100%",
-        height: 75,
+        width: scale(330),
+        height: verticalScale(75),
         backgroundColor: "#FFFFFF",//"rgba(230, 230, 230,1)",
         marginTop: 2,
         marginLeft: 0,
@@ -430,8 +431,8 @@ const styles =  StyleSheet.create({
         ContinueButtonContainer_red: {
           backgroundColor: "rgba(243,103,103,1)",
           justifyContent:'center',
-          height:50,
-          width:width*0.9,
+          height:verticalScale(50),
+          width:scale(310),
           alignItems: 'center',
           borderRadius: 9,
         },
@@ -439,8 +440,8 @@ const styles =  StyleSheet.create({
         ContinueButtonContainer_grey: {
             backgroundColor: "rgba(109,115,130,1)",
             justifyContent:'center',
-            height:50,
-            width:width*0.9,
+            height:verticalScale(50),
+            width:scale(310),
             alignItems: 'center',
             borderRadius: 9,
           },
