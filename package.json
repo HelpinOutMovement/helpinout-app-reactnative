@@ -47,6 +47,7 @@
     "react-native-render-html": "^4.2.0",
     "react-native-safe-area-context": "^0.7.3",
     "react-native-screens": "^2.4.0",
+    "react-native-size-matters": "^0.3.0",
     "react-native-star-rating": "^1.1.0",
     "react-native-tiny-toast": "^1.0.7",
     "react-native-uuid-generator": "^6.1.1",
