@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import { StyleSheet, View, Text } from "react-native";
 import translate from 'react-native-i18n';
+import {verticalScale, scale, moderateScale} from 'react-native-size-matters';
+
 function AskForHelpButton(props) {
   return (
-    <View style={[styles.container, props.style]}>
+    <View style={styles.container}>
       <Text style={styles.askForHelp}>{translate.t("ask_for_help")}</Text>
     </View>
   );
@@ -13,8 +15,8 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "rgba(243,103,103,1)",
     justifyContent:'center',
-    height:50,
-    width:150,
+    height:verticalScale(40),
+    width:scale(130),
     alignItems: 'center',
     borderRadius: 9,
   },

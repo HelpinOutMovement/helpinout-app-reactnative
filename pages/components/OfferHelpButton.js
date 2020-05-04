@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { StyleSheet, View, Text } from "react-native";
 import translate from 'react-native-i18n';  
+import {verticalScale, scale, moderateScale} from 'react-native-size-matters';
+
 function OfferHelpButon(props) {
   return (    
     <View style={[styles.container, props.style]}>
@@ -13,8 +15,8 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "rgba(109,115,130,1)",
     justifyContent:'center',
-    height:50,
-    width:150,
+    height:verticalScale(40),
+    width:scale(130),
     alignItems: 'center',
     borderRadius: 9,
   },
