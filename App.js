@@ -191,7 +191,8 @@ useEffect(() => {
  checkPermission = async () => {
   const enabled = await firebase.messaging().hasPermission();
   if (enabled) {
-    this.getFcmToken();
+    let fcmToken = this.getFcmToken();
+    console.log("checkPermission Your Firebase Token is:" + fcmToken);
   } else {
     this.requestPermission();
   }
@@ -222,26 +223,28 @@ useEffect(() => {
 
 
  messageListener = async () => {
+      console.log("In message Listner")
       this.notificationListener = firebase.notifications().onNotification((notification) => {
         const { title, body } = notification;
-        console.log("Notification Data : " + title , " ", body)
+        console.log("Notification Data 1 : " + title , " ", body)
         //this.showAlert(title, body);
       });
     
       this.notificationOpenedListener = firebase.notifications().onNotificationOpened((notificationOpen) => {
         const { title, body } = notificationOpen.notification;
-        console.log(title , " ", body)
+        console.log("Notification Data 2 : " + title , " ", body)
         //this.showAlert(title, body);
       });
     
       const notificationOpen = await firebase.notifications().getInitialNotification();
       if (notificationOpen) {
         const { title, body } = notificationOpen.notification;
-        console.log(title , " ", body)
+        console.log("Notification Data 3 : " + title , " ", body)
         //this.showAlert(title, body);
       }
     
       this.messageListener = firebase.messaging().onMessage((message) => {
+        console.log("Notification Data 4 : " + message)
       console.log(JSON.stringify(message));
       });
  }

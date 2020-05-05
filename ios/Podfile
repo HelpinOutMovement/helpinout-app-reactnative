@@ -70,6 +70,10 @@ target 'helpinout' do
   # Pods for fcm
   pod 'Firebase/Messaging'
 
+
+  # Recommended: Add the Firebase pod for Google Analytics
+  pod 'Firebase/Analytics'
+
   target 'helpinoutTests' do
     inherit! :complete
     # Pods for testing
