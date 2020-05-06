@@ -32,8 +32,9 @@ function OnBoardingInfoScreen({ navigation }) {
 
     return (
         <SafeAreaView style={{ flexDirection: "column" }}>
-            <LogoComponent marginVertical={15} />
-            <View style={{ alignItems:"center"}}>
+             <View style={{ flexDirection: "column" }}>
+            <LogoComponent marginVertical={15} marginTop={100}/>
+            <View style={{ alignItems: "center" }}>
                 <TouchableOpacity
                     style={{
                         alignItems: "center",
@@ -49,18 +50,58 @@ function OnBoardingInfoScreen({ navigation }) {
                             fontFamily: "Roboto-Regular",
                             fontSize: 16,
                             marginLeft: 0,
-                            color: "#4F5065CC"
+                            color: "#4F5065"
                         }}
-                    >{translate.t("website_name")}</Text>                    
+                    >{translate.t('website_name')}</Text>
                 </TouchableOpacity>
             </View>
-            <View style={{top:(dimensions.height*.05)}}>
-                
-                <View style={{alignItems: "center" ,marginTop:50}}>
-                <HTMLView value={translate.t("instruction_text")}  />
+            <View style={{ top: (dimensions.height * .25) }}>
+                <View style={{ alignItems: "center", flexDirection: "row", justifyContent: "center" }}>
+                    <Text
+                        style={{
+                            textAlign: "center",
+                            fontFamily: "Roboto-Regular",
+                            fontSize: 16,
+                            marginLeft: 0,
+                            color: "#EE6B6B"
+                        }}
+                    >{translate.t("instruction_text_1")}</Text>
+                    <Text
+                        style={{
+                            textAlign: "center",
+                            fontFamily: "Roboto-Regular",
+                            fontSize: 16,
+                            color: "#4F5065"
+                        }}
+                    >{translate.t("instruction_text_2")}</Text>
+                </View>
+                <View style={{ alignItems: "center" }}>
+                    <Text
+                        style={{
+                            textAlign: "center",
+                            fontFamily: "Roboto-Regular",
+                            fontSize: 16,
+                            marginTop: 10,
+                            color: "#4F5065CC"
+                        }}
+                    >{translate.t("instruction_text_3")}</Text>
                 </View>
 
-                <View style={{ alignItems: "center"}} >
+
+                <View style={{ alignItems: "center", marginTop: 50 }}>
+                    <Text
+                        style={{
+                            textAlign: "center",
+                            fontFamily: "Roboto-Regular",
+                            fontSize: 16,
+                            marginTop: 10,
+                            color: "#4F5065CC",
+                            width: 275,
+                        }}
+                    >{translate.t("instruction_text_4")}</Text>
+                </View>
+
+                <View style={{ alignItems: "center", marginTop: 50 }} >
                     <TouchableOpacity
                         style={{
                             marginVertical: 30,
@@ -69,7 +110,7 @@ function OnBoardingInfoScreen({ navigation }) {
                             height: 56,
                             width: "92%",
                             shadowOpacity: 0.9,
-                            //shadowOffset: { height: 3 },
+                            shadowOffset: { height: 3 },
                             shadowColor: '#2328321F',
                             borderRadius: 9,
 
@@ -81,8 +122,8 @@ function OnBoardingInfoScreen({ navigation }) {
                             style={{
 
                                 textAlign: "center",
-                                 fontFamily: "Roboto-Regular",
-                                fontSize: 16,
+                                fontFamily: "Roboto-Medium",
+                                fontSize: 20,
                                 lineHeight: 56,
                                 color: "#FFFFFF"
 
@@ -93,7 +134,8 @@ function OnBoardingInfoScreen({ navigation }) {
                 </View>
             </View>
 
-        </SafeAreaView>
+        </View>
+         </SafeAreaView>
     );
 }
 

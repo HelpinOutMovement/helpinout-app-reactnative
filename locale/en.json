@@ -158,5 +158,9 @@
     "TODO_SANDEEP":"TODO_SANDEEP",
     "request_sent" :"Requests sent",
     "offers_sent" :"Offers sent",
-    "request_received" :"Requests received"
+    "request_received" :"Requests received",
+    "instruction_text_1": " Ask for Help = ",
+    "instruction_text_2": "Offer Help",
+    "instruction_text_3": "where ever you are",
+    "instruction_text_4":" Find help-providers and help requesters around you"
 }
