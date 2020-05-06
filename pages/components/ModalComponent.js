@@ -410,8 +410,9 @@ const viewDetailsForRequestAndOfferModalContent = (props) => {
             alignItems: 'center',
             borderRadius: 4,
             borderColor: 'rgba(0, 0, 0, 0.1)',
-            paddingVertical: 15,
-            paddingHorizontal: 15
+            paddingHorizontal: 15,
+            paddingBottom:"25%",
+            paddingTop:"5%"
         }}>
             <View style={{ width: "100%" }}>
                 <View style={{

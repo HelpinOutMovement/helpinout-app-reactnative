@@ -7,7 +7,7 @@ import AppConstant from '../../misc/AppConstant'
 import StaticImage from '../../styling/StaticImage';
 import Utilities from '../../misc/Utils';
 import { appLabelKey } from '../../misc/AppStrings';
-import {verticalScale, scale, moderateScale} from 'react-native-size-matters';
+import { verticalScale, scale, moderateScale } from 'react-native-size-matters';
 
 
 
@@ -109,27 +109,11 @@ const getOfferListingView = (props, compareWith) => {
     const offerListLength = getOfferList(props, (compareWith ? compareWith : AppConstant.APP_MAPPING_INDICATOR.OFFERER)).length;
 
     return (
-        <TouchableOpacity
-            onPress={() => {
-                if (props.clickHandler) {
-                    props.clickHandler(props, AppConstant.APP_ACTION.OFFERS_RCVD)
-                }
-            }}
-            style={{
-                width: scale(60),
-                marginBottom:moderateScale(15),
-                borderRadius: 50,
-                alignItems: "center",
-                justifyContent: "center"
-            }}>
             <Text style={{
                 fontFamily: "Roboto-Regular",
                 fontSize: 12,
                 color: "#4F5065"
             }}> {offerListLength}</Text>
-
-        </TouchableOpacity>
-
     )
 
 }
@@ -150,8 +134,14 @@ const PastOfferRequestComponent = (props) => {
         }} >
             <CardItem >
                 <View style={{ width: scale(300), flexDirection: "column" }}>
-                    <View style={{ marginVertical:moderateScale(10), flexDirection: "row", justifyContent: "center" }}>
-                        <View style={{ width: scale(240) , borderWidth:0, marginBottom:moderateScale(5)}}>
+                    <View style={{
+                        marginVertical: moderateScale(10),
+                        borderBottomWidth: 1,
+                        borderBottomColor: "#dddddd",
+                        flexDirection: "row",
+                        justifyContent: "center"
+                    }}>
+                        <View style={{ width: scale(240), borderWidth: 0, marginBottom: moderateScale(5) }}>
                             <Text style={{
                                 fontFamily: "Roboto-Medium",
                                 fontSize: 16,
@@ -176,8 +166,8 @@ const PastOfferRequestComponent = (props) => {
                                 <View style={{
                                     backgroundColor: "#4F5065",
                                     width: scale(100),
-                                    height:verticalScale(20),
-                                    justifyContent:"center",
+                                    height: verticalScale(20),
+                                    justifyContent: "center",
                                     borderRadius: 6,
                                     alignItems: "center"
                                 }}>
@@ -194,7 +184,7 @@ const PastOfferRequestComponent = (props) => {
                             width: scale(60),
                             alignItems: "center",
                             paddingRight: moderateScale(10),
-                            borderWidth:0
+                            borderWidth: 0
                         }}>
                             <Image
                                 style={{
@@ -207,59 +197,73 @@ const PastOfferRequestComponent = (props) => {
                     </View>
 
                     <TouchableOpacity
-                        style={{ marginVertical: 0, flexDirection: "row", justifyContent: "space-between" }}
+                        style={{
+                            flexDirection: "row",
+                            justifyContent: "space-between",
+                            borderBottomWidth: 1,
+                            borderBottomColor: "#ddddddd",
+                            paddingVertical: 10,
+                            alignItems: "center"
+                        }}
                         onPress={() => {
                             if (props.clickHandler) {
-                                props.clickHandler(props, (props.tertiaryAction)? props.tertiaryAction:AppConstant.APP_ACTION.OFFERS_RCVD)
+                                props.clickHandler(props, (props.tertiaryAction) ? props.tertiaryAction : AppConstant.APP_ACTION.OFFERS_RCVD)
                             }
                         }}
                     >
-                        <View style={{ width: scale(240), marginBottom:moderateScale(15) }}>
-                            <Text style={{
-                                fontFamily: "Roboto-Medium",
-                                fontSize: 14,
-                                color: "#4F5065"
-                            }}>{(props.tertiaryActionLabel)? props.tertiaryActionLabel : translate.t("niu_offfer_received")}</Text>
-                        </View>
-                        {getOfferListingView(props, (props.tertiaryCompareWith)? props.tertiaryCompareWith : AppConstant.APP_MAPPING_INDICATOR.OFFERER)}
+                        <Text style={{
+                            fontFamily: "Roboto-Medium",
+                            fontSize: 14,
+                            color: "#4F5065"
+                        }}>{(props.tertiaryActionLabel) ? props.tertiaryActionLabel : translate.t("niu_offfer_received")}</Text>
+
+                        {getOfferListingView(props, (props.tertiaryCompareWith) ? props.tertiaryCompareWith : AppConstant.APP_MAPPING_INDICATOR.OFFERER)}
                     </TouchableOpacity>
 
 
 
                     <TouchableOpacity
-                        style={{ marginVertical: 0, flexDirection: "row", justifyContent: "space-between" }}
+                        style={{
+                            paddingVertical: 10,
+                            borderBottomWidth: 1,
+                            borderBottomColor: "#dddddd",
+                            flexDirection: "row",
+                            justifyContent: "space-between",
+                            alignItems: "center"
+                        }}
                         onPress={() => {
                             if (props.clickHandler) {
-                                props.clickHandler(props,(props.secondaryAction)?props.secondaryAction: AppConstant.APP_ACTION.SENT_REQUEST)
+                                props.clickHandler(props, (props.secondaryAction) ? props.secondaryAction : AppConstant.APP_ACTION.SENT_REQUEST)
                             }
                         }}
                     >
-                        <View style={{ width: scale(240), marginBottom:moderateScale(15) }}>
-                            <Text style={{
-                                fontFamily: "Roboto-Medium",
-                                fontSize: 14,
-                                color: "#4F5065"
-                            }}>{props.secondaryActionLabel}</Text>
-                        </View>
-                        {getOfferListingView(props, (props.secondaryCompareWith)? props.secondaryCompareWith :AppConstant.APP_MAPPING_INDICATOR.REQUESTER)}
+                        <Text style={{
+                            fontFamily: "Roboto-Medium",
+                            fontSize: 14,
+                            color: "#4F5065"
+                        }}>{props.secondaryActionLabel}</Text>
+                        {getOfferListingView(props, (props.secondaryCompareWith) ? props.secondaryCompareWith : AppConstant.APP_MAPPING_INDICATOR.REQUESTER)}
                     </TouchableOpacity>
 
 
                     <TouchableOpacity
-                        style={{ marginVertical: 0, flexDirection: "row", justifyContent: "space-between" }}
+                        style={{
+                            paddingVertical: 10,
+                            marginVertical: 0,
+                            flexDirection: "row",
+                            justifyContent: "space-between"
+                        }}
                         onPress={() => {
                             if (props.clickHandler) {
                                 props.clickHandler(props, AppConstant.APP_ACTION.SEARCH_FOR_PROVIDERS)
                             }
                         }}
                     >
-                        <View style={{ width: scale(240) }}>
-                            <Text style={{
-                                fontFamily: "Roboto-Medium",
-                                fontSize: 14,
-                                color: "#4F5065"
-                            }}>{props.primayActionLabel}</Text>
-                        </View>
+                        <Text style={{
+                            fontFamily: "Roboto-Medium",
+                            fontSize: 14,
+                            color: "#4F5065"
+                        }}>{props.primayActionLabel}</Text>
                     </TouchableOpacity>
 
 
