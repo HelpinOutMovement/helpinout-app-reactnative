@@ -5,7 +5,12 @@ import {verticalScale, scale, moderateScale} from 'react-native-size-matters';
 
 function AskForHelpButton(props) {
   return (
-    <View style={styles.container}>
+    <View style={{
+      backgroundColor:"#EE6B6B",
+      borderRadius:10,
+      paddingHorizontal: 25,
+      paddingVertical:15      
+    }}>
       <Text style={styles.askForHelp}>{translate.t("ask_for_help")}</Text>
     </View>
   );

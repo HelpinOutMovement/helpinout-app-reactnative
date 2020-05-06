@@ -5,7 +5,12 @@ import {verticalScale, scale, moderateScale} from 'react-native-size-matters';
 
 function OfferHelpButon(props) {
   return (    
-    <View style={[styles.container, props.style]}>
+    <View style={{
+      backgroundColor:"#4F5065",
+      borderRadius:10,
+      paddingHorizontal: 25,
+      paddingVertical:15      
+    }}>
     <Text style={styles.offerHelp}>{translate.t("offer_help")}</Text>
   </View>
   );
