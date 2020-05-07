@@ -37,9 +37,13 @@ import VerifyScreen from './pages/VerifyScreen';
 import AddActivityScreen from './pages/components/AddActivityScreen';
 import SearchHelpProvidersRequesters from './pages/SearchHelpProvidersRequesters';
 
+
+import DeviceInfo from 'react-native-device-info';
+
 import PushNotificationIOS from "@react-native-community/push-notification-ios";
 
 import firebase from "react-native-firebase";
+import API from './APIClient/API';
 
 //import firebase from 'react-native-firebase';
 //import  { Notification, NotificationOpen } from 'react-native-firebase';
@@ -53,7 +57,9 @@ const Stack = createStackNavigator();
 function App() {
 
 
+  const appVersion = DeviceInfo.getVersion();
 
+  console.log("App Version",JSON.stringify(DeviceInfo.getBuildNumber()));
 
 /*
 
@@ -191,8 +197,22 @@ useEffect(() => {
  checkPermission = async () => {
   const enabled = await firebase.messaging().hasPermission();
   if (enabled) {
-    let fcmToken = this.getFcmToken();
-    console.log("checkPermission Your Firebase Token is:" + fcmToken);
+    let fcmToken = await this.getFcmToken();
+    if (fcmToken) {
+      console.log("Your Firebase Token is:" + fcmToken);
+      AppStorage.storeAppInfo(AppConstant.FIREBASE_CLOUD_MESSAGING_TOKEN, fcmToken)
+      //this.showAlert("Your Firebase Token is:", fcmToken);
+
+      let retToken = AppStorage.getAppInfo(AppConstant.FIREBASE_CLOUD_MESSAGING_TOKEN).then((response) => {
+        console.log("Your Firebase Stored Token is:" + response);
+
+      });
+      console.log("Your Firebase Stored 1 Token is:" + retToken);
+
+     } else {
+       console.log("Failed", "No token received")
+      //this.showAlert("Failed", "No token received");
+     }
   } else {
     this.requestPermission();
   }
@@ -201,13 +221,7 @@ useEffect(() => {
 
  getFcmToken = async () => {
   const fcmToken = await firebase.messaging().getToken();
-  if (fcmToken) {
-   console.log("Your Firebase Token is:" + fcmToken);
-   //this.showAlert("Your Firebase Token is:", fcmToken);
-  } else {
-    console.log("Failed", "No token received")
-   //this.showAlert("Failed", "No token received");
-  }
+  return fcmToken;
  }
 
 

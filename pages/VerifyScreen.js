@@ -58,21 +58,17 @@ export default class VerifyScreen extends React.Component {
     };
 
     resendVerificationCode = (forceResend) => {
-        //Toast.show("starting timer " , {duration:1000, position:0, animation:true, shadow:true, animationDuration:1000})
         this.setState({contdownValue:60, verificationCodeEditable:false, resendVerificationCodeEnabled:false})
         setTimeout(() =>{
             this.updateTimer();
             this.handleSendCode(forceResend);
         }, 1000)
-            
-   
     }
 
     updateTimer = async () => {
         let interval = setInterval(() =>{
-            console.log(this.state.contdownValue)
             this.setState({contdownValue:--this.state.contdownValue})
-            if(this.state.contdownValue < 0){
+            if(this.state.contdownValue <= 0){
                 this.setState({verificationCodeEditable:true, resendVerificationCodeEnabled:true})
                 clearInterval(interval);
                 this.setState({contdownValue:0})            
@@ -109,8 +105,7 @@ export default class VerifyScreen extends React.Component {
                 this.setState({verificationCodeEditable:true})
                 Toast.show(translate.t('otp_send_success') , {duration:1000, position:0, animation:true, shadow:true, animationDuration:1000})
               console.log(confirmResult)
-              this.setState({ confirmResult: confirmResult });
-                         
+              this.setState({ confirmResult: confirmResult });       
             })
             .catch(error => {
                 Toast.show('Error : ' + JSON.stringify(error) , {duration:1000, position:0, animation:true, shadow:true, animationDuration:1000})
@@ -126,29 +121,33 @@ export default class VerifyScreen extends React.Component {
         this.setState({ loggedIn: true });
         if (this.validatePhoneNumber()) {
             let restApi = new API();
-            reqObj = restApi.login(this.state.selectedCountryDialCode, this.state.phoneNumber);
-            reqObj.then(
-                result => {
-                    if (result.status === "0") {
-                        this.navigate(AppConstant.APP_PAGE.REGISTER_MOBILE, { loginState: this.state });
-                    } else {
-                        AppStorage.storeAppInfo(AppConstant.APP_STORE_KEY.USER_REG_DETAILS, JSON.stringify(result.data));
-                        AppStorage.getAppInfo(AppConstant.APP_STORE_KEY.IS_VEFIRIED).then((value) => {
-                            if (value === "true") {
-                                this.navigate(AppConstant.APP_PAGE.DASHBOARD, JSON.stringify(result.data));
-                            } else {
-                                //this.handleSendCode();  //////   
-                                this.navigate(AppConstant.APP_PAGE.LOGIN);
-                            }
-                        });
+            AppStorage.getAppInfo(AppConstant.FIREBASE_CLOUD_MESSAGING_TOKEN).then((fcmToken) => {
+                reqObj = restApi.login(this.state.selectedCountryDialCode, this.state.phoneNumber, fcmToken);
+                reqObj.then(
+                    result => {
+                        if (result.status === "0") {
+                            this.navigate(AppConstant.APP_PAGE.REGISTER_MOBILE, { loginState: this.state });
+                        } else {
+                            AppStorage.storeAppInfo(AppConstant.APP_STORE_KEY.USER_REG_DETAILS, JSON.stringify(result.data));
+                            AppStorage.getAppInfo(AppConstant.APP_STORE_KEY.IS_VEFIRIED).then((value) => {
+                                if (value === "true") {
+                                    this.navigate(AppConstant.APP_PAGE.DASHBOARD, JSON.stringify(result.data));
+                                } else {
+                                    this.navigate(AppConstant.APP_PAGE.LOGIN);
+                                }
+                            });
+                        }
+                    },
+                    error => {
+                        this.setState({resendVerificationCodeEnabled:true, verificationCodeEditable:true, contdownValue:0})
+                        AppStorage.storeAppInfo(AppConstant.APP_STORE_KEY.IS_VEFIRIED, "false");
+                        AppStorage.storeAppInfo(AppConstant.APP_STORE_KEY.USER_REG_DETAILS, "");
+                        Toast.show('Login Error ' + JSON.stringify(error) , {duration:1000, position:0, animation:true, shadow:true, animationDuration:2000})
                     }
-                },
-                error => {
-                    Toast.show('Login Error ' + JSON.stringify(error) , {duration:1000, position:0, animation:true, shadow:true, animationDuration:1000})
-                }
-            );
+                );
+            })
         } else {
-            Toast.show(translate.t('toast_error_invalid_phone_number') , {duration:1000, position:0, animation:true, shadow:true, animationDuration:1000})
+            Toast.show(translate.t('toast_error_invalid_phone_number') , {duration:1000, position:0, animation:true, shadow:true, animationDuration:2000})
             // Add Error Toasts
         }
     }
@@ -157,19 +156,17 @@ export default class VerifyScreen extends React.Component {
         // Request for OTP verification
         const { confirmResult, verificationCode } = this.state;
         if (verificationCode.length == 6) {
-            //console.log(verificationCode);
             this.setState({verificationCodeEditable:false})
             confirmResult.confirm(verificationCode)
                 .then(user => {
-                    //console.log(user);
                     AppStorage.storeAppInfo(AppConstant.APP_STORE_KEY.IS_VEFIRIED, "true").then((data) => {
                         AppStorage.storeAppInfo(AppConstant.FIREBASE_USER_DETAILS, JSON.stringify(user)).then((data) => {
                             this.login();
-                            //this.navigate(AppConstant.APP_PAGE.DASHBOARD, {loginState: this.state});             
                         });
                     });
                 })
                 .catch(error => {
+                    AppStorage.storeAppInfo(AppConstant.APP_STORE_KEY.IS_VEFIRIED, "false")
                     Toast.show('Verification Error ' + JSON.stringify(error) , {duration:1000, position:0, animation:true, shadow:true, animationDuration:1000})
                 })
         } else {
@@ -182,7 +179,6 @@ export default class VerifyScreen extends React.Component {
         return (
             <View>
                 {this.renderConfirmationCodeView()}
-                {/*this.state.confirmResult ? this.renderConfirmationCodeView() : null*/}
             </View>
 
         );
@@ -221,7 +217,7 @@ export default class VerifyScreen extends React.Component {
                 </View>
                 <View style={{ alignItems: "center", width: "96%" }} >
                     <View style={{ alignItems: "center", marginVertical: 0, width: "94%" }} >
-                        <TouchableOpacity
+                    <TouchableOpacity
                             style={{
                                 backgroundColor: "#4F5065", height: 56,
                                 marginTop: 10,

@@ -1,7 +1,11 @@
 import React from 'react';
-import { FooterTab, Button, Icon, Text } from 'native-base';
+import { FooterTab, Button, Text } from 'native-base';
 import translate from 'react-native-i18n';
 import AppConstant from '../../misc/AppConstant';
+
+import { createIconSetFromFontello } from 'react-native-vector-icons';
+import fontelloConfig from '../../assets/config.json';
+const Icon = createIconSetFromFontello(fontelloConfig);
 
 const FooterTabComponent = (props) => {
     return (
@@ -17,7 +21,7 @@ const FooterTabComponent = (props) => {
                     height: 70
                 }}
             >
-                <Icon name="ios-home" style={{ color: (props.activeTab === AppConstant.APP_FOOTER_TABS.HOME) ? "#EE6B6B" : "#4F50657A" }} />
+                <Icon name="home" style={props.activeTab === AppConstant.APP_FOOTER_TABS.HOME ? {fontSize:25 , color:"#EE6B6B"} : {fontSize:25, color:"#4F50657A"}}/>
                 <Text style={{
                     color: (props.activeTab === AppConstant.APP_FOOTER_TABS.HOME) ? "#EE6B6B" : "#4F50657A",
                     fontFamily: "Roboto-Regular",
@@ -31,7 +35,7 @@ const FooterTabComponent = (props) => {
                     height: 70
                 }}
             >
-                <Icon name="camera" style={{ color: (props.activeTab === AppConstant.APP_FOOTER_TABS.MY_REQUEST) ? "#EE6B6B" : "#4F50657A" }} />
+                <Icon name="request" style={props.activeTab === AppConstant.APP_FOOTER_TABS.MY_REQUEST ? {fontSize:25 , color:"#EE6B6B"} : {fontSize:25, color:"#4F50657A"}}/>
                 <Text style={{
                     color: (props.activeTab === AppConstant.APP_FOOTER_TABS.MY_REQUEST) ? "#EE6B6B" : "#4F50657A",
                     fontFamily: "Roboto-Regular",
@@ -45,7 +49,7 @@ const FooterTabComponent = (props) => {
                     height: 70
                 }}
             >
-                <Icon active name="navigate" style={{ color: (props.activeTab === AppConstant.APP_FOOTER_TABS.MY_OFFER) ? "#EE6B6B" : "#4F50657A" }} />
+                <Icon active name="offer" style={props.activeTab === AppConstant.APP_FOOTER_TABS.MY_OFFER ? {fontSize:25 , color:"#EE6B6B"} : {fontSize:25, color:"#4F50657A"}}/>
                 <Text style={{
                     color: (props.activeTab === AppConstant.APP_FOOTER_TABS.MY_OFFER) ? "#EE6B6B" : "#4F50657A",
                     fontFamily: "Roboto-Regular",

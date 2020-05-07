@@ -208,17 +208,17 @@ class MapComponent extends React.Component {
 
 
   addMarker= (markers)  => {
-    console.log("Markers Data : "+ JSON.stringify(markers))
+    //console.log("Markers Data : "+ JSON.stringify(markers))
     
     let markerDataList = [];
     markers.data.requests.map((data) => {
-      //console.log(" markers.data.requests.map : " + JSON.stringify(data))
+      console.log(" markers.data.requests.map : " + JSON.stringify(data))
       var markerData = {
         lat: data.geo_location.split(",")[0],      
         lon: data.geo_location.split(",")[1],
         type: "requests",
-        title: "requests   : " + data.user_detail.first_name + " " + data.user_detail.last_name,
-        description: data.user_detail.first_name,
+        //title: "requests   : " + data.user_detail.first_name + " " + data.user_detail.last_name,
+        //description: data.user_detail.first_name,
         icon:requesterIcon
       }         
       markerDataList.push(markerData);
@@ -230,8 +230,8 @@ class MapComponent extends React.Component {
         lat: data.geo_location.split(",")[0],      
         lon: data.geo_location.split(",")[1],
         type: "Offers",
-        title: "Offers  :  " + data.user_detail.first_name + " " + data.user_detail.last_name,
-        description: data.user_detail.first_name,
+        //title: "Offers  :  " + data.user_detail.first_name + " " + data.user_detail.last_name,
+        //description: data.user_detail.first_name,
         icon:offererIcon
       }         
       markerDataList.push(markerData);
@@ -336,6 +336,7 @@ class MapComponent extends React.Component {
           console.log("API Response Data  1  " + JSON.stringify(val))
           this.addMarker(val)
         }).catch((err) => {
+          console.log("Map getLocationSuggestions Error : " + JSON.stringify(err))
           if(err.response.status === 409){
             Toast.show('appid expired : ', {duration:2000, position:0, animation:true, shadow:true, animationDuration:1000})
             AppStorage.storeAppInfo(AppConstant.APP_STORE_KEY.IS_VEFIRIED, "false");

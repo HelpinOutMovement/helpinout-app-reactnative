@@ -14,6 +14,7 @@ import API from "../APIClient/API";
 import LogoComponent from './components/LogoComponent';
 import firebase from 'react-native-firebase'
 
+import Toast from 'react-native-tiny-toast'
 
 
 export default class RegisterMobile extends React.Component {
@@ -80,44 +81,45 @@ export default class RegisterMobile extends React.Component {
             userType = "2";
         }
 
-        reqObj =  restApi.register(this.state.selectedCountryDialCode, this.state.phoneNumber, this.state.firstName, this.state.lastName, contactVisible, userType, this.state.organisationName, this.state.organisationType, this.state.organisationUnit);
+        AppStorage.getAppInfo(AppConstant.FIREBASE_CLOUD_MESSAGING_TOKEN).then((fcmToken) => {
 
-        reqObj.then(
-            result => {
-                console.log("result  data : "+ JSON.stringify(result));
-                if(result.status === "0"){
-                    if(result.message === "Already registered"){
-                        this.navigate(AppConstant.APP_PAGE.DASHBOARD, {loginState: this.state});
+            reqObj =  restApi.register(this.state.selectedCountryDialCode, this.state.phoneNumber, this.state.firstName, this.state.lastName, contactVisible, userType, this.state.organisationName, this.state.organisationType, this.state.organisationUnit);
+
+            reqObj.then(
+                result => {
+                    console.log("result  data : "+ JSON.stringify(result));
+                    if(result.status === "0"){
+                        if(result.message === "Already registered"){
+                            this.navigate(AppConstant.APP_PAGE.DASHBOARD, {loginState: this.state});
+                        }else{
+                            console.log("RegMobile  === 0");
+                            console.log("RegMobile  " + result.status);                    
+                            this.setState({loginstatus: result.status});
+                            AppStorage.removeAppInfo(AppConstant.APP_STORE_KEY.USER_REG_DETAILS);
+                            AppStorage.removeAppInfo(AppConstant.APP_STORE_KEY.IS_VEFIRIED);
+                            Toast.show('Registration Error ' + JSON.stringify(result.message) , {duration:1000, position:0, animation:true, shadow:true, animationDuration:2000})
+                            this.forceUpdateHandler();   
+                        }                        
                     }else{
-                        console.log("RegMobile  === 0");
-                        console.log("RegMobile  " + result.status);                    
-                        this.setState({loginstatus: result.status});
-                        this.forceUpdateHandler();                    //this.render((renderRegistrationScreen})
+                        console.log("RegMobile  <> 0");
+                        console.log("RegMobile  " + result.status);
+                        let thisclass = this;
+                        AppStorage.storeAppInfo(AppConstant.APP_STORE_KEY.USER_REG_DETAILS, JSON.stringify(result.data)).then(function(value) {
+                            console.log("userRegistrationDetails    " + value);
+                            // expected output: "Success!"
+                            thisclass.navigate(AppConstant.APP_PAGE.DASHBOARD, {loginState: thisclass.state});
+                          });                                        
                     }
-                    
-                }else{
-                    console.log("RegMobile  <> 0");
-                    console.log("RegMobile  " + result.status);
-                    let thisclass = this;
-                    AppStorage.storeAppInfo(AppConstant.APP_STORE_KEY.USER_REG_DETAILS, JSON.stringify(result.data)).then(function(value) {
-                        console.log("userRegistrationDetails    " + value);
-                        // expected output: "Success!"
-                        //handleSendCode();
-                        thisclass.navigate(AppConstant.APP_PAGE.DASHBOARD, {loginState: thisclass.state});
-                      });                                        
-                    
-                    /*AsyncStorage.setItem('userRegistrationDetails',JSON.stringify(result.data) ).then(function(value) {
-                        console.log("userRegistrationDetails    " + value);
-                        // expected output: "Success!"
-                        //handleSendCode();
-                        this.navigate(AppConstant.APP_PAGE.DASHBOARD, {loginState: this.state});
-                      }); */                   
-                }
-            }, 
-            error => {
-                console.log(error);
-            } 
-        );   
+                }, 
+                error => {
+                    Toast.show('Registration Error ' + JSON.stringify(error) , {duration:1000, position:0, animation:true, shadow:true, animationDuration:2000})
+    
+                } 
+            );   
+
+        });
+
+        
     }
 
 
@@ -193,8 +195,8 @@ export default class RegisterMobile extends React.Component {
                         <View style={{width:'100%', marginTop:20}}>  
                             <TouchableOpacity style={{backgroundColor: "#4F5065",height: 56,
                                         marginTop: 10,                                     
-                                        paddingHorizontal: 1, 
-                                        justifyContent:"center" ,      
+                                        paddingHorizontal: 1,   
+                                        justifyContent:"center" ,           
                                         width:'100%',
                                         borderWidth: 1,
                                         shadowOpacity: 0.9,
@@ -210,7 +212,8 @@ export default class RegisterMobile extends React.Component {
                         <View style={{width:'100%', marginTop:20}}>  
                             <TouchableOpacity style={{backgroundColor: "#4F5065",height: 56,
                                         marginTop: 10,                                     
-                                        paddingHorizontal: 1,        
+                                        paddingHorizontal: 1,  
+                                        justifyContent:"center" ,            
                                         width:'100%',
                                         borderWidth: 1,
                                         shadowOpacity: 0.9,
@@ -218,7 +221,7 @@ export default class RegisterMobile extends React.Component {
                                         shadowOffset: { height: 3 },
                                         shadowColor: '#2328321F',}} 
                                         onPress={() =>{this.register()}}>
-                                            <Text style={{borderRadius: 9, textAlign: "center",fontFamily: "Roboto-Medium",fontSize: 20,lineHeight: 56,color: "#FFFFFF"}}>{translate.t("label_start")}</Text>
+                                            <Text style={{borderRadius: 9, textAlign: "center",fontFamily: "Roboto-Medium",fontSize: 20,color: "#FFFFFF"}}>{translate.t("label_start")}</Text>
                             </TouchableOpacity>
                         </View>
                             }

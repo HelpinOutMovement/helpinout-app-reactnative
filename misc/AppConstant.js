@@ -2,6 +2,7 @@ const AppConstant = {
     IS_LOGGED_IN : 'IS_LOGGED_IN',
     USER_REGISTRATION_DETAILS : 'user_registration_details',
     FIREBASE_USER_DETAILS: 'firebase_user_details', 
+    FIREBASE_CLOUD_MESSAGING_TOKEN: 'firebase_cloud_messaging_token',
     
     APP_SITE:'www.google.com',
     APP_PEOPLE_OPTIONS:{
@@ -98,7 +99,7 @@ const AppConstant = {
         FOOD: "FOOD",
         AMBULANCE: "AMBULANCE",
         MED_EQUIPMENT: "MED_EQUIPMENT",
-        MEDICINE: "MEDICINE",
+        MEDICINES: "MEDICINES",
         MED_PPE: "MED_PPE",
         OTHER: "OTHER",
         PEOPLE: "PEOPLE",
@@ -132,7 +133,7 @@ const AppConstant = {
             3:'SHELTER',
             4:'MED_PPE',
             5:'TESTING',
-            6:'MEDICINE',
+            6:'MEDICINES',
             7:'AMBULANCE',
             8:'MED_EQUIPMENT',
             0:'OTHER'
@@ -143,7 +144,7 @@ const AppConstant = {
             SHELTER:3,
             MED_PPE:4,
             TESTING:5,
-            MEDICINE:6,
+            MEDICINES:6,
             AMBULANCE:7,
             MED_EQUIPMENT:8,
             OTHER:0

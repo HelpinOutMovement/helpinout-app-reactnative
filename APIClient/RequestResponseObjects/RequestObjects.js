@@ -5,11 +5,12 @@
     const startingDate = new Date()
     const date = startingDate.getFullYear()+"-"+startingDate.getMonth()+"-"+startingDate.getDate()+"T"+startingDate.getHours()+":"+startingDate.getMinutes()+":"+startingDate.getSeconds()+"."+startingDate.getMilliseconds()+"+"+startingDate.getTimezoneOffset();
 
+    const appVersion = DeviceInfo.getVersion() +"."+ DeviceInfo.getBuildNumber();
     class RequestObject{
 
         constructor(){
 
-            this.APIData = {"app_id": 0, "imei_no": DeviceInfo.getUniqueId(), "app_version": "0.1", 'date_time':  date  };       
+            this.APIData = {"app_id": 0, "imei_no": DeviceInfo.getUniqueId(), "app_version": appVersion, 'date_time':  date  };       
             
 
             //this.APIData = {"app_id": 137, "imei_no": DeviceInfo.getUniqueId(), "app_version": "0.1", 'date_time':  date  };
@@ -19,14 +20,14 @@
 
 
         //Struct = (...keys) => ((...v) => keys.reduce((o, k, i) => {o[k] = v[i]; return o} , {}))
-        registerObject = (country_code, mobile_no, first_name,last_name, mobile_no_visibility, user_type, org_name, org_type, org_division)=>{
+        registerObject = (country_code, mobile_no, fcm_token, first_name,last_name, mobile_no_visibility, user_type, org_name, org_type, org_division)=>{
             let data = {
                 "imei_no": DeviceInfo.getUniqueId(),
                 "os_type": DeviceInfo.getSystemName(),
                 "manufacturer_name": DeviceInfo.getBrand(),
                 "os_version": DeviceInfo.getSystemVersion(),
-                "firebase_token": "121212",
-                "app_version": "0.1",
+                "firebase_token": fcm_token,
+                "app_version": appVersion,
                 "time_zone": Intl.DateTimeFormat().resolvedOptions().timeZone,
                 "country_code": country_code,
                 "mobile_no": mobile_no,
@@ -57,7 +58,7 @@
                 "manufacturer_name": DeviceInfo.getBrand(),
                 "os_version": DeviceInfo.getSystemVersion(),
                 "firebase_token": "121212",
-                "app_version": "0.1",
+                "app_version": appVersion,
                 "time_zone": Intl.DateTimeFormat().resolvedOptions().timeZone,
                 "first_name": first_name,
                 "last_name": last_name,
@@ -80,14 +81,14 @@
         }
 
 
-        loginObject = (country_code, mobile_no)=>{        
+        loginObject = (country_code, mobile_no, fcmToken)=>{        
             let data = {
                 "imei_no": DeviceInfo.getUniqueId(),
                 "os_type": DeviceInfo.getSystemName(),
                 "manufacturer_name": DeviceInfo.getBrand(),
                 "os_version": DeviceInfo.getSystemVersion(),
-                "firebase_token": "121212",
-                "app_version": "0.1",
+                "firebase_token": fcmToken,
+                "app_version": appVersion,
                 "time_zone": Intl.DateTimeFormat().resolvedOptions().timeZone,
                 "country_code": country_code,
                 "mobile_no": mobile_no                    

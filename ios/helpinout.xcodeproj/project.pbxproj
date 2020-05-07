@@ -30,6 +30,7 @@
 		6B9D2A110B634078AE1BCEA9 /* Roboto-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1E43991384DC4239926595A3 /* Roboto-ThinItalic.ttf */; };
 		70899ED9443448588EB59338 /* Roboto-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A3C7097F24EB40AFBC5D2732 /* Roboto-LightItalic.ttf */; };
 		7DFC94A48523452BAC1F5E91 /* Roboto-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7E6521122BDD4482BC2298C0 /* Roboto-Thin.ttf */; };
+		8A1C3939246482D200F6365D /* helpinout_icons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8A1C3938246482D100F6365D /* helpinout_icons.ttf */; };
 		8A75C2FC243DBACE00ACCB50 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A75C2FB243DBACE00ACCB50 /* MapKit.framework */; };
 		8A75C359243DD5B900ACCB50 /* libRNDeviceInfo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A75C358243DD5B900ACCB50 /* libRNDeviceInfo.a */; };
 		8AB113CD245868C900F72C70 /* libRNCPushNotificationIOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AB113CC245868C900F72C70 /* libRNCPushNotificationIOS.a */; };
@@ -93,6 +94,7 @@
 		7E6521122BDD4482BC2298C0 /* Roboto-Thin.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Thin.ttf"; path = "../assets/fonts/Roboto-Thin.ttf"; sourceTree = "<group>"; };
 		8137295E378A4E8AB77C66D8 /* Roboto-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Black.ttf"; path = "../assets/fonts/Roboto-Black.ttf"; sourceTree = "<group>"; };
 		82761FC127FA406496E9AE2A /* Roboto-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-BoldItalic.ttf"; path = "../assets/fonts/Roboto-BoldItalic.ttf"; sourceTree = "<group>"; };
+		8A1C3938246482D100F6365D /* helpinout_icons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = helpinout_icons.ttf; path = ../assets/fonts/helpinout_icons.ttf; sourceTree = "<group>"; };
 		8A75C2FB243DBACE00ACCB50 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		8A75C358243DD5B900ACCB50 /* libRNDeviceInfo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRNDeviceInfo.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A98B548243C8349007FC0B1 /* ta */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ta; path = ta.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
@@ -234,6 +236,7 @@
 			isa = PBXGroup;
 			children = (
 				8137295E378A4E8AB77C66D8 /* Roboto-Black.ttf */,
+				8A1C3938246482D100F6365D /* helpinout_icons.ttf */,
 				55C42CF3597B45D09E36E61E /* Roboto-BlackItalic.ttf */,
 				0CBD5AA5CBF64156A057A100 /* Roboto-Bold.ttf */,
 				82761FC127FA406496E9AE2A /* Roboto-BoldItalic.ttf */,
@@ -432,6 +435,7 @@
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
+				8A1C3939246482D200F6365D /* helpinout_icons.ttf in Resources */,
 				EC181C7F849549EB89E7D855 /* Roboto-Black.ttf in Resources */,
 				24D7609E98474ADEB415097C /* Roboto-BlackItalic.ttf in Resources */,
 				1C49DB0E637A4082A5D56D3C /* Roboto-Bold.ttf in Resources */,
@@ -824,7 +828,7 @@
 				CODE_SIGN_ENTITLEMENTS = helpinout/helpinout.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 23;
+				CURRENT_PROJECT_VERSION = 26;
 				DEVELOPMENT_TEAM = JDLPTBKAVL;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -861,7 +865,7 @@
 				CODE_SIGN_ENTITLEMENTS = helpinout/helpinout.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 23;
+				CURRENT_PROJECT_VERSION = 26;
 				DEVELOPMENT_TEAM = JDLPTBKAVL;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = helpinout/Info.plist;

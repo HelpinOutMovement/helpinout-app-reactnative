@@ -201,7 +201,7 @@ class SearchHelpProvidersRequesters extends React.Component {
         return (
                     <Container style={{ alignItems:"center"}}>
                         
-                        <MapComponent  mapLatLon={this.props.route.params.latlon} mapHeight={this.state.mapHeight} callbackOnRegionChange={this.callbackOnRegionChange} mapProps={this.props} ref={this.mapComponentRef}>                      
+                        <MapComponent  mapLatLon={this.state.latlon} mapHeight={this.state.mapHeight} callbackOnRegionChange={this.callbackOnRegionChange} mapProps={this.props} ref={this.mapComponentRef}>                      
                         </MapComponent>  
  
                         <View style={{ width:scale(330), flex: 0, flexDirection: 'row',top:this.topBarPos , borderRadius:6 ,height: verticalScale(50), borderWidth:0, borderColor:"#000000" }}>                
@@ -215,14 +215,14 @@ class SearchHelpProvidersRequesters extends React.Component {
 
                         <View style={{position:"absolute",bottom:this.state.bottom_panel_bottom, height:verticalScale(50), justifyContent:"center"}}>
                                 <View style={{ flex: 0, flexDirection: 'row',justifyContent:"center", top:0 , borderRadius:6 ,height:verticalScale(38), width:scale(350), borderWidth:0, borderColor:"#000000" }}>                
-                                        <View style={{width: scale(52.5), backgroundColor:"white", height: verticalScale(50), borderRadius:6, borderTopRightRadius:0,borderBottomRightRadius:0 , borderBottomLeftRadius:0,borderLeftWidth:0,borderTopWidth:0, alignItems:"flex-end", justifyContent: 'center'}} >
+                                        <View style={{width: scale(60), backgroundColor:"white", height: verticalScale(50), borderRadius:6, borderWidth:0,  borderTopRightRadius:0,borderBottomRightRadius:0 , borderBottomLeftRadius:0,borderLeftWidth:0,borderTopWidth:0, alignItems:"center", justifyContent: 'center'}} >
                                             <Image
-                                                style={{ alignSelf: "center", width: scale(50), height: verticalScale(50) }}
+                                                style={{ alignSelf: "center", width: scale(30), height: verticalScale(30) }}
                                                 source={StaticImage[Utilities.getCategoryFromCode(this.state.activity_category)]} 
                                                 resizeMode='contain'/>
                                                 
                                         </View>
-                                        <View style={{width: scale(227.5), justifyContent:"center", backgroundColor:"white", height: verticalScale(50), borderRadius:0, borderTopWidth:0,alignItems:"center", justifyContent:"center"}} ><Text style={{fontSize:14, overflow:"hidden", justifyContent:"center"}}>{(this.state.activity_type === 1) ? translate.t("select_help_provider") : translate.t("select_help_requester")}</Text></View>
+                                        <View style={{width: scale(220), justifyContent:"center", backgroundColor:"white", height: verticalScale(50),  borderWidth:0,  borderRadius:0, borderTopWidth:0,alignItems:"center", justifyContent:"center"}} ><Text style={{fontSize:18, overflow:"hidden", justifyContent:"center", fontFamily:"roboto-medium"}}>{(this.state.activity_type === 1) ? translate.t("select_help_provider") : translate.t("select_help_requester")}</Text></View>
                                         <View style={{width: scale(70), justifyContent:"center", backgroundColor:"white", height: verticalScale(50), borderRadius:6, borderTopLeftRadius:0,borderBottomLeftRadius:0 ,borderBottomRightRadius:0, borderTopWidth:0,borderRightWidth:0,alignItems:"center", justifyContent: 'center'}} ><Button transparent style={{padding:0}} onPress={()=>{this.toggleBottomPanel()}}><Icon name={this.state.bottom_panel_icon}/></Button></View>                                                        
                                 </View>
                         </View> 
@@ -235,13 +235,13 @@ class SearchHelpProvidersRequesters extends React.Component {
                                 <ScrollView style={{height:verticalScale(250), borderWidth:0, marginTop:moderateScale(10)}}>
                                     {this.state.activitySuggestionOfferResponse.map(singleData => {
                                         return (
-                                            <View style={styles.container}>
+                                            <View style={styles.itemContainer}>
                                                 <View style={styles.rect}>
                                                     <View style={styles.rect2Row}>
                                                         <View style={styles.rect2}><Text style={{paddingLeft:5, borderWidth:0, fontFamily:'Roboto-Medium'}}>{singleData.user_detail.first_name + " " + singleData.user_detail.last_name}</Text></View>                                     
                                                             
                                                             <Switch
-                                                                style={styles.rect3,{ borderWidth:0, marginTop:-5, transform: [{ scaleX: .5 }, { scaleY: .5 }] }}
+                                                                style={styles.rect3,{ borderWidth:0, marginTop:0, transform: [{ scaleX: .7 }, { scaleY: .7 }] }}
                                                                 disabled={false}
                                                                 activeText={'On'}
                                                                 inActiveText={'Off'}
@@ -297,7 +297,7 @@ class SearchHelpProvidersRequesters extends React.Component {
                                     })}
                                                                         
                                 </ScrollView>
-                                <Text style={{height:verticalScale(80), textAlign:"center", paddingLeft:moderateScale(15), paddingRight:moderateScale(15), paddingTop:moderateScale(20), color:"grey"}}>
+                                <Text style={{height:verticalScale(50), textAlign:"center", paddingLeft:moderateScale(15), paddingRight:moderateScale(15), paddingTop:moderateScale(10), color:"grey"}}>
                                     {(this.state.activity_type === 1) ? translate.t("phone_number_will_be_send_to_provider") : translate.t("phone_number_will_be_send_to_requester")}
                                 </Text>
                                 <View style={styles.buttonContainer}>
@@ -334,7 +334,13 @@ class SearchHelpProvidersRequesters extends React.Component {
 
 const styles =  StyleSheet.create({
 
+    itemContainer:{
+        
+       
     
+    },
+
+
     buttonContainer:{
       padding:  moderateScale(10),        
       flexDirection: "row",     
@@ -353,20 +359,30 @@ const styles =  StyleSheet.create({
 
     rect: {
         width: scale(330),
-        height:verticalScale(120),
+        height:verticalScale(150),
         backgroundColor: "#FFFFFF",//"rgba(230, 230, 230,1)",
-        marginTop: moderateScale(5),
+        //marginTop: moderateScale(5),
         alignSelf: "center",
-        borderWidth:0,
-        borderRadius:6
+        borderBottomWidth:0,
+        borderTopWidth:.25,
+        borderRadius:6,
+        borderColor:'#4F5065CC',
+        shadowColor: '#4F5065CC',
+        shadowOffset: { width: 5, height: 6 },
+        marginTop:moderateScale(5),
+        marginBottom: moderateScale(5),
+        marginLeft: moderateScale(5),
+        marginRight: moderateScale(5),
       },
       rect2: {
-        width: scale(280),
-        height: 20,
+        width: scale(270),
+        height: verticalScale(24),
         backgroundColor: "#FFFFFF",//"rgba(230, 230, 230,1)",
         marginRight:moderateScale(10),
         borderWidth:0,
-        fontFamily:"roboto-bold"
+        fontFamily:"roboto-bold",
+        borderWidth:0,
+        justifyContent:"center"
 
       },
       rect3: {
@@ -377,13 +393,14 @@ const styles =  StyleSheet.create({
         borderWidth:0,
       },
       rect2Row: {
-        width: scale(280),
-        height: verticalScale(20),
+        width: scale(330),
+        height: verticalScale(25),
         flexDirection: "row",
         marginTop: 7,
         marginLeft: 0,
-        marginRight: 12,
+        marginRight: 0,
         borderWidth:0,
+        justifyContent:"center"
       },
       rect4: {
         width: scale(105),
@@ -417,7 +434,7 @@ const styles =  StyleSheet.create({
         paddingLeft:1
       },
       rect7: {
-        width: scale(330),
+        width: scale(300),
         height: verticalScale(75),
         backgroundColor: "#FFFFFF",//"rgba(230, 230, 230,1)",
         marginTop: 2,
@@ -434,7 +451,7 @@ const styles =  StyleSheet.create({
           height:verticalScale(50),
           width:scale(310),
           alignItems: 'center',
-          borderRadius: 9,
+          borderRadius: 6,
         },
 
         ContinueButtonContainer_grey: {
@@ -443,7 +460,7 @@ const styles =  StyleSheet.create({
             height:verticalScale(50),
             width:scale(310),
             alignItems: 'center',
-            borderRadius: 9,
+            borderRadius: 6,
           },
 
         ContinueButtonText: {
