@@ -120,8 +120,25 @@ export default class LoginScreen extends React.Component {
                 </View>
                 <View style={{alignItems: "center",  width:"100%"}} >                                        
                     <View style={{ alignItems: "center" , justifyContent:"center", marginVertical: 50, width:"98%"}} >
-                        <TouchableOpacity style={{borderRadius: 9, alignItems: "center", justifyContent:"center", backgroundColor: "#4F5065",height: 56,width: "92%",shadowOpacity: 0.9,shadowOffset: { height: 3 },shadowColor: '#2328321F',}} onPress={() =>{this.verifyPhone()}}>
-                            <Text style={{textAlign: "center",fontFamily: "Roboto-Medium",fontSize: 20,color: "#FFFFFF"}}>{translate.t("label_login")}</Text>
+                        <TouchableOpacity
+                             style={{
+                                    borderRadius: 9, 
+                                    alignItems: "center", 
+                                    justifyContent:"center",
+                                     backgroundColor: "#4F5065",
+                                     height: 56,
+                                     width: "92%",
+                                     shadowOpacity: 0.9,
+                                     shadowOffset: { height: 3 },
+                                     shadowColor: '#2328321F'
+                                     }} onPress={() =>{this.verifyPhone()}}>
+                            <Text 
+                                style={{
+                                    textAlign: "center",
+                                    fontFamily: "Roboto-Medium",
+                                    fontSize: 20,
+                                    color: "#FFFFFF"
+                                    }}>{translate.t("label_login")}</Text>
                         </TouchableOpacity>                    
                     </View>                
                     <Text style={{

@@ -226,6 +226,7 @@ export default class VerifyScreen extends React.Component {
                                 backgroundColor: "#4F5065", height: 56,
                                 marginTop: 10,
                                 paddingHorizontal: 1,
+                                justifyContent:"center",
                                 width: '100%',
                                 borderWidth: 1,
                                 shadowOpacity: 0.9,
@@ -236,7 +237,14 @@ export default class VerifyScreen extends React.Component {
                             onPress={this.handleVerifyCode}
                             disabled={!this.state.verificationCodeEditable}
                             >
-                            <Text style={{ borderRadius: 9, textAlign: "center", fontFamily: "Roboto-Medium", fontSize: 20, lineHeight: 56, color: "#FFFFFF" }}>{translate.t('button_verify')}</Text>
+                            <Text 
+                                style={{ 
+                                        borderRadius: 9, 
+                                        textAlign: "center", 
+                                        fontFamily: "Roboto-Medium", 
+                                        fontSize: 20, 
+                                        
+                                        color: "#FFFFFF" }}>{translate.t('button_verify')}</Text>
                         </TouchableOpacity>
                     </View>
                 </View>

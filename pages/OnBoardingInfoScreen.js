@@ -32,7 +32,7 @@ function OnBoardingInfoScreen({ navigation }) {
 
     return (
         <SafeAreaView style={{}} >
-            <View style={{ height:"100%", flexDirection: "column", justifyContent:"space-between" }}>
+            <View style={{ height: "100%", flexDirection: "column", justifyContent: "space-between" }}>
                 <View >
                     <LogoComponent marginVertical={15} marginTop={100} />
                     <View style={{ alignItems: "center" }}>
@@ -104,6 +104,7 @@ function OnBoardingInfoScreen({ navigation }) {
                         <TouchableOpacity
                             style={{
                                 marginVertical: 30,
+                                justifyContent:"center",
                                 alignItems: "center",
                                 backgroundColor: "#4F5065",
                                 height: 56,
@@ -119,11 +120,9 @@ function OnBoardingInfoScreen({ navigation }) {
                             }>
                             <Text
                                 style={{
-
                                     textAlign: "center",
                                     fontFamily: "Roboto-Medium",
                                     fontSize: 20,
-                                    lineHeight: 56,
                                     color: "#FFFFFF"
 
                                 }}

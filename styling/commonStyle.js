@@ -149,8 +149,8 @@ const commonStyling = StyleSheet.create({
         fontSize: 16,
         color:'#4F5065',
         height:50,
-        marginLeft:20
-
+        marginLeft:20,
+        width:"70%"
     },
     registerSwitchRow: {
         marginTop: 0, 

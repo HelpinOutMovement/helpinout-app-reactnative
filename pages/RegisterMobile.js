@@ -193,7 +193,8 @@ export default class RegisterMobile extends React.Component {
                         <View style={{width:'100%', marginTop:20}}>  
                             <TouchableOpacity style={{backgroundColor: "#4F5065",height: 56,
                                         marginTop: 10,                                     
-                                        paddingHorizontal: 1,        
+                                        paddingHorizontal: 1, 
+                                        justifyContent:"center" ,      
                                         width:'100%',
                                         borderWidth: 1,
                                         shadowOpacity: 0.9,
@@ -201,7 +202,7 @@ export default class RegisterMobile extends React.Component {
                                         shadowOffset: { height: 3 },
                                         shadowColor: '#2328321F',}} 
                                         onPress={() =>{this.register()}}>
-                                            <Text style={{borderRadius: 9, textAlign: "center",fontFamily: "Roboto-Medium",fontSize: 20,lineHeight: 56,color: "#FFFFFF"}}>{translate.t("label_start")}</Text>
+                                            <Text style={{borderRadius: 9, textAlign: "center",fontFamily: "Roboto-Medium",fontSize: 20,color: "#FFFFFF"}}>{translate.t("label_start")}</Text>
                             </TouchableOpacity>
                         </View>
                         </View>

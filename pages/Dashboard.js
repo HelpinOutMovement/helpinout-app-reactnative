@@ -291,10 +291,7 @@ const styles = (dimensions1) => StyleSheet.create({
   buttonContainer: {
     padding: 10,
     flexDirection: "row",
-    width: scale(340),
-    //borderColor: 'green',
-    //borderWidth: 2,         
-    justifyContent: 'center',
+    justifyContent: 'space-around',
     alignItems: 'center',
   },
   AskForHelp: {

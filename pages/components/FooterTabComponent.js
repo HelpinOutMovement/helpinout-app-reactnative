@@ -5,55 +5,50 @@ import AppConstant from '../../misc/AppConstant';
 
 const FooterTabComponent = (props) => {
     return (
-        <FooterTab>
-            {/*
-                <Button vertical
-                active={props.activeTab === AppConstant.APP_FOOTER_TABS.HOME}
-                 onPress={() => props.navigation.navigate(AppConstant.APP_PAGE.DASHBOARD)}>
-                <Icon name="ios-home" style={{ color: "red" }} />
-                <Text style={{overflow:"hidden"}}>{translate.t("title_home")}</Text>
-            </Button>
-            <Button vertical
-            active={props.activeTab === AppConstant.APP_FOOTER_TABS.MY_REQUEST}
-              onPress={() => props.navigation.navigate(AppConstant.APP_PAGE.MY_REQUEST_SCREEN)}>
-                <Icon name="camera" />
-                <Text style={{overflow:"hidden"}}>{translate.t("title_my_request")}</Text>
-            </Button>
-            <Button vertical 
-            active={props.activeTab === AppConstant.APP_FOOTER_TABS.MY_OFFER}
-            onPress={() => props.navigation.navigate(AppConstant.APP_PAGE.MY_OFFERS_SCREEN)}>
-                <Icon active name="navigate" />
-                <Text style={{overflow:"hidden"}}>{translate.t("title_my_offers")}</Text>
-            </Button>
-            */
-            }
+        <FooterTab
+            style={{
+                height: 70,
+                backgroundColor: "#FFFFFF"
+            }}>
             <Button vertical
                 active={props.activeTab === AppConstant.APP_FOOTER_TABS.HOME}
-                onPress={() => props.navigation.navigate(AppConstant.APP_PAGE.DASHBOARD)}>
-                <Icon name="ios-home" style={{ color: "red" }} />
+                onPress={() => props.navigation.navigate(AppConstant.APP_PAGE.DASHBOARD)}
+                style={{
+                    height: 70
+                }}
+            >
+                <Icon name="ios-home" style={{ color: (props.activeTab === AppConstant.APP_FOOTER_TABS.HOME) ? "#EE6B6B" : "#4F50657A" }} />
                 <Text style={{
-                    color:"#4F50657A",
-                    fontFamily: "Roboto-Regular",		
+                    color: (props.activeTab === AppConstant.APP_FOOTER_TABS.HOME) ? "#EE6B6B" : "#4F50657A",
+                    fontFamily: "Roboto-Regular",
                     fontSize: 12
                 }}>{translate.t("title_home")}</Text>
             </Button>
             <Button vertical
                 active={props.activeTab === AppConstant.APP_FOOTER_TABS.MY_REQUEST}
-                onPress={() => props.navigation.navigate(AppConstant.APP_PAGE.MY_REQUEST_SCREEN)}>
-                <Icon name="camera" />
+                onPress={() => props.navigation.navigate(AppConstant.APP_PAGE.MY_REQUEST_SCREEN)}
+                style={{
+                    height: 70
+                }}
+            >
+                <Icon name="camera" style={{ color: (props.activeTab === AppConstant.APP_FOOTER_TABS.MY_REQUEST) ? "#EE6B6B" : "#4F50657A" }} />
                 <Text style={{
-                   color:"#4F50657A",
-                   fontFamily: "Roboto-Regular",		
-                   fontSize: 12
+                    color: (props.activeTab === AppConstant.APP_FOOTER_TABS.MY_REQUEST) ? "#EE6B6B" : "#4F50657A",
+                    fontFamily: "Roboto-Regular",
+                    fontSize: 12
                 }} >{translate.t("title_my_request")}</Text>
             </Button>
             <Button vertical
                 active={props.activeTab === AppConstant.APP_FOOTER_TABS.MY_OFFER}
-                onPress={() => props.navigation.navigate(AppConstant.APP_PAGE.MY_OFFERS_SCREEN)}>
-                <Icon active name="navigate" />
+                onPress={() => props.navigation.navigate(AppConstant.APP_PAGE.MY_OFFERS_SCREEN)}
+                style={{
+                    height: 70
+                }}
+            >
+                <Icon active name="navigate" style={{ color: (props.activeTab === AppConstant.APP_FOOTER_TABS.MY_OFFER) ? "#EE6B6B" : "#4F50657A" }} />
                 <Text style={{
-                    color:"#4F50657A",
-                    fontFamily: "Roboto-Regular",		
+                    color: (props.activeTab === AppConstant.APP_FOOTER_TABS.MY_OFFER) ? "#EE6B6B" : "#4F50657A",
+                    fontFamily: "Roboto-Regular",
                     fontSize: 12
                 }}>{translate.t("title_my_offers")}</Text>
             </Button>
