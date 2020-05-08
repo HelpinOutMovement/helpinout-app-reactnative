@@ -49,7 +49,17 @@ class SearchHelpProvidersRequesters extends React.Component {
         }
         console.log("this.props.route.params.latlon  : " + this.props.route.params.latlon)
         
-        this.props.route.params.latlon ? this.setState({latlon:this.props.route.params.latlon}) : this.setState({latlon:""})
+        if(this.props.route.params.latlon){
+            if(this.props.route.params.latlon.length > 0){
+                this.setState({latlon:this.props.route.params.latlon})
+            }else{
+                this.setState({latlon:""})
+            }
+        }else{
+            this.setState({latlon:""})
+        }
+
+        //(this.props.route.params.latlon != "") ? this.setState({latlon:this.props.route.params.latlon}) : this.setState({latlon:""})
 
         console.log(" ifIphoneX() : " + this.isIphoneX())
         this.topBarPos = 20;

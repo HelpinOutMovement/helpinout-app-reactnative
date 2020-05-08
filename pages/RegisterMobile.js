@@ -83,20 +83,22 @@ export default class RegisterMobile extends React.Component {
 
         AppStorage.getAppInfo(AppConstant.FIREBASE_CLOUD_MESSAGING_TOKEN).then((fcmToken) => {
 
-            reqObj =  restApi.register(this.state.selectedCountryDialCode, this.state.phoneNumber, this.state.firstName, this.state.lastName, contactVisible, userType, this.state.organisationName, this.state.organisationType, this.state.organisationUnit);
+            reqObj =  restApi.register(this.state.selectedCountryDialCode, this.state.phoneNumber, fcmToken, this.state.firstName, this.state.lastName, contactVisible, userType, this.state.organisationName, this.state.organisationType, this.state.organisationUnit);
 
             reqObj.then(
                 result => {
                     console.log("result  data : "+ JSON.stringify(result));
                     if(result.status === "0"){
                         if(result.message === "Already registered"){
+                            AppStorage.storeAppInfo(AppConstant.IS_LOGGED_IN, "true");
                             this.navigate(AppConstant.APP_PAGE.DASHBOARD, {loginState: this.state});
                         }else{
                             console.log("RegMobile  === 0");
                             console.log("RegMobile  " + result.status);                    
                             this.setState({loginstatus: result.status});
-                            AppStorage.removeAppInfo(AppConstant.APP_STORE_KEY.USER_REG_DETAILS);
+                            AppStorage.removeAppInfo(AppConstant.USER_REGISTRATION_DETAILS);
                             AppStorage.removeAppInfo(AppConstant.APP_STORE_KEY.IS_VEFIRIED);
+                            AppStorage.storeAppInfo(AppConstant.IS_LOGGED_IN, "false");
                             Toast.show('Registration Error ' + JSON.stringify(result.message) , {duration:1000, position:0, animation:true, shadow:true, animationDuration:2000})
                             this.forceUpdateHandler();   
                         }                        
@@ -104,14 +106,16 @@ export default class RegisterMobile extends React.Component {
                         console.log("RegMobile  <> 0");
                         console.log("RegMobile  " + result.status);
                         let thisclass = this;
-                        AppStorage.storeAppInfo(AppConstant.APP_STORE_KEY.USER_REG_DETAILS, JSON.stringify(result.data)).then(function(value) {
+                        AppStorage.storeAppInfo(AppConstant.USER_REGISTRATION_DETAILS, JSON.stringify(result.data)).then(function(value) {
                             console.log("userRegistrationDetails    " + value);
                             // expected output: "Success!"
+                            AppStorage.storeAppInfo(AppConstant.IS_LOGGED_IN, "true");
                             thisclass.navigate(AppConstant.APP_PAGE.DASHBOARD, {loginState: thisclass.state});
                           });                                        
                     }
                 }, 
                 error => {
+                    AppStorage.storeAppInfo(AppConstant.IS_LOGGED_IN, "false");
                     Toast.show('Registration Error ' + JSON.stringify(error) , {duration:1000, position:0, animation:true, shadow:true, animationDuration:2000})
     
                 } 

@@ -285,11 +285,20 @@ useEffect(() => {
 
 
   useEffect(() => {
-    AppStorage.getAppInfo(AppConstant.APP_STORE_KEY.IS_VEFIRIED)
+    AppStorage.getAppInfo(AppConstant.IS_VEFIRIED)
       .then((resp) => {
         if (resp === "true") {
           console.log("APP resp :  " + resp);
-          setAppState(AppConstant.APP_STATE.IS_AUTHENTICATED);
+          AppStorage.getAppInfo(AppConstant.IS_LOGGED_IN).then((resp1) => {
+            if (resp === "true") {
+              setAppState(AppConstant.APP_STATE.IS_AUTHENTICATED);
+            }else{
+              setAppState(AppConstant.APP_STATE.IS_NOT_AUTENTICATED);
+            }            
+          }).catch(error1 => {
+            setAppState(AppConstant.APP_STATE.IS_NOT_AUTENTICATED);
+          });
+          
         } else {
           setAppState(AppConstant.APP_STATE.IS_NOT_AUTENTICATED);
         }

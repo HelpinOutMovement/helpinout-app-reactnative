@@ -1,5 +1,6 @@
 const AppConstant = {
     IS_LOGGED_IN : 'IS_LOGGED_IN',
+    IS_VEFIRIED : 'user_verified',
     USER_REGISTRATION_DETAILS : 'user_registration_details',
     FIREBASE_USER_DETAILS: 'firebase_user_details', 
     FIREBASE_CLOUD_MESSAGING_TOKEN: 'firebase_cloud_messaging_token',
@@ -45,7 +46,8 @@ const AppConstant = {
     },
     APP_STORE_KEY:{
         USER_REG_DETAILS:"userRegistrationDetails",
-        IS_VEFIRIED : 'user_verified'
+        IS_VEFIRIED : 'user_verified',
+        USER_IS_REGISTERED : 'is_registered',
     },
     APP_STATE: {
         IS_LOADING: 'IS_LOADING',

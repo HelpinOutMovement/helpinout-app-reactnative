@@ -217,28 +217,28 @@ class MapComponent extends React.Component {
         lat: data.geo_location.split(",")[0],      
         lon: data.geo_location.split(",")[1],
         type: "requests",
-        //title: "requests   : " + data.user_detail.first_name + " " + data.user_detail.last_name,
-        //description: data.user_detail.first_name,
+        title: "requests   : ",// + data.user_detail.first_name + " " + data.user_detail.last_name,
+        description: "Description: " , // data.user_detail.first_name,
         icon:requesterIcon
       }         
       markerDataList.push(markerData);
     })
 
     markers.data.offers.map((data) => {
-      //console.log(" markers.data.requests.map : " + JSON.stringify(data))
+      console.log(" markers.data.offers.map : " + JSON.stringify(data))
       var markerData = {
         lat: data.geo_location.split(",")[0],      
         lon: data.geo_location.split(",")[1],
         type: "Offers",
-        //title: "Offers  :  " + data.user_detail.first_name + " " + data.user_detail.last_name,
-        //description: data.user_detail.first_name,
+        title: "Offers  :  ", // + data.user_detail.first_name + " " + data.user_detail.last_name,
+        description: "Description: " , //data.user_detail.first_name,
         icon:offererIcon
       }         
       markerDataList.push(markerData);
     })
 
 
-    console.log(" markers.data.map : " + JSON.stringify(markerDataList))
+    //console.log(" markers.data.map : " + JSON.stringify(markerDataList))
 
     this.setState({markerList:markerDataList})
    //this.map.fitToElements(true);

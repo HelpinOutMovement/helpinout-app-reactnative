@@ -126,9 +126,12 @@ export default class VerifyScreen extends React.Component {
                 reqObj.then(
                     result => {
                         if (result.status === "0") {
+                            AppStorage.storeAppInfo(AppConstant.IS_LOGGED_IN, "false");
                             this.navigate(AppConstant.APP_PAGE.REGISTER_MOBILE, { loginState: this.state });
                         } else {
                             AppStorage.storeAppInfo(AppConstant.APP_STORE_KEY.USER_REG_DETAILS, JSON.stringify(result.data));
+                            AppStorage.storeAppInfo(AppConstant.IS_LOGGED_IN, "true");
+
                             AppStorage.getAppInfo(AppConstant.APP_STORE_KEY.IS_VEFIRIED).then((value) => {
                                 if (value === "true") {
                                     this.navigate(AppConstant.APP_PAGE.DASHBOARD, JSON.stringify(result.data));
