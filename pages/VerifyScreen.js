@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { TextInput, View, Image, Text, TouchableOpacity, StyleSheet, Switch, ScrollView, Dimensions, AsyncStorage } from 'react-native';
+import { TextInput, Keyboard, View, Image, Text, TouchableOpacity, StyleSheet, Switch, ScrollView, Dimensions, AsyncStorage } from 'react-native';
 import AppStorage from '../storage/AppStorage';
 import AppConstant from '../misc/AppConstant';
 import AppStringContext from '../misc/AppStringContext';
@@ -121,7 +121,10 @@ export default class VerifyScreen extends React.Component {
         this.setState({ loggedIn: true });
         if (this.validatePhoneNumber()) {
             let restApi = new API();
+
             AppStorage.getAppInfo(AppConstant.FIREBASE_CLOUD_MESSAGING_TOKEN).then((fcmToken) => {
+                console.log("Getting FIREBASE_CLOUD_MESSAGING_TOKEN " )
+                console.log("Your Firebase Stored Token in login is:" + JSON.stringify(fcmToken));
                 reqObj = restApi.login(this.state.selectedCountryDialCode, this.state.phoneNumber, fcmToken);
                 reqObj.then(
                     result => {
@@ -149,6 +152,7 @@ export default class VerifyScreen extends React.Component {
                     }
                 );
             })
+            
         } else {
             Toast.show(translate.t('toast_error_invalid_phone_number') , {duration:1000, position:0, animation:true, shadow:true, animationDuration:2000})
             // Add Error Toasts
@@ -194,7 +198,7 @@ export default class VerifyScreen extends React.Component {
                 <LogoComponent />
                 <View style={{ alignItems: "center", width: "96%" }} >
                     <View style={{ alignItems: "center", marginVertical: 0, width: "94%" }} >
-                        <Text style={commonStyling.appLabelInout}>{translate.t("label_enter_otp")}</Text>
+                        <Text adjustsFontSizeToFit={true}  minimumFontScale={1} style={commonStyling.appLabelInout}>{translate.t("label_enter_otp")}</Text>
                         <View style={commonStyling.appPhoneNumberInputView}>
                             <View style={{ flex: 1, flexDirection: "row", alignItems: 'center', justifyContent: 'center', }}>
                                 <TextInput
@@ -208,6 +212,7 @@ export default class VerifyScreen extends React.Component {
                                     }}
                                     maxLength={6}
                                     editable={this.state.verificationCodeEditable}
+                                    onTouchCancel={ () => {Keyboard.dismiss() } }     
                                 />
                             </View>
                         </View>
@@ -215,7 +220,7 @@ export default class VerifyScreen extends React.Component {
                 </View>
                 <View style={{ alignItems: "center", width: "96%" }} >
                     <View style={{ alignItems: "center", marginVertical: 0, width: "94%" }} > 
-                        <Text style={{ borderRadius: 9, textAlign: "center", fontFamily: "Roboto", fontSize: 16, lineHeight: 56, color: "blue" }}>00:{this.state.contdownValue}</Text>
+                        <Text adjustsFontSizeToFit={true}  minimumFontScale={1} style={{ borderRadius: 9, textAlign: "center", fontFamily: "Roboto", color: "blue" }}>00:{this.state.contdownValue}</Text>
                     </View>
                 </View>
                 <View style={{ alignItems: "center", width: "96%" }} >
@@ -237,22 +242,21 @@ export default class VerifyScreen extends React.Component {
                             disabled={!this.state.verificationCodeEditable}
                             >
                             <Text 
+                                adjustsFontSizeToFit={true}  minimumFontScale={1.5}
                                 style={{ 
                                         borderRadius: 9, 
                                         textAlign: "center", 
                                         fontFamily: "Roboto-Medium", 
-                                        fontSize: 20, 
-                                        
                                         color: "#FFFFFF" }}>{translate.t('button_verify')}</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
                 
                 <View style={{ alignItems: "center", width: "96%" }} >
-                    <View style={{ alignItems: "center", marginVertical: 0, width: "94%" }} > 
+                    <View style={{ alignItems: "center", marginVertical: 10, width: "94%" }} > 
                         {this.state.resendVerificationCodeEnabled ? 
                         <TouchableOpacity onPress={() => {this.resendVerificationCode(true)}}>
-                            <Text  style={{ borderRadius: 9, textAlign: "center", fontFamily: "Roboto", fontSize: 16, lineHeight: 56, color: "blue" }}>{translate.t("retry_msg")}</Text>
+                            <Text  adjustsFontSizeToFit={true}  minimumFontScale={1} style={{ borderRadius: 9, textAlign: "center", fontFamily: "Roboto", color: "blue" }}>{translate.t("retry_msg")}</Text>
                         </TouchableOpacity>                        
                         :
                          <></>
@@ -262,9 +266,9 @@ export default class VerifyScreen extends React.Component {
                 
 
                 <View style={{ alignItems: "center", width: "96%" }} >
-                    <View style={{ alignItems: "center", marginVertical: 0, width: "94%" }} > 
+                    <View style={{ alignItems: "center", marginVertical: 10, width: "94%" }} > 
                         <TouchableOpacity onPress={() => this.navigate(AppConstant.APP_PAGE.LOGIN)}>
-                            <Text style={{ borderRadius: 9, textAlign: "center", fontFamily: "Roboto", fontSize: 16, lineHeight: 56, color: "blue" }}>{translate.t("change_phone_number")}</Text>
+                            <Text adjustsFontSizeToFit={true}  minimumFontScale={1} style={{ borderRadius: 9, textAlign: "center", fontFamily: "Roboto", color: "blue" }}>{translate.t("change_phone_number")}</Text>
                         </TouchableOpacity>
                     </View>
                 </View>

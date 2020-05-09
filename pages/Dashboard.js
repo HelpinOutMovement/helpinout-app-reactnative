@@ -27,7 +27,7 @@ const ASPECT_RATIO = width / height;
 const LATITUDE_DELTA = (Platform.OS === global.platformIOS ? 1.5 : 0.5);
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
-const footerTop = Utils.isIphoneX() ? verticalScale(620) : verticalScale(620);
+const footerTop = Utils.isIphoneX() ? verticalScale(620) : verticalScale(610);
 const bottomPanelTop = Utils.isIphoneX() ? height - 190 : height - 180;
 
 
@@ -141,6 +141,7 @@ class Dashboard extends React.Component {
             }}>
 
               <Text
+              adjustsFontSizeToFit={true}  minimumFontScale={.1}
                 style={{
                   color: "#4F50657A",
                   fontFamily: "Roboto-Regular",
@@ -149,6 +150,7 @@ class Dashboard extends React.Component {
                   alignSelf: "flex-start"
                 }}>{translate.t("you_are_here")}</Text>
               <Text
+              adjustsFontSizeToFit={true}  minimumFontScale={.6}
                 style={{
                   color: "#4F5065",
                   fontFamily: "Roboto-Regular",
@@ -227,10 +229,13 @@ class Dashboard extends React.Component {
       */}
 
           <View style={{ position: "absolute", left: 0, top: footerTop - 100, width: scale(350), backgroundColor: "#FFFFFF" }}>
-            <HView style={styles(this.dimensions).hintTextContainer} hide={this.state.hintIsHidden}>
-              <Text style={styles(this.dimensions).hintText}>
+            <HView style={styles(this.dimensions).hintTextContainer} hide={false}>
+              <View style={{backgroundColor: "rgba(163,159,159,1)", height:verticalScale(20)}}>
+              <Text adjustsFontSizeToFit={true} minimumFontScale={.01} style={{textAlign:"center"}}>
                 {translate.t("identify_location")}
               </Text>
+              </View>
+              
             </HView>
             <View style={{ position: "absolute", left: 0, top: 20, width: scale(350), alignItems: "center", marginTop: 10, marginBottom: 10, backgroundColor: "#FFFFFF" }}>
               <View style={styles(this.dimensions).buttonContainer}>
@@ -283,7 +288,6 @@ const styles = (dimensions1) => StyleSheet.create({
   },
   hintText: {
     color: "rgba(245,245,245,1)",
-    fontSize: 15,
     fontFamily: "roboto-regular",
     alignItems: 'center',
     justifyContent: 'center',

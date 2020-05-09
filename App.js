@@ -200,15 +200,15 @@ useEffect(() => {
     let fcmToken = await this.getFcmToken();
     if (fcmToken) {
       console.log("Your Firebase Token is:" + fcmToken);
-      AppStorage.storeAppInfo(AppConstant.FIREBASE_CLOUD_MESSAGING_TOKEN, fcmToken)
+      AppStorage.storeAppInfo(AppConstant.FIREBASE_CLOUD_MESSAGING_TOKEN, fcmToken).then((storedResponse) => {
+        console.log("storedResponse : " + storedResponse)
+        AppStorage.getAppInfo(AppConstant.FIREBASE_CLOUD_MESSAGING_TOKEN).then((response) => {
+          console.log("Your Firebase Stored Token is:" + JSON.stringify(response));
+        });
+      })
       //this.showAlert("Your Firebase Token is:", fcmToken);
 
-      let retToken = AppStorage.getAppInfo(AppConstant.FIREBASE_CLOUD_MESSAGING_TOKEN).then((response) => {
-        console.log("Your Firebase Stored Token is:" + response);
-
-      });
-      console.log("Your Firebase Stored 1 Token is:" + retToken);
-
+      
      } else {
        console.log("Failed", "No token received")
       //this.showAlert("Failed", "No token received");
@@ -290,7 +290,7 @@ useEffect(() => {
         if (resp === "true") {
           console.log("APP resp :  " + resp);
           AppStorage.getAppInfo(AppConstant.IS_LOGGED_IN).then((resp1) => {
-            if (resp === "true") {
+            if (resp1 === "true") {
               setAppState(AppConstant.APP_STATE.IS_AUTHENTICATED);
             }else{
               setAppState(AppConstant.APP_STATE.IS_NOT_AUTENTICATED);

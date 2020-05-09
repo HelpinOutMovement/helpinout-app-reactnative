@@ -100,7 +100,7 @@ function OnBoardingInfoScreen({ navigation }) {
                             }}
                         >{translate.t("instruction_text_4")}</Text>
                     </View>
-                    <View style={{ alignItems: "center", marginTop: 50 }} >
+                    <View style={{ alignItems: "center", marginTop: 0 }} >
                         <TouchableOpacity
                             style={{
                                 marginVertical: 30,

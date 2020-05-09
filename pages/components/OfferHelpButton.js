@@ -11,7 +11,7 @@ function OfferHelpButon(props) {
       paddingHorizontal: 25,
       paddingVertical:15      
     }}>
-    <Text style={styles.offerHelp}>{translate.t("offer_help")}</Text>
+    <Text adjustsFontSizeToFit={true} minimumFontScale={0.5} style={styles.offerHelp}>{translate.t("offer_help")}</Text>
   </View>
   );
 }
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
   },
   offerHelp: {
     color: "rgba(245,245,245,1)",
-    fontSize: 20,
+    //fontSize: 20,
     fontFamily: "roboto-regular", 
     alignItems: 'center',    
     justifyContent:'center',

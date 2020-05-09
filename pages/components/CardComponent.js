@@ -10,6 +10,7 @@ import StaticImage from '../../styling/StaticImage';
 import Utilities from '../../misc/Utils';
 import { appLabelKey } from '../../misc/AppStrings';
 import { App } from 'react-native-firebase';
+import { scale, verticalScale } from 'react-native-size-matters';
 
 const CardComponent = (props) => {
   if (props.singleRow) {
@@ -34,32 +35,36 @@ const CardComponent = (props) => {
                   <Image
                     style={{
                       alignSelf: "flex-start",
-                      width: 70,
-                      height: 56,
-                      marginLeft: 10
+                      width: scale(70),
+                      height: verticalScale(56),
+                      marginLeft: 10, 
+                      resizeMode:"contain"
                     }}
                     source={props.path} />
                 </Col>
-                <Col style={{ width: "70%", alignItems: "flex-start" }}>
+                <Col style={{ width: scale(200), alignItems: "flex-start" , borderWidth:0}}>
                   <Text
+                  adjustsFontSizeToFit={true}  minimumFontScale={1}
                     style={{
                       fontFamily: "Roboto-Regular",
-                      fontSize: 16,
-                      lineHeight: 18,
+                      //fontSize: 16,
+                      //lineHeight: 18,
                       color: "#4F5065"
                     }}> {props.label} </Text>
-                  <Text style={{
+                  <Text adjustsFontSizeToFit={true}  minimumFontScale={1} style={{
                     fontFamily: "Roboto-Regular",
-                    fontSize: 14,
+                    //fontSize: 14,
                     color: "#4F50657A"
                   }}> {props.nearMe} {translate.t("request_near_me")} </Text>
-                  <Text style={{
+                  <View style={{alignSelf: "flex-end", height:verticalScale(18), marginTop:10}}>
+                  <Text adjustsFontSizeToFit={true}  minimumFontScale={.5} style={{
                     fontFamily: "Roboto-Regular",
-                    fontSize: 14,
+                    //fontSize: 14,
                     color: "#4F50657A",
                     alignSelf: "flex-end",
                     marginRight: 10
                   }}>{props.total} {translate.t("request_total")}</Text>
+                  </View>
                 </Col>
               </Row>
             </Grid>

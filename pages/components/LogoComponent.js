@@ -16,8 +16,8 @@ const LogoComponent = (props) => {
             />
             {(!props.hideName) && (
                 <View style={commonStyling.appLabelView}>
-                    <Text style={commonStyling.appLabelHelp}>Helpin</Text>
-                    <Text style={commonStyling.appLabelInout}>Out</Text>
+                    <Text adjustsFontSizeToFit={true}  minimumFontScale={1.5} style={commonStyling.appLabelHelp}>Helpin</Text>
+                    <Text adjustsFontSizeToFit={true}  minimumFontScale={1.5} style={commonStyling.appLabelInout}>Out</Text>
                 </View>
             )}
 

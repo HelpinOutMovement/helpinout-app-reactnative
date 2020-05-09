@@ -1,5 +1,5 @@
 import React ,{useState, useContext} from 'react';
-import { TextInput, View, Image, Text, TouchableOpacity, StyleSheet, Switch, ScrollView, Dimensions, AsyncStorage } from 'react-native';
+import { TextInput, View, Image, Text, TouchableOpacity, TouchableWithoutFeedback, StyleSheet, Switch, ScrollView, Dimensions, Keyboard, AsyncStorage } from 'react-native';
 import AppStorage from '../storage/AppStorage';
 import AppConstant from '../misc/AppConstant';
 import AppStringContext from '../misc/AppStringContext';
@@ -22,6 +22,11 @@ export default class LoginScreen extends React.Component {
         this.navigate = navigation.navigate;
         this.props = props;        
         this.forceUpdateHandler = this.forceUpdateHandler.bind(this);
+
+
+        AppStorage.getAppInfo(AppConstant.FIREBASE_CLOUD_MESSAGING_TOKEN).then((response) => {
+            console.log("Your Firebase Stored Token in Login Constructor is:" + JSON.stringify(response));
+          });
         
     }
    dimensions = Dimensions.get('window');
@@ -74,7 +79,11 @@ export default class LoginScreen extends React.Component {
     }
 
     verifyPhone = () =>{
-        this.navigate(AppConstant.APP_PAGE.VERIFY, {loginState: this.state, phoneNumber:this.state.selectedCountryDialCode+""+this.state.phoneNumber});   
+        AppStorage.getAppInfo(AppConstant.FIREBASE_CLOUD_MESSAGING_TOKEN).then((response) => {
+            console.log("Your Firebase Stored Token in Login Submit is:" + JSON.stringify(response));
+            this.navigate(AppConstant.APP_PAGE.VERIFY, {loginState: this.state, phoneNumber:this.state.selectedCountryDialCode+""+this.state.phoneNumber});   
+          });
+       
     }
 
 
@@ -90,11 +99,11 @@ export default class LoginScreen extends React.Component {
     renderLoginScreen = () =>{
         
         return (
-            <View style={{ flexDirection: "column" }}>
+            <View style={{ flexDirection: "column" }}  onPress={ () => {Keyboard.dismiss() } }>
                 <LogoComponent />
                 <View style={{alignItems: "center",  width:"100%"}} >                                        
                     <View style={{ alignItems: "center" ,  marginVertical: 0, width:"98%"}} >
-                        <Text style={commonStyling.appLabelInout}>{translate.t('label_enter_your_mobile_no')}</Text>
+                        <Text adjustsFontSizeToFit={true}  minimumFontScale={1} style={commonStyling.appLabelInout}>{translate.t('label_enter_your_mobile_no')}</Text>
                         <View style={commonStyling.appPhoneNumberInputView}>
                             <View style={{flex: 1,  flexDirection: "row",alignItems: 'center', justifyContent:'center', width: "92%",}}>
                                 <TextInput style={commonStyles.phoneCountryCode}> {this.state.selectedCountryCode} </TextInput>
@@ -111,7 +120,8 @@ export default class LoginScreen extends React.Component {
                                     keyboardType={'numeric'}
                                     placeholderTextColor="grey"
                                     placeholder={translate.t('label_enter_your_mobile_no')}                
-                                    onChangeText={text => this.setState({phoneNumber: text})}                 
+                                    onChangeText={text => this.setState({phoneNumber: text})} 
+                                    onTouchCancel={ () => {Keyboard.dismiss() } }             
                                 >  
                                 </TextInput>
                             </View>
@@ -132,20 +142,20 @@ export default class LoginScreen extends React.Component {
                                      shadowOffset: { height: 3 },
                                      shadowColor: '#2328321F'
                                      }} onPress={() =>{this.verifyPhone()}}>
-                            <Text 
+                            <Text  adjustsFontSizeToFit={true}  minimumFontScale={1.2}
                                 style={{
                                     textAlign: "center",
                                     fontFamily: "Roboto-Medium",
-                                    fontSize: 20,
+                                    //fontSize: 20,
                                     color: "#FFFFFF"
                                     }}>{translate.t("label_login")}</Text>
                         </TouchableOpacity>                    
                     </View>                
-                    <Text style={{
+                    <Text adjustsFontSizeToFit={true}  minimumFontScale={.5} style={{
                         textAlign: "center",
                         fontFamily: "Roboto-Medium",
-                        fontSize: 18,
-                        lineHeight: 36,
+                        //fontSize: 18,
+                        //lineHeight: 36,
                         color: "Grey"
 
                     }}> {translate.t("by_signing_you_are_agree")} {"\n"} {translate.t("terms_Of_service")} | {translate.t("privacy_policy")} </Text>

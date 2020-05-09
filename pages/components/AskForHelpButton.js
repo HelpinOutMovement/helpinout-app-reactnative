@@ -11,7 +11,7 @@ function AskForHelpButton(props) {
       paddingHorizontal: 25,
       paddingVertical:15      
     }}>
-      <Text style={styles.askForHelp}>{translate.t("ask_for_help")}</Text>
+      <Text adjustsFontSizeToFit={true} minimumFontScale={0.5} style={styles.askForHelp}>{translate.t("ask_for_help")}</Text>
     </View>
   );
 }
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
   },
   askForHelp: {
     color: "rgba(245,245,245,1)",
-    fontSize: 20,
+    //fontSize: 20,
     fontFamily: "roboto-regular", 
     alignItems: 'center',    
     justifyContent:'center',

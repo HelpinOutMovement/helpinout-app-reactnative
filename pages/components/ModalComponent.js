@@ -11,6 +11,7 @@ import Utilities from '../../misc/Utils';
 
 import translate from 'react-native-i18n';
 import { appLabelKey } from '../../misc/AppStrings';
+import { verticalScale } from 'react-native-size-matters';
 
 const windowHeight = Dimensions.get('window').height;
 const rateAndReviewModalContent = (props) => {
@@ -178,8 +179,8 @@ const needHelpWithModalContent = (props) => {
     return (
         <View style={{
             backgroundColor: 'white',
-            padding: 22,
-            height: 190,
+            padding: 5,
+            height: verticalScale(190),
             justifyContent: 'center',
             alignItems: 'center',
             borderRadius: 2,
@@ -190,7 +191,7 @@ const needHelpWithModalContent = (props) => {
             <Grid style={{ width: "100%", alignItems: "center" }}>
                 <Row>
                     <Col style={{width:"90%"}}>
-                        <Text 
+                        <Text adjustsFontSizeToFit={true}  minimumFontScale={.1} numberOfLines={4}
                             style={{ color: "grey" }}>{(props.activity_type == AppConstant.APP_MAPPING_INDICATOR.REQUESTER)? translate.t("request_confirmation"): translate.t("offer_confirmation")}   </Text>
                     </Col>
                 </Row>

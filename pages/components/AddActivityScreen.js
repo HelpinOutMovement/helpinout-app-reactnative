@@ -28,6 +28,7 @@ import ModalComponent from './ModalComponent';
 import UUIDGenerator from 'react-native-uuid-generator';
 import API from '../../APIClient/API'
 import Utils from '../../misc/Utils'
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
 
 const width = Dimensions.get('window').width;
@@ -337,104 +338,116 @@ export default class AddActivityScreen extends Component {
 
           <HeaderComponent {...this.props} title={this.state.title} bgColor={this.state.headerBgColor} />
           <Content padder contentContainerStyle={{ ...StyleSheet.absoluteFillObject, justifyContent: 'flex-start', alignItems: 'center', }} >
-            <Row style={{ marginVertical: 10, height: "15%" }}>
-              <Col>
+                <View style={{height:verticalScale(100), width:scale(100)}}>
                 <Image
                   resizeMode="contain"
                   style={{ alignSelf: "center", height: "100%", width: "100%" }}
                   source={this.props.route.params.optionImage} />
-              </Col>
-            </Row>
-            <HView style={styles.hintTextContainer, (this.state.activity_type == 2) ? { borderWidth: 0, height: "25%" } : { borderWidth: 0, height: "60%" }} hide={this.state.hideAddMore}>
-              <ScrollView
-                ref={scrollView => this.scrollView = scrollView}
-                onContentSizeChange={() => {
-                  this.addNewElement && this.scrollView.scrollToEnd();
-                }}>
-
-                <View style={{ flex: 1, padding: 4 }}>
-
-                  {this.state.valueArray.map(ele => {
-                    return (
-                      <Animated_Item {...this.props}
-                        itemChangeCallback={this.itemChangeCallBack}
-                        key={ele.id}
-                        item={ele}
-                        deleteItem={(id) => this.remove_Selected_Item(id)}
-                        afterAnimationComplete={this.afterAnimationComplete}
-                      />
-                    )
-                  })}
                 </View>
-              </ScrollView>
-            </HView>
+
+
+                  <HView style={styles.hintTextContainer, (this.state.activity_type == 2) ? { borderWidth: 0, height: verticalScale(300) } : { borderWidth: 0, height: verticalScale(300)  }} hide={this.state.hideAddMore}>
+                    <ScrollView
+                      ref={scrollView => this.scrollView = scrollView}
+                      onContentSizeChange={() => {
+                        this.addNewElement && this.scrollView.scrollToEnd();
+                      }}>
+
+                      <View style={{ flex: 1, padding: 4 }}>
+
+                        {this.state.valueArray.map(ele => {
+                          return (
+                            <Animated_Item {...this.props}
+                              itemChangeCallback={this.itemChangeCallBack}
+                              key={ele.id}
+                              item={ele}
+                              deleteItem={(id) => this.remove_Selected_Item(id)}
+                              afterAnimationComplete={this.afterAnimationComplete}
+                            />
+                          )
+                        })}
+                      </View>
+                    </ScrollView>
+                  </HView>
+
+
 
 
             {this.props.route.params.optionCode === AppConstant.API_REQUEST_CONSTANTS.activity_category.PEOPLE
               ?
-              <View style={{ width: "90%", flex: 1, flexDirection: 'column', justifyContent: "center", marginBottom: 0, borderWidth: 0, marginTop: 0 }}>
-                <View style={{ borderWidth: 0, height: 180, marginBottom: 20 }}>
-                  <View style={styles.SwitchRow}>
-                    <Switch
-                      disabled={false}
-                      activeText={'On'}
-                      inActiveText={'Off'}
-                      backgroundActive={'green'}
-                      backgroundInactive={'gray'}
-                      circleActiveColor={'#30a566'}
-                      circleInActiveColor={'#000000'}
+              <View style={{ width: scale(300), height: verticalScale(360), flex: 1, flexDirection: 'column', justifyContent: "center", marginBottom: 0, borderWidth: 0, marginTop: 0,  }}>
+                <ScrollView style={{paddingHorizontal:10}}>
+                <Row style={{borderWidth:0, }}>
+                  <Col>
+                    <View style={{ borderWidth: 0, marginTop:20}}>
+                      <View style={styles.SwitchRow}>
+                        <Switch
+                          disabled={false}
+                          activeText={'On'}
+                          inActiveText={'Off'}
+                          backgroundActive={'green'}
+                          backgroundInactive={'gray'}
+                          circleActiveColor={'#30a566'}
+                          circleInActiveColor={'#000000'}
 
-                      value={this.state.volunters_required ? true : false}
-                      style={styles.Switch, { borderWidth: 0 }}
-                      onValueChange={(switchValue) => { this.setPeopleData("volunters_required", switchValue) }}
-                    ></Switch><Text style={{ marginLeft: 20 }}>{translate.t("volunteers")}</Text>
-                  </View>
-                  <View style={{ flex: 1, flexDirection: 'row', justifyContent: "space-evenly", marginTop: 0, marginBottom: 0, borderWidth: 0 }}>
-                    <Textarea rowSpan={5} style={{ borderWidth: 1, borderRadius: 4, width: "80%" }}
-                      onChangeText={(val) => this.setPeopleData("volunters_detail", val)}
-                      disabled={!this.state.volunters_required}></Textarea>
-                    <TextInput
-                      keyboardType={'numeric'}
-                      placeholderTextColor="grey"
-                      placeholder={translate.t("hint_qty")}
-                      style={{ borderWidth: 1, borderRadius: 3, borderColor: "grey", color: "#000000", height: 40, width: 60, marginLeft: 10, marginRight: 10, padding: 10 }}
-                      onChangeText={(val) => this.setPeopleData("volunters_quantity", val)}
-                      editable={this.state.volunters_required}
-                    >
-                    </TextInput>
-                  </View>
-                </View>
-                <View style={{ borderWidth: 0, height: 180 }}>
-                  <View style={styles.SwitchRow}>
-                    <Switch
-                      disabled={false}
-                      activeText={'On'}
-                      inActiveText={'Off'}
-                      backgroundActive={'green'}
-                      backgroundInactive={'gray'}
-                      circleActiveColor={'#30a566'}
-                      circleInActiveColor={'#000000'}
+                          value={this.state.volunters_required ? true : false}
+                          style={styles.Switch, { borderWidth: 0 }}
+                          onValueChange={(switchValue) => { this.setPeopleData("volunters_required", switchValue) }}
+                        ></Switch><Text adjustsFontSizeToFit={true}  minimumFontScale={1} style={{ marginLeft: 20 }}>{translate.t("volunteers")}</Text>
+                      </View>
+                      <View style={{ flex: 1, flexDirection: 'row', justifyContent: "space-evenly", marginTop: 0, marginBottom: 0, borderWidth: 0 }}>
+                        <Textarea rowSpan={5} style={{ borderWidth: 1, borderRadius: 4, width: "80%" }}
+                          onChangeText={(val) => this.setPeopleData("volunters_detail", val)}
+                          disabled={!this.state.volunters_required}></Textarea>
+                        <TextInput
+                          keyboardType={'numeric'}
+                          placeholderTextColor="grey"
+                          placeholder={translate.t("hint_qty")}
+                          style={{ borderWidth: 1, borderRadius: 3, borderColor: "grey", color: "#000000", height: scale(40), width: verticalScale(60), marginLeft: 10, marginRight: 10, padding: 10 }}
+                          onChangeText={(val) => this.setPeopleData("volunters_quantity", val)}
+                          editable={this.state.volunters_required}
+                        >
+                        </TextInput>
+                      </View>
+                    </View>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col>
+                    <View style={{ borderWidth: 0, marginTop:20}}>
+                    <View style={styles.SwitchRow}>
+                      <Switch
+                        disabled={false}
+                        activeText={'On'}
+                        inActiveText={'Off'}
+                        backgroundActive={'green'}
+                        backgroundInactive={'gray'}
+                        circleActiveColor={'#30a566'}
+                        circleInActiveColor={'#000000'}
 
-                      value={this.state.technical_personal_required ? true : false}
-                      style={styles.Switch, { borderWidth: 0 }}
-                      onValueChange={(switchValue) => { this.setPeopleData("technical_personal_required", switchValue) }}
-                    ></Switch><Text style={{ marginLeft: 20 }}>{translate.t("technical_personnel")}</Text>
-                  </View>
-                  <View style={{ flex: 1, flexDirection: 'row', justifyContent: "space-evenly", marginTop: 0, marginBottom: 0, borderWidth: 0 }}>
-                    <Textarea rowSpan={5} style={{ borderWidth: 1, borderRadius: 4, width: "80%" }}
-                      onChangeText={(val) => this.setPeopleData("technical_personal_detail", val)}
-                      disabled={!this.state.technical_personal_required}></Textarea>
-                    <TextInput
-                      keyboardType={'numeric'}
-                      placeholderTextColor="grey"
-                      placeholder={translate.t("hint_qty")}
-                      style={{ borderWidth: 1, borderRadius: 3, borderColor: "grey", color: "#000000", height: 40, width: 60, marginLeft: 10, marginRight: 10, padding: 10 }}
-                      onChangeText={(val) => this.setPeopleData("technical_personal_quantity", val)}
-                      editable={this.state.technical_personal_required}
-                    >
-                    </TextInput>
-                  </View>
-                </View>
+                        value={this.state.technical_personal_required ? true : false}
+                        style={styles.Switch, { borderWidth: 0 }}
+                        onValueChange={(switchValue) => { this.setPeopleData("technical_personal_required", switchValue) }}
+                      ></Switch><Text  adjustsFontSizeToFit={true}  minimumFontScale={1} style={{ marginLeft: 20 }}>{translate.t("technical_personnel")}</Text>
+                    </View>
+                    <View style={{ flex: 1, flexDirection: 'row', justifyContent: "space-evenly", marginTop: 0, marginBottom: 0, borderWidth: 0 }}>
+                      <Textarea rowSpan={5} style={{ borderWidth: 1, borderRadius: 4, width: "80%" }}
+                        onChangeText={(val) => this.setPeopleData("technical_personal_detail", val)}
+                        disabled={!this.state.technical_personal_required}></Textarea>
+                      <TextInput
+                        keyboardType={'numeric'}
+                        placeholderTextColor="grey"
+                        placeholder={translate.t("hint_qty")}
+                        style={{ borderWidth: 1, borderRadius: 3, borderColor: "grey", color: "#000000", height: 40, width: 60, marginLeft: 10, marginRight: 10, padding: 10 }}
+                        onChangeText={(val) => this.setPeopleData("technical_personal_quantity", val)}
+                        editable={this.state.technical_personal_required}
+                      >
+                      </TextInput>
+                    </View>
+                    </View>
+                  </Col>
+                </Row>  
+                </ScrollView>              
               </View>
 
 
@@ -446,7 +459,7 @@ export default class AddActivityScreen extends Component {
 
             <HView style={styles.hintTextContainer} hide={this.state.hideAddMore}>
               <HView style={{ textAlign: "left", borderWidth: 0, width: "100%", alignItems: "center", marginBottom: 20 }} hide={this.state.hideConstrains}>
-                <Text style={{ textAlign: "left", borderWidth: 0, width: "90%" }}>{translate.t("availability_condition")}</Text>
+                <Text  adjustsFontSizeToFit={true}  minimumFontScale={1}  style={{ textAlign: "left", borderWidth: 0, width: "90%" }}>{translate.t("availability_condition")}</Text>
                 <Textarea style={{ borderWidth: 1, borderRadius: 3, width: "90%" }}
                   rowSpan={5}
                   onChangeText={(val) => this.constrainsDataOnChange(val)}
@@ -470,10 +483,11 @@ export default class AddActivityScreen extends Component {
                 onPress={this.add_New_View}>
                 <EntypoIcon name="plus" style={{ fontSize: 18, color: "#4F5065" }} />
                 <Text
+                 adjustsFontSizeToFit={true}  minimumFontScale={1} 
                   style={{
                     textAlign: "center",
                     fontFamily: "Roboto-Regular",
-                    fontSize: 17,
+                    //fontSize: 17,
                     color: "#4F5065",
                   }}
                 >{translate.t("only_add_more_items")} </Text>
@@ -484,12 +498,12 @@ export default class AddActivityScreen extends Component {
             <View style={styles.buttonContainer}>
               <TouchableOpacity style={styles.NonFilled} onPress={() => this.submitData(1)}>
                 <View style={(this.props.route.params.activity_type === 1) ? styles.nonfilled_red : styles.nonfilled_grey}>
-                  <Text style={(this.props.route.params.activity_type === 1) ? styles.buttonTextNonFilled_red : styles.buttonTextNonFilled_grey}>{(this.props.route.params.activity_type === 1) ? translate.t("we_can_pay") : translate.t("we_charge")}</Text>
+                  <Text adjustsFontSizeToFit={true}  minimumFontScale={.5} style={(this.props.route.params.activity_type === 1) ? styles.buttonTextNonFilled_red : styles.buttonTextNonFilled_grey}>{(this.props.route.params.activity_type === 1) ? translate.t("we_can_pay") : translate.t("we_charge")}</Text>
                 </View>
               </TouchableOpacity>
               <TouchableOpacity style={styles.Filled} onPress={() => this.submitData(0)}>
                 <View style={(this.props.route.params.activity_type === 1) ? styles.filled_red : styles.filled_grey}>
-                  <Text style={(this.props.route.params.activity_type === 1) ? styles.buttonTextFilled_red : styles.buttonTextFilled_grey}>{(this.props.route.params.activity_type === 1) ? translate.t("we_can_not_pay") : translate.t("for_free")}</Text>
+                  <Text adjustsFontSizeToFit={true}  minimumFontScale={.5} style={(this.props.route.params.activity_type === 1) ? styles.buttonTextFilled_red : styles.buttonTextFilled_grey}>{(this.props.route.params.activity_type === 1) ? translate.t("we_can_not_pay") : translate.t("for_free")}</Text>
                 </View>
               </TouchableOpacity>
             </View>
@@ -583,21 +597,8 @@ const styles = StyleSheet.create({
     flex: 1
   },
 
-  bottomPanelGroup: {
-    flex: 1,
-    flexDirection: "column",
-    top: (dimensions.height * .58),
-    left: 0,
-    width: dimensions.width,
-    height: 200,
-    position: "absolute",
-    borderColor: 'red',
-    borderWidth: 2,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   hintTextContainer: {
-    width: dimensions.width,
+    width: scale(350),
     alignItems: 'center',
     justifyContent: 'center',
     position: "absolute",
@@ -606,7 +607,7 @@ const styles = StyleSheet.create({
   buttonContainer: {
     padding: 10,
     flexDirection: "row",
-    width: (dimensions.width * .95),
+    width: scale(330),
     //borderColor: 'green',
     //borderWidth: 2,    
     //top:-(dimensions.width*.95),    
@@ -667,7 +668,7 @@ const styles = StyleSheet.create({
 
   buttonTextFilled_red: {
     color: "rgba(245,245,245,1)",
-    fontSize: 20,
+    //fontSize: 20,
     fontFamily: "roboto-regular",
     alignItems: 'center',
     justifyContent: 'center',
@@ -675,7 +676,7 @@ const styles = StyleSheet.create({
 
   buttonTextNonFilled_red: {
     color: "rgba(243,103,103,1)",
-    fontSize: 20,
+    //fontSize: 20,
     fontFamily: "roboto-regular",
     alignItems: 'center',
     justifyContent: 'center',
@@ -683,7 +684,7 @@ const styles = StyleSheet.create({
 
   buttonTextFilled_grey: {
     color: "rgba(245,245,245,1)",
-    fontSize: 20,
+    //fontSize: 20,
     fontFamily: "roboto-regular",
     alignItems: 'center',
     justifyContent: 'center',
@@ -691,7 +692,7 @@ const styles = StyleSheet.create({
 
   buttonTextNonFilled_grey: {
     color: "rgba(109,115,130,1)",
-    fontSize: 20,
+    //fontSize: 20,
     fontFamily: "roboto-regular",
     alignItems: 'center',
     justifyContent: 'center',

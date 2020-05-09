@@ -4,6 +4,7 @@ import { TouchableOpacity } from 'react-native';
 import { Col, Text } from "native-base";
 import AppConstant from '../../misc/AppConstant';
 import { useNavigation } from '@react-navigation/native';
+import { verticalScale, scale } from 'react-native-size-matters';
 
 const ButtonComponent = (props) => {
 
@@ -12,7 +13,7 @@ const ButtonComponent = (props) => {
         marginLeft: 10,
         alignItems: "center",
         backgroundColor: props.colorTheme ? props.colorTheme : "#EE6B6B",
-        height: 56,
+        height: verticalScale(50),
         borderRadius: 10,
         justifyContent: "center",
         alignContent: "center"
@@ -22,7 +23,7 @@ const ButtonComponent = (props) => {
         buttonFilledStyle = {
             alignItems: "center",
             borderColor: props.colorTheme ? props.colorTheme : "#EE6B6B",
-            height: 56,
+            height: verticalScale(50),
             borderWidth: 2,
             borderRadius: 10,
             justifyContent: "center",
@@ -30,7 +31,7 @@ const ButtonComponent = (props) => {
         }
     }
     return (
-        <Col style={{ width: "40%" , ...props.containerStyle}}>
+        <Col style={{ width: scale(150) , ...props.containerStyle}}>
             <TouchableOpacity
                 style={buttonFilledStyle}
                 onPress={() => {
@@ -52,11 +53,12 @@ const ButtonComponent = (props) => {
                 }
                 }>
                 <Text
+                    adjustsFontSizeToFit={true}  minimumFontScale={.5}
                     style={{
 
                         textAlign: "center",
                         fontFamily: "Roboto-Regular",
-                        fontSize: 18,
+                        //fontSize: 18,
                         color: (props.unfilled) ? (props.colorTheme ? props.colorTheme : "#EE6B6B") : "#ffffff"
                     }}
                 > {props.label}</Text>
@@ -70,8 +72,8 @@ const BasicFilledButton = (props) => {
         marginVertical: 30,
         alignItems: "center",
         backgroundColor: props.colorTheme ? props.colorTheme : "#EE6B6B",
-        height: 56,
-        width: "92%",
+        height: verticalScale(50),
+        width: scale(315),
         shadowOpacity: 0.9,
         shadowOffset: { height: 3 },
         shadowColor: '#2328321F',
@@ -91,11 +93,12 @@ const BasicFilledButton = (props) => {
         }
         }>
         <Text
+        adjustsFontSizeToFit={true}  minimumFontScale={.5}
             style={{
                 textAlign: "center",
                                 fontFamily: "Roboto-Medium",
-                                fontSize: 20,
-                                lineHeight: 56,
+                                //fontSize: 20,
+                                //lineHeight: 56,
                                 color: "#FFFFFF"
             }}
         > {props.label}</Text>
@@ -106,7 +109,11 @@ const BasicFilledButton = (props) => {
 const BasicButton = (props) => {
     let buttonFilledStyle = {
         alignItems: "flex-start",
-        borderRadius: 10
+        borderRadius: 10,
+        alignItems:"center", 
+        justifyContent:"center",
+        flex:1,
+        alignContent:"center",
     };
     if(props.btnStyle) {
         buttonFilledStyle = {
@@ -123,11 +130,12 @@ const BasicButton = (props) => {
         }
         }>
         <Text
+        adjustsFontSizeToFit={true}  minimumFontScale={.5}
             style={{
                 textAlign: "left",
                 fontFamily: "Roboto-Regular",
-                fontSize: 14,
-                lineHeight: 26,
+                //fontSize: 14,
+                //lineHeight: 26,
                 color: "#4F5065"
             }}
         > {props.label}</Text>
