@@ -61,134 +61,38 @@ function App() {
 
   console.log("App Version",JSON.stringify(DeviceInfo.getBuildNumber()));
 
-/*
-
-  const [permissions, setPermissions] = useState({});
-
-  useEffect(() => {
-    PushNotificationIOS.requestPermissions();
-    PushNotificationIOS.addEventListener('register', onRegistered);
-    PushNotificationIOS.addEventListener(
-      'registrationError',
-      onRegistrationError,
-    );
-    PushNotificationIOS.addEventListener('notification', onRemoteNotification);
-    PushNotificationIOS.addEventListener(
-      'localNotification',
-      onLocalNotification,
-    );
-    
-    return () => {
-      PushNotificationIOS.removeEventListener('register', onRegistered);
-      PushNotificationIOS.removeEventListener(
-        'registrationError',
-        onRegistrationError,
-      );
-      PushNotificationIOS.removeEventListener(
-        'notification',
-        onRemoteNotification,
-      );
-      PushNotificationIOS.removeEventListener(
-        'localNotification',
-        onLocalNotification,
-      );
-    };
-  }, []);
-
-
-
-  const sendNotification = () => {
-    DeviceEventEmitter.emit('remoteNotificationReceived', {
-      remote: true,
-      aps: {
-        alert: 'Sample notification',
-        badge: '+1',
-        sound: 'default',
-        category: 'REACT_NATIVE',
-        'content-available': 1,
-      },
-    });
-  };
-
-  const sendLocalNotification = () => {
-    PushNotificationIOS.presentLocalNotification({
-      alertBody: 'Sample local notification',
-      fireDate: new Date().toISOString(),
-      applicationIconBadgeNumber: 1,
-    });
-  };
-
-  const scheduleLocalNotification = () => {
-    PushNotificationIOS.scheduleLocalNotification({
-      alertBody: 'Test Local Notification',
-      fireDate: new Date().toISOString(),
-    });
-  };
-
-  const onRegistered = deviceToken => {
-    alert('Registered For Remote Push', `Device Token: ${deviceToken}`, [
-      {
-        text: 'Dismiss',
-        onPress: null,
-      },
-    ]);
-  };
-
-  const onRegistrationError = error => {
-    alert(
-      'Failed To Register For Remote Push',
-      `Error (${error.code}): ${error.message}`,
-      [
-        {
-          text: 'Dismiss',
-          onPress: null,
-        },
-      ],
-    );
-  };
-
-  const onRemoteNotification = notification => {
-    const result = `Message: ${notification.getMessage()};\n
-      badge: ${notification.getBadgeCount()};\n
-      sound: ${notification.getSound()};\n
-      category: ${notification.getCategory()};\n
-      content-available: ${notification.getContentAvailable()}.`;
-
-    alert('Push Notification Received', result, [
-      {
-        text: 'Dismiss',
-        onPress: null,
-      },
-    ]);
-  };
-
-  const onLocalNotification = notification => {
-    alert(
-      'Local Notification Received',
-      'Alert message: ' + notification.getMessage(),
-      [
-        {
-          text: 'Dismiss',
-          onPress: null,
-        },
-      ],
-    );
-  };
-
-  const showPermissions = () => {
-    PushNotificationIOS.checkPermissions(permissions => {
-      setPermissions({permissions});
-    });
-  };
-
-  const onRegister = (token) => {
-    console.log("TOKEN:", token);
-  }
-
-*/
-
-
 useEffect(() => {
+
+  console.log("in useEffect : ")
+  setAppState(AppConstant.APP_STATE.IS_NOT_AUTENTICATED);
+  AppStorage.getAppInfo(AppConstant.IS_VEFIRIED)
+  .then((resp) => {
+    console.log("in IS_VEFIRIED Response : " + resp)
+    if (resp === "true") {
+      console.log("IS_VEFIRIED resp :  " + resp);
+      AppStorage.getAppInfo(AppConstant.IS_LOGGED_IN).then((resp1) => {        
+        console.log("IS_LOGGED_IN resp :  " + resp1);
+        if (resp1 === "true") {
+          setAppState(AppConstant.APP_STATE.IS_AUTHENTICATED);
+          console.log("AppConstant.APP_STATE.IS_AUTHENTICATED ")
+        }else{
+          console.log("AppConstant.APP_STATE.IS_NOT_AUTENTICATED ")
+          setAppState(AppConstant.APP_STATE.IS_NOT_AUTENTICATED);
+        }            
+      }).catch(error1 => {
+        setAppState(AppConstant.APP_STATE.IS_NOT_AUTENTICATED);
+      });
+      
+    } else {
+      console.log("AppConstant.APP_STATE.IS_NOT_AUTENTICATED ")
+      setAppState(AppConstant.APP_STATE.IS_NOT_AUTENTICATED);
+    }
+  }).catch(error => {
+    console.log("AppConstant.APP_STATE.IS_NOT_AUTENTICATED ")
+    setAppState(AppConstant.APP_STATE.IS_NOT_AUTENTICATED);
+  });
+
+
   this.checkPermission();
   this.messageListener();
  }, []);
@@ -288,8 +192,9 @@ useEffect(() => {
     AppStorage.getAppInfo(AppConstant.IS_VEFIRIED)
       .then((resp) => {
         if (resp === "true") {
-          console.log("APP resp :  " + resp);
+          console.log("IS_VEFIRIED resp :  " + resp);
           AppStorage.getAppInfo(AppConstant.IS_LOGGED_IN).then((resp1) => {
+            console.log("IS_LOGGED_IN resp :  " + resp1);
             if (resp1 === "true") {
               setAppState(AppConstant.APP_STATE.IS_AUTHENTICATED);
             }else{
@@ -360,6 +265,7 @@ useEffect(() => {
             <Stack.Screen key={`a_${AppConstant.APP_PAGE.VERIFY}`} name={AppConstant.APP_PAGE.VERIFY} component={VerifyScreen} />
 
             <Stack.Screen key={`a_${AppConstant.APP_PAGE.REGISTER_MOBILE}`} name={AppConstant.APP_PAGE.REGISTER_MOBILE} component={RegisterMobile} />
+            
             <Stack.Screen key={`a_${AppConstant.APP_PAGE.ASK_FOR_HELP}`} name={AppConstant.APP_PAGE.ASK_FOR_HELP} component={AskForHelpScreen} />
             <Stack.Screen key={`a_${AppConstant.APP_PAGE.DASHBOARD}`} name={AppConstant.APP_PAGE.DASHBOARD} component={MyDrawer} />
             <Stack.Screen key={`a_${AppConstant.APP_PAGE.MAP_COMPONENT}`} name={AppConstant.APP_PAGE.MAP_COMPONENT} component={MapComponent} />
@@ -369,9 +275,9 @@ useEffect(() => {
             <Stack.Screen key={`a_${AppConstant.APP_PAGE.MY_OFFER_SENT_OFFER_SCREEN}`} name={AppConstant.APP_PAGE.MY_OFFER_SENT_OFFER_SCREEN} component={MyOfferSentOfferScreen} />
             <Stack.Screen key={`a_${AppConstant.APP_PAGE.MY_OFFERS_SCREEN}`} name={AppConstant.APP_PAGE.MY_OFFERS_SCREEN} component={MyOfferScreen} />
             <Stack.Screen key={`a_${AppConstant.APP_PAGE.ADD_ACTIVITY_SCREEN}`} name={AppConstant.APP_PAGE.ADD_ACTIVITY_SCREEN} component={AddActivityScreen} />
-            <Stack.Screen key={`a_${AppConstant.APP_PAGE.SEARCH_HELP_PROVIDERS_REQUESTERS}`} name={AppConstant.APP_PAGE.SEARCH_HELP_PROVIDERS_REQUESTERS} component={SearchHelpProvidersRequesters} /*initialParams={{activity_type:2, activity_uuid:"C923AB2B-2122-4674-98F6-809850172A27", region:{}, address:""}}*//>
+            <Stack.Screen key={`a_${AppConstant.APP_PAGE.SEARCH_HELP_PROVIDERS_REQUESTERS}`} name={AppConstant.APP_PAGE.SEARCH_HELP_PROVIDERS_REQUESTERS} component={SearchHelpProvidersRequesters}/>
             <Stack.Screen key={`a_${AppConstant.APP_PAGE.SIDE_DRAWER}`} name={AppConstant.APP_PAGE.SIDE_DRAWER} component={MyDrawer} />
-
+            
 
           </Stack.Navigator>
         ));

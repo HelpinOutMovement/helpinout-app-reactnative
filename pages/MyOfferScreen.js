@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { View } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
-import { Container, Content, Text, Footer } from "native-base";
+import { Container, Content, Text, Footer, FooterTab } from "native-base";
 import translate from 'react-native-i18n';
 import { PastOfferRequestComponent } from './components/PastOfferRequestComponent';
 import { apiInstance } from "../APIClient/API";
@@ -12,6 +12,9 @@ import SpinnerComponent from './components/SpinnerComponent';
 import FooterTabComponent from './components/FooterTabComponent';
 import ModalComponent from './components/ModalComponent';
 
+import { verticalScale, scale, moderateScale } from 'react-native-size-matters';
+import Utils from "../misc/Utils"
+const footerTop = Utils.isIphoneX() ? verticalScale(620) : verticalScale(610);
 
 const realReq = [
   {
@@ -403,9 +406,10 @@ function MyOfferScreen(props) {
       <Content   >
         {getRequestList()}
       </Content>
-      <Footer>
-        <FooterTabComponent {...props} activeTab={AppConstant.APP_FOOTER_TABS.MY_OFFER} />
-      </Footer>
+      <FooterTab style={{ position: "absolute", left: 0, top: footerTop, width: scale(350), backgroundColor: "#FFFFFF" }}>
+            <FooterTabComponent {...props} activeTab={AppConstant.APP_FOOTER_TABS.MY_OFFER}/>
+      </FooterTab>
+     
       <ModalComponent
         {...modalInfo}
         viewName={(modalInfo && modalInfo.type) ? modalInfo.type : ""}

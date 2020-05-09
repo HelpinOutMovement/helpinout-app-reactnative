@@ -1,5 +1,5 @@
 import React ,{useState, useContext} from 'react';
-import { TextInput, View, Image, Text, TouchableOpacity, StyleSheet, Switch, ScrollView, Dimensions, AsyncStorage } from 'react-native';
+import { TextInput, View, Image, Text, TouchableOpacity, StyleSheet, Switch, ScrollView, Dimensions, KeyboardAvoidingView,  AsyncStorage } from 'react-native';
 import AppStorage from '../storage/AppStorage';
 import AppConstant from '../misc/AppConstant';
 import AppStringContext from '../misc/AppStringContext';
@@ -15,7 +15,7 @@ import LogoComponent from './components/LogoComponent';
 import firebase from 'react-native-firebase'
 
 import Toast from 'react-native-tiny-toast'
-
+import { KeyboardAwareView } from 'react-native-keyboard-aware-view'
 
 export default class RegisterMobile extends React.Component {
     
@@ -90,8 +90,10 @@ export default class RegisterMobile extends React.Component {
                     console.log("result  data : "+ JSON.stringify(result));
                     if(result.status === "0"){
                         if(result.message === "Already registered"){
-                            AppStorage.storeAppInfo(AppConstant.IS_LOGGED_IN, "true");
-                            this.navigate(AppConstant.APP_PAGE.DASHBOARD, {loginState: this.state});
+                            AppStorage.storeAppInfo(AppConstant.IS_LOGGED_IN, "false");
+                            Toast.show('Phone number already registered' , {duration:1000, position:0, animation:true, shadow:true, animationDuration:2000})
+                            //this.navigate(AppConstant.APP_PAGE.DASHBOARD, {loginState: this.state});
+                            thisclass.navigate(AppConstant.APP_PAGE.LOGIN, {loginState: thisclass.state});    
                         }else{
                             console.log("RegMobile  === 0");
                             console.log("RegMobile  " + result.status);                    
@@ -110,7 +112,12 @@ export default class RegisterMobile extends React.Component {
                             console.log("userRegistrationDetails    " + value);
                             // expected output: "Success!"
                             AppStorage.storeAppInfo(AppConstant.IS_LOGGED_IN, "true");
-                            thisclass.navigate(AppConstant.APP_PAGE.DASHBOARD, {loginState: thisclass.state});
+                            AppStorage.storeAppInfo(AppConstant.APP_STORE_KEY.USER_REG_DETAILS, JSON.stringify(result.data)).then(() => {
+                                AppStorage.getAppInfo(AppConstant.APP_STORE_KEY.USER_REG_DETAILS).then((responseObj) => {
+                                    console.log("RegistrationData : " + responseObj)
+                                    thisclass.navigate(AppConstant.APP_PAGE.DASHBOARD, {loginState: thisclass.state});                                    
+                                })
+                            });
                           });                                        
                     }
                 }, 
@@ -144,6 +151,7 @@ export default class RegisterMobile extends React.Component {
             <View style={{ flexDirection: "column", padding: 10, flex: 1}}>
                 <LogoComponent />
                 <Text style={commonStyling.appLabelInout}>{translate.t('label_register')}</Text>
+                <KeyboardAwareView animated={true}>
                 <ScrollView style={{flex: 1,borderWidth: StyleSheet.hairlineWidth, borderWidth:0, borderColor: 'red'}}>
                     <View style={{ alignItems: "center" , marginBottom:50}} >            
                 
@@ -231,6 +239,7 @@ export default class RegisterMobile extends React.Component {
                             }
                     </View>
                 </ScrollView>
+                </KeyboardAwareView>
             </View>
         );   
     }        

@@ -7,7 +7,7 @@ function OfferHelpButon(props) {
   return (    
     <View style={{
       backgroundColor:"#4F5065",
-      borderRadius:10,
+      borderRadius:4,
       paddingHorizontal: 25,
       paddingVertical:15      
     }}>

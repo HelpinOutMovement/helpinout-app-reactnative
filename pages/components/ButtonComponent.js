@@ -71,6 +71,7 @@ const BasicFilledButton = (props) => {
     let buttonFilledStyle = {
         marginVertical: 30,
         alignItems: "center",
+        justifyContent:"center", 
         backgroundColor: props.colorTheme ? props.colorTheme : "#EE6B6B",
         height: verticalScale(50),
         width: scale(315),

@@ -12,18 +12,21 @@ const FooterTabComponent = (props) => {
         <FooterTab
             style={{
                 height: 70,
-                backgroundColor: "#FFFFFF"
+                backgroundColor: "#FFFFFF",
+                borderTopWidth:1,
+                
             }}>
-            <Button vertical
+            <Button vertical 
                 active={props.activeTab === AppConstant.APP_FOOTER_TABS.HOME}
                 onPress={() => props.navigation.navigate(AppConstant.APP_PAGE.DASHBOARD)}
                 style={{
+                    color: "#FFFFFF",
                     height: 70
                 }}
             >
                 <Icon name="home" style={props.activeTab === AppConstant.APP_FOOTER_TABS.HOME ? {fontSize:25 , color:"#EE6B6B"} : {fontSize:25, color:"#4F50657A"}}/>
                 <Text style={{
-                    color: (props.activeTab === AppConstant.APP_FOOTER_TABS.HOME) ? "#EE6B6B" : "#4F50657A",
+                    //color: (props.activeTab === AppConstant.APP_FOOTER_TABS.HOME) ? "#EE6B6B" : "#4F50657A",
                     fontFamily: "Roboto-Regular",
                     fontSize: 12
                 }}>{translate.t("title_home")}</Text>
@@ -37,7 +40,7 @@ const FooterTabComponent = (props) => {
             >
                 <Icon name="request" style={props.activeTab === AppConstant.APP_FOOTER_TABS.MY_REQUEST ? {fontSize:25 , color:"#EE6B6B"} : {fontSize:25, color:"#4F50657A"}}/>
                 <Text style={{
-                    color: (props.activeTab === AppConstant.APP_FOOTER_TABS.MY_REQUEST) ? "#EE6B6B" : "#4F50657A",
+                    //color: (props.activeTab === AppConstant.APP_FOOTER_TABS.MY_REQUEST) ? "#EE6B6B" : "#4F50657A",
                     fontFamily: "Roboto-Regular",
                     fontSize: 12
                 }} >{translate.t("title_my_request")}</Text>
@@ -51,7 +54,7 @@ const FooterTabComponent = (props) => {
             >
                 <Icon active name="offer" style={props.activeTab === AppConstant.APP_FOOTER_TABS.MY_OFFER ? {fontSize:25 , color:"#EE6B6B"} : {fontSize:25, color:"#4F50657A"}}/>
                 <Text style={{
-                    color: (props.activeTab === AppConstant.APP_FOOTER_TABS.MY_OFFER) ? "#EE6B6B" : "#4F50657A",
+                    //color: (props.activeTab === AppConstant.APP_FOOTER_TABS.MY_OFFER) ? "#EE6B6B" : "#4F50657A",
                     fontFamily: "Roboto-Regular",
                     fontSize: 12
                 }}>{translate.t("title_my_offers")}</Text>

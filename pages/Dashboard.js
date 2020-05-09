@@ -40,7 +40,28 @@ class Dashboard extends React.Component {
     this.mapComponentRef = React.createRef();
     this.navigation = this.props.navigation;
     //this.state = this.props.route.params.loginState;
-    this.state = { hintIsHidden: false, userDetails: {}, region: {}, address: "Default Address" };
+    this.state = { 
+      hintIsHidden: false, 
+      userDetails: {}, 
+      region: {}, 
+      address: "Default Address", 
+      
+      requestMatchCount:3,
+      offerMatchCount:3,
+
+      requestAlert:{
+        width: scale(20),
+        left: scale(330),
+        expanded: false,
+        },
+        
+      offerAlert:{
+        width: scale(20),
+        left: scale(330),
+        expanded: false,
+        }
+    };
+
     this.navigate = this.props.navigation.navigate;
 
     console.log("VerifyScreen Constructor")
@@ -56,6 +77,14 @@ class Dashboard extends React.Component {
 
   }
 
+
+   showRequestsAlertView = (type) => {    
+      if (this.state[type].expanded) {
+        this.setState({[type]:{width:scale(20), left:scale(330), expanded:false}});        
+      } else {      
+        this.setState({[type]:{width:scale(250), left:scale(100), expanded:true}});        
+      }
+  }
 
   callMapComponentMethod = (markers) => {
     this.mapComponentRef.current.addMarker(markers);
@@ -79,9 +108,11 @@ class Dashboard extends React.Component {
     let restApi = new API();
     reqObj = restApi.locationSuggestion(mapState.region.latitude, mapState.region.longitude, "10.424", getDistance(mapState.boundries.northEast, mapState.boundries.southWest) / 2);
     reqObj.then((val) => {
-      //console.log("API Response Data  1  " + JSON.stringify(val))
+      console.log("API Response Data  1  " + JSON.stringify(val))
+      this.setState({requestMatchCount:val.data.my_requests_match})
+      this.setState({offerMatchCount:val.data.my_offers_match})
       //this.addMarker(val)
-      this.mapComponentRef.current.addMarker(val)
+      //this.mapComponentRef.current.addMarker(val)
     }).catch(err => {
       if (err.response.status === 409) {
         Toast.show('appid expired : ', { duration: 2000, position: 0, animation: true, shadow: true, animationDuration: 1000 })
@@ -108,6 +139,10 @@ class Dashboard extends React.Component {
 
 
 
+
+
+
+
   render() {
     return (
       <Container style={{ alignItems: "center" }}>
@@ -115,142 +150,132 @@ class Dashboard extends React.Component {
         </MapComponent>
 
         <SafeAreaView style={{ width: scale(350), alignItems: "center" }}>
-          <View style={{
-            backgroundColor: "#FFFFFF",
-            width: "94%",
-            alignSelf: "center",
-            borderRadius: 10,
-            flexDirection: "row",
-            paddingVertical: 10,
-            alignItems: "center"
-          }}>
-            <View
-              style={{
-                width: "15%"
-              }}>
-              <Button transparent
-                style={{
-                  padding: 0
-                }}
-                onPress={() => { this.context.setLatLon({ region: this.state.region, address: this.state.address }); this.navigation.openDrawer() }}>
-                <Icon name="menu" />
-              </Button>
-            </View>
-            <View style={{
-              width: "75%"
-            }}>
 
-              <Text
-              adjustsFontSizeToFit={true}  minimumFontScale={.1}
-                style={{
-                  color: "#4F50657A",
-                  fontFamily: "Roboto-Regular",
-                  fontSize: 12,
-                  lineHeight: 18,
-                  alignSelf: "flex-start"
-                }}>{translate.t("you_are_here")}</Text>
-              <Text
-              adjustsFontSizeToFit={true}  minimumFontScale={.6}
-                style={{
-                  color: "#4F5065",
-                  fontFamily: "Roboto-Regular",
-                  fontSize: 14,
-                  alignSelf: "flex-start"
-                }}>{this.state.address}</Text>
-
-            </View>
-          </View>
-          {
-            /*
-            <View
-            style={{
-              width: scale(330),
-              flex: 0,
-              flexDirection: 'row',
-              top: this.topBarPos,
-              borderRadius: 6,
-              height: verticalScale(50),
-              borderWidth: 0,
-              borderColor: "#000000"
-            }}>
-            <View
-              style={{
-                width: scale(50),
-                backgroundColor: "white", 
-                height: verticalScale(50), 
-                borderRadius: 6, 
-                borderTopRightRadius: 0, 
-                borderBottomRightRadius: 0, 
-                borderLeftWidth: 1, 
-                borderTopWidth: 1,
-                borderBottomWidth: 1, 
-                justifyContent: "center"
-              }} >
-                  <Button transparent 
-                      style={{ 
-                      padding: 0 
-                      }} 
-                      onPress={() => { this.context.setLatLon({ region: this.state.region, address: this.state.address }); this.navigation.openDrawer() }}>
-                        <Icon name="menu" />
-                  </Button>
-              </View>
-            <View 
-              style={{ 
-                  width: scale(200), 
-                  backgroundColor: "#FFFFFF", 
-                  height: verticalScale(50), 
-                  borderRightWidth: 0, 
-                  borderRadius: 0, 
-                  borderTopLeftRadius: 0, 
-                  borderBottomLeftRadius: 0, 
-                  borderTopWidth: 1, 
-                  borderBottomWidth: 1, 
-                  alignItems: "center", 
-                  justifyContent: 'center' 
-                  }} >
-              <Text 
-                style={{ 
-                   color:"#4F50657A",
-                   fontFamily: "Roboto-Regular",		
-                   fontSize: 12,
-                   lineHeight:18,
-                   alignSelf:"flex-start"
-                }}>{translate.t("you_are_here")}</Text>
-              <Text 
-                style={{ 
-                  color:"#4F5065",
-                  fontFamily: "Roboto-Regular",		
-                  fontSize: 14,
-                  alignSelf:"flex-start"
-                   }}>{this.state.address}</Text>
-            </View>
-            <View style={{ width: scale(80), backgroundColor: "white", height: verticalScale(50), borderRadius: 6, borderTopLeftRadius: 0, borderBottomLeftRadius: 0, borderTopWidth: 1, borderBottomWidth: 1, borderRightWidth: 1, alignItems: "center", justifyContent: 'center' }} ><Text style={{ fontFamily: "roboto-medium", fontSize: 14, color: "rgba(243,103,103,1)" }}>Change</Text></View>
-          </View>
-      */}
-
-          <View style={{ position: "absolute", left: 0, top: footerTop - 100, width: scale(350), backgroundColor: "#FFFFFF" }}>
-            <HView style={styles(this.dimensions).hintTextContainer} hide={false}>
-              <View style={{backgroundColor: "rgba(163,159,159,1)", height:verticalScale(20)}}>
-              <Text adjustsFontSizeToFit={true} minimumFontScale={.01} style={{textAlign:"center"}}>
-                {translate.t("identify_location")}
-              </Text>
-              </View>
+                <View style={{ width:scale(330), flex: 0, flexDirection: 'row',top:this.topBarPos , borderRadius:6 ,height: verticalScale(50), borderWidth:0, borderColor:"#000000" }}>                
+                    <View style={{width: scale(50), backgroundColor:"white", height: verticalScale(50), borderRadius:6, borderTopRightRadius:0,borderBottomRightRadius:0 ,borderLeftWidth:1,borderTopWidth:1,borderBottomWidth:1, justifyContent:"center"}} ><Button transparent style={{padding:0}} onPress={() => { this.context.setLatLon({ region: this.state.region, address: this.state.address }); this.navigation.openDrawer() }}><Icon name="menu"/></Button></View>
+                    <View style={{width: scale(200), backgroundColor:"white", height: verticalScale(50), borderRightWidth:0,  borderRadius:0, borderTopLeftRadius:0,borderBottomLeftRadius:0 ,borderTopWidth:1,borderBottomWidth:1,alignItems:"center", justifyContent: 'center'}} >
+                        <Text adjustsFontSizeToFit={true}  minimumFontScale={.5} style={{ overflow:"hidden", height:verticalScale(10), textAlign:"left", width:  scale(200) , color:"grey", paddingTop:0, paddingBottom:0}}>You are here</Text>
+                        <Text adjustsFontSizeToFit={true}  minimumFontScale={.6} numberOfLines={2} style={{ overflow:"hidden", height:verticalScale(30),textAlign:"left", width:  scale(200), paddingTop:0}}>{this.state.address}</Text>
+                    </View>
+                    <View adjustsFontSizeToFit={true}  minimumFontScale={1} style={{width: scale(80), backgroundColor:"white", height: verticalScale(50), borderRadius:6, borderTopLeftRadius:0,borderBottomLeftRadius:0 ,borderTopWidth:1,borderBottomWidth:1,borderRightWidth:1,alignItems:"center", justifyContent: 'center'}} ><Text style={{fontFamily: "roboto-medium",fontSize:14 , color:"rgba(243,103,103,1)"}}>Change</Text></View>
+                </View>
               
-            </HView>
-            <View style={{ position: "absolute", left: 0, top: 20, width: scale(350), alignItems: "center", marginTop: 10, marginBottom: 10, backgroundColor: "#FFFFFF" }}>
-              <View style={styles(this.dimensions).buttonContainer}>
-                <TouchableOpacity style={styles(this.dimensions).AskForHelp} onPress={() => this.navigate(AppConstant.APP_PAGE.ASK_FOR_HELP, { region: this.state.region, address: this.state.address })}>
-                  <AskForHelpButton />
+                <TouchableOpacity
+                  onPress={() => {
+                    this.showRequestsAlertView("requestAlert");
+                  }}
+                  style={{
+                    flex:1,
+                    flexDirection:"row",
+                    position: 'absolute',
+                    left: this.state.requestAlert.left,
+                    top: verticalScale(100),
+                    width: this.state.requestAlert.width,
+                    height: verticalScale(30),
+                    backgroundColor: '#FFF',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    borderBottomLeftRadius: 4,
+                    borderTopLeftRadius: 4,
+                }}>
+                    <View style={{ color: 'black', overflow:"hidden", width: this.state.requestAlert.width,  height: verticalScale(15),}}>
+                        <Text adjustsFontSizeToFit={true} minimumFontScale={.01}  style={{ color: 'red', overflow:"hidden", paddingLeft:scale(10)}}>{this.state.requestMatchCount} help givers match your requests</Text>
+                    </View>
+                    
                 </TouchableOpacity>
-                <TouchableOpacity style={styles(this.dimensions).OfferHelp} onPress={() => this.navigate(AppConstant.APP_PAGE.OFFER_HELP_SCREEN, { region: this.state.region, address: this.state.address })}>
-                  <OfferHelpButton />
+                <TouchableOpacity
+                  onPress={() => {
+                    this.showRequestsAlertView("requestAlert");
+                  }}
+                  style={{
+                    flex:1,
+                    flexDirection:"row",
+                    position: 'absolute',
+                    left: scale(330),
+                    top: verticalScale(100),
+                    width: scale(20),
+                    height: verticalScale(30),
+                    backgroundColor: '#FFF',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    borderBottomLeftRadius: 4,
+                    borderTopLeftRadius: 4,
+                  }}>
+                  <Text style={{ color: 'red',}}>!</Text>
                 </TouchableOpacity>
-              </View>
-            </View>
-          </View>
-          <FooterTab style={{ position: "absolute", left: 0, top: footerTop, width: scale(350), backgroundColor: "#FFFFFF" }}>
-            <FooterTabComponent {...this.props} activeTab={AppConstant.APP_FOOTER_TABS.HOME} latlon={this.state.latlon} />
-          </FooterTab>
+
+
+                <TouchableOpacity
+                  onPress={() => {
+                    this.showRequestsAlertView("offerAlert");
+                  }}
+                  style={{
+                    flex:1,
+                    flexDirection:"row",
+                    position: 'absolute',
+                    left: this.state.offerAlert.left,
+                    top: verticalScale(150),
+                    width: this.state.offerAlert.width,
+                    height: verticalScale(30),
+                    backgroundColor: '#FFF',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    borderBottomLeftRadius: 4,
+                    borderTopLeftRadius: 4,
+                }}>
+                    <View style={{ color: 'black', overflow:"hidden", width: this.state.offerAlert.width,  height: verticalScale(15),}}>
+                        <Text adjustsFontSizeToFit={true} minimumFontScale={.05}  style={{ color: 'black', overflow:"hidden", paddingLeft:scale(10)}}>{this.state.offerMatchCount} help seekers match your offers</Text>
+                    </View>
+                    
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => {
+                    this.showRequestsAlertView("offerAlert");
+                  }}
+                  style={{
+                    flex:1,
+                    flexDirection:"row",
+                    position: 'absolute',
+                    left: scale(330),
+                    top: verticalScale(150),
+                    width: scale(20),
+                    height: verticalScale(30),
+                    backgroundColor: '#FFF',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    borderBottomLeftRadius: 4,
+                    borderTopLeftRadius: 4,
+                  }}>
+                  <Text style={{ color: 'black',}}>!</Text>
+                </TouchableOpacity>
+
+
+
+          
+                <View style={{ position: "absolute", left: 0, top: footerTop - 100, width: scale(350), backgroundColor: "#FFFFFF" }}>
+
+                  <View style={{ position: "absolute", left: 0, top: 0, width: scale(350), alignItems: "center", marginVertical:10, backgroundColor: "#FFFFFF" }}>
+                    <View style={{backgroundColor: "#FFFFFF", height:verticalScale(20),width: scale(330)}}>
+                        <View style={{backgroundColor: "#FFFFFF", height:verticalScale(20),}}>
+                          <Text adjustsFontSizeToFit={true} minimumFontScale={.01} style={{textAlign:"center", color:"grey"}}>
+                            {translate.t("identify_location")}
+                          </Text>
+                        </View>
+                    </View>
+                      
+                    <View style={styles(this.dimensions).buttonContainer}>
+                      <TouchableOpacity style={styles(this.dimensions).AskForHelp} onPress={() => this.navigate(AppConstant.APP_PAGE.ASK_FOR_HELP, { region: this.state.region, address: this.state.address })}>
+                        <AskForHelpButton />
+                      </TouchableOpacity>
+                      <TouchableOpacity style={styles(this.dimensions).OfferHelp} onPress={() => this.navigate(AppConstant.APP_PAGE.OFFER_HELP_SCREEN, { region: this.state.region, address: this.state.address })}>
+                        <OfferHelpButton />
+                      </TouchableOpacity>
+                    </View>
+                  </View>
+                </View>
+                <FooterTab style={{ position: "absolute", left: 0, top: footerTop, width: scale(350), backgroundColor: "#FFFFFF" }}>
+                  <FooterTabComponent {...this.props} activeTab={AppConstant.APP_FOOTER_TABS.HOME} latlon={this.state.latlon} />
+                </FooterTab>
         </SafeAreaView>
 
       </Container>

@@ -7,7 +7,7 @@ function AskForHelpButton(props) {
   return (
     <View style={{
       backgroundColor:"#EE6B6B",
-      borderRadius:10,
+      borderRadius:4,
       paddingHorizontal: 25,
       paddingVertical:15      
     }}>
@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     height:verticalScale(40),
     width:scale(130),
     alignItems: 'center',
-    borderRadius: 9,
+    borderRadius: 3,
   },
   askForHelp: {
     color: "rgba(245,245,245,1)",
