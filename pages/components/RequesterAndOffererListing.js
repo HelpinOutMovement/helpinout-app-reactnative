@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { TouchableOpacity, View, Dimensions, ScrollView, SafeAreaView } from 'react-native';
 import { Container, Spinner, Content, Text, Footer, FooterTab, Card, CardItem, } from "native-base";
+import { useFocusEffect } from '@react-navigation/native';
 import { BasicFilledButton } from './ButtonComponent';
 import { apiInstance } from "../../APIClient/API";
 import AppConstant from '../../misc/AppConstant';
@@ -15,12 +16,10 @@ const RequesterAndOffererListing = (props) => {
     const [modalInfo, setModalInfo] = useState({});
     const [showSpinner, setShowSpinner] = useState(false);
     const [mappedRequestEntity, setMappedRequestEntity] = useState([]);
-
+    
     // set the content
     useEffect(() => {
-        if (props.requestParams && props.requestParams.mapping && props.requestParams.mapping.length) {
-            setMappedRequestEntity(props.requestParams.mapping);
-        } else if (props.createdIdParams && props.createdIdParams.activity_uuid) {
+       if (props.createdIdParams && props.createdIdParams.activity_uuid) {
             // work-around for now
             apiInstance.userPastActivity(props.createdIdParams.activity_type).then(resp => {
                 setShowSpinner(false);
@@ -39,7 +38,9 @@ const RequesterAndOffererListing = (props) => {
                 setShowSpinner(false);
                 setMappedRequestEntity([]);
             })
-        }
+        } else if (props.requestParams && props.requestParams.mapping && props.requestParams.mapping.length) {
+            setMappedRequestEntity(props.requestParams.mapping);
+        }  
 
     }, [])
     const closePopUp = () => {
