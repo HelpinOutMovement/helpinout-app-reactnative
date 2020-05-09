@@ -247,6 +247,16 @@ const commonStyling = StyleSheet.create({
       lineHeight: 56,
       marginLeft:35,
       color:"#4F5065CC"
+  },
+
+  myRequestOffersClickableRow:{
+      paddingVertical: 10,
+      borderBottomWidth: 1,
+      borderBottomColor: "#dddddd",
+      flexDirection: "row",
+      justifyContent: "space-between",
+      alignItems: "center"
+  
   }
 
 });

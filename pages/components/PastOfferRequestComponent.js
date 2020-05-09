@@ -7,6 +7,8 @@ import AppConstant from '../../misc/AppConstant'
 import StaticImage from '../../styling/StaticImage';
 import Utilities from '../../misc/Utils';
 import { appLabelKey } from '../../misc/AppStrings';
+import commonStyling from '../../styling/commonStyle';
+
 import { verticalScale, scale, moderateScale } from 'react-native-size-matters';
 
 
@@ -109,11 +111,12 @@ const getOfferListingView = (props, compareWith) => {
     const offerListLength = getOfferList(props, (compareWith ? compareWith : AppConstant.APP_MAPPING_INDICATOR.OFFERER)).length;
 
     return (
-            <Text style={{
-                fontFamily: "Roboto-Regular",
-                fontSize: 12,
-                color: "#4F5065"
-            }}> {offerListLength}</Text>
+        <Text style={{
+            fontFamily: "Roboto-Regular",
+            fontSize: 12,
+            color: "#4F5065",
+            paddingRight:"10%"
+        }}> {offerListLength}</Text>
     )
 
 }
@@ -198,14 +201,7 @@ const PastOfferRequestComponent = (props) => {
                     </View>
 
                     <TouchableOpacity
-                        style={{
-                            flexDirection: "row",
-                            justifyContent: "space-between",
-                            borderBottomWidth: 1,
-                            borderBottomColor: "#ddddddd",
-                            paddingVertical: 10,
-                            alignItems: "center"
-                        }}
+                        style={commonStyling.myRequestOffersClickableRow}
                         onPress={() => {
                             if (props.clickHandler) {
                                 props.clickHandler(props, (props.tertiaryAction) ? props.tertiaryAction : AppConstant.APP_ACTION.OFFERS_RCVD)
@@ -224,14 +220,7 @@ const PastOfferRequestComponent = (props) => {
 
 
                     <TouchableOpacity
-                        style={{
-                            paddingVertical: 10,
-                            borderBottomWidth: 1,
-                            borderBottomColor: "#dddddd",
-                            flexDirection: "row",
-                            justifyContent: "space-between",
-                            alignItems: "center"
-                        }}
+                        style={commonStyling.myRequestOffersClickableRow}
                         onPress={() => {
                             if (props.clickHandler) {
                                 props.clickHandler(props, (props.secondaryAction) ? props.secondaryAction : AppConstant.APP_ACTION.SENT_REQUEST)
@@ -248,12 +237,7 @@ const PastOfferRequestComponent = (props) => {
 
 
                     <TouchableOpacity
-                        style={{
-                            paddingVertical: 10,
-                            marginVertical: 0,
-                            flexDirection: "row",
-                            justifyContent: "space-between"
-                        }}
+                        style={commonStyling.myRequestOffersClickableRow}
                         onPress={() => {
                             if (props.clickHandler) {
                                 props.clickHandler(props, AppConstant.APP_ACTION.SEARCH_FOR_PROVIDERS)

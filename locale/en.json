@@ -156,6 +156,8 @@
 
 
     "TODO_SANDEEP":"TODO_SANDEEP",
+    "only_add_more_items":" Add more",
+    "logout":"Logout",
     "request_sent" :"Requests sent",
     "offers_sent" :"Offers sent",
     "request_received" :"Requests received",

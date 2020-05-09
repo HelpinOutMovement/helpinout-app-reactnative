@@ -189,8 +189,9 @@ const needHelpWithModalContent = (props) => {
         }}>
             <Grid style={{ width: "100%", alignItems: "center" }}>
                 <Row>
-                    <Col>
-                        <Text style={{ color: "grey" }}>{translate.t("request_confirmation")}   </Text>
+                    <Col style={{width:"90%"}}>
+                        <Text 
+                            style={{ color: "grey" }}>{(props.activity_type == AppConstant.APP_MAPPING_INDICATOR.REQUESTER)? translate.t("request_confirmation"): translate.t("offer_confirmation")}   </Text>
                     </Col>
                 </Row>
                 <Row>
@@ -477,7 +478,7 @@ const ModalComponent = (props) => {
         <Modal
             testID={'modal'}
             isVisible={props.showModal}
-            onBackdropPress={() => { props.closePopUp() }}
+            onBackdropPress={() => { if(!props.backdropClickNotAllowed){props.closePopUp();} }}
             onSwipeComplete={() => { props.closePopUp() }}
             style={{
                 justifyContent: 'flex-end',

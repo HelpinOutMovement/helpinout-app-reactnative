@@ -50,7 +50,7 @@ const SideMenuOptions = {
         label: translate.t(appLabelKey.about_Us),
         pageName: AppConstant.APP_PAGE.SCREEN_WITH_SIDE_DRAWER
     },{
-        label: translate.t(appLabelKey.logout),
+        label: translate.t("logout"),
         pageName: AppConstant.APP_PAGE.LOGOUT_ACTION
     }],
     secondary: [

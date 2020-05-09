@@ -272,7 +272,7 @@ export default class AddActivityScreen extends Component {
   componentDidMount() {
 
     if (this.props.route.params.activity_type === 1) {
-      this.setState({ title: "Need help with...", headerBgColor: "#EE6B6B" })
+      this.setState({ title:  translate.t("toolbar_need_help_with"), headerBgColor: "#EE6B6B" })
       console.log("Add Requests")
       if (this.props.route.params.optionCode === AppConstant.API_REQUEST_CONSTANTS.activity_category.PEOPLE || this.props.route.params.optionCode === AppConstant.API_REQUEST_CONSTANTS.activity_category.AMBULANCE) {
         console.log(this.props.route.params.optionCode + "    " + AppConstant.API_REQUEST_CONSTANTS.activity_category.PEOPLE)
@@ -284,7 +284,7 @@ export default class AddActivityScreen extends Component {
         this.add_New_View();
       }
     } else {
-      this.setState({ title: "Offer help with...", headerBgColor: "#4F5065" })
+      this.setState({ title: translate.t("toolbar_offer_help_with"), headerBgColor: "#4F5065" })
       console.log("Add Offers")
       if (this.props.route.params.optionCode === AppConstant.API_REQUEST_CONSTANTS.activity_category.PEOPLE || this.props.route.params.optionCode === AppConstant.API_REQUEST_CONSTANTS.activity_category.AMBULANCE) {
         console.log("Add Offers People/Ambulance")
@@ -476,7 +476,7 @@ export default class AddActivityScreen extends Component {
                     fontSize: 17,
                     color: "#4F5065",
                   }}
-                >{translate.t("add_more_items")} </Text>
+                >{translate.t("only_add_more_items")} </Text>
               </TouchableOpacity>
             </HView>
           </Content>
@@ -499,9 +499,11 @@ export default class AddActivityScreen extends Component {
 
         <ModalComponent
           {...this.props}
+          backdropClickNotAllowed={true}
           viewName={(this.props && this.props.type) ? this.props.type : ""}
           showModal={this.state.showModal}
           closePopUp={this.closePopUp}
+          colorTheme={this.state.headerBgColor}
           activity_uuid={this.state.activity_uuid}
           activity_type={this.state.activity_type}
           activity_category={this.state.activity_category}
