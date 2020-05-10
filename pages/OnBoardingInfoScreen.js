@@ -20,7 +20,7 @@ function OnBoardingInfoScreen({ navigation }) {
     };
 
     const onContinueClicked = () => {
-        //navigation.navigate(AppConstant.APP_PAGE.REGISTER_MOBILE);
+        //navigation.navigate(AppConstant.APP_PAGE.REGISTER_MOBILE,{ loginState: {} });
         navigation.navigate(AppConstant.APP_PAGE.LOGIN);
     }
 

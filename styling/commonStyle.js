@@ -1,5 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { Left, Right } from 'native-base';
+import { verticalScale, scale, moderateScale } from 'react-native-size-matters';
+
 const commonStyling = StyleSheet.create({
     splashScreenContainer: {
         flex: 1, 
@@ -86,33 +88,20 @@ const commonStyling = StyleSheet.create({
         color:"#4F5065"
     },
     appPhoneNumberInputView:{
-        width:"100%",
+        width:scale(350),
         alignItems: "center",
         flexDirection:'row', 
         flexWrap:'wrap' ,
         marginTop:20
    },
-   phoneLoginCountrySelect: {
-    fontSize: 20,
-    paddingVertical: 12,
-    paddingHorizontal: 1,
-    borderTopLeftRadius:10,
-    borderBottomLeftRadius:10,
-    width:75,
-    borderWidth: 1,
-    borderColor: '#4F5065',
-    borderRadius: 4,
-    color: '#4F5065',
-    paddingRight: 5, // to ensure the text is never behind the icon
-  },
   phoneCountryCode: {
     fontSize: 20,
-    paddingVertical: 12,
+    paddingVertical: 10,
     paddingHorizontal: 1,
     borderTopRightRadius:0,
     borderBottomRightRadius:0,
     borderRightWidth:0,    
-    width:40,
+    width:scale(40),
     borderWidth: 4,
     borderTopWidth:1,
     borderLeftWidth:1,
@@ -120,15 +109,16 @@ const commonStyling = StyleSheet.create({
     borderRadius: 9,
     color: '#4F5065',
     paddingRight: 1, // to ensure the text is never behind the icon
-    textAlign:'right'
+    textAlign:'right',
+    height: verticalScale(60),      
   },
   phoneLoginInput: {
       fontSize: 20,
-      paddingVertical: 12,
+      paddingVertical: 10,
       paddingHorizontal: 1,
       borderTopLeftRadius:0,
       borderBottomLeftRadius:0,
-      width:"55%",
+      width:scale(180),
       borderTopWidth:1,
       borderLeftWidth:0,
       borderWidth: 4,
@@ -136,7 +126,8 @@ const commonStyling = StyleSheet.create({
       borderRadius: 9,
       color: '#4F5065',
       paddingRight: 5, // to ensure the text is never behind the icon
-      paddingLeft: 10
+      paddingLeft: 10,
+      height: verticalScale(60),     
     },
     registerSwitch: {
         marginTop: 0, 
@@ -147,16 +138,16 @@ const commonStyling = StyleSheet.create({
     registerSwitchText: {
         textAlign: "left",
         fontFamily: "Roboto-Medium",
-        fontSize: 16,
+        //fontSize: 16,
         color:'#4F5065',
         height:50,
         marginLeft:20,
-        width:"70%"
+        width:scale(245)
     },
     registerSwitchRow: {
         marginTop: 0, 
         height: 50,
-        width:"100%",
+        width:scale(310),
         flexDirection: "row",
         flex: 1,
         marginRight: -1,
@@ -165,7 +156,7 @@ const commonStyling = StyleSheet.create({
       registerSwitchColumn: {
         marginTop: 0, 
         height: 50,
-        width:"100%",
+        width:scale(350),
         flexDirection: "column",
         flex: 1,
         marginRight: -1,
@@ -185,7 +176,7 @@ const commonStyling = StyleSheet.create({
         paddingVertical: 12,
         paddingHorizontal: 1,  
         paddingLeft: 10,       
-        width:'100%',
+        width:scale(310),
         borderTopWidth:1,
         borderLeftWidth:1,
         borderWidth: 4,

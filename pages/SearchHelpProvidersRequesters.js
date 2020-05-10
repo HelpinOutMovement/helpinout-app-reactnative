@@ -52,6 +52,7 @@ class SearchHelpProvidersRequesters extends React.Component {
         if(this.props.route.params.latlon){
             if(this.props.route.params.latlon.length > 0){
                 this.setState({latlon:this.props.route.params.latlon})
+                this.forceUpdate();
             }else{
                 this.setState({latlon:""})
             }
@@ -206,19 +207,20 @@ class SearchHelpProvidersRequesters extends React.Component {
                                          
     }
 
+    
 
     render() { 
         return (
                     <Container style={{ alignItems:"center"}}>
-                        
-                        <MapComponent  mapLatLon={this.state.latlon} mapHeight={this.state.mapHeight} callbackOnRegionChange={this.callbackOnRegionChange} mapProps={this.props} ref={this.mapComponentRef}>                      
+          
+                        <MapComponent  mapLatLon={this.props.route.params.latlon} mapHeight={this.state.mapHeight} callbackOnRegionChange={this.callbackOnRegionChange} mapProps={this.props} ref={this.mapComponentRef}>                      
                         </MapComponent>  
  
                         <View style={{ width:scale(330), flex: 0, flexDirection: 'row',top:this.topBarPos , borderRadius:6 ,height: verticalScale(50), borderWidth:0, borderColor:"#000000" }}>                
                             <View style={{width: scale(50), backgroundColor:"white", height: verticalScale(50), borderRadius:6, borderTopRightRadius:0,borderBottomRightRadius:0 ,borderLeftWidth:1,borderTopWidth:1,borderBottomWidth:1, justifyContent:"center"}} ><Button transparent style={{padding:0}} onPress={() => {this.navigation.navigate(AppConstant.APP_PAGE.DASHBOARD)}}><Icon name="menu"/></Button></View>
                             <View style={{width: scale(200), backgroundColor:"white", height: verticalScale(50), borderRightWidth:0,  borderRadius:0, borderTopLeftRadius:0,borderBottomLeftRadius:0 ,borderTopWidth:1,borderBottomWidth:1,alignItems:"center", justifyContent: 'center'}} >
-                                <Text style={{fontSize:10, overflow:"hidden", height:verticalScale(10), textAlign:"left", width:  scale(200) , color:"grey", paddingTop:0, paddingBottom:0}}>You are here</Text>
-                                <Text style={{fontSize:12, overflow:"hidden", height:verticalScale(30),textAlign:"left", width:  scale(200), paddingTop:0}}>{this.state.address}</Text>
+                                <Text adjustsFontSizeToFit={true}  minimumFontScale={.4} numberOfLines={1} style={{fontSize:10, overflow:"hidden", height:verticalScale(10), textAlign:"left", width:  scale(200) , color:"grey", paddingTop:0, paddingBottom:0}}>You are here</Text>
+                                <Text adjustsFontSizeToFit={true}  minimumFontScale={.6} numberOfLines={2} style={{fontSize:12, overflow:"hidden", height:verticalScale(30),textAlign:"left", width:  scale(200), paddingTop:0}}>{this.state.address}</Text>
                             </View>
                            <View style={{width: scale(80), backgroundColor:"white", height: verticalScale(50), borderRadius:6, borderTopLeftRadius:0,borderBottomLeftRadius:0 ,borderTopWidth:1,borderBottomWidth:1,borderRightWidth:1,alignItems:"center", justifyContent: 'center'}} ><Text style={{fontFamily: "roboto-medium",fontSize:14 , color:"rgba(243,103,103,1)"}}>Change</Text></View>
                         </View>

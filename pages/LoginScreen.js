@@ -13,6 +13,7 @@ import geolocation from '@react-native-community/geolocation';
 import API from "../APIClient/API";
 import LogoComponent from './components/LogoComponent';
 import firebase from 'react-native-firebase'
+import { verticalScale, scale, moderateScale } from 'react-native-size-matters';
 
 
 
@@ -100,7 +101,9 @@ export default class LoginScreen extends React.Component {
         
         return (
             <View style={{ flexDirection: "column" }}  onPress={ () => {Keyboard.dismiss() } }>
+                
                 <LogoComponent />
+                <TouchableWithoutFeedback onPress={() => {Keyboard.dismiss()}}>
                 <View style={{alignItems: "center",  width:"100%"}} >                                        
                     <View style={{ alignItems: "center" ,  marginVertical: 0, width:"98%"}} >
                         <Text adjustsFontSizeToFit={true}  minimumFontScale={1} style={commonStyling.appLabelInout}>{translate.t('label_enter_your_mobile_no')}</Text>
@@ -112,7 +115,7 @@ export default class LoginScreen extends React.Component {
                                         items={countries}  
                                         style={pickerCcountryStyles}  
                                         Icon={() => {
-                                        return <Ionicons  style={{marginVertical: 10, marginRight:6}} family={"Ionicons"}  name={"md-arrow-dropdown"}  color={"#OOOOOO"} size={30} />;
+                                        return <Ionicons  style={{paddingVertical: verticalScale(15), marginRight:6}} family={"Ionicons"}  name={"md-arrow-dropdown"}  color={"#OOOOOO"} size={30} />;
                                         }}             
                                         value={this.state.selectedCountryDialCode}
                                 />
@@ -121,13 +124,17 @@ export default class LoginScreen extends React.Component {
                                     placeholderTextColor="grey"
                                     placeholder={translate.t('label_enter_your_mobile_no')}                
                                     onChangeText={text => this.setState({phoneNumber: text})} 
-                                    onTouchCancel={ () => {Keyboard.dismiss() } }             
+                                    onTouchCancel={ () => {Keyboard.dismiss() } }          
+                                    keyboardShouldPersistTaps={'handled'}
+   
                                 >  
                                 </TextInput>
                             </View>
                         </View>                                
                     </View>
                 </View>
+                </TouchableWithoutFeedback>
+                <TouchableWithoutFeedback onPress={() => {Keyboard.dismiss()}}>
                 <View style={{alignItems: "center",  width:"100%"}} >                                        
                     <View style={{ alignItems: "center" , justifyContent:"center", marginVertical: 50, width:"98%"}} >
                         <TouchableOpacity
@@ -160,6 +167,8 @@ export default class LoginScreen extends React.Component {
 
                     }}> {translate.t("by_signing_you_are_agree")} {"\n"} {translate.t("terms_Of_service")} | {translate.t("privacy_policy")} </Text>
                 </View>
+                </TouchableWithoutFeedback >
+
             </View>
         );           
     }
@@ -171,11 +180,11 @@ const pickerCcountryStyles = StyleSheet.create({
     inputIOS: {
       marginTop: 0,
       fontSize: 20,
-      paddingVertical: 12,
+      paddingVertical: 10,
       paddingHorizontal: 1,      
       borderRadius: 0,  
-      width: 90,
-      height: 53,      
+      width: scale(90),
+      height: verticalScale(60),      
       borderRightWidth: 0,
       borderLeftWidth: 0,
       borderTopWidth:1,

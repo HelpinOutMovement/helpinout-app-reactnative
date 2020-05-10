@@ -125,7 +125,7 @@ export default class VerifyScreen extends React.Component {
             AppStorage.getAppInfo(AppConstant.FIREBASE_CLOUD_MESSAGING_TOKEN).then((fcmToken) => {
                 console.log("Getting FIREBASE_CLOUD_MESSAGING_TOKEN " )
                 console.log("Your Firebase Stored Token in login is:" + JSON.stringify(fcmToken));
-                
+                //Toast.show("Your Firebase Stored Token in login is:" + JSON.stringify(fcmToken), {duration:1000, position:0, animation:true, shadow:true, animationDuration:1000})
                 if(fcmToken === null ) { 
                     fcmToken = "defaulttoken"
                 }else{
@@ -138,12 +138,13 @@ export default class VerifyScreen extends React.Component {
                 reqObj = restApi.login(this.state.selectedCountryDialCode, this.state.phoneNumber, fcmToken);
                 reqObj.then(
                     result => {
-                        if (result.status === "0") {
-                            AppStorage.storeAppInfo(AppConstant.IS_LOGGED_IN, "false");
-                            this.navigate(AppConstant.APP_PAGE.REGISTER_MOBILE, { loginState: this.state });
-                        }if (result.status === "-1") {
+                        console.log("Login Response  : " + JSON.stringify(result))
+                        if (result.status === "0") {                            
+                            this.navigate(AppConstant.APP_PAGE.REGISTER_MOBILE, { countryCode: this.state.selectedCountryDialCode, phoneNumber:this.state.phoneNumber });
+                        }else if (result.status === "-1") {
                             Toast.show('Login Error ' + result.message , {duration:1000, position:0, animation:true, shadow:true, animationDuration:2000})
-                        }else {
+                        }else if (result.status === "1") {
+                            console.log(JSON.stringify("result.data  : " + result.data))
                             AppStorage.storeAppInfo(AppConstant.APP_STORE_KEY.USER_REG_DETAILS, JSON.stringify(result.data));
                             AppStorage.storeAppInfo(AppConstant.IS_LOGGED_IN, "true");
                             AppStorage.getAppInfo(AppConstant.APP_STORE_KEY.IS_VEFIRIED).then((value) => {
@@ -153,6 +154,8 @@ export default class VerifyScreen extends React.Component {
                                     this.navigate(AppConstant.APP_PAGE.LOGIN);
                                 }
                             });
+                        }else{
+                            this.navigate(AppConstant.APP_PAGE.LOGIN);
                         }
                     },
                     error => {

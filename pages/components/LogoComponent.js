@@ -1,10 +1,11 @@
 import React from 'react';
-import { View, Image, Text } from 'react-native';
+import { View, Image, Text, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import commonStyling from '../../styling/commonStyle';
 
 
 const LogoComponent = (props) => {
     return (
+        <TouchableWithoutFeedback onPress={() => {Keyboard.dismiss()}}>
         <View style={{ 
                 alignItems: "center", 
                 marginVertical: props.marginVertical ? props.marginVertical : 60,
@@ -20,8 +21,8 @@ const LogoComponent = (props) => {
                     <Text adjustsFontSizeToFit={true}  minimumFontScale={1.5} style={commonStyling.appLabelInout}>Out</Text>
                 </View>
             )}
-
         </View>
+        </TouchableWithoutFeedback>
     )
 };
 

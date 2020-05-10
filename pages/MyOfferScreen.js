@@ -12,6 +12,9 @@ import SpinnerComponent from './components/SpinnerComponent';
 import FooterTabComponent from './components/FooterTabComponent';
 import ModalComponent from './components/ModalComponent';
 
+import { ScrollView } from 'react-native-gesture-handler';
+
+
 import { verticalScale, scale, moderateScale } from 'react-native-size-matters';
 import Utils from "../misc/Utils"
 const footerTop = Utils.isIphoneX() ? verticalScale(620) : verticalScale(610);
@@ -404,7 +407,9 @@ function MyOfferScreen(props) {
         title={translate.t("title_my_offers")}
         bgColor={colorTheme} />
       <Content   >
+      <ScrollView style={{height:verticalScale(500), borderWidth:0}}>
         {getRequestList()}
+      </ScrollView>
       </Content>
       <FooterTab style={{ position: "absolute", left: 0, top: footerTop, width: scale(350), backgroundColor: "#FFFFFF" }}>
             <FooterTabComponent {...props} activeTab={AppConstant.APP_FOOTER_TABS.MY_OFFER}/>

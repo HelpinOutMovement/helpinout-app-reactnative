@@ -22,6 +22,8 @@ import { getDistance, getPreciseDistance } from 'geolib';
 import Toast from 'react-native-tiny-toast'
 import { verticalScale, scale, moderateScale } from 'react-native-size-matters';
 
+import Modal from 'react-native-modal';
+
 const { width, height } = Dimensions.get('window');
 const ASPECT_RATIO = width / height;
 const LATITUDE_DELTA = (Platform.OS === global.platformIOS ? 1.5 : 0.5);
@@ -59,7 +61,9 @@ class Dashboard extends React.Component {
         width: scale(20),
         left: scale(330),
         expanded: false,
-        }
+        },
+
+        ShowAskForHelpModal:false
     };
 
     this.navigate = this.props.navigation.navigate;
@@ -92,9 +96,8 @@ class Dashboard extends React.Component {
 
 
   callbackOnRegionChange = (rgn, mapState) => {
-    this.setState({ region: rgn, address: mapState.address })
+    this.setState({ region: rgn, address: mapState.address, latlon: rgn.latitude + "," + rgn.longitude  })
     console.log("Dashboard callbackOnRegionChange : " + JSON.stringify(rgn), "       ---      ", mapState.address)
-    this.setState({ latlon: rgn.latitude + "," + rgn.longitude })
 
     // Use Geocoding and get address.
     this.getLocationSuggestions(mapState);
@@ -109,8 +112,7 @@ class Dashboard extends React.Component {
     reqObj = restApi.locationSuggestion(mapState.region.latitude, mapState.region.longitude, "10.424", getDistance(mapState.boundries.northEast, mapState.boundries.southWest) / 2);
     reqObj.then((val) => {
       console.log("API Response Data  1  " + JSON.stringify(val))
-      this.setState({requestMatchCount:val.data.my_requests_match})
-      this.setState({offerMatchCount:val.data.my_offers_match})
+      this.setState({requestMatchCount:val.data.my_requests_match,offerMatchCount:val.data.my_offers_match})
       //this.addMarker(val)
       //this.mapComponentRef.current.addMarker(val)
     }).catch(err => {
@@ -139,7 +141,11 @@ class Dashboard extends React.Component {
 
 
 
+  askForHelp = () =>{
 
+
+
+  }
 
 
 
@@ -264,7 +270,8 @@ class Dashboard extends React.Component {
                     </View>
                       
                     <View style={styles(this.dimensions).buttonContainer}>
-                      <TouchableOpacity style={styles(this.dimensions).AskForHelp} onPress={() => this.navigate(AppConstant.APP_PAGE.ASK_FOR_HELP, { region: this.state.region, address: this.state.address })}>
+                      {/*<TouchableOpacity style={styles(this.dimensions).AskForHelp} onPress={() => this.navigate(AppConstant.APP_PAGE.ASK_FOR_HELP, { region: this.state.region, address: this.state.address })}> */}
+                      <TouchableOpacity style={styles(this.dimensions).AskForHelp} onPress={() => {this.setState({ShowAskForHelpModal:true})}}>
                         <AskForHelpButton />
                       </TouchableOpacity>
                       <TouchableOpacity style={styles(this.dimensions).OfferHelp} onPress={() => this.navigate(AppConstant.APP_PAGE.OFFER_HELP_SCREEN, { region: this.state.region, address: this.state.address })}>
@@ -277,6 +284,65 @@ class Dashboard extends React.Component {
                   <FooterTabComponent {...this.props} activeTab={AppConstant.APP_FOOTER_TABS.HOME} latlon={this.state.latlon} />
                 </FooterTab>
         </SafeAreaView>
+
+        <Modal
+            testID={'modal'}
+            isVisible={this.state.ShowAskForHelpModal}
+            onBackdropPress={() => { this.setState({ShowAskForHelpModal:false}) }}
+            onSwipeComplete={() => { }}
+            style={{
+                justifyContent: 'center',
+                margin: 0,
+                marginBottom: 2,
+                position:"absolute",
+                top:verticalScale(150),
+                left:scale(25), 
+                borderRadius:8,
+                borderColor:"#EE6B6B",
+
+            }}>
+              <View style={{flex:1, flexDirection:"column",  borderRadius:8, borderColor:"#EE6B6B", width:scale(300), height:verticalScale(100) , backgroundColor:"#FFF" ,  justifyContent:"center", alignItems:"center" }}>
+                <View style={{width:scale(300), height:verticalScale(40) ,alignItems:"flex-start", paddingHorizontal:scale(10), justifyContent:"center", borderWidth:0}}>
+                  <Text > Who neds help?</Text>
+                </View>
+              
+                <View style={{flex:1, flexDirection:"row",  width:scale(280), height:verticalScale(60)  , justifyContent:"center", alignItems:"center", borderWidth:0}}>
+                        <TouchableOpacity  style={{paddingHorizontal:scale(10), paddingVertical:verticalScale(20)}} onPress={() => { this.setState({ShowAskForHelpModal:false}); this.navigate(AppConstant.APP_PAGE.ASK_FOR_HELP, { region: this.state.region, address: this.state.address })}}>
+                        <View style={{
+                          backgroundColor:"#EE6B6B",
+                          borderRadius:4,
+                          paddingHorizontal: 5,
+                          paddingVertical:10,
+                          borderColor:"#EE6B6B",
+                          borderWidth:1,
+                          width:scale(130),
+                          height:verticalScale(40) ,
+                          alignItems:"center",
+                          justifyContent:"center"
+                        }}>
+                          <Text adjustsFontSizeToFit={true} minimumFontScale={0.5} numberOfLines={1} style={{color: "rgba(245,245,245,1)",fontFamily: "roboto-regular", alignItems: 'center',justifyContent:'center',}}>Myself</Text>
+                        </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity  style={{paddingHorizontal:scale(10), paddingVertical:verticalScale(20)}} onPress={() => { this.setState({ShowAskForHelpModal:false}); this.navigate(AppConstant.APP_PAGE.ASK_FOR_HELP, { region: this.state.region, address: this.state.address })}}>
+                          <View style={{
+                            backgroundColor:"#FFF",
+                            borderRadius:4,
+                            paddingHorizontal: 5,
+                            paddingVertical:10, 
+                            borderColor:"#EE6B6B",
+                            borderWidth:1,
+                            width:scale(130),
+                            height:verticalScale(40) ,
+                            alignItems:"center",
+                            justifyContent:"center"
+                          }}>
+                            <Text adjustsFontSizeToFit={true} minimumFontScale={0.5} numberOfLines={1} style={{color: "#EE6B6B",fontFamily: "roboto-regular", alignItems: 'center',justifyContent:'center',}}>Someone else</Text>
+                          </View>
+                        </TouchableOpacity>
+
+                </View>
+             </View>
+        </Modal>
 
       </Container>
     )

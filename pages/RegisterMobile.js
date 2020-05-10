@@ -1,5 +1,5 @@
 import React ,{useState, useContext} from 'react';
-import { TextInput, View, Image, Text, TouchableOpacity, StyleSheet, Switch, ScrollView, Dimensions, KeyboardAvoidingView,  AsyncStorage } from 'react-native';
+import { TextInput, View, Image, Text, TouchableOpacity, StyleSheet, Switch, ScrollView, Dimensions, Keyboard,  TouchableWithoutFeedback } from 'react-native';
 import AppStorage from '../storage/AppStorage';
 import AppConstant from '../misc/AppConstant';
 import AppStringContext from '../misc/AppStringContext';
@@ -16,6 +16,7 @@ import firebase from 'react-native-firebase'
 
 import Toast from 'react-native-tiny-toast'
 import { KeyboardAwareView } from 'react-native-keyboard-aware-view'
+import { verticalScale, scale, moderateScale } from 'react-native-size-matters';
 
 export default class RegisterMobile extends React.Component {
     
@@ -24,11 +25,12 @@ export default class RegisterMobile extends React.Component {
         ///const { navigate } = this.props.navigation;
         this.navigate = this.props.navigation.navigate;
         console.log(JSON.stringify("Register Constructor")); 
-        console.log(JSON.stringify(this.props.route.params.loginState));
-        this.state = this.props.route.params.loginState;
+        //console.log(JSON.stringify(this.props.route.params.loginState));
+        this.state = {}//this.props.route.params.loginState;
 
+        AppStorage.storeAppInfo(AppConstant.IS_LOGGED_IN, "false");
         //this.state = {}//this.props.route.params.loginState;
-        console.log(JSON.stringify(this.state));
+       // console.log(JSON.stringify(this.state));
     }
    
     dimensions = Dimensions.get('window');
@@ -42,7 +44,7 @@ export default class RegisterMobile extends React.Component {
     }
     
     validatePhoneNumber = () => {
-        if(this.isEmpty(this.state.phoneNumber)){
+        if(this.isEmpty(this.props.route.params.phoneNumber)){
             return false;
         }else{
             //var regexp = /^\+[0-9]?()[0-9](\s|\S)(\d[0-9]{8,16})$/
@@ -57,7 +59,7 @@ export default class RegisterMobile extends React.Component {
     }
 
     validateRegistrationInput = () => {
-        if(this.isEmpty(this.state.selectedCountryDialCode) || this.isEmpty(this.state.phoneNumber) || this.isEmpty(this.state.firstName) || this.isEmpty(this.state.lastName) || this.isEmpty(this.state.contactVisible) || this.isEmpty(this.state.userType)){
+        if(this.isEmpty(this.props.route.params.countryCode) || this.isEmpty(this.props.route.params.phoneNumber) || this.isEmpty(this.state.firstName) || this.isEmpty(this.state.lastName) || this.isEmpty(this.state.contactVisible) || this.isEmpty(this.state.userType)){
             return false;
         }else{
             if(this.isEmpty(this.state.userType === 2)){
@@ -83,7 +85,7 @@ export default class RegisterMobile extends React.Component {
 
         AppStorage.getAppInfo(AppConstant.FIREBASE_CLOUD_MESSAGING_TOKEN).then((fcmToken) => {
 
-            reqObj =  restApi.register(this.state.selectedCountryDialCode, this.state.phoneNumber, fcmToken, this.state.firstName, this.state.lastName, contactVisible, userType, this.state.organisationName, this.state.organisationType, this.state.organisationUnit);
+            reqObj =  restApi.register(this.props.route.params.countryCode, this.props.route.params.phoneNumber, fcmToken, this.state.firstName, this.state.lastName, contactVisible, userType, this.state.organisationName, this.state.organisationType, this.state.organisationUnit);
 
             reqObj.then(
                 result => {
@@ -104,7 +106,7 @@ export default class RegisterMobile extends React.Component {
                             Toast.show('Registration Error ' + JSON.stringify(result.message) , {duration:1000, position:0, animation:true, shadow:true, animationDuration:2000})
                             this.forceUpdateHandler();   
                         }                        
-                    }else{
+                    }else if(result.status === "1"){
                         console.log("RegMobile  <> 0");
                         console.log("RegMobile  " + result.status);
                         let thisclass = this;
@@ -146,12 +148,15 @@ export default class RegisterMobile extends React.Component {
 
     orgTypes = [{"label":"Individual","key":"Individual" ,"displayValue": false ,"value":"1"},{"label":"Organisation","key":"Organisation" ,"displayValue": false ,"value":"2"}]
 
-    renderRegistrationScreen = () =>{                
+    renderRegistrationScreen = () =>{          
+        console.log("In renderRegistrationScreen")      
         return (            
             <View style={{ flexDirection: "column", padding: 10, flex: 1}}>
                 <LogoComponent />
-                <Text style={commonStyling.appLabelInout}>{translate.t('label_register')}</Text>
-                <KeyboardAwareView animated={true}>
+                <TouchableWithoutFeedback onPress={() => {Keyboard.dismiss()}}>
+                    <Text style={commonStyling.appLabelInout}>{translate.t('label_register')}</Text>
+                </TouchableWithoutFeedback>
+                <KeyboardAwareView animated={false} useNativeDriver={true}>
                 <ScrollView style={{flex: 1,borderWidth: StyleSheet.hairlineWidth, borderWidth:0, borderColor: 'red'}}>
                     <View style={{ alignItems: "center" , marginBottom:50}} >            
                 
@@ -173,7 +178,7 @@ export default class RegisterMobile extends React.Component {
                                 style={commonStyles.registerSwitch} 
                                 onValueChange ={(switchValue)=>{this.setState({contactVisible: switchValue})}}
                             ></Switch>
-                            <Text style={commonStyles.registerSwitchText}>{translate.t("label_visible_text")}</Text>
+                            <Text adjustsFontSizeToFit={true}  minimumFontScale={.5}  style={commonStyles.registerSwitchText}>{translate.t("label_visible_text")}</Text>
                         </View> 
                         <View style={commonStyles.registerSwitchRow}>
                             <Switch
@@ -189,10 +194,10 @@ export default class RegisterMobile extends React.Component {
                                 style={commonStyles.registerSwitch} 
                                 onValueChange ={(switchValue)=>{this.setState({representOrg: switchValue})}}                                
                             ></Switch>
-                            <Text style={commonStyles.registerSwitchText}>{translate.t("label_representing_as_org")} </Text>
+                            <Text adjustsFontSizeToFit={true}  minimumFontScale={1} style={commonStyles.registerSwitchText}>{translate.t("label_representing_as_org")} </Text>
                         </View>    
                         {this.state.representOrg ?  
-                        <View style={{width:'100%' }}>                                
+                        <View style={{width:scale(310) }}>                                
                         <TextInput onChangeText={text => this.setState({organisationName: text})} style={commonStyles.RegistrationInput} placeholderTextColor="grey"  placeholder={translate.t('label_org_name')}/>                                                                           
                         
                         <RNPickerSelect                            
@@ -204,12 +209,12 @@ export default class RegisterMobile extends React.Component {
                                 value={this.state.organisationType}
                         />
                         <TextInput onChangeText={text => this.setState({organisationUnit: text})} style={commonStyles.RegistrationInput} placeholderTextColor="grey"  placeholder={translate.t('label_unit_division')}/> 
-                        <View style={{width:'100%', marginTop:20}}>  
+                        <View style={{width:scale(310), marginTop:20}}>  
                             <TouchableOpacity style={{backgroundColor: "#4F5065",height: 56,
                                         marginTop: 10,                                     
                                         paddingHorizontal: 1,   
                                         justifyContent:"center" ,           
-                                        width:'100%',
+                                        width:scale(310),
                                         borderWidth: 1,
                                         shadowOpacity: 0.9,
                                         borderRadius: 9,
@@ -221,12 +226,12 @@ export default class RegisterMobile extends React.Component {
                         </View>
                         </View>
                         :  
-                        <View style={{width:'100%', marginTop:20}}>  
+                        <View style={{width:scale(310), marginTop:20}}>  
                             <TouchableOpacity style={{backgroundColor: "#4F5065",height: 56,
                                         marginTop: 10,                                     
                                         paddingHorizontal: 1,  
                                         justifyContent:"center" ,            
-                                        width:'100%',
+                                        width:scale(310),
                                         borderWidth: 1,
                                         shadowOpacity: 0.9,
                                         borderRadius: 9,
