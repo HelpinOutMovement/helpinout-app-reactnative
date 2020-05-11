@@ -37,17 +37,12 @@ import VerifyScreen from './pages/VerifyScreen';
 import AddActivityScreen from './pages/components/AddActivityScreen';
 import SearchHelpProvidersRequesters from './pages/SearchHelpProvidersRequesters';
 
+import Toast from 'react-native-tiny-toast'
+//import RNRestart from 'react-native-restart'; // Import package from node modules
 
-import DeviceInfo from 'react-native-device-info';
-
-import PushNotificationIOS from "@react-native-community/push-notification-ios";
 
 import firebase from "react-native-firebase";
-import API from './APIClient/API';
-
-//import firebase from 'react-native-firebase';
-//import  { Notification, NotificationOpen } from 'react-native-firebase';
-
+import { DevSettings } from 'react-native';
 
 console.disableYellowBox = true;
 const Stack = createStackNavigator();
@@ -57,66 +52,23 @@ const Stack = createStackNavigator();
 function App() {
 
 
-  const appVersion = DeviceInfo.getVersion();
-
-  console.log("App Version",JSON.stringify(DeviceInfo.getBuildNumber()));
-
-useEffect(() => {
-
-  console.log("in useEffect : ")
-  setAppState(AppConstant.APP_STATE.IS_NOT_AUTENTICATED);
-  AppStorage.getAppInfo(AppConstant.IS_VEFIRIED)
-  .then((resp) => {
-    console.log("in IS_VEFIRIED Response : " + resp)
-    if (resp === "true") {
-      console.log("IS_VEFIRIED resp :  " + resp);
-      AppStorage.getAppInfo(AppConstant.IS_LOGGED_IN).then((resp1) => {        
-        console.log("IS_LOGGED_IN resp :  " + resp1);
-        if (resp1 === "true") {
-          setAppState(AppConstant.APP_STATE.IS_AUTHENTICATED);
-          console.log("AppConstant.APP_STATE.IS_AUTHENTICATED ")
-        }else{
-          console.log("AppConstant.APP_STATE.IS_NOT_AUTENTICATED ")
-          setAppState(AppConstant.APP_STATE.IS_NOT_AUTENTICATED);
-        }            
-      }).catch(error1 => {
-        setAppState(AppConstant.APP_STATE.IS_NOT_AUTENTICATED);
-      });
-      
-    } else {
-      console.log("AppConstant.APP_STATE.IS_NOT_AUTENTICATED ")
-      setAppState(AppConstant.APP_STATE.IS_NOT_AUTENTICATED);
-    }
-  }).catch(error => {
-    console.log("AppConstant.APP_STATE.IS_NOT_AUTENTICATED ")
-    setAppState(AppConstant.APP_STATE.IS_NOT_AUTENTICATED);
-  });
+  const [appState, setAppState] = useState(AppConstant.APP_STATE.IS_LOADING);
+  //AppStorage.storeAppInfo(AppConstant.APP_STORE_KEY.IS_VEFIRIED, "false");
 
 
-  this.checkPermission();
-  this.messageListener();
+  useEffect(() => {
+
+    this.checkPermission();
+    this.messageListener();
+
  }, []);
 
 
  checkPermission = async () => {
+
   const enabled = await firebase.messaging().hasPermission();
   if (enabled) {
-    let fcmToken = await this.getFcmToken();
-    if (fcmToken) {
-      console.log("Your Firebase Token is:" + fcmToken);
-      AppStorage.storeAppInfo(AppConstant.FIREBASE_CLOUD_MESSAGING_TOKEN, fcmToken).then((storedResponse) => {
-        console.log("storedResponse : " + storedResponse)
-        AppStorage.getAppInfo(AppConstant.FIREBASE_CLOUD_MESSAGING_TOKEN).then((response) => {
-          console.log("Your Firebase Stored Token is:" + JSON.stringify(response));
-        });
-      })
-      //this.showAlert("Your Firebase Token is:", fcmToken);
-
-      
-     } else {
-       console.log("Failed", "No token received")
-      //this.showAlert("Failed", "No token received");
-     }
+      setFBCMTokenAndAppState()
   } else {
     this.requestPermission();
   }
@@ -131,12 +83,69 @@ useEffect(() => {
 
  requestPermission = async () => {
   try {
-   await firebase.messaging().requestPermission();
-   
+   await firebase.messaging().requestPermission().then(async () => {
+        setFBCMTokenAndAppState()
+   })   
    // User has authorised
   } catch (error) {
-    // User has rejected permissions
+    Toast.show("Error : User Has rejected notification permissions \n you need notification permissions for the application to work \n Go to settings and grant permissions. \n Please close the app and reatsrt after granting permissions" , {duration:0, position:0, animation:true, shadow:true} )
   }
+ }
+
+
+
+ closeApp = () => {
+
+  DevSettings.reload();
+
+ }
+
+ setFBCMTokenAndAppState = async () =>{
+
+  let fcmToken = await this.getFcmToken();
+  if (fcmToken && fcmToken.length > 0) {
+    console.log("Your Firebase Token is:" + fcmToken);
+    AppStorage.storeAppInfo(AppConstant.FIREBASE_CLOUD_MESSAGING_TOKEN, fcmToken).then((storedResponse) => {
+      console.log("storedResponse : " + storedResponse)
+      AppStorage.getAppInfo(AppConstant.FIREBASE_CLOUD_MESSAGING_TOKEN).then((response) => {
+        console.log("Your Firebase Stored Token is:" + JSON.stringify(response));
+        if(response !== null){
+          console.log("in useEffect : ")
+          ////setAppState(AppConstant.APP_STATE.IS_NOT_AUTENTICATED);
+          AppStorage.getAppInfo(AppConstant.IS_VEFIRIED)
+          .then((resp) => {
+            console.log("in IS_VEFIRIED Response : " + resp)
+            if (resp === "true") {
+              console.log("IS_VEFIRIED resp :  " + resp);
+              AppStorage.getAppInfo(AppConstant.IS_LOGGED_IN).then((resp1) => {        
+                console.log("IS_LOGGED_IN resp :  " + resp1);
+                if (resp1 === "true") {
+                  setAppState(AppConstant.APP_STATE.IS_AUTHENTICATED);
+                  console.log("AppConstant.APP_STATE.IS_AUTHENTICATED ")
+                }else{
+                  console.log("AppConstant.APP_STATE.IS_NOT_AUTENTICATED ")
+                  setAppState(AppConstant.APP_STATE.IS_NOT_AUTENTICATED);
+                }            
+              }).catch(error1 => {
+                setAppState(AppConstant.APP_STATE.IS_NOT_AUTENTICATED);
+              });
+              
+            } else {
+              console.log("AppConstant.APP_STATE.IS_NOT_AUTENTICATED ")
+              setAppState(AppConstant.APP_STATE.IS_NOT_AUTENTICATED);
+            }
+          }).catch(error => {
+            console.log("AppConstant.APP_STATE.IS_NOT_AUTENTICATED ")
+            setAppState(AppConstant.APP_STATE.IS_NOT_AUTENTICATED);              
+          });
+        }              
+      });
+    })
+   } else {
+     console.log("Failed", "No token received")
+     Toast.show("Error : Failed to get Token" , {duration:0, position:0, animation:true, shadow:true})
+   }  
+
  }
 
 
@@ -181,36 +190,6 @@ useEffect(() => {
 
 
 
-
-
-
-  const [appState, setAppState] = useState(AppConstant.APP_STATE.IS_LOADING);
-  //AppStorage.storeAppInfo(AppConstant.APP_STORE_KEY.IS_VEFIRIED, "false");
-
-
-  useEffect(() => {
-    AppStorage.getAppInfo(AppConstant.IS_VEFIRIED)
-      .then((resp) => {
-        if (resp === "true") {
-          console.log("IS_VEFIRIED resp :  " + resp);
-          AppStorage.getAppInfo(AppConstant.IS_LOGGED_IN).then((resp1) => {
-            console.log("IS_LOGGED_IN resp :  " + resp1);
-            if (resp1 === "true") {
-              setAppState(AppConstant.APP_STATE.IS_AUTHENTICATED);
-            }else{
-              setAppState(AppConstant.APP_STATE.IS_NOT_AUTENTICATED);
-            }            
-          }).catch(error1 => {
-            setAppState(AppConstant.APP_STATE.IS_NOT_AUTENTICATED);
-          });
-          
-        } else {
-          setAppState(AppConstant.APP_STATE.IS_NOT_AUTENTICATED);
-        }
-      }).catch(error => {
-        setAppState(AppConstant.APP_STATE.IS_NOT_AUTENTICATED);
-      });
-  }, []);
   console.log("appState  :  " + appState);
   const getStackedScreen = () => {
     const stackedScreen = [];

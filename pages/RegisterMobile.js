@@ -86,7 +86,14 @@ export default class RegisterMobile extends React.Component {
         AppStorage.getAppInfo(AppConstant.FIREBASE_CLOUD_MESSAGING_TOKEN).then((fcmToken) => {
 
             reqObj =  restApi.register(this.props.route.params.countryCode, this.props.route.params.phoneNumber, fcmToken, this.state.firstName, this.state.lastName, contactVisible, userType, this.state.organisationName, this.state.organisationType, this.state.organisationUnit);
-
+            if(fcmToken === null ) { 
+                fcmToken = "defaulttoken"
+            }else{
+                if(fcmToken.length === 0 ) { 
+                    fcmToken = "defaulttoken"
+                };
+            }
+            
             reqObj.then(
                 result => {
                     console.log("result  data : "+ JSON.stringify(result));
