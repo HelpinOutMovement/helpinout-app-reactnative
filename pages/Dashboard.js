@@ -79,6 +79,32 @@ class Dashboard extends React.Component {
 
     this.props.route.latlon ? this.setState({ latlon: this.props.route.latlon }) : this.setState({ latlon: "" })
 
+
+
+    this.navigation.addListener('tabPress', e => {
+      // Prevent default action
+      console.log("Navigation : tabPress ")
+    });
+
+
+    this.navigation.addListener('state', e => {
+      // Prevent default action
+      console.log("Navigation : state ")
+      this.forceUpdate()
+    });
+
+
+    this.navigation.addListener('blur', e => {
+      // Prevent default action
+      console.log("Navigation : blur ")
+    });
+
+    this.navigation.addListener('tabPress', e => {
+      // Prevent default action
+      console.log("Navigation : blur ")
+    });
+    
+
   }
 
 
@@ -100,7 +126,7 @@ class Dashboard extends React.Component {
     console.log("Dashboard callbackOnRegionChange : " + JSON.stringify(rgn), "       ---      ", mapState.address)
 
     // Use Geocoding and get address.
-    this.getLocationSuggestions(mapState);
+    ////////this.getLocationSuggestions(mapState);
 
   }
 

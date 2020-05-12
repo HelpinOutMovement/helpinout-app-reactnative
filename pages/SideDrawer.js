@@ -14,6 +14,7 @@ import Dashboard from './Dashboard';
 import MyRequestScreen from './MyRequestScreen';
 import LogoComponent from './components/LogoComponent';
 import SearchHelpProvidersRequesters from './SearchHelpProvidersRequesters'
+import { ScrollView } from 'react-native-gesture-handler';
 
 const Drawer = createDrawerNavigator();
 
@@ -55,26 +56,26 @@ const SideMenuOptions = {
     }],
     secondary: [
     {
-        label: translate.t(appLabelKey.lang_eng_label),
+        label: appLabelKey.lang_eng_label,
         localeCode: AppConstant.APP_LANGUAGE.ENGLISH
     }, {
-        label: translate.t(appLabelKey.lang_hindi_label),
+        label: appLabelKey.lang_hindi_label,
         localeCode: AppConstant.APP_LANGUAGE.HINDI
     }
         , {
-        label: translate.t(appLabelKey.lang_marathi_label),
+        label: appLabelKey.lang_marathi_label,
         localeCode: AppConstant.APP_LANGUAGE.MARATHI
     },
     {
-        label: translate.t(appLabelKey.lang_kanada_label),
+        label: appLabelKey.lang_kanada_label,
         localeCode: AppConstant.APP_LANGUAGE.KANNADA
     },
     {
-        label: translate.t(appLabelKey.lang_gujarathi_label),
+        label: appLabelKey.lang_gujarathi_label,
         localeCode: AppConstant.APP_LANGUAGE.GUJARATHI
     },
     {
-        label: translate.t(appLabelKey.lang_tamil_label),
+        label: appLabelKey.lang_tamil_label,
         localeCode: AppConstant.APP_LANGUAGE.TAMIL
     }]
 }
@@ -84,17 +85,20 @@ const SideMenuOptions = {
 
 const CustomSideBarView = (props) => {
     const {navigation} = props
-
+    
     const { latlon } = useContext(UserContext);
     const { setLanguage , language} = useContext(AppStringContext);
     const { translate } = useContext(AppStringContext);
     console.log(latlon);
-
+    console.log(" CustomSideBarView : " +latlon);
     const onLanguageClicked = (lang) => {
         AppStorage.storeAppInfo("locale", lang).then(function (value) {
             setLanguage(lang);
             console.log(lang)
-            //navigation.navigate(AppConstant.APP_PAGE.ON_BOARDING_INFO);
+            navigation.closeDrawer();
+            Dashboard.
+            navigation.navigate(AppConstant.APP_PAGE.DASHBOARD);
+            
         });
     }
 
@@ -186,6 +190,13 @@ const CustomSideBarView = (props) => {
 
                 {getPrimaryMenu()}
             </View>
+
+            <View>
+                <ScrollView>
+                {getSecondaryMenu()}
+                </ScrollView>
+            </View>
+            {/*
             <View
                 style={{
                     borderBottomColor: '#bfbfbf',
@@ -214,10 +225,13 @@ const CustomSideBarView = (props) => {
                     </TouchableOpacity>               
                 </View>
             </View>
+            */}
         </View>
     )
 }
 function MyDrawer(props) {
+
+    console.log("MyDrawer Props  : " + JSON.stringify(props))
     return (
         <Drawer.Navigator 
         permanent={'front'}
