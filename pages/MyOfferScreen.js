@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { View } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
-import { Container, Content, Text, Footer, FooterTab } from "native-base";
+import { Container, Content, Text, Footer, FooterTab, Header, Left, Button, Icon, Body, Title, Right } from "native-base";
 import translate from 'react-native-i18n';
 import { PastOfferRequestComponent } from './components/PastOfferRequestComponent';
 import { apiInstance } from "../APIClient/API";
@@ -403,9 +403,29 @@ function MyOfferScreen(props) {
 
   return (
     <Container>
-      <HeaderComponent {...props}
-        title={translate.t("title_my_offers")}
-        bgColor={colorTheme} />
+
+    <Header style={{ backgroundColor: colorTheme ? colorTheme : "#EE6B6B", height: 60, paddingBottom: 15 }}>
+      <Left>
+        <Button
+          transparent
+          onPress={() => { props.navigation.openDrawer()}}>
+          <Icon name="menu" style={{ color: "#ffffff" }} />
+        </Button>
+      </Left>
+      <Body>
+        <Title style={{
+          color: "#ffffff",
+          fontFamily: "Roboto-Medium",
+          width: 200,
+          borderWidth: 0,
+          fontSize: 18
+        }}> {translate.t("title_my_offers")} </Title>
+      </Body>
+      <Right />
+    </Header>
+
+
+
       <Content   >
       <ScrollView style={{height:verticalScale(500), borderWidth:0}}>
         {getRequestList()}

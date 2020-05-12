@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { View } from 'react-native';
-import { Container, Content, Text, Footer , FooterTab} from "native-base";
+import { Container, Content, Text, Footer , FooterTab, Header, Left, Button, Icon, Body, Title, Right} from "native-base";
 import translate from 'react-native-i18n';
 import { useFocusEffect } from '@react-navigation/native';
 import { PastOfferRequestComponent } from './components/PastOfferRequestComponent';
@@ -352,12 +352,13 @@ function MyRequestScreen(props) {
     } else if (actions === AppConstant.APP_ACTION.SEARCH_FOR_PROVIDERS) {
       props.navigation.navigate(AppConstant.APP_PAGE.SEARCH_HELP_PROVIDERS_REQUESTERS,
         {
+          ...props,
+          navigation:props.navigation,
           activity_type: activity_type,
           activity_uuid: ele.activity_uuid,
           activity_category: ele.activity_category,
           region: {},
           address: "",
-          latlon: ele.geo_location
         })
     } else if (actions === AppConstant.APP_ACTION.OFFERS_RCVD) {
       props.navigation.navigate(AppConstant.APP_PAGE.MY_REQUEST_SENT_REQUEST_SCREEN, {
@@ -407,12 +408,30 @@ function MyRequestScreen(props) {
   }
   return (
     <Container>
-      <HeaderComponent {...props}
-        title={translate.t("title_my_request")}
-        bgColor={colorTheme} />
+      <Header style={{ backgroundColor: colorTheme ? colorTheme : "#EE6B6B", height: 60, paddingBottom: 15 }}>
+        <Left>
+          <Button
+            transparent
+            onPress={() => { props.navigation.openDrawer()}}>
+            <Icon name="menu" style={{ color: "#ffffff" }} />
+           
+          </Button>
+        </Left>
+        <Body>
+          <Title style={{
+            color: "#ffffff",
+            fontFamily: "Roboto-Medium",
+            width: 200,
+            borderWidth: 0,
+            fontSize: 18
+          }}> {translate.t("title_my_request")} </Title>
+        </Body>
+        <Right />
+      </Header>
+
       <Content >
         <ScrollView style={{height:verticalScale(500), borderWidth:0}}>
-        {getRequestList()}
+        getRequestList()
         </ScrollView>
       </Content>
       <FooterTab style={{ position: "absolute", left: 0, top: footerTop, width: scale(350), backgroundColor: "#FFFFFF" }}>

@@ -14,6 +14,10 @@ import Dashboard from './Dashboard';
 import MyRequestScreen from './MyRequestScreen';
 import LogoComponent from './components/LogoComponent';
 import SearchHelpProvidersRequesters from './SearchHelpProvidersRequesters'
+
+import myRequests from './MyRequestScreen'
+import myOffers from './MyOfferScreen'
+
 import { ScrollView } from 'react-native-gesture-handler';
 
 const Drawer = createDrawerNavigator();
@@ -236,8 +240,10 @@ function MyDrawer(props) {
         <Drawer.Navigator 
         permanent={'front'}
         drawerContent={(props) => (<CustomSideBarView  {...props} />)}>
-            <Drawer.Screen name="Feed" {...props} component={Dashboard} />
-            <Drawer.Screen name="Search Providers" {...props} component={SearchHelpProvidersRequesters} />
+            <Drawer.Screen name="Dashboard" {...props} component={Dashboard} />
+            <Drawer.Screen name="SearchHelpProvidersRequesters" {...props} component={SearchHelpProvidersRequesters} />
+            <Drawer.Screen name="My Requests" {...props} component={myRequests} />
+            <Drawer.Screen name="My Offers" {...props} component={myOffers} />
         </Drawer.Navigator>
     );
 }

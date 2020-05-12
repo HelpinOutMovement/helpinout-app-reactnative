@@ -197,11 +197,11 @@ function App() {
       case AppConstant.APP_STATE.IS_AUTHENTICATED:
         stackedScreen.push((
           //"Dashboard  SearchHelpProvidersRequesters MyOfferScreen 7429E07C-37AF-4F17-AD31-5721EA75D0F"
-          <Stack.Navigator key='n_authen' initialRouteName="Dashboard" screenOptions={{
+          <Stack.Navigator key='n_authen' initialRouteName="SplashScreen" screenOptions={{
             headerShown: false
           }} >
-            <Stack.Screen key={`a_${AppConstant.APP_PAGE.DASHBOARD}`} name={AppConstant.APP_PAGE.DASHBOARD} component={MyDrawer} />
-            <Stack.Screen key={`a_${AppConstant.APP_PAGE.SEARCH_HELP_PROVIDERS_REQUESTERS}`} name={AppConstant.APP_PAGE.SEARCH_HELP_PROVIDERS_REQUESTERS} component={SearchHelpProvidersRequesters} /*initialParams={{activity_type:2, activity_uuid:"C923AB2B-2122-4674-98F6-809850172A27", region:{}, address:""}}*//>
+            <Stack.Screen key={`a_${AppConstant.APP_PAGE.DASHBOARD}`} name={AppConstant.APP_PAGE.DASHBOARD}  component={Dashboard} />
+            <Stack.Screen key={`a_${AppConstant.APP_PAGE.SEARCH_HELP_PROVIDERS_REQUESTERS}`} name={AppConstant.APP_PAGE.SEARCH_HELP_PROVIDERS_REQUESTERS} component={MyDrawer} /*initialParams={{activity_type:2, activity_uuid:"C923AB2B-2122-4674-98F6-809850172A27", region:{}, address:""}}*//>
 
             <Stack.Screen key={`a_${AppConstant.APP_PAGE.SIDE_DRAWER}`} name={AppConstant.APP_PAGE.SIDE_DRAWER} component={MyDrawer} />
 

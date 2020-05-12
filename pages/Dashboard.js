@@ -126,7 +126,7 @@ class Dashboard extends React.Component {
     console.log("Dashboard callbackOnRegionChange : " + JSON.stringify(rgn), "       ---      ", mapState.address)
 
     // Use Geocoding and get address.
-    ////////this.getLocationSuggestions(mapState);
+    this.getLocationSuggestions(mapState);
 
   }
 
