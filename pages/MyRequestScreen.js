@@ -442,7 +442,7 @@ function MyRequestScreen(props) {
 
       <Content >
         <ScrollView style={{height:verticalScale(500), borderWidth:0}}>
-        {/*getRequestList()*/}
+        {getRequestList()}
         </ScrollView>
       </Content>
       <FooterTab style={{ position: "absolute", left: 0, top: footerTop, width: scale(350), backgroundColor: "#FFFFFF" }}>
