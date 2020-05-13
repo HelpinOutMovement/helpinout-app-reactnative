@@ -140,7 +140,6 @@ const RequesterAndOffererListing = (props) => {
     }
 
     const onActionClick = (ratingPayload, modalProps) => {
-        console.log(ratingPayload);
         /*
         recommendedForOthers: recommended,
             comments: commentText,
@@ -162,7 +161,6 @@ const RequesterAndOffererListing = (props) => {
             ratingPayload.rating,
             (ratingPayload.recommendedForOthers) ? 1 : 0,
             ratingPayload.comments).then((resp) => {
-                console.log(resp)
                 setShowSpinner(false);
             }).catch(() => {
                 setShowSpinner(false);
@@ -191,7 +189,6 @@ const RequesterAndOffererListing = (props) => {
                 }
             }).catch((err) => {
                 setShowSpinner(false);
-                console.log(err)
             });
         }
     }

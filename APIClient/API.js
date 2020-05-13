@@ -14,8 +14,8 @@ class API{
     this.url = AppConstants.API_SERVER.baseURL;
     this.endpoints = {}
     NetInfo.fetch().then(state => {
-        console.log("Connection type", state.type);
-        console.log("Is connected?", state.isConnected);
+        /////console.log("Connection type", state.type);
+        /////console.log("Is connected?", state.isConnected);
       });
     
   }
@@ -49,18 +49,14 @@ class API{
   createBasicCRUDEndpoints( apiEndpoint ) {
     var endpoints = {}
     const resourceURL = this.url + "/" + apiEndpoint;
-    console.log(resourceURL);
     endpoints.getAll = ({ params={}}, config={} ) => axios.get(resourceURL, { params }, config)
     endpoints.getOne = ({ id }, config={}) =>  axios.get(`${resourceURL}/${id}`, config)
     endpoints.post = (toCreate, config={}) =>  {
         return new Promise((resolve, reject) => {
             let response =  axios.post(resourceURL, toCreate, config)
             response.then((resp) => {
-                //console.log("Post Success")
                 resolve(resp);
             }).catch(error => {
-                //console.log("Post Error")
-                //console.log('onRejected function called: ' + JSON.stringify(error.response));
                 reject(error);
             })
         });
@@ -82,7 +78,6 @@ class API{
         //let addressData =  axios.get("https://maps.googleapis.com/maps/api/geocode/json?latlng="+lat+","+lon+"&key=AIzaSyDgaOp_orkTcVpcH6NfNE3XtOH6tdiXlsg"
         //let addressData =  axios.get("https://api.bigdatacloud.net/data/reverse-geocode-client?latitude="+lat+"&longitude="+lon+"&localityLanguage=en");
         addressData.then((addressDetails)=> {
-            console.log("daddressDetails : " + JSON.stringify(addressDetails))
             resolve(addressDetails.data.display_name)
         }).catch(err => {reject(err)})
     });
@@ -97,13 +92,10 @@ class API{
             reqObj = requestObjects.loginObject(country_code, mobil_number, fcmToken);
            
             reqObj.then((val)=> {
-                console.log("login request Object " + JSON.stringify(val))
-                console.log(reqObj)
                 let apicall = 'user/login';
                 this.createEntity(apicall).then((call) => {
                     let data = this.endpoints[call].post(val);        
                     data.then(({data})=> {
-                        console.log("response : " + JSON.stringify(data))
                         resolve(data);
                     })
                     .catch(err => {reject(err)})
@@ -119,13 +111,11 @@ class API{
         let  requestObjects = new RequestObjects();
         reqObj = requestObjects.registerObject(country_code, mobil_number, fcm_token, first_name, last_name, mobile_number_visible, user_type,org_name, org_type, org_division);
         reqObj.then((val)=> {
-            console.log("register request Object " + JSON.stringify(val))
-            console.log(val)
+
             let apicall = 'user/register';
             this.createEntity(apicall).then((call) => {
                 let data = this.endpoints[call].post(val);        
                 data.then(({data})=> {
-                    console.log("response : " + JSON.stringify(data))
                     resolve(data);
                 })
                 .catch(err => {reject(err)})
@@ -141,12 +131,10 @@ class API{
             let  requestObjects = new RequestObjects();
             reqObj = requestObjects.updateUserObject(first_name, last_name, mobile_number_visible, user_type,org_name, org_type, org_division);
             reqObj.then((val)=> {
-                console.log("update request Object " + JSON.stringify(val))
                 let apicall = 'user/update';
                 this.createEntity(apicall).then((call) => {
                     let data = this.endpoints[call].post(val);        
                     data.then(({data})=> {
-                        console.log("response : " + JSON.stringify(data))
                         resolve(data);
                     })
                     .catch(err => {reject(err)})
@@ -159,20 +147,16 @@ class API{
 
 
     locationSuggestion = (lat, lon, geo_accuracy, radius, activity_type , activity_uuid)=>{
-        console.log("locationSuggestion")
         return new Promise((resolve, reject) => {
             let  requestObjects = new RequestObjects();
             reqObj = requestObjects.locationSuggestionObject(lat, lon, geo_accuracy, radius, activity_type , activity_uuid);          
             reqObj.then((val)=> {
-                console.log("locationSuggestion request Object " + JSON.stringify(val))
                 let apicall = 'user/locationsuggestion';                            
                 NetInfo.fetch().then(networkState => {
                     if(networkState.isConnected){
                         this.createEntity(apicall).then((call) => {
                             let data = this.endpoints[call].post(val);        
                             data.then(({data})=> {
-                                console.log("response : " + JSON.stringify(data))
-                                console.log("Calling AppStorage")
                                 AppStorage.storeAppInfo("API_CALL_CACHE_"+apicall, JSON.stringify(data))
                                 resolve(data);
                             })
@@ -180,7 +164,6 @@ class API{
                         })
                     }else{
                         AppStorage.getAppInfo("API_CALL_CACHE_"+apicall).then((data) =>{
-                            console.log("Cached Data " + data)
                             resolve(JSON.parse(data));
                         })
                     }
@@ -196,15 +179,13 @@ class API{
             let  requestObjects = new RequestObjects();
             reqObj = requestObjects.locationRequesterSummary(lat, lon, geo_accuracy);
             reqObj.then((val)=> {
-                console.log("locationRequesterSummary request Object " + JSON.stringify(val))
                 let apicall = 'user/locationrequestersummary';
                 NetInfo.fetch().then(networkState => {
                     if(networkState.isConnected){
                         this.createEntity(apicall).then((call) => {
                             let data = this.endpoints[call].post(val);        
                             data.then(({data})=> {
-                                console.log("response : " + JSON.stringify(data))
-                                console.log("Calling AppStorage")
+
                                 AppStorage.storeAppInfo("API_CALL_CACHE_"+apicall, JSON.stringify(data))
                                 resolve(data);
                             })
@@ -212,7 +193,6 @@ class API{
                         })
                     }else{
                         AppStorage.getAppInfo("API_CALL_CACHE_"+apicall).then((data) =>{
-                            console.log("Cached Data " + data)
                             resolve(JSON.parse(data));
                         })
                     }
@@ -227,16 +207,14 @@ class API{
             let  requestObjects = new RequestObjects();
             reqObj = requestObjects.userPastActivityObject(activity_type);
             reqObj.then((val)=> {
-                console.log("pastactivity request Object " + JSON.stringify(val))
-                console.log(val)           
+        
                 let apicall = 'user/pastactivity';
                 NetInfo.fetch().then(networkState => {
                     if(networkState.isConnected){
                         this.createEntity(apicall).then((call) => {
                             let data = this.endpoints[call].post(val);        
                             data.then(({data})=> {
-                                console.log("response : " + JSON.stringify(data))
-                                console.log("Calling AppStorage")
+
                                 AppStorage.storeAppInfo("API_CALL_CACHE_"+apicall, JSON.stringify(data))
                                 resolve(data);
                             })
@@ -244,7 +222,6 @@ class API{
                         })
                     }else{
                         AppStorage.getAppInfo("API_CALL_CACHE_"+apicall).then((data) =>{
-                            console.log("Cached Data " + data)
                             resolve(JSON.parse(data));
                         })
                     }
@@ -259,13 +236,11 @@ class API{
             let  requestObjects = new RequestObjects();
             reqObj = requestObjects.activityAdd(activity_uuid, activity_type, geo_location, geo_accuracy, address, activity_category, activity_count, activity_detail, offer_condition, pay);
             reqObj.then((val)=> {
-                console.log("Add Activity request Object " + JSON.stringify(val))
-                console.log(val)
+
                 let apicall = 'activity/add';
                 this.createEntity(apicall).then((call) => {
                     let data = this.endpoints[call].post(val);        
                     data.then(({data})=> {
-                        console.log("response : " + JSON.stringify(data))
                         resolve(data);
                     })
                     .catch(err => {reject(err)})
@@ -280,16 +255,13 @@ class API{
             let  requestObjects = new RequestObjects();
             reqObj = requestObjects.activitySuggestions(activity_type, activity_uuid, geo_location, geo_accuracy, radius);
             reqObj.then((val)=> {
-                console.log("Activity mapping suggestion request Object " + JSON.stringify(val))
-                console.log(val)
+
                 let apicall = 'activity/suggestions';
                 NetInfo.fetch().then(networkState => {
                     if(networkState.isConnected){
                         this.createEntity(apicall).then((call) => {
                             let data = this.endpoints[call].post(val);        
                             data.then(({data})=> {
-                                console.log("response : " + JSON.stringify(data))
-                                console.log("Calling AppStorage")
                                 AppStorage.storeAppInfo("API_CALL_CACHE_"+apicall, JSON.stringify(data))
                                 resolve(data);
                             })
@@ -297,7 +269,6 @@ class API{
                         })
                     }else{
                         AppStorage.getAppInfo("API_CALL_CACHE_"+apicall).then((data) =>{
-                            console.log("Cached Data " + data)
                             resolve(JSON.parse(data));
                         })
                     }
@@ -313,13 +284,11 @@ class API{
             let  requestObjects = new RequestObjects();
             reqObj = requestObjects.activityMapping(activity_type, activity_uuid, offerer, requester);
             reqObj.then((val)=> {
-                console.log("Activity mapping suggestion request Object " + JSON.stringify(val))
-                console.log(val)
+
                 let apicall = 'activity/mapping';
                 this.createEntity(apicall).then((call) => {
                     let data = this.endpoints[call].post(val);        
                     data.then(({data})=> {
-                        console.log("response : " + JSON.stringify(data))
                         resolve(data);
                     })
                     .catch(err => {reject(err)})
@@ -337,13 +306,11 @@ class API{
             reqObj = requestObjects.activityAdd(activity_uuid, activity_type, geo_location, geo_accuracy, address, activity_category, activity_count, 
                 activity_detail, offer_condition, pay);    
             reqObj.then((val)=> {
-                console.log("Activity Add request Object " + JSON.stringify(val))
-                console.log(val)
+
                 let apicall = 'activity/add';
                 this.createEntity(apicall).then((call) => {
                     let data = this.endpoints[call].post(val);        
                     data.then(({data})=> {
-                        console.log("response : " + JSON.stringify(data))
                         resolve(data);
                     })
                     .catch(err => {reject(err)})
@@ -359,13 +326,11 @@ class API{
             let  requestObjects = new RequestObjects();
             reqObj = requestObjects.activityDelete(activity_uuid, activity_type);    
             reqObj.then((val)=> {
-                console.log("Activity delete request Object " + JSON.stringify(val))
-                console.log(val)
+
                 let apicall = 'activity/delete';
                 this.createEntity(apicall).then((call) => {
                     let data = this.endpoints[call].post(val);        
                     data.then(({data})=> {
-                        console.log("response : " + JSON.stringify(data))
                         resolve(data);
                     })
                     .catch(err => {reject(err)})
@@ -381,13 +346,11 @@ class API{
             let  requestObjects = new RequestObjects();
             reqObj = requestObjects.mappingDelete(activity_uuid, activity_type,   mapping_initiator , uuid);
             reqObj.then((val)=> {
-                console.log("Mapping delete request Object " + JSON.stringify(val))
-                console.log(val)
+
                 let apicall = 'mapping/delete';
                 this.createEntity(apicall).then((call) => {
                     let data = this.endpoints[call].post(val);        
                     data.then(({data})=> {
-                        console.log("response : " + JSON.stringify(data))
                         resolve(data);
                     })
                     .catch(err => {reject(err)})
@@ -404,13 +367,11 @@ class API{
             let  requestObjects = new RequestObjects();
             reqObj = requestObjects.mappingRating(activity_uuid,activity_type, mapping_initiator , uuid, rating, recommend_other, comments);
             reqObj.then((val)=> {
-                console.log("Mapping rating request Object " + JSON.stringify(val))
-                console.log(val)
+
                 let apicall = 'mapping/rating';
                 this.createEntity(apicall).then((call) => {
                     let data = this.endpoints[call].post(val);        
                     data.then(({data})=> {
-                        console.log("response : " + JSON.stringify(data))
                         resolve(data);
                     })
                     .catch(err => {reject(err)})
@@ -426,13 +387,11 @@ class API{
             let  requestObjects = new RequestObjects();
             reqObj = requestObjects.mappingCall(activity_uuid,activity_type, mapping_initiator , uuid);
             reqObj.then((val)=> {
-                console.log("Mapping Call Initiate request Object " + JSON.stringify(val))
-                console.log(val)
+
                 let apicall = 'mapping/call';
                 this.createEntity(apicall).then((call) => {
                     let data = this.endpoints[call].post(val);        
                     data.then(({data})=> {
-                        console.log("response : " + JSON.stringify(data))
                         resolve(data);
                     })
                     .catch(err => {reject(err)})

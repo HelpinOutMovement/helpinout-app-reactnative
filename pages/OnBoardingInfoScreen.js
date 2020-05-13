@@ -15,7 +15,7 @@ function OnBoardingInfoScreen({ navigation }) {
     const dimensions = Dimensions.get('window');
     const getLocalAsync = () => {
         let data = AppStorage.getAppInfo("locale");
-        console.log(data)
+        /////console.log(data)
         return data;
     };
 

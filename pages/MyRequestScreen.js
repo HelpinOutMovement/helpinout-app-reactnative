@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { View } from 'react-native';
+import { View , Dimensions} from 'react-native';
 import { Container, Content, Text, Footer , FooterTab, Header, Left, Button, Icon, Body, Title, Right} from "native-base";
 import translate from 'react-native-i18n';
 import { useFocusEffect } from '@react-navigation/native';
@@ -17,6 +17,10 @@ import Utils from "../misc/Utils"
 import { ScrollView } from 'react-native-gesture-handler';
 const footerTop = Utils.isIphoneX() ? verticalScale(620) : verticalScale(610);
 
+const { width, height } = Dimensions.get('window');
+const ASPECT_RATIO = width / height;
+const LATITUDE_DELTA = (Platform.OS === global.platformIOS ? 1.5 : 0.5);
+const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
 const realReq = [
   {
@@ -344,22 +348,29 @@ function MyRequestScreen(props) {
   );
 
   const primaryActionHandler = (ele, actions) => {
-    console.log(ele, "$$$$", actions);
     if (actions === AppConstant.APP_ACTION.SENT_REQUEST) {
       props.navigation.navigate(AppConstant.APP_PAGE.MY_REQUEST_SENT_REQUEST_SCREEN, {
         request: ele
       });
     } else if (actions === AppConstant.APP_ACTION.SEARCH_FOR_PROVIDERS) {
-      props.navigation.navigate(AppConstant.APP_PAGE.SEARCH_HELP_PROVIDERS_REQUESTERS,
-        {
-          ...props,
-          navigation:props.navigation,
-          activity_type: activity_type,
-          activity_uuid: ele.activity_uuid,
-          activity_category: ele.activity_category,
-          region: {},
-          address: "",
-        })
+      props.navigation.navigate(AppConstant.APP_PAGE.SEARCH_HELP_GIVERS_SEEKERS, {
+        navigation:props.navigation,
+        activity_type: activity_type,
+        activity_uuid: ele.activity_uuid,
+        activity_category: ele.activity_category,
+        region: {
+          latitude: ele.geo_location.split(",")[0],
+          longitude: ele.geo_location.split(",")[1],
+          latitudeDelta: LATITUDE_DELTA,
+          longitudeDelta: LONGITUDE_DELTA,
+        },
+        address: "",
+        latlon: ele.geo_location
+      } );
+
+
+
+
     } else if (actions === AppConstant.APP_ACTION.OFFERS_RCVD) {
       props.navigation.navigate(AppConstant.APP_PAGE.MY_REQUEST_SENT_REQUEST_SCREEN, {
         request: ele,
@@ -431,7 +442,7 @@ function MyRequestScreen(props) {
 
       <Content >
         <ScrollView style={{height:verticalScale(500), borderWidth:0}}>
-        {getRequestList()}
+        {/*getRequestList()*/}
         </ScrollView>
       </Content>
       <FooterTab style={{ position: "absolute", left: 0, top: footerTop, width: scale(350), backgroundColor: "#FFFFFF" }}>

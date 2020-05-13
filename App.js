@@ -104,26 +104,17 @@ function App() {
 
   let fcmToken = await this.getFcmToken();
   if (fcmToken && fcmToken.length > 0) {
-    console.log("Your Firebase Token is:" + fcmToken);
     AppStorage.storeAppInfo(AppConstant.FIREBASE_CLOUD_MESSAGING_TOKEN, fcmToken).then((storedResponse) => {
-      console.log("storedResponse : " + storedResponse)
       AppStorage.getAppInfo(AppConstant.FIREBASE_CLOUD_MESSAGING_TOKEN).then((response) => {
-        console.log("Your Firebase Stored Token is:" + JSON.stringify(response));
         if(response !== null){
-          console.log("in useEffect : ")
           ////setAppState(AppConstant.APP_STATE.IS_NOT_AUTENTICATED);
           AppStorage.getAppInfo(AppConstant.IS_VEFIRIED)
           .then((resp) => {
-            console.log("in IS_VEFIRIED Response : " + resp)
             if (resp === "true") {
-              console.log("IS_VEFIRIED resp :  " + resp);
               AppStorage.getAppInfo(AppConstant.IS_LOGGED_IN).then((resp1) => {        
-                console.log("IS_LOGGED_IN resp :  " + resp1);
                 if (resp1 === "true") {
                   setAppState(AppConstant.APP_STATE.IS_AUTHENTICATED);
-                  console.log("AppConstant.APP_STATE.IS_AUTHENTICATED ")
                 }else{
-                  console.log("AppConstant.APP_STATE.IS_NOT_AUTENTICATED ")
                   setAppState(AppConstant.APP_STATE.IS_NOT_AUTENTICATED);
                 }            
               }).catch(error1 => {
@@ -131,18 +122,15 @@ function App() {
               });
               
             } else {
-              console.log("AppConstant.APP_STATE.IS_NOT_AUTENTICATED ")
               setAppState(AppConstant.APP_STATE.IS_NOT_AUTENTICATED);
             }
           }).catch(error => {
-            console.log("AppConstant.APP_STATE.IS_NOT_AUTENTICATED ")
             setAppState(AppConstant.APP_STATE.IS_NOT_AUTENTICATED);              
           });
         }              
       });
     })
    } else {
-     console.log("Failed", "No token received")
      Toast.show("Error : Failed to get Token" , {duration:0, position:0, animation:true, shadow:true})
    }  
 
@@ -150,29 +138,24 @@ function App() {
 
 
  messageListener = async () => {
-      console.log("In message Listner")
       this.notificationListener = firebase.notifications().onNotification((notification) => {
         const { title, body } = notification;
-        console.log("Notification Data 1 : " + title , " ", body)
         //this.showAlert(title, body);
       });
     
       this.notificationOpenedListener = firebase.notifications().onNotificationOpened((notificationOpen) => {
         const { title, body } = notificationOpen.notification;
-        console.log("Notification Data 2 : " + title , " ", body)
         //this.showAlert(title, body);
       });
     
       const notificationOpen = await firebase.notifications().getInitialNotification();
       if (notificationOpen) {
         const { title, body } = notificationOpen.notification;
-        console.log("Notification Data 3 : " + title , " ", body)
         //this.showAlert(title, body);
       }
     
       this.messageListener = firebase.messaging().onMessage((message) => {
-        console.log("Notification Data 4 : " + message)
-      console.log(JSON.stringify(message));
+      /////console.log(JSON.stringify(message));
       });
  }
 
@@ -190,7 +173,6 @@ function App() {
 
 
 
-  console.log("appState  :  " + appState);
   const getStackedScreen = () => {
     const stackedScreen = [];
     switch (appState) {
@@ -200,9 +182,12 @@ function App() {
           <Stack.Navigator key='n_authen' initialRouteName="SplashScreen" screenOptions={{
             headerShown: false
           }} >
+            {/*  
             <Stack.Screen key={`a_${AppConstant.APP_PAGE.DASHBOARD}`} name={AppConstant.APP_PAGE.DASHBOARD}  component={Dashboard} />
-            <Stack.Screen key={`a_${AppConstant.APP_PAGE.SEARCH_HELP_PROVIDERS_REQUESTERS}`} name={AppConstant.APP_PAGE.SEARCH_HELP_PROVIDERS_REQUESTERS} component={MyDrawer} /*initialParams={{activity_type:2, activity_uuid:"C923AB2B-2122-4674-98F6-809850172A27", region:{}, address:""}}*//>
-
+            <Stack.Screen key={`a_${AppConstant.APP_PAGE.SEARCH_HELP_PROVIDERS_REQUESTERS}`} name={AppConstant.APP_PAGE.SEARCH_HELP_PROVIDERS_REQUESTERS} component={SearchHelpProvidersRequesters} />
+            <Stack.Screen key={`a_${AppConstant.APP_PAGE.MY_REQUEST_SCREEN}`} name={AppConstant.APP_PAGE.MY_REQUEST_SCREEN} component={MyRequestScreen} />
+            <Stack.Screen key={`a_${AppConstant.APP_PAGE.MY_OFFERS_SCREEN}`} name={AppConstant.APP_PAGE.MY_OFFERS_SCREEN} component={MyOfferScreen} />
+            */}
             <Stack.Screen key={`a_${AppConstant.APP_PAGE.SIDE_DRAWER}`} name={AppConstant.APP_PAGE.SIDE_DRAWER} component={MyDrawer} />
 
             <Stack.Screen key={`a_${AppConstant.APP_PAGE.LOGIN}`} name={AppConstant.APP_PAGE.LOGIN} component={LoginScreen} />
@@ -213,10 +198,9 @@ function App() {
 
 
 
-            <Stack.Screen key={`a_${AppConstant.APP_PAGE.MY_REQUEST_SCREEN}`} name={AppConstant.APP_PAGE.MY_REQUEST_SCREEN} component={MyRequestScreen} />
+            
             <Stack.Screen key={`a_${AppConstant.APP_PAGE.MY_REQUEST_SENT_REQUEST_SCREEN}`} name={AppConstant.APP_PAGE.MY_REQUEST_SENT_REQUEST_SCREEN} component={MyRequestSentRequestScreen} />
             <Stack.Screen key={`a_${AppConstant.APP_PAGE.MY_OFFER_SENT_OFFER_SCREEN}`} name={AppConstant.APP_PAGE.MY_OFFER_SENT_OFFER_SCREEN} component={MyOfferSentOfferScreen} />
-            <Stack.Screen key={`a_${AppConstant.APP_PAGE.MY_OFFERS_SCREEN}`} name={AppConstant.APP_PAGE.MY_OFFERS_SCREEN} component={MyOfferScreen} />
 
             <Stack.Screen key={`a_${AppConstant.APP_PAGE.SPLASH}`} name={AppConstant.APP_PAGE.SPLASH} component={SplashScreen} /> 
             <Stack.Screen key={`a_${AppConstant.APP_PAGE.ASK_FOR_HELP}`} name={AppConstant.APP_PAGE.ASK_FOR_HELP} component={AskForHelpScreen} />

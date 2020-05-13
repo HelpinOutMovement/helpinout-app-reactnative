@@ -38,7 +38,6 @@ class Animated_Item extends Component {
   constructor(props) {
 
     super(props);
-    console.log(this.props.route.params.address)
     this.animatedValue = new Animated.Value(0);
 
     if (Platform.OS === 'android') {
@@ -143,7 +142,6 @@ export default class AddActivityScreen extends Component {
   constructor(props) {
 
     super(props);
-    console.log("AddActivityScreen :  " + JSON.stringify(this.props))
     this.state = {
       region: this.props.route.params.region, valueArray: [], disabled: false, hideAddMore: true, hideConstrains: false,
       constrainsData: "", volunters_required: false, volunters_detail: "", volunters_quantity: 0, technical_personal_required: false, technical_personal_detail: "", technical_personal_quantity: 0,
@@ -152,7 +150,6 @@ export default class AddActivityScreen extends Component {
       activity_type: this.props.route.params.activity_type, activity_category: this.props.route.params.activity_category
     }
 
-    console.log("AddActivityScreen :  " + JSON.stringify(this.state.region))
     this.addNewElement = false;
     this.index = 0;
 
@@ -176,7 +173,6 @@ export default class AddActivityScreen extends Component {
   itemChangeCallBack = (itemKey, itemIndex, itemValue) => {
     let indexVal = this.state.valueArray.findIndex(ele => ele.id === itemIndex);
     this.state.valueArray[indexVal][itemKey] = itemValue;
-    console.log(JSON.stringify(this.state.valueArray))
   }
 
   constrainsDataOnChange = async (val) => {
@@ -186,7 +182,6 @@ export default class AddActivityScreen extends Component {
     switch (data_for) {
       case "volunters_required":
         await this.setState({ volunters_required: data })
-        console.log(JSON.stringify(this.state))
         break;
       case "technical_personal_required":
         await this.setState({ technical_personal_required: data })
@@ -214,18 +209,15 @@ export default class AddActivityScreen extends Component {
     UUIDGenerator.getRandomUUID((uuid) => {
       switch (this.props.route.params.optionCode) {
         case AppConstant.API_REQUEST_CONSTANTS.activity_category.PEOPLE:
-          console.log("PEOPLE")
           let volReq = this.state.volunters_required ? 1 : 0;
           let techReq = this.state.technical_personal_required ? 1 : 0;
           let peopleData = {
             "volunters_required": volReq, "volunters_detail": this.state.volunters_detail, "volunters_quantity": this.state.volunters_quantity,
             "technical_personal_required": techReq, "technical_personal_detail": this.state.technical_personal_detail, "technical_personal_quantity": this.state.technical_personal_quantity
           }
-          console.log(JSON.stringify(peopleData))
 
           reqObj = restApi.activityAdd(uuid, this.props.route.params.activity_type, this.state.region.latitude + "," + this.state.region.longitude, "100", this.state.address, this.props.route.params.optionCode, 1, peopleData, this.state.constrainsData, canPay)
           reqObj.then((response) => {
-            console.log("Add Response Ambulance : " + JSON.stringify(response))
             if (response.status === "1") {
               this.setState({ activity_category: response.data.activity_category, activity_uuid: response.data.activity_uuid, activity_type: response.data.activity_type }, () => {
                 this.showPopUp();
@@ -236,10 +228,8 @@ export default class AddActivityScreen extends Component {
 
           break;
         case AppConstant.API_REQUEST_CONSTANTS.activity_category.AMBULANCE:
-          console.log("Ambulance")
           reqObj = restApi.activityAdd(uuid, this.props.route.params.activity_type, this.state.region.latitude + "," + this.state.region.longitude, "100", this.state.address, this.props.route.params.optionCode, 1, { qty: 0 }, this.state.constrainsData, canPay)
           reqObj.then((response) => {
-            console.log("Add Response Ambulance : " + JSON.stringify(response))
             if (response.status === "1") {
               this.setState({ activity_category: response.data.activity_category, activity_uuid: response.data.activity_uuid, activity_type: response.data.activity_type }, () => {
                 this.showPopUp();
@@ -249,12 +239,10 @@ export default class AddActivityScreen extends Component {
 
           break;
         default:
-          console.log("Others")
 
           reqObj = restApi.activityAdd(uuid, this.props.route.params.activity_type, this.state.region.latitude + "," + this.state.region.longitude, "100", this.state.address, this.props.route.params.optionCode, this.state.valueArray.length, this.state.valueArray, this.state.constrainsData, canPay)
 
           reqObj.then((response) => {
-            console.log("Add Response : " + JSON.stringify(response))
             if (response.status === "1") {
               this.setState({ activity_category: response.data.activity_category, activity_uuid: response.data.activity_uuid, activity_type: response.data.activity_type }, () => {
                 this.showPopUp();
@@ -274,9 +262,7 @@ export default class AddActivityScreen extends Component {
 
     if (this.props.route.params.activity_type === 1) {
       this.setState({ title:  translate.t("toolbar_need_help_with"), headerBgColor: "#EE6B6B" })
-      console.log("Add Requests")
       if (this.props.route.params.optionCode === AppConstant.API_REQUEST_CONSTANTS.activity_category.PEOPLE || this.props.route.params.optionCode === AppConstant.API_REQUEST_CONSTANTS.activity_category.AMBULANCE) {
-        console.log(this.props.route.params.optionCode + "    " + AppConstant.API_REQUEST_CONSTANTS.activity_category.PEOPLE)
         this.setState({ hideAddMore: true })
         this.setState({ hideConstrains: true })
       } else {
@@ -286,14 +272,10 @@ export default class AddActivityScreen extends Component {
       }
     } else {
       this.setState({ title: translate.t("toolbar_offer_help_with"), headerBgColor: "#4F5065" })
-      console.log("Add Offers")
       if (this.props.route.params.optionCode === AppConstant.API_REQUEST_CONSTANTS.activity_category.PEOPLE || this.props.route.params.optionCode === AppConstant.API_REQUEST_CONSTANTS.activity_category.AMBULANCE) {
-        console.log("Add Offers People/Ambulance")
-        console.log(this.props.route.params.optionCode + "    " + AppConstant.API_REQUEST_CONSTANTS.activity_category.PEOPLE)
         this.setState({ hideAddMore: true })
         this.setState({ hideConstrains: true })
       } else {
-        console.log("Add Offers Others")
         this.setState({ hideAddMore: false })
         this.setState({ hideConstrains: false })
         this.add_New_View();

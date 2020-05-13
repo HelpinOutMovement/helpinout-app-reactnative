@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { View } from 'react-native';
+import { View , Dimensions} from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import { Container, Content, Text, Footer, FooterTab, Header, Left, Button, Icon, Body, Title, Right } from "native-base";
 import translate from 'react-native-i18n';
@@ -18,6 +18,11 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { verticalScale, scale, moderateScale } from 'react-native-size-matters';
 import Utils from "../misc/Utils"
 const footerTop = Utils.isIphoneX() ? verticalScale(620) : verticalScale(610);
+
+const { width, height } = Dimensions.get('window');
+const ASPECT_RATIO = width / height;
+const LATITUDE_DELTA = (Platform.OS === global.platformIOS ? 1.5 : 0.5);
+const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
 const realReq = [
   {
@@ -333,21 +338,30 @@ function MyOfferScreen(props) {
   );
 
   const primaryActionHandler = (ele, actions) => {
-    console.log(ele, "$$$$", actions);
+    /////console.log(ele, "$$$$", actions);
     if (actions === AppConstant.APP_ACTION.OFFERER_RCVD_REQUESTS) {
       props.navigation.navigate(AppConstant.APP_PAGE.MY_OFFER_SENT_OFFER_SCREEN, {
         request: ele,
       });
     } else if (actions === AppConstant.APP_ACTION.SEARCH_FOR_PROVIDERS) {
-      props.navigation.navigate(AppConstant.APP_PAGE.SEARCH_HELP_PROVIDERS_REQUESTERS,
-        {
+      
+      props.navigation.navigate( AppConstant.APP_PAGE.SEARCH_HELP_GIVERS_SEEKERS, {
+        
+        params: {
           activity_type: activity_type,
           activity_uuid: ele.activity_uuid,
           activity_category: ele.activity_category,
-          region: {},
+          region: {
+            latitude: ele.geo_location.split(",")[0],
+            longitude: ele.geo_location.split(",")[1],
+            latitudeDelta: 0,
+            longitudeDelta: 0,
+          },
           address: "",
           latlon: ele.geo_location
-        })
+        }
+      });
+      
     } else if (actions === AppConstant.APP_ACTION.OFFERER_SENT_OFFERS) {
       props.navigation.navigate(AppConstant.APP_PAGE.MY_OFFER_SENT_OFFER_SCREEN, {
         request: ele,

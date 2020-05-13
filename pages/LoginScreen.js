@@ -26,7 +26,6 @@ export default class LoginScreen extends React.Component {
 
 
         AppStorage.getAppInfo(AppConstant.FIREBASE_CLOUD_MESSAGING_TOKEN).then((response) => {
-            console.log("Your Firebase Stored Token in Login Constructor is:" + JSON.stringify(response));
           });
         
     }
@@ -65,7 +64,6 @@ export default class LoginScreen extends React.Component {
   
     
     isEmpty = (value) => {
-        console.log("value.size  :  " +  value.length )
         return (typeof value === "undefined" || value === null || value.length === 0);        
     }
 
@@ -81,7 +79,6 @@ export default class LoginScreen extends React.Component {
 
     verifyPhone = () =>{
         AppStorage.getAppInfo(AppConstant.FIREBASE_CLOUD_MESSAGING_TOKEN).then((response) => {
-            console.log("Your Firebase Stored Token in Login Submit is:" + JSON.stringify(response));
             this.navigate(AppConstant.APP_PAGE.VERIFY, {loginState: this.state, phoneNumber:this.state.selectedCountryDialCode+""+this.state.phoneNumber});   
           });
        

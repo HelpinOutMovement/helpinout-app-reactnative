@@ -144,7 +144,6 @@ const rateAndReviewModalContent = (props) => {
                     }}> {translate.t("comment")} </Text>
                     <Textarea
                         onChangeText={(txt) => {
-                            console.log(txt)
                             setCommentText(txt)
                         }}
                         placeholder="Enter here"

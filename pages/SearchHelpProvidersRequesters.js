@@ -24,15 +24,17 @@ import { DrawerActions } from 'react-navigation-drawer';
 
 //import { ifIphoneX } from 'react-native-iphone-x-helper'
 
+import { StackActions, NavigationActions } from 'react-navigation'
+
 var {width, height} = Dimensions.get('window')
 var dimensions  = Dimensions.get('window') 
 
 var tempCheckValues = [];
+
 class SearchHelpProvidersRequesters extends React.Component {
     constructor(props){
         super(props);
 
-        console.log(" SearchHelpProvidersRequesters  : " + JSON.stringify(props))
 
         this.navigation = this.props.navigation;     
         this.navigate = this.props.navigation.navigate;
@@ -56,7 +58,6 @@ class SearchHelpProvidersRequesters extends React.Component {
             activity_data: [],   
             latlon:"",                
         }
-        console.log("this.props.route.params.latlon  : " + this.props.route.params.latlon)
         
         if(this.props.route.params.latlon){
             if(this.props.route.params.latlon.length > 0){
@@ -71,7 +72,6 @@ class SearchHelpProvidersRequesters extends React.Component {
 
         //(this.props.route.params.latlon != "") ? this.setState({latlon:this.props.route.params.latlon}) : this.setState({latlon:""})
 
-        console.log(" ifIphoneX() : " + this.isIphoneX())
         this.topBarPos = 20;
         if(this.isIphoneX()){
             this.topBarPos = 40;
@@ -81,7 +81,39 @@ class SearchHelpProvidersRequesters extends React.Component {
 
         const helpOption = Utilities.getCategoryFromCode(props.activity_category);
 
+
+
+/*
+
+        this.navigation.addListener('tabPress', e => {
+            // Prevent default action
+            /////console.log("SearchHelpProvidersRequesters Navigation : tabPress " + JSON.stringify(e))
+          });
+      
+      
+          this.navigation.addListener('state', e => {
+            // Prevent default action
+            /////console.log("SearchHelpProvidersRequesters Navigation : state " + JSON.stringify(e))
+            this.forceUpdate()
+          });
+      
+      
+          this.navigation.addListener('blur', e => {
+            // Prevent default action
+            /////console.log("SearchHelpProvidersRequesters Navigation : blur " + JSON.stringify(e))
+          });
+      
+          this.navigation.addListener('tabPress', e => {
+            // Prevent default action
+            /////console.log("SearchHelpProvidersRequesters Navigation : blur " + JSON.stringify(e))
+          });
+
+*/
+          
     }
+
+
+        
 
 
       checkBoxChanged(id, value) {
@@ -124,7 +156,6 @@ class SearchHelpProvidersRequesters extends React.Component {
 
             //this.setState({region:rgn, address:mapState.address})
             // Use Geocoding and get address.
-            console.log("Use Geocoding and get address  "+ JSON.stringify(mapState))
             this.getActivitySuggestions()
 
         })
@@ -132,18 +163,11 @@ class SearchHelpProvidersRequesters extends React.Component {
     }
 
 
-    componentDidMount(){
-        console.log(" Lat Lon : " + this.state.latlon)
-    }
-
-
     getActivitySuggestions = () =>{
         
         let restApi = new API();
-        console.log("  getActivitySuggestions this.state.activity_type  " + this.state.activity_type)
         let reqObj =  restApi.activitySuggestions(this.state.activity_type, this.state.activity_uuid, this.state.region.latitude+","+this.state.region.longitude, "10.424", getDistance(this.state.boundries.northEast,this.state.boundries.southWest)/2)
                 reqObj.then((respObject) => {
-                    console.log("getActivitySuggestions Response  : " + JSON.stringify(respObject))
                     if(respObject.status === "1") {
                       //this.showPopUp();  
                         if(this.state.activity_type === 1){
@@ -151,7 +175,6 @@ class SearchHelpProvidersRequesters extends React.Component {
                         }else{
                             this.setState({activitySuggestionOfferResponse:respObject.data.requests});
                         }                                          
-                        console.log(JSON.stringify(respObject.data.offers))
                     }
                 }).catch((err) => {console.log(err)})    
         
@@ -160,7 +183,6 @@ class SearchHelpProvidersRequesters extends React.Component {
         //offers_data = [];
         let respObject =  {"status":"1","message":"Success","data":{"offers":offers_data}};
         this.setState({activitySuggestionOfferResponse:respObject.data.offers});
-        console.log(JSON.stringify(respObject.data.offers))
 */       
 
 
@@ -195,13 +217,10 @@ class SearchHelpProvidersRequesters extends React.Component {
                         //offerer = {activity_uuid:this.state.activity_uuid, activity_type:this.state.activity_type, offer:this.state.activity_data} 
                         offerer = this.state.activity_data 
             
-        console.log("requester : " + JSON.stringify(requester))
-        console.log("offerer : " + JSON.stringify(offerer))
         
         let restApi = new API();
         let reqObj =  restApi.activityMapping(this.state.activity_type, this.state.activity_uuid, offerer, requester)
         reqObj.then((response) => {
-            console.log("Add activityMapping Response  : " + JSON.stringify(response))
             if(response.status === "1") {
                 //this.showPopUp();
                 if(this.state.activity_type === 1){
@@ -495,5 +514,5 @@ const styles =  StyleSheet.create({
 
 })
 
-//export default withNavigation(SearchHelpProvidersRequesters);
-export default SearchHelpProvidersRequesters;
+export default withNavigation(SearchHelpProvidersRequesters);
+//export default SearchHelpProvidersRequesters;

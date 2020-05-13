@@ -25,7 +25,7 @@ class Utilities {
             let day = dt.getDate() ;
             //let month = translate.t("Month_"+dt.getMonth());
             let month = dt.toLocaleString('default', { month: 'short' })
-            console.log("MONTH NAME " + month)
+            /////console.log("MONTH NAME " + month)
             let year = dt.getFullYear();
             let minutes = dt.getMinutes();
             //let finalTime = day + " " + month + " "+ year+"," + hours + ":" + minutes + " " + translate.t("Period_"+timePeriod);

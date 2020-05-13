@@ -174,7 +174,6 @@ const getHelpOptionsView = (optionsOnScreen,props) => {
             optionsOnScreen[index]["total"] = response.data[i].total;
             optionsOnScreen[index]["nearMe"] = response.data[i].near;
         }
-        console.log(optionsOnScreen)
         props.navigation.navigate(AppConstant.APP_PAGE.OFFER_HELP_SCREEN)
     })
 }

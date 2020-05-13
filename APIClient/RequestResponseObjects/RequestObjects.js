@@ -14,7 +14,6 @@
             
 
             //this.APIData = {"app_id": 137, "imei_no": DeviceInfo.getUniqueId(), "app_version": "0.1", 'date_time':  date  };
-            //console.log(this.getUserDetails())
             //this.setAppId();
         }
 
@@ -313,14 +312,11 @@
                 let reqData = this.APIData;
                 let userDetails = this.getUserDetails();
                 userDetails.then((details) => {
-                    console.log("stuffHeader    "+ details );
-                    //console.log("details[app_id]    "+ JSON.parse(details).app_id );
                     details = JSON.parse(details);
                     if(withAppId){
                         reqData["app_id"] = details.app_id;  
                     }
                     reqData["data"] = data; 
-                    //console.log("stuffHeader userDetails reqData   :  " + JSON.stringify(reqData))   
                     resolve(reqData);
                 })   
             });                  
@@ -331,7 +327,6 @@
             return new Promise((resolve, reject) => {
                 let data = AppStorage.getAppInfo(AppConstant.APP_STORE_KEY.USER_REG_DETAILS);        
                 data.then((data)=> {
-                    console.log("getUserDetails    "+ data )
                     resolve(data);
                 })
                 .catch(err => {reject(err)})

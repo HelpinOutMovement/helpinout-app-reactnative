@@ -71,6 +71,10 @@ const AppConstant = {
         REGISTER_MOBILE:'RegisterMobile',
         MAP_COMPONENT:'MapComponent',
         DASHBOARD:'Dashboard',
+
+        HOME:'Home',
+        SEARCH_HELP_GIVERS_SEEKERS:'SearchHelpGiversSeekers',
+
         SCREEN_WITH_SIDE_DRAWER:'Home',
         ASK_FOR_HELP:'Need Help With',
         OFFER_HELP_SCREEN:'Offer Help Screen',

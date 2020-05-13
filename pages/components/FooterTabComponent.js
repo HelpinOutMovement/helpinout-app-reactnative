@@ -18,7 +18,7 @@ const FooterTabComponent = (props) => {
             }}>
             <Button vertical 
                 active={props.activeTab === AppConstant.APP_FOOTER_TABS.HOME}
-                onPress={() => props.navigation.navigate(AppConstant.APP_PAGE.DASHBOARD)}
+                onPress={() => props.navigation.navigate(AppConstant.APP_PAGE.HOME)}
                 style={{
                     color: "#FFFFFF",
                     height: 70

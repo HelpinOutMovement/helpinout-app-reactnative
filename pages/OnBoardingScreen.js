@@ -22,15 +22,11 @@ function OnBoardingScreen({ navigation }) {
 
     const onLanguageClicked = (lang) => {
         AppStorage.storeAppInfo("locale", lang).then((value) => {
-            console.log("  value   " + value)
             setLanguage(lang);
-            console.log(lang)
 
             AppStorage.getAppInfo(AppConstant.APP_STORE_KEY.IS_VEFIRIED)
                 .then((resp) => {
-                    console.log("APP resp :  " + resp);
                     if (resp === "true") {
-                    console.log("APP resp :  " + resp);
                     navigation.navigate(AppConstant.APP_PAGE.DASHBOARD);
                     } else {
                         navigation.navigate(AppConstant.APP_PAGE.ON_BOARDING_INFO);

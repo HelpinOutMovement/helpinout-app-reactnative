@@ -62,7 +62,6 @@ const optionsOnScreen = [
 function AskForHelpScreen(props) {
 
 
-    console.log(JSON.stringify(props))
     const onAskForHelpSelection = (optionCode, optionImage) => {
       /*
       props.navigation.navigate(AppConstant.APP_PAGE.ASK_FOR_HELP_DETAILS, {
@@ -74,7 +73,6 @@ function AskForHelpScreen(props) {
       })
       */
 
-     console.log(props.route.params.region)
      props.navigation.navigate(AppConstant.APP_PAGE.ADD_ACTIVITY_SCREEN, {
       activity_type: AppConstant.API_REQUEST_CONSTANTS.activity_type.Request,
       optionCode: optionCode,
@@ -89,9 +87,7 @@ function AskForHelpScreen(props) {
   const getHelpOptionsView = () => {
     const cardListView = [];
     let twoColGrid = [];
-    console.log(JSON.stringify(optionsOnScreen))
     optionsOnScreen.forEach((singleOption, index) => {
-      console.log(singleOption.path)
       twoColGrid.push((
             <Col key={singleOption.code}>
               <TouchableOpacity onPress={() => {

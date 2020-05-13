@@ -10,7 +10,13 @@ import UserContext from '../misc/UserContext';
 import { appLabelKey } from '../misc/AppStrings';
 import commonStyling from '../styling/commonStyle';
 
+
+import Home from './Home'
+
+import SearchHelpGiversSeekers from './SearchHelpGiversSeekers'
+
 import Dashboard from './Dashboard';
+
 import MyRequestScreen from './MyRequestScreen';
 import LogoComponent from './components/LogoComponent';
 import SearchHelpProvidersRequesters from './SearchHelpProvidersRequesters'
@@ -25,7 +31,7 @@ const Drawer = createDrawerNavigator();
 const SideMenuOptions = {
     primay: [{
         label: translate.t(appLabelKey.home),
-        pageName: AppConstant.APP_PAGE.DASHBOARD
+        pageName: AppConstant.APP_PAGE.HOME
 
     }, {
         label: translate.t(appLabelKey.ask_for_Help),
@@ -93,15 +99,11 @@ const CustomSideBarView = (props) => {
     const { latlon } = useContext(UserContext);
     const { setLanguage , language} = useContext(AppStringContext);
     const { translate } = useContext(AppStringContext);
-    console.log(latlon);
-    console.log(" CustomSideBarView : " +latlon);
     const onLanguageClicked = (lang) => {
         AppStorage.storeAppInfo("locale", lang).then(function (value) {
             setLanguage(lang);
-            console.log(lang)
             navigation.closeDrawer();
-            Dashboard.
-            navigation.navigate(AppConstant.APP_PAGE.DASHBOARD);
+            navigation.navigate(AppConstant.APP_PAGE.HOME);
             
         });
     }
@@ -235,13 +237,12 @@ const CustomSideBarView = (props) => {
 }
 function MyDrawer(props) {
 
-    console.log("MyDrawer Props  : " + JSON.stringify(props))
     return (
         <Drawer.Navigator 
         permanent={'front'}
         drawerContent={(props) => (<CustomSideBarView  {...props} />)}>
-            <Drawer.Screen name="Dashboard" {...props} component={Dashboard} />
-            <Drawer.Screen name="SearchHelpProvidersRequesters" {...props} component={SearchHelpProvidersRequesters} />
+            <Drawer.Screen name="Home" {...props} component={Home} />
+            <Drawer.Screen name="SearchHelpGiversSeekers" component={SearchHelpGiversSeekers} />
             <Drawer.Screen name="My Requests" {...props} component={myRequests} />
             <Drawer.Screen name="My Offers" {...props} component={myOffers} />
         </Drawer.Navigator>

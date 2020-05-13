@@ -34,10 +34,8 @@ class SearchHelpProvidersRequesters extends React.Component {
 
     callbackOnRegionChange = (rgn, mapState) =>{
         this.setState({region:rgn, address:mapState.address, boundries:mapState.boundries})
-        //console.log("Dashboard callbackOnRegionChange : " + JSON.stringify(rgn), "       ---      " , addr)
         this.setState({region:rgn, address:mapState.address})
         // Use Geocoding and get address.
-        console.log(JSON.stringify(this.state))
         this.getActivitySuggestions()
     }
 
@@ -51,15 +49,13 @@ class SearchHelpProvidersRequesters extends React.Component {
         let restApi = new API();
         reqObj =  restApi.activitySuggestions(this.state.activity_type, this.state.activity_uuid, this.state.region.latitude+","+this.state.region.longitude, "10.424", getDistance(this.state.boundries.northEast,this.state.boundries.southWest)/2)
                 reqObj.then((response) => {
-                    console.log("getActivitySuggestions Response  : " + JSON.stringify(response))
                     if(response.status === "1") {
                       //this.showPopUp();
                     }
-                }).catch((err) => {console.log(err)})    
+                }).catch((err) => {/////console.log(err)})    
         */
         let respObject =  {"status":"1","message":"Success","data":{"offers":[{"activity_type":2,"activity_uuid":"3B5E9462-C9DC-4FBF-8183-49E68C6D8B15","date_time":"2020-03-24T00:51:14.000-05:30","activity_category":1,"activity_count":1,"geo_location":"17.78583400,78.40641700","status":1,"offer_condition":"Vegan","activity_detail":[{"detail":"Food","quantity":5}],"user_detail":{"country_code":"+1","mobile_no":"6505551234","first_name":"Raghu","last_name":"Test1","mobile_no_visibility":0,"user_type":2,"org_name":null,"org_type":null,"org_division":null,"rating_avg":0,"rating_count":0}},{"activity_type":2,"activity_uuid":"4901a942-05b9-4003-9fe5-a62358d48281","date_time":"2020-04-22T19:07:44.000+05:30","activity_category":1,"activity_count":2,"geo_location":"13.06345812,77.61847425","status":1,"offer_condition":"Between 9am and 12 noon mornings. You must pickup and bring serving vessels. Please come wearing masks.","activity_detail":[{"detail":"Basic food, per day","quantity":1000},{"detail":"Rice","quantity":500}],"user_detail":{"country_code":"+91","mobile_no":"8431064108","first_name":"Ved","last_name":"Chikarmane","mobile_no_visibility":1,"user_type":2,"org_name":"Jakkur Collective","org_type":2,"org_division":"The Boss","rating_avg":0.5,"rating_count":3}},{"activity_type":2,"activity_uuid":"84389c6a-8b8e-4533-b28d-563075898e8d","date_time":"2020-04-22T17:04:28.000+05:30","activity_category":1,"activity_count":1,"geo_location":"28.64440150,77.36175768","status":1,"offer_condition":"Vdhs","activity_detail":[{"detail":"Food","quantity":20}],"user_detail":{"country_code":"+91","mobile_no":"7303767448","first_name":"new ","last_name":"user","mobile_no_visibility":0,"user_type":2,"org_name":"","org_type":null,"org_division":"","rating_avg":3.5,"rating_count":10}},{"activity_type":2,"activity_uuid":"F390A4C5-81A6-481D-B926-34ECEB942B7B","date_time":"2020-03-21T22:41:31.000-05:30","activity_category":1,"activity_count":1,"geo_location":"19.23246073,74.80682373","status":1,"offer_condition":"","activity_detail":[{"detail":"Lunch","quantity":20}],"user_detail":{"country_code":"+91","mobile_no":"9730131849","first_name":"VSRV","last_name":"Raghavan","mobile_no_visibility":0,"user_type":2,"org_name":null,"org_type":null,"org_division":null,"rating_avg":0,"rating_count":0}},{"activity_type":2,"activity_uuid":"5cd3b2dc-e32b-4010-80c7-659ca0568a98","date_time":"2020-04-20T18:53:38.000+05:30","activity_category":1,"activity_count":1,"geo_location":"13.06343820,77.61851180","status":1,"offer_condition":"Give us 48 hours notice. We will deliver from our We need 48 hours notice. We can location to a radius of 10 km","activity_detail":[{"detail":"Meals, per day","quantity":1000}],"user_detail":{"country_code":"+91","mobile_no":"8431064108","first_name":"Ved","last_name":"Chikarmane","mobile_no_visibility":1,"user_type":2,"org_name":"Jakkur Collective","org_type":2,"org_division":"The Boss","rating_avg":0.5,"rating_count":3}}]}};
         this.setState({activitySuggestionOfferResponse:respObject.data.offers});
-        console.log(JSON.stringify(respObject.data.offers))
        
 
 
