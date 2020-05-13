@@ -24,11 +24,11 @@ export default class RegisterMobile extends React.Component {
         super(props);
         ///const { navigate } = this.props.navigation;
         this.navigate = this.props.navigation.navigate;
-\        this.state = {}//this.props.route.params.loginState;
+        this.state = {}//this.props.route.params.loginState;
 
         AppStorage.storeAppInfo(AppConstant.IS_LOGGED_IN, "false");
         //this.state = {}//this.props.route.params.loginState;
-\    }
+    }
    
     dimensions = Dimensions.get('window');
   
@@ -51,7 +51,7 @@ export default class RegisterMobile extends React.Component {
     }
 
     isEmpty = (value) => {
-\        return (typeof value === "undefined" || value === null || value.length === 0);        
+        return (typeof value === "undefined" || value === null || value.length === 0);        
     }
 
     validateRegistrationInput = () => {
@@ -92,14 +92,14 @@ export default class RegisterMobile extends React.Component {
             
             reqObj.then(
                 result => {
-\                    if(result.status === "0"){
+                    if(result.status === "0"){
                         if(result.message === "Already registered"){
                             AppStorage.storeAppInfo(AppConstant.IS_LOGGED_IN, "false");
                             Toast.show('Phone number already registered' , {duration:1000, position:0, animation:true, shadow:true, animationDuration:2000})
                             //this.navigate(AppConstant.APP_PAGE.DASHBOARD, {loginState: this.state});
                             thisclass.navigate(AppConstant.APP_PAGE.LOGIN, {loginState: thisclass.state});    
                         }else{
-\\                            this.setState({loginstatus: result.status});
+                            this.setState({loginstatus: result.status});
                             AppStorage.removeAppInfo(AppConstant.USER_REGISTRATION_DETAILS);
                             AppStorage.removeAppInfo(AppConstant.APP_STORE_KEY.IS_VEFIRIED);
                             AppStorage.storeAppInfo(AppConstant.IS_LOGGED_IN, "false");
@@ -107,13 +107,13 @@ export default class RegisterMobile extends React.Component {
                             this.forceUpdateHandler();   
                         }                        
                     }else if(result.status === "1"){
-\\                        let thisclass = this;
+                        let thisclass = this;
                         AppStorage.storeAppInfo(AppConstant.USER_REGISTRATION_DETAILS, JSON.stringify(result.data)).then(function(value) {
-\                            // expected output: "Success!"
+                            // expected output: "Success!"
                             AppStorage.storeAppInfo(AppConstant.IS_LOGGED_IN, "true");
                             AppStorage.storeAppInfo(AppConstant.APP_STORE_KEY.USER_REG_DETAILS, JSON.stringify(result.data)).then(() => {
                                 AppStorage.getAppInfo(AppConstant.APP_STORE_KEY.USER_REG_DETAILS).then((responseObj) => {
-\                                    thisclass.navigate(AppConstant.APP_PAGE.DASHBOARD, {loginState: thisclass.state});                                    
+                                    thisclass.navigate(AppConstant.APP_PAGE.DASHBOARD, {loginState: thisclass.state});                                    
                                 })
                             });
                           });                                        
@@ -145,7 +145,7 @@ export default class RegisterMobile extends React.Component {
     orgTypes = [{"label":"Individual","key":"Individual" ,"displayValue": false ,"value":"1"},{"label":"Organisation","key":"Organisation" ,"displayValue": false ,"value":"2"}]
 
     renderRegistrationScreen = () =>{          
-\        return (            
+        return (            
             <View style={{ flexDirection: "column", padding: 10, flex: 1}}>
                 <LogoComponent />
                 <TouchableWithoutFeedback onPress={() => {Keyboard.dismiss()}}>
