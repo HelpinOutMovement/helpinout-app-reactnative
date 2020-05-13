@@ -38,13 +38,13 @@ const ButtonComponent = (props) => {
                     props.setShowModal(true)
                     if(props.activity_type === AppConstant.API_REQUEST_CONSTANTS.activity_type.Request){
                             if(props.buttonVal === AppConstant.APP_CONFIRMATION.YES){
-                                navigation.navigate(AppConstant.APP_PAGE.SEARCH_HELP_PROVIDERS_REQUESTERS, {activity_type:props.activity_type, activity_uuid:props.activity_uuid,activity_category:props.activity_category, region:{}, address:""})
+                                navigation.navigate(AppConstant.APP_PAGE.SEARCH_HELP_GIVERS_SEEKERS, {activity_type:props.activity_type, activity_uuid:props.activity_uuid,activity_category:props.activity_category, region:{}, address:""})
                             }else if(props.buttonVal === AppConstant.APP_CONFIRMATION.NO){
                                 navigation.navigate(AppConstant.APP_PAGE.MY_REQUEST_SCREEN)
                             }
                     }else if(props.activity_type === AppConstant.API_REQUEST_CONSTANTS.activity_type.Offer){
                             if(props.buttonVal === AppConstant.APP_CONFIRMATION.YES){
-                                navigation.navigate(AppConstant.APP_PAGE.SEARCH_HELP_PROVIDERS_REQUESTERS, {activity_type:props.activity_type, activity_uuid:props.activity_uuid,activity_category:props.activity_category, region:{}, address:""})
+                                navigation.navigate(AppConstant.APP_PAGE.SEARCH_HELP_GIVERS_SEEKERS, {activity_type:props.activity_type, activity_uuid:props.activity_uuid,activity_category:props.activity_category, region:{}, address:""})
                             }else if(props.buttonVal === AppConstant.APP_CONFIRMATION.NO){
                                 navigation.navigate(AppConstant.APP_PAGE.MY_OFFERS_SCREEN)
                             }

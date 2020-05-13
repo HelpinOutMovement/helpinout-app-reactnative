@@ -36,11 +36,8 @@ const dimensions = Dimensions.get('window');
 
 
 function Home(props) {
-    
-
-    mapComponentRef = React.createRef();
-    navigation = props.navigation;
-
+    let mapComponentRef = React.createRef();
+    let navigation = props.navigation;
     const [state, setState] = useState({ 
         hintIsHidden: false, 
         userDetails: {}, 
@@ -102,7 +99,7 @@ function Home(props) {
             if (err.response.status === 409) {
               Toast.show('appid expired : ', { duration: 2000, position: 0, animation: true, shadow: true, animationDuration: 1000 })
               appStorage.storeAppInfo(AppConstant.APP_STORE_KEY.IS_VEFIRIED, "false");
-              navigate(AppConstant.APP_PAGE.LOGIN);
+              navigation.navigate(AppConstant.APP_PAGE.LOGIN);
             }
           })
         }
@@ -240,7 +237,7 @@ function Home(props) {
                       <TouchableOpacity style={styles(dimensions).AskForHelp} onPress={() => {setState({ ...state,ShowAskForHelpModal:true})}}>
                         <AskForHelpButton />
                       </TouchableOpacity>
-                      <TouchableOpacity style={styles(dimensions).OfferHelp} onPress={() => navigate(AppConstant.APP_PAGE.OFFER_HELP_SCREEN, { region: state.region, address: state.address })}>
+                      <TouchableOpacity style={styles(dimensions).OfferHelp} onPress={() => navigation.navigate(AppConstant.APP_PAGE.OFFER_HELP_SCREEN, { region: state.region, address: state.address })}>
                         <OfferHelpButton />
                       </TouchableOpacity>
                     </View>
@@ -273,7 +270,7 @@ function Home(props) {
                 </View>
               
                 <View style={{flex:1, flexDirection:"row",  width:scale(280), height:verticalScale(60)  , justifyContent:"center", alignItems:"center", borderWidth:0}}>
-                        <TouchableOpacity  style={{paddingHorizontal:scale(10), paddingVertical:verticalScale(20)}} onPress={() => { setState({ ...state,ShowAskForHelpModal:false}); navigate(AppConstant.APP_PAGE.ASK_FOR_HELP, { region: state.region, address: state.address })}}>
+                        <TouchableOpacity  style={{paddingHorizontal:scale(10), paddingVertical:verticalScale(20)}} onPress={() => { setState({ ...state,ShowAskForHelpModal:false}); navigation.navigate(AppConstant.APP_PAGE.ASK_FOR_HELP, { region: state.region, address: state.address })}}>
                         <View style={{
                           backgroundColor:"#EE6B6B",
                           borderRadius:4,
@@ -289,7 +286,7 @@ function Home(props) {
                           <Text adjustsFontSizeToFit={true} minimumFontScale={0.5} numberOfLines={1} style={{color: "rgba(245,245,245,1)",fontFamily: "roboto-regular", alignItems: 'center',justifyContent:'center',}}>Myself</Text>
                         </View>
                         </TouchableOpacity>
-                        <TouchableOpacity  style={{paddingHorizontal:scale(10), paddingVertical:verticalScale(20)}} onPress={() => { setState({ ...state,ShowAskForHelpModal:false}); navigate(AppConstant.APP_PAGE.ASK_FOR_HELP, { region: state.region, address: state.address })}}>
+                        <TouchableOpacity  style={{paddingHorizontal:scale(10), paddingVertical:verticalScale(20)}} onPress={() => { setState({ ...state,ShowAskForHelpModal:false}); navigation.navigate(AppConstant.APP_PAGE.ASK_FOR_HELP, { region: state.region, address: state.address })}}>
                           <View style={{
                             backgroundColor:"#FFF",
                             borderRadius:4,
