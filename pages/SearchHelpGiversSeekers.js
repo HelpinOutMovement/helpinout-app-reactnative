@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Dimensions, StyleSheet, TouchableOpacity, Platform, Switch, Image } from "react-native";
 import { Container, View, Text, Button, Icon } from "native-base";
+import { useIsFocused } from '@react-navigation/native';
 
 import AppConstant from '../misc/AppConstant';
 import Utilities from '../misc/Utils';
@@ -40,30 +41,39 @@ const getRouteParams = (propertyName, routeParams) => {
 }
 
 function SearchHelpGiversSeekers(props) {
-
-
-    const navigation = props.navigation;
     const navigate = props.navigation.navigate;
+    const isFocused = useIsFocused();
+    const mapComponentRef = useRef(null);
 
-
+    const [latLonRef, setLatLonRef] = useState('');
     const [state, setState] = useState({
-        region: getRouteParams('region', props.route),
-        address: getRouteParams('address', props.route),
-        activity_category: getRouteParams('activity_category', props.route),
-        activity_type: getRouteParams('activity_type', props.route),
-        activity_uuid: getRouteParams('activity_uuid', props.route),
-        mapHeight: verticalScale(340),
-        bottom_panel_icon: "ios-arrow-dropdown",
-        bottom_panel_visible: true,
-        bottom_panel_bottom: height / 2,
         activitySuggestionOfferResponse: [],
         checkBoxChecked: {},
-        activity_data: [],
-        bottom_panel_icon: "ios-arrow-dropdown",
-        mapHeight: verticalScale(340),
-        bottom_panel_bottom: height / 2,
-        latlon: getRouteParams('latlon', props.route)
+        activity_data: []
     });
+
+    useEffect(()=>{
+        const lanlonReference = getRouteParams('latlon', props.route);
+        setLatLonRef(lanlonReference);
+        setState({
+            region: getRouteParams('region', props.route),
+            address: getRouteParams('address', props.route),
+            activity_category: getRouteParams('activity_category', props.route),
+            activity_type: getRouteParams('activity_type', props.route),
+            activity_uuid: getRouteParams('activity_uuid', props.route),
+            mapHeight: verticalScale(340),
+            bottom_panel_icon: "ios-arrow-dropdown",
+            bottom_panel_visible: true,
+            bottom_panel_bottom: height / 2,
+            activitySuggestionOfferResponse: [],
+            checkBoxChecked: {},
+            activity_data: [],
+            bottom_panel_icon: "ios-arrow-dropdown",
+            mapHeight: verticalScale(340),
+            bottom_panel_bottom: height / 2,
+            latlon: getRouteParams('latlon', props.route)
+        });
+    },[props.route.params.latlon])
 
     /*
     if(props.route.params.latlon){
@@ -182,9 +192,7 @@ function SearchHelpGiversSeekers(props) {
 
 
     useEffect(() => {
-
         setState({
-
             region: getRouteParams('region', props.route),
             address: getRouteParams('address', props.route),
             activity_category: getRouteParams('activity_category', props.route),
@@ -201,26 +209,34 @@ function SearchHelpGiversSeekers(props) {
             mapHeight: verticalScale(340),
             bottom_panel_bottom: height / 2,
             latlon: getRouteParams('latlon', props.route)
-
-
         })
-
     }, []);
 
 
+    const renderMapComponent = () => {
+        if(latLonRef && isFocused) {
+            return (
+            <MapComponent 
+                mapLatLon={latLonRef} 
+                mapHeight={state.mapHeight} 
+                callbackOnRegionChange={callbackOnRegionChange} 
+                mapProps={props} 
+                ref={mapComponentRef}>
+            </MapComponent>)
+        }
+    }
     const renderScreen = () => {
         var latlonval = "";
         if (state.region) {
             latlonval = state.region.latitude + "," + state.region.longitude
             //setState({...state, "latlon": latlonval});
         }
-
-        
         return (
             <Container style={{ alignItems: "center" }}>
-
-                <MapComponent mapLatLon={getRouteParams('latlon', props.route)} mapHeight={state.mapHeight} callbackOnRegionChange={callbackOnRegionChange} mapProps={props} ref={mapComponentRef}>
-                </MapComponent>
+                {
+                    renderMapComponent()
+                }
+                
 
                 <View style={{ width: scale(330), flex: 0, flexDirection: 'row', top: topBarPos, borderRadius: 6, height: verticalScale(50), borderWidth: 0, borderColor: "#000000" }}>
                     <View style={{ width: scale(50), backgroundColor: "white", height: verticalScale(50), borderRadius: 6, borderTopRightRadius: 0, borderBottomRightRadius: 0, borderLeftWidth: 1, borderTopWidth: 1, borderBottomWidth: 1, justifyContent: "center" }} ><Button transparent style={{ padding: 0 }} onPress={() => { props.navigation.toggleDrawer() }}><Icon name="menu" /></Button></View>

@@ -344,23 +344,20 @@ function MyOfferScreen(props) {
         request: ele,
       });
     } else if (actions === AppConstant.APP_ACTION.SEARCH_FOR_PROVIDERS) {
-      
-      props.navigation.navigate( AppConstant.APP_PAGE.SEARCH_HELP_GIVERS_SEEKERS, {
-        
-        params: {
-          activity_type: activity_type,
-          activity_uuid: ele.activity_uuid,
-          activity_category: ele.activity_category,
-          region: {
-            latitude: ele.geo_location.split(",")[0],
-            longitude: ele.geo_location.split(",")[1],
-            latitudeDelta: 0,
-            longitudeDelta: 0,
-          },
-          address: "",
-          latlon: ele.geo_location
-        }
-      });
+      const newParams = {
+        activity_type: activity_type,
+        activity_uuid: ele.activity_uuid,
+        activity_category: ele.activity_category,
+        region: {
+          latitude: ele.geo_location.split(",")[0],
+          longitude: ele.geo_location.split(",")[1],
+          latitudeDelta: 0,
+          longitudeDelta: 0,
+        },
+        address: "",
+        latlon: ele.geo_location
+    }
+      props.navigation.navigate( AppConstant.APP_PAGE.SEARCH_HELP_GIVERS_SEEKERS, {...newParams});
       
     } else if (actions === AppConstant.APP_ACTION.OFFERER_SENT_OFFERS) {
       props.navigation.navigate(AppConstant.APP_PAGE.MY_OFFER_SENT_OFFER_SCREEN, {
