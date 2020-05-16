@@ -31,7 +31,10 @@ const Drawer = createDrawerNavigator();
 const SideMenuOptions = {
     primay: [{
         label: translate.t(appLabelKey.home),
-        pageName: AppConstant.APP_PAGE.HOME
+        pageName: AppConstant.APP_PAGE.HOME, 
+        pageProps: {
+            tik: new Date()
+        }
 
     }, {
         label: translate.t(appLabelKey.ask_for_Help),
@@ -103,7 +106,7 @@ const CustomSideBarView = (props) => {
         AppStorage.storeAppInfo("locale", lang).then(function (value) {
             setLanguage(lang);
             navigation.closeDrawer();
-            navigation.navigate(AppConstant.APP_PAGE.HOME);
+            navigation.navigate(AppConstant.APP_PAGE.HOME, {tik:new Date()});
             
         });
     }

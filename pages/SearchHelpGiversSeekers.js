@@ -137,24 +137,28 @@ function SearchHelpGiversSeekers(props) {
 
 
 
-    const callbackOnRegionChange = (rgn, mapState) => {
+    const callbackOnRegionChange = (region, address, distance) => {
 
-        setState({ ...state, region: rgn, address: mapState.address, boundries: mapState.boundries })
-        getActivitySuggestions(mapState)
+        state["region"] = region;
+        state["address"] = address;
+        state["distance"] = distance;
+        setState({ ...state});
+            getActivitySuggestions(region, address, distance)                
     }
 
 
-    const getActivitySuggestions = (mapState) => {
+    const getActivitySuggestions = (region, address, distance) => {
 
         let restApi = new API();
-        let reqObj = restApi.activitySuggestions(state.activity_type, state.activity_uuid, state.region.latitude + "," + state.region.longitude, "10.424", getDistance(mapState.boundries.northEast, mapState.boundries.southWest) / 2)
+        let reqObj = restApi.activitySuggestions(state.activity_type, state.activity_uuid, region.latitude + "," + region.longitude, "10.424", distance / 2)
         reqObj.then((respObject) => {
             if (respObject.status === "1") {
                 if (state.activity_type === 1) {
-                    setState({ ...state, activitySuggestionOfferResponse: respObject.data.offers });
+                    state["activitySuggestionOfferResponse"] = respObject.data.offers
                 } else {
-                    setState({ ...state, activitySuggestionOfferResponse: respObject.data.requests });
+                    state["activitySuggestionOfferResponse"] = respObject.data.requests 
                 }
+                setState({ ...state });
             }
         }).catch((err) => { console.log(err) })
 

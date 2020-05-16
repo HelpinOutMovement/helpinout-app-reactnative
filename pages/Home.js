@@ -38,30 +38,51 @@ const dimensions = Dimensions.get('window');
 function Home(props) {
     let mapComponentRef = React.createRef();
     let navigation = props.navigation;
-    const [state, setState] = useState({ 
-        hintIsHidden: false, 
-        userDetails: {}, 
-        region: {}, 
-        address: "Default Address", 
-        
-        requestMatchCount:3,
-        offerMatchCount:3,
-  
-        requestAlert:{
-          width: scale(20),
-          left: scale(330),
-          expanded: false,
-          },
-          
-        offerAlert:{
-          width: scale(20),
-          left: scale(330),
-          expanded: false,
-          },
-  
-          ShowAskForHelpModal:false
-      });
 
+  console.log(JSON.stringify(props))
+
+    //let tik = (props.route.params["tik"]) ? props.route.params.tik : 0;
+    const [state, setState] = useState({ 
+      hintIsHidden: false, 
+          userDetails: {}, 
+          region: {}, 
+          address: "Default Address", 
+          requestMatchCount:3,
+          offerMatchCount:3, 
+          requestAlert:{
+            width: scale(20),
+            left: scale(330),
+            expanded: false,
+            },         
+          offerAlert:{
+            width: scale(20),
+            left: scale(330),
+            expanded: false,
+            },
+          ShowAskForHelpModal:false
+    });
+
+      useEffect(() => {
+        setState({
+          hintIsHidden: false, 
+          userDetails: {}, 
+          region: {}, 
+          address: "Default Address", 
+          requestMatchCount:3,
+          offerMatchCount:3, 
+          requestAlert:{
+            width: scale(20),
+            left: scale(330),
+            expanded: false,
+            },         
+          offerAlert:{
+            width: scale(20),
+            left: scale(330),
+            expanded: false,
+            },
+          ShowAskForHelpModal:false
+        })
+      }, []);
 
 
      const showRequestsAlertView = (type) => {    
@@ -77,8 +98,11 @@ function Home(props) {
     }
       
       
-    const callbackOnRegionChange = (rgn, mapState) => {
-          setState({ ...state, region: rgn, address: mapState.address, latlon: rgn.latitude + "," + rgn.longitude  })
+    const callbackOnRegionChange = (region, address, distance) => {
+      state["region"] = region;
+      state["address"] = address;
+      state["latlon"] =  region.latitude + "," + region.longitude;
+          setState({ ...state})
       
           // Use Geocoding and get address.
           ////////getLocationSuggestions(mapState);

@@ -245,9 +245,8 @@ class MapComponent extends React.Component {
         let mapBoundries = this.map.getMapBoundaries();
         mapBoundries.then((boundries) => {
           this.setState({boundries},() => {
-
               //this.state.boundries = val;
-              var dis = getDistance(
+              const distance = getDistance(
                 boundries.northEast,
                 boundries.southWest
               );
@@ -266,9 +265,9 @@ class MapComponent extends React.Component {
 
               */  
               Geocoder.geocodePosition({lat:region.latitude, lng:region.longitude}).then((retval) => {
-                
+                const address = retval[0].formattedAddress;
                 this.setState({address:retval[0].formattedAddress},() => { 
-                  this.props.callbackOnRegionChange(this.state.region, this.state);
+                  this.props.callbackOnRegionChange(region, address, distance);
                 })  
               }).catch(error => {          
                 //this.props.callbackOnRegionChange(this.state.region, this.state);
