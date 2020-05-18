@@ -11,7 +11,11 @@ import Utilities from '../../misc/Utils';
 
 import translate from 'react-native-i18n';
 import { appLabelKey } from '../../misc/AppStrings';
-import { verticalScale } from 'react-native-size-matters';
+
+
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
+import { ScrollView } from 'react-native-gesture-handler';
+
 
 const windowHeight = Dimensions.get('window').height;
 const rateAndReviewModalContent = (props) => {
@@ -413,9 +417,10 @@ const viewDetailsForRequestAndOfferModalContent = (props) => {
             borderColor: 'rgba(0, 0, 0, 0.1)',
             paddingHorizontal: 15,
             paddingBottom:"25%",
-            paddingTop:"5%"
+            paddingTop:"5%",
+            flexDirection: "column",
         }}>
-            <View style={{ width: "100%" }}>
+            <ScrollView style={{ width: "100%" }}>
                 <View style={{
                     flexDirection: "row",
                     justifyContent: "space-between"
@@ -447,12 +452,39 @@ const viewDetailsForRequestAndOfferModalContent = (props) => {
                     {viewBasedOnCategory(helpOption, props)}
                 </View>
                 {getNoteView()}
+            </ScrollView>
+            <View style={{flex:1, flexDirection:"row", position:"absolute", bottom:verticalScale(20), left:scale(20)}}>
+            <View style={{
+                          borderRadius:4,
+                          paddingHorizontal: 5,
+                          paddingVertical:0,
+                          width:scale(80),
+                          height:verticalScale(30) ,
+                          alignItems:"center",
+                          justifyContent:"center",position:"absolute", bottom:verticalScale(0), left:scale(0)}}>
+                <Text adjustsFontSizeToFit={true} minimumFontScale={0.5} numberOfLines={1} style={{fontFamily:"roboto", fontWeight:"900"}}>{(props.pay === 1) ? "Can pay" : "Cannot pay"}</Text>
+                </View>
+                <TouchableOpacity>
+                <View style={{backgroundColor:"#EE6B6B",
+                          borderRadius:4,
+                          paddingHorizontal: 5,
+                          paddingVertical:0,
+                          borderColor:"#EE6B6B",
+                          borderWidth:1,
+                          width:scale(130),
+                          height:verticalScale(30) ,
+                          alignItems:"center",
+                          justifyContent:"center",position:"absolute", bottom:verticalScale(0), left:scale(180)}}>
+                <Text adjustsFontSizeToFit={true} minimumFontScale={0.5} numberOfLines={1} style={{fontFamily:"roboto", color:"#FFF"}}>Cancel Request</Text>
+                </View>
+                </TouchableOpacity>
             </View>
         </View>
     );
 }
 
 const ModalComponent = (props) => {
+    console.log(JSON.stringify(props))
     const getModalContent = () => {
         let modalContent;
         switch (props.viewName) {

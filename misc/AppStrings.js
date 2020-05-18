@@ -45,7 +45,7 @@ const appLabelKey = {
     food:"food",
     people:"people",
     shelter:"shelter",
-    medical_PPE:"med_ppe",
+    med_ppe:"med_ppe",
     testing:"testing",
     medicines:"medicines",
     ambulance:"ambulance",

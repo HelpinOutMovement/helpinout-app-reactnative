@@ -27,7 +27,7 @@ const optionsOnScreen = [
     code: AppConstant.API_REQUEST_CONSTANTS.activity_category.SHELTER
   },
   {
-    label: translate.t(appLabelKey.medical_PPE),
+    label: translate.t(appLabelKey.med_ppe),
     path: StaticImage.MED_PPE,
     code: AppConstant.API_REQUEST_CONSTANTS.activity_category.MED_PPE
   },
@@ -73,14 +73,15 @@ function AskForHelpScreen(props) {
       })
       */
 
-     props.navigation.navigate(AppConstant.APP_PAGE.ADD_ACTIVITY_SCREEN, {
-      activity_type: AppConstant.API_REQUEST_CONSTANTS.activity_type.Request,
-      optionCode: optionCode,
-      optionImage:optionImage,
-      region:props.route.params.region,
-      address:props.route.params.address,
-      activity_category:optionCode,      
-    })
+      props.navigation.navigate(AppConstant.APP_PAGE.ADD_ACTIVITY_SCREEN, {
+        activity_type: AppConstant.API_REQUEST_CONSTANTS.activity_type.Request,
+        optionCode: optionCode,
+        optionImage:optionImage,
+        region:props.route.params.region,
+        address:props.route.params.address,
+        activity_category:optionCode,  
+        self_else:props.route.params.self_else    
+      })
 
     }
 

@@ -140,7 +140,7 @@ export default class AddActivityScreen extends Component {
 
 
   constructor(props) {
-
+    console.log(JSON.stringify(props))
     super(props);
     this.state = {
       region: this.props.route.params.region, valueArray: [], disabled: false, hideAddMore: true, hideConstrains: false,
@@ -206,6 +206,7 @@ export default class AddActivityScreen extends Component {
 
   submitData = (canPay) => {
     let restApi = new API();
+    console.log("Self Else : " + this.props.route.params.self_else)
     UUIDGenerator.getRandomUUID((uuid) => {
       switch (this.props.route.params.optionCode) {
         case AppConstant.API_REQUEST_CONSTANTS.activity_category.PEOPLE:
@@ -215,8 +216,8 @@ export default class AddActivityScreen extends Component {
             "volunters_required": volReq, "volunters_detail": this.state.volunters_detail, "volunters_quantity": this.state.volunters_quantity,
             "technical_personal_required": techReq, "technical_personal_detail": this.state.technical_personal_detail, "technical_personal_quantity": this.state.technical_personal_quantity
           }
-
-          reqObj = restApi.activityAdd(uuid, this.props.route.params.activity_type, this.state.region.latitude + "," + this.state.region.longitude, "100", this.state.address, this.props.route.params.optionCode, 1, peopleData, this.state.constrainsData, canPay)
+          
+          reqObj = restApi.activityAdd(uuid, this.props.route.params.activity_type, this.state.region.latitude + "," + this.state.region.longitude, "100", this.state.address, this.props.route.params.optionCode, 1, peopleData, this.state.constrainsData, canPay, this.props.route.params.self_else)
           reqObj.then((response) => {
             if (response.status === "1") {
               this.setState({ activity_category: response.data.activity_category, activity_uuid: response.data.activity_uuid, activity_type: response.data.activity_type }, () => {
@@ -228,7 +229,7 @@ export default class AddActivityScreen extends Component {
 
           break;
         case AppConstant.API_REQUEST_CONSTANTS.activity_category.AMBULANCE:
-          reqObj = restApi.activityAdd(uuid, this.props.route.params.activity_type, this.state.region.latitude + "," + this.state.region.longitude, "100", this.state.address, this.props.route.params.optionCode, 1, { qty: 0 }, this.state.constrainsData, canPay)
+          reqObj = restApi.activityAdd(uuid, this.props.route.params.activity_type, this.state.region.latitude + "," + this.state.region.longitude, "100", this.state.address, this.props.route.params.optionCode, 1, { qty: 0 }, this.state.constrainsData, canPay, this.props.route.params.self_else)
           reqObj.then((response) => {
             if (response.status === "1") {
               this.setState({ activity_category: response.data.activity_category, activity_uuid: response.data.activity_uuid, activity_type: response.data.activity_type }, () => {
@@ -239,8 +240,8 @@ export default class AddActivityScreen extends Component {
 
           break;
         default:
-
-          reqObj = restApi.activityAdd(uuid, this.props.route.params.activity_type, this.state.region.latitude + "," + this.state.region.longitude, "100", this.state.address, this.props.route.params.optionCode, this.state.valueArray.length, this.state.valueArray, this.state.constrainsData, canPay)
+          
+          reqObj = restApi.activityAdd(uuid, this.props.route.params.activity_type, this.state.region.latitude + "," + this.state.region.longitude, "100", this.state.address, this.props.route.params.optionCode, this.state.valueArray.length, this.state.valueArray, this.state.constrainsData, canPay, this.props.route.params.self_else)
 
           reqObj.then((response) => {
             if (response.status === "1") {
@@ -377,7 +378,7 @@ export default class AddActivityScreen extends Component {
                           onValueChange={(switchValue) => { this.setPeopleData("volunters_required", switchValue) }}
                         ></Switch><Text adjustsFontSizeToFit={true}  minimumFontScale={1} style={{ marginLeft: 20 }}>{translate.t("volunteers")}</Text>
                       </View>
-                      <View style={{ flex: 1, flexDirection: 'row', justifyContent: "space-evenly", marginTop: 0, marginBottom: 0, borderWidth: 0 }}>
+                      <View style={{ flex: 1, flexDirection: 'row', justifyContent: "space-evenly", marginTop: 0, marginBottom: 0, borderWidth: 0, marginLeft:10 }}>
                         <Textarea rowSpan={5} style={{ borderWidth: 1, borderRadius: 4, width: "80%" }}
                           onChangeText={(val) => this.setPeopleData("volunters_detail", val)}
                           disabled={!this.state.volunters_required}></Textarea>
@@ -385,7 +386,7 @@ export default class AddActivityScreen extends Component {
                           keyboardType={'numeric'}
                           placeholderTextColor="grey"
                           placeholder={translate.t("hint_qty")}
-                          style={{ borderWidth: 1, borderRadius: 3, borderColor: "grey", color: "#000000", height: scale(40), width: verticalScale(60), marginLeft: 10, marginRight: 10, padding: 10 }}
+                          style={{ borderWidth: 1, borderRadius: 3, borderColor: "grey", color: "#000000", height: 40, width: 60, marginLeft: 10, marginRight: 10, padding: 10 }}
                           onChangeText={(val) => this.setPeopleData("volunters_quantity", val)}
                           editable={this.state.volunters_required}
                         >
@@ -412,7 +413,7 @@ export default class AddActivityScreen extends Component {
                         onValueChange={(switchValue) => { this.setPeopleData("technical_personal_required", switchValue) }}
                       ></Switch><Text  adjustsFontSizeToFit={true}  minimumFontScale={1} style={{ marginLeft: 20 }}>{translate.t("technical_personnel")}</Text>
                     </View>
-                    <View style={{ flex: 1, flexDirection: 'row', justifyContent: "space-evenly", marginTop: 0, marginBottom: 0, borderWidth: 0 }}>
+                    <View style={{ flex: 1, flexDirection: 'row', justifyContent: "space-evenly", marginTop: 0, marginBottom: 0, borderWidth: 0 , marginLeft:10 }}>
                       <Textarea rowSpan={5} style={{ borderWidth: 1, borderRadius: 4, width: "80%" }}
                         onChangeText={(val) => this.setPeopleData("technical_personal_detail", val)}
                         disabled={!this.state.technical_personal_required}></Textarea>

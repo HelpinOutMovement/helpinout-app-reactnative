@@ -22,12 +22,27 @@ export default class RegisterMobile extends React.Component {
     
    constructor(props) {
         super(props);
+        console.log("Reg props : "+ JSON.stringify(props))
         ///const { navigate } = this.props.navigation;
         this.navigate = this.props.navigation.navigate;
-        this.state = {}//this.props.route.params.loginState;
+        this.state = {
+
+            firstName:"",
+            lastName: "",
+            contactVisible: false,
+            userType:1,
+            organisationName: "",
+            organisationType: "",
+            organisationUnit: "",
+
+        }//this.props.route.params.loginState;
 
         AppStorage.storeAppInfo(AppConstant.IS_LOGGED_IN, "false");
         //this.state = {}//this.props.route.params.loginState;
+
+
+
+ 
     }
    
     dimensions = Dimensions.get('window');
@@ -37,7 +52,22 @@ export default class RegisterMobile extends React.Component {
     };
    
     componentDidMount() {
-
+        if(this.props.route.params.action === "update"){
+            console.log("Update");
+            AppStorage.getAppInfo(AppConstant.APP_STORE_KEY.USER_REG_DETAILS).then((userDetails) => {
+                console.log("Reg props : "+userDetails);            
+                userDetails = JSON.parse(userDetails)
+                this.setState({
+                    firstName: userDetails.user_detail.first_name,
+                lastName: userDetails.user_detail.last_name,
+                contactVisible: userDetails.user_detail.mobile_no_visibility,
+                userType:  userDetails.user_detail.user_type,
+                organisationName: userDetails.user_detail.org_name,
+                organisationType: userDetails.user_detail.org_type,
+                organisationUnit: userDetails.user_detail.org_division,
+                })
+            })
+        }        
     }
     
     validatePhoneNumber = () => {
@@ -67,6 +97,59 @@ export default class RegisterMobile extends React.Component {
         return true;
     }
 
+
+    submit = () => {
+
+        if(this.props.route.params.action === "register"){
+            this.register();
+        }else if(this.props.route.params.action === "update"){
+            this.updateProfile();
+        }
+
+    }
+
+
+    updateProfile = () => {
+
+        let restApi = new API();
+        let contactVisible = "0";
+        let userType = "1";
+        if(this.state.contactVisible){
+            contactVisible = "1";
+        }
+
+        if(this.state.userType){
+            userType = "2";
+        }
+        
+        AppStorage.getAppInfo(AppConstant.APP_STORE_KEY.USER_REG_DETAILS).then((userDetails) => {
+            
+            let userProfileDetails = JSON.parse(userDetails);            
+            let reqObj = restApi.updateUser(userProfileDetails.user_detail.country_code, userProfileDetails.user_detail.mobile_no, this.state.firstName, this.state.lastName, contactVisible, userType, this.state.organisationName, this.state.organisationType, this.state.organisationUnit);
+            reqObj.then((response) => {
+                if(response.status === "1"){
+                    let thisclass = this;
+                    userProfileDetails.user_detail.firstName = this.state.firstName
+                    userProfileDetails.user_detail.last_name = this.state.lastName
+                    userProfileDetails.user_detail.mobile_no_visibility = contactVisible
+                    userProfileDetails.user_detail.user_type = userType
+                    userProfileDetails.user_detail.org_name = this.state.organisationName
+                    userProfileDetails.user_detail.org_type = this.state.organisationType
+                    userProfileDetails.user_detail.org_division =  this.state.organisationUnit
+    
+                    AppStorage.storeAppInfo(AppConstant.APP_STORE_KEY.USER_REG_DETAILS, JSON.stringify(userProfileDetails)).then(() => {
+                        thisclass.navigate(AppConstant.APP_PAGE.HOME, {tik:new Date()})
+                    })
+                }else{
+                    Toast.show('Update Error ' + JSON.stringify(error) , {duration:1000, position:0, animation:true, shadow:true, animationDuration:2000})
+
+                }
+                
+            });
+        })
+            
+    }
+
     register =() =>{        
         let restApi = new API();
         let contactVisible = "0";
@@ -93,6 +176,7 @@ export default class RegisterMobile extends React.Component {
             reqObj.then(
                 result => {
                     if(result.status === "0"){
+                        let thisclass = this;
                         if(result.message === "Already registered"){
                             AppStorage.storeAppInfo(AppConstant.IS_LOGGED_IN, "false");
                             Toast.show('Phone number already registered' , {duration:1000, position:0, animation:true, shadow:true, animationDuration:2000})
@@ -155,8 +239,8 @@ export default class RegisterMobile extends React.Component {
                 <ScrollView style={{flex: 1,borderWidth: StyleSheet.hairlineWidth, borderWidth:0, borderColor: 'red'}}>
                     <View style={{ alignItems: "center" , marginBottom:50}} >            
                 
-                        <TextInput onChangeText={text => this.setState({firstName: text})} style={commonStyles.RegistrationInput} placeholderTextColor="grey" placeholder={translate.t('label_first_name')}/>
-                        <TextInput onChangeText={text => this.setState({lastName: text})} style={commonStyles.RegistrationInput} placeholderTextColor="grey"  placeholder={translate.t('label_last_name')}/> 
+                        <TextInput value={this.state.firstName} onChangeText={text => this.setState({firstName: text})} style={commonStyles.RegistrationInput} placeholderTextColor="grey" placeholder={translate.t('label_first_name')}/>
+                        <TextInput value={this.state.lastName} onChangeText={text => this.setState({lastName: text})} style={commonStyles.RegistrationInput} placeholderTextColor="grey"  placeholder={translate.t('label_last_name')}/> 
                         <View style={{marginTop:20}}></View>
                         <View></View>
                         <View style={commonStyles.registerSwitchRow}>
@@ -232,7 +316,7 @@ export default class RegisterMobile extends React.Component {
                                         borderRadius: 9,
                                         shadowOffset: { height: 3 },
                                         shadowColor: '#2328321F',}} 
-                                        onPress={() =>{this.register()}}>
+                                        onPress={() =>{this.submit()}}>
                                             <Text style={{borderRadius: 9, textAlign: "center",fontFamily: "Roboto-Medium",fontSize: 20,color: "#FFFFFF"}}>{translate.t("label_start")}</Text>
                             </TouchableOpacity>
                         </View>

@@ -132,10 +132,10 @@ export default class VerifyScreen extends React.Component {
                 reqObj.then(
                     result => {
                         if (result.status === "0") {                            
-                            this.navigate(AppConstant.APP_PAGE.REGISTER_MOBILE, { countryCode: this.state.selectedCountryDialCode, phoneNumber:this.state.phoneNumber });
+                            this.navigate(AppConstant.APP_PAGE.REGISTER_MOBILE, { countryCode: this.state.selectedCountryDialCode, phoneNumber:this.state.phoneNumber, action:"register" });
                         }else if (result.status === "-1") {
                             Toast.show('Login Error ' + result.message , {duration:1000, position:0, animation:true, shadow:true, animationDuration:2000})
-                        }else if (result.status === "1") {
+                        }else if (result.status === "1") {                            
                             AppStorage.storeAppInfo(AppConstant.APP_STORE_KEY.USER_REG_DETAILS, JSON.stringify(result.data));
                             AppStorage.storeAppInfo(AppConstant.IS_LOGGED_IN, "true");
                             AppStorage.getAppInfo(AppConstant.APP_STORE_KEY.IS_VEFIRIED).then((value) => {

@@ -126,10 +126,10 @@ class API{
   }
 
 
-  updateUser = (first_name, last_name, mobile_number_visible, user_type,org_name, org_type, org_division) => {
+  updateUser = (country_code, mobil_number, first_name, last_name, mobile_number_visible, user_type,org_name, org_type, org_division) => {
         return new Promise((resolve, reject) => {
             let  requestObjects = new RequestObjects();
-            reqObj = requestObjects.updateUserObject(first_name, last_name, mobile_number_visible, user_type,org_name, org_type, org_division);
+            reqObj = requestObjects.updateUserObject(country_code, mobil_number, first_name, last_name, mobile_number_visible, user_type,org_name, org_type, org_division);
             reqObj.then((val)=> {
                 let apicall = 'user/update';
                 this.createEntity(apicall).then((call) => {
@@ -231,10 +231,11 @@ class API{
         });    
     }
 
-    activityAdd = (activity_uuid, activity_type, geo_location, geo_accuracy, address, activity_category, activity_count, activity_detail, offer_condition, pay) =>{
+    activityAdd = (activity_uuid, activity_type, geo_location, geo_accuracy, address, activity_category, activity_count, activity_detail, offer_condition, pay, self_else) =>{
+        console.log("API activityAdd" + self_else)
         return new Promise((resolve, reject) => {
             let  requestObjects = new RequestObjects();
-            reqObj = requestObjects.activityAdd(activity_uuid, activity_type, geo_location, geo_accuracy, address, activity_category, activity_count, activity_detail, offer_condition, pay);
+            reqObj = requestObjects.activityAdd(activity_uuid, activity_type, geo_location, geo_accuracy, address, activity_category, activity_count, activity_detail, offer_condition, pay, self_else);
             reqObj.then((val)=> {
 
                 let apicall = 'activity/add';
@@ -299,26 +300,6 @@ class API{
     }
 
 
-
-    activityAdd = (activity_uuid, activity_type, geo_location, geo_accuracy, address, activity_category, activity_count, activity_detail, offer_condition, pay) =>{
-        return new Promise((resolve, reject) => {
-            let  requestObjects = new RequestObjects();
-            reqObj = requestObjects.activityAdd(activity_uuid, activity_type, geo_location, geo_accuracy, address, activity_category, activity_count, 
-                activity_detail, offer_condition, pay);    
-            reqObj.then((val)=> {
-
-                let apicall = 'activity/add';
-                this.createEntity(apicall).then((call) => {
-                    let data = this.endpoints[call].post(val);        
-                    data.then(({data})=> {
-                        resolve(data);
-                    })
-                    .catch(err => {reject(err)})
-                })  
-            })
-            .catch(err => {reject(err)})
-        });     
-    }
 
 
     activityDelete = (activity_uuid, activity_type) =>{

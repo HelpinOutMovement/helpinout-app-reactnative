@@ -32,6 +32,7 @@
                 "mobile_no": mobile_no,
                 "first_name": first_name,
                 "last_name": last_name,
+                "profile_name": first_name + " " + last_name,
                 "mobile_no_visibility": mobile_no_visibility,
                 "user_type": user_type,
             }    
@@ -50,17 +51,20 @@
             });
         }
 
-        updateUserObject = (first_name,last_name, mobile_no_visibility, user_type, org_name, org_type, org_division)=>{
+        updateUserObject = (country_code, mobile_no, first_name,last_name, mobile_no_visibility, user_type, org_name, org_type, org_division)=>{
+            console.log(country_code, "  " , mobile_no)
             let data = {
                 "imei_no": DeviceInfo.getUniqueId(),
                 "os_type": DeviceInfo.getSystemName(),
                 "manufacturer_name": DeviceInfo.getBrand(),
                 "os_version": DeviceInfo.getSystemVersion(),
-                "firebase_token": "121212",
                 "app_version": appVersion,
                 "time_zone": Intl.DateTimeFormat().resolvedOptions().timeZone,
+                "country_code": country_code,
+                "mobile_no": mobile_no,                
                 "first_name": first_name,
                 "last_name": last_name,
+                "profile_name": first_name + " " + last_name,
                 "mobile_no_visibility": mobile_no_visibility,
                 "user_type": user_type,
             }    
@@ -182,7 +186,15 @@
             });
         }
 
-        activityAdd = (activity_uuid, activity_type, geo_location, geo_accuracy, address, activity_category, activity_count, activity_detail, offer_condition, pay) => {
+        activityAdd = (activity_uuid, activity_type, geo_location, geo_accuracy, address, activity_category, activity_count, activity_detail, offer_condition, pay, self_else) => {
+            console.log(self_else)
+
+            activity_detail = activity_detail.map(function(item) { 
+                delete item.id; 
+                delete item.text; 
+                return item; 
+              });
+
             let data = {
                 "activity_uuid": activity_uuid, 
                 "activity_type": activity_type,
@@ -192,9 +204,14 @@
                 "activity_category": activity_category,
                 "activity_count": activity_count,                
                 "activity_detail": activity_detail,
-                "offer_condition": offer_condition,
+                ////"offer_condition": offer_condition,
+                "offer_note": offer_condition,
                 "pay": pay,
+                "self_else":self_else,
+                "offerer":"",
+                "requester":""
             }
+            console.log("activityAdd : " + JSON.stringify(data))
             return new Promise((resolve, reject) => {
                 let reqObject = this.stuffHeader(data, true);
                 reqObject.then((val)=> {

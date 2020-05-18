@@ -58,7 +58,7 @@ const SideMenuOptions = {
         label: translate.t(appLabelKey.profile),
         pageName: AppConstant.APP_PAGE.REGISTER_MOBILE,
         pageProps: {
-            showBack: true
+            showBack: true, action:"update"
         }
     }, {
         label: translate.t(appLabelKey.about_Us),

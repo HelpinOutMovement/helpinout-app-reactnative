@@ -34,6 +34,9 @@ const bottomPanelTop = Utils.isIphoneX() ? height - 190 : height - 180;
 
 const dimensions = Dimensions.get('window');
 
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
+
+
 
 function Home(props) {
     let mapComponentRef = React.createRef();
@@ -152,6 +155,31 @@ function Home(props) {
                     </View>
                     <View adjustsFontSizeToFit={true}  minimumFontScale={1} style={{width: scale(80), backgroundColor:"white", height: verticalScale(50), borderRadius:6, borderTopLeftRadius:0,borderBottomLeftRadius:0 ,borderTopWidth:1,borderBottomWidth:1,borderRightWidth:1,alignItems:"center", justifyContent: 'center'}} ><Text style={{fontFamily: "roboto-medium",fontSize:14 , color:"rgba(243,103,103,1)"}}>Change</Text></View>
                 </View>
+
+                <GooglePlacesAutocomplete
+                    placeholder='Search'
+                    minLength={2} 
+                    autoFocus={false}
+                    returnKeyType={'search'} 
+                    listViewDisplayed='auto'    
+                    fetchDetails={true}
+                    query={{
+                      key: 'AIzaSyDgaOp_orkTcVpcH6NfNE3XtOH6tdiXlsg',
+                      language: 'en', // language of the results
+                      types: '(cities)' // default: 'geocode'
+                    }}
+                    styles={{
+                      textInputContainer: {
+                        width: '100%'
+                      },
+                      description: {
+                        fontWeight: 'bold'
+                      },
+                      predefinedPlacesDescription: {
+                        color: '#1faadb'
+                      }
+                    }}
+                />
               
                 <TouchableOpacity
                   onPress={() => {
@@ -261,7 +289,7 @@ function Home(props) {
                       <TouchableOpacity style={styles(dimensions).AskForHelp} onPress={() => {setState({ ...state,ShowAskForHelpModal:true})}}>
                         <AskForHelpButton />
                       </TouchableOpacity>
-                      <TouchableOpacity style={styles(dimensions).OfferHelp} onPress={() => navigation.navigate(AppConstant.APP_PAGE.OFFER_HELP_SCREEN, { region: state.region, address: state.address })}>
+                      <TouchableOpacity style={styles(dimensions).OfferHelp} onPress={() => navigation.navigate(AppConstant.APP_PAGE.OFFER_HELP_SCREEN, { region: state.region, address: state.address, self_else:0  })}>
                         <OfferHelpButton />
                       </TouchableOpacity>
                     </View>
@@ -294,7 +322,7 @@ function Home(props) {
                 </View>
               
                 <View style={{flex:1, flexDirection:"row",  width:scale(280), height:verticalScale(60)  , justifyContent:"center", alignItems:"center", borderWidth:0}}>
-                        <TouchableOpacity  style={{paddingHorizontal:scale(10), paddingVertical:verticalScale(20)}} onPress={() => { setState({ ...state,ShowAskForHelpModal:false}); navigation.navigate(AppConstant.APP_PAGE.ASK_FOR_HELP, { region: state.region, address: state.address })}}>
+                        <TouchableOpacity  style={{paddingHorizontal:scale(10), paddingVertical:verticalScale(20)}} onPress={() => { setState({ ...state,ShowAskForHelpModal:false}); navigation.navigate(AppConstant.APP_PAGE.ASK_FOR_HELP, { region: state.region, address: state.address, self_else:0 })}}>
                         <View style={{
                           backgroundColor:"#EE6B6B",
                           borderRadius:4,
@@ -310,7 +338,7 @@ function Home(props) {
                           <Text adjustsFontSizeToFit={true} minimumFontScale={0.5} numberOfLines={1} style={{color: "rgba(245,245,245,1)",fontFamily: "roboto-regular", alignItems: 'center',justifyContent:'center',}}>Myself</Text>
                         </View>
                         </TouchableOpacity>
-                        <TouchableOpacity  style={{paddingHorizontal:scale(10), paddingVertical:verticalScale(20)}} onPress={() => { setState({ ...state,ShowAskForHelpModal:false}); navigation.navigate(AppConstant.APP_PAGE.ASK_FOR_HELP, { region: state.region, address: state.address })}}>
+                        <TouchableOpacity  style={{paddingHorizontal:scale(10), paddingVertical:verticalScale(20)}} onPress={() => { setState({ ...state,ShowAskForHelpModal:false}); navigation.navigate(AppConstant.APP_PAGE.ASK_FOR_HELP, { region: state.region, address: state.address, self_else:1 })}}>
                           <View style={{
                             backgroundColor:"#FFF",
                             borderRadius:4,
@@ -326,7 +354,6 @@ function Home(props) {
                             <Text adjustsFontSizeToFit={true} minimumFontScale={0.5} numberOfLines={1} style={{color: "#EE6B6B",fontFamily: "roboto-regular", alignItems: 'center',justifyContent:'center',}}>Someone else</Text>
                           </View>
                         </TouchableOpacity>
-
                 </View>
              </View>
         </Modal>

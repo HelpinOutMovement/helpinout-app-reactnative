@@ -123,6 +123,7 @@ const getOfferListingView = (props, compareWith) => {
 const PastOfferRequestComponent = (props) => {
     const helpOption = Utilities.getCategoryFromCode(props.activity_category);
     const categoryName = translate.t(appLabelKey[helpOption.toLowerCase()]);
+    console.log(helpOption.toLowerCase())
     return (
         <Card style={{
             alignSelf: "center",

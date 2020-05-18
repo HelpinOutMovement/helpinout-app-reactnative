@@ -37,6 +37,7 @@
     "react-native-geocoding": "^0.4.0",
     "react-native-gesture-handler": "^1.6.1",
     "react-native-google-analytics-bridge": "^7.1.0",
+    "react-native-google-places-autocomplete": "^1.6.1",
     "react-native-htmlview": "^0.15.0",
     "react-native-i18n": "^2.0.15",
     "react-native-image-button-text": "^1.0.7",

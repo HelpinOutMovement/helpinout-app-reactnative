@@ -35,7 +35,7 @@ const optionsOnScreen = [
         nearMe:0
     },
     {
-        label: translate.t(appLabelKey.medical_PPE),
+        label: translate.t(appLabelKey.med_ppe),
         path: StaticImage.MED_PPE,
         code: AppConstant.API_REQUEST_CONSTANTS.activity_category.MED_PPE,
         total:0,
@@ -51,7 +51,7 @@ const optionsOnScreen = [
     {
         label: translate.t(appLabelKey.medicines),
         path: StaticImage.MEDICINE,
-        code: AppConstant.API_REQUEST_CONSTANTS.activity_category.MEDICINE,
+        code: AppConstant.API_REQUEST_CONSTANTS.activity_category.MEDICINES,
         total:0,
         nearMe:0
     },
@@ -90,7 +90,8 @@ function OfferHelpScreen(props) {
             optionCode: optionCode,
             optionImage: optionImage,
             region:props.route.params.region,
-            address:props.route.params.address
+            address:props.route.params.address,
+            self_else:props.route.params.self_else 
         })
     }
 
@@ -168,9 +169,11 @@ const getHelpOptionsView = (optionsOnScreen,props) => {
     let reqObj =  restApi.locationRequesterSummary(props.route.params.region.latitude, props.route.params.region.longitude, 50);
     reqObj.then((response) => {
         for(var i=0;i<response.data.length;i++){
+            console.log("response.data  : " + i + "  :   " + JSON.stringify(response.data[i]))
             var index =  optionsOnScreen.findIndex((item, idx) => {
                 return (item.code === response.data[i].activity_category)
             });
+            console.log("index  : " + index)
             optionsOnScreen[index]["total"] = response.data[i].total;
             optionsOnScreen[index]["nearMe"] = response.data[i].near;
         }
