@@ -278,7 +278,7 @@ function Home(props) {
                       <TouchableOpacity style={styles(dimensions).AskForHelp} onPress={() => {setState({ ...state,ShowAskForHelpModal:true})}}>
                         <AskForHelpButton />
                       </TouchableOpacity>
-                      <TouchableOpacity style={styles(dimensions).OfferHelp} onPress={() => navigation.navigate(AppConstant.APP_PAGE.OFFER_HELP_SCREEN, { region: state.region, address: state.address, self_else:0  })}>
+                      <TouchableOpacity style={styles(dimensions).OfferHelp} onPress={() => navigation.navigate(AppConstant.APP_PAGE.OFFER_HELP_SCREEN, { region: state.region, address: state.address, self_else:0, latlon:state.latlon })}>
                         <OfferHelpButton />
                       </TouchableOpacity>
                     </View>

@@ -165,6 +165,7 @@ const getHelpOptionsView = (optionsOnScreen,props) => {
 
 }
  const getOptionsData = (props) => {
+     console.log("getOptionsData  : " + JSON.stringify(props))
     let restApi = new API();
     let reqObj =  restApi.locationRequesterSummary(props.route.params.latlon.split(",")[0], props.route.params.latlon.split(",")[1], 50);
     reqObj.then((response) => {
