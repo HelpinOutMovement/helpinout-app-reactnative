@@ -295,7 +295,6 @@ class MapComponent extends React.Component {
   }
 
   componentDidMount(){
-    console.log("in component did mount " + JSON.stringify(this.props))
     if(this.props.mapLatLon && this.props.mapLatLon.length >0){
       this.setCurrentLocation(this.props.mapLatLon.split(",")[0],this.props.mapLatLon.split(",")[1]);    
     }else{

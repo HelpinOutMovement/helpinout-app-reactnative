@@ -22,7 +22,6 @@ export default class RegisterMobile extends React.Component {
     
    constructor(props) {
         super(props);
-        console.log("Reg props : "+ JSON.stringify(props))
         ///const { navigate } = this.props.navigation;
         this.navigate = this.props.navigation.navigate;
         this.state = {
@@ -53,9 +52,7 @@ export default class RegisterMobile extends React.Component {
    
     componentDidMount() {
         if(this.props.route.params.action === "update"){
-            console.log("Update");
             AppStorage.getAppInfo(AppConstant.APP_STORE_KEY.USER_REG_DETAILS).then((userDetails) => {
-                console.log("Reg props : "+userDetails);            
                 userDetails = JSON.parse(userDetails)
                 this.setState({
                     firstName: userDetails.user_detail.first_name,

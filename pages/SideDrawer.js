@@ -98,8 +98,7 @@ const SideMenuOptions = {
 
 const CustomSideBarView = (props) => {
     const {navigation} = props
-    
-    const { latlon } = useContext(UserContext);
+    const {getLatLon, getRegion} = useContext(UserContext);
     const { setLanguage , language} = useContext(AppStringContext);
     const { translate } = useContext(AppStringContext);
     const onLanguageClicked = (lang) => {
@@ -168,7 +167,8 @@ const CustomSideBarView = (props) => {
                                 if(pageProps.addRegionInfo) {
                                     pageProps = {
                                         ...pageProps,
-                                        ...latlon
+                                        latlon:getLatLon(), 
+                                        region:getRegion()
                                     }
                                 }
                                 navigation.navigate(singleMenu.pageName, pageProps);

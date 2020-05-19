@@ -166,14 +166,12 @@ const getHelpOptionsView = (optionsOnScreen,props) => {
 }
  const getOptionsData = (props) => {
     let restApi = new API();
-    let reqObj =  restApi.locationRequesterSummary(props.route.params.region.latitude, props.route.params.region.longitude, 50);
+    let reqObj =  restApi.locationRequesterSummary(props.route.params.latlon.split(",")[0], props.route.params.latlon.split(",")[1], 50);
     reqObj.then((response) => {
         for(var i=0;i<response.data.length;i++){
-            console.log("response.data  : " + i + "  :   " + JSON.stringify(response.data[i]))
             var index =  optionsOnScreen.findIndex((item, idx) => {
                 return (item.code === response.data[i].activity_category)
             });
-            console.log("index  : " + index)
             optionsOnScreen[index]["total"] = response.data[i].total;
             optionsOnScreen[index]["nearMe"] = response.data[i].near;
         }

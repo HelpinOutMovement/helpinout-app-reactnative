@@ -135,6 +135,22 @@ function SearchHelpGiversSeekers(props) {
     }
 
 
+    const selectAllChanged = (value) => {
+        if(!value){
+            state.checkBoxChecked = [];
+            setState({
+                ...state,
+                checkBoxChecked:[]
+            })
+        }
+        state["selectall"] = value;
+        setState({
+            ...state,
+            selectall:state["selectall"]
+        })
+    }
+
+
 
 
     const callbackOnRegionChange = (region, address, distance) => {
@@ -270,6 +286,23 @@ function SearchHelpGiversSeekers(props) {
 
                     ?
                     <HView hide={!state.bottom_panel_visible} style={{ position: "absolute", bottom: 10, height: (height / 2), justifyContent: "center", alignItems: 'center', width: scale(340), borderWidth: 0 }}>
+                        <View style={styles.rect, {height:verticalScale(40) , borderTopWidth:1, borderBottomWidth:1,marginTop:10}}>
+                            <View style={styles.rect2Row}>
+                                <View style={styles.rect2}><Text adjustsFontSizeToFit={true} minimumFontScale={.1} numberOfLines={1} style={{ borderWidth: 0, fontFamily: 'Roboto' }}>Offer to help every one on the mpa area</Text></View>
+                                <Switch
+                                    style={styles.rect3, { borderWidth: 0, marginTop: 0, transform: [{ scaleX: .7 }, { scaleY: .7 }] }}
+                                    disabled={false}
+                                    activeText={'On'}
+                                    inActiveText={'Off'}
+                                    backgroundActive={'green'}
+                                    backgroundInactive={'gray'}
+                                    circleActiveColor={'#30a566'}
+                                    circleInActiveColor={'#000000'}
+                                    value={state["selectall"] ? true : false}
+                                    onValueChange={(switchValue) => { selectAllChanged(switchValue) }}
+                                />
+                            </View>
+                        </View>
                         <ScrollView style={{ height: verticalScale(250), borderWidth: 0, marginTop: moderateScale(10) }}>
                             {state.activitySuggestionOfferResponse.map(singleData => {
                                 return (
@@ -280,14 +313,14 @@ function SearchHelpGiversSeekers(props) {
 
                                                 <Switch
                                                     style={styles.rect3, { borderWidth: 0, marginTop: 0, transform: [{ scaleX: .7 }, { scaleY: .7 }] }}
-                                                    disabled={false}
+                                                    disabled={(state["selectall"]) ? true: false}
                                                     activeText={'On'}
                                                     inActiveText={'Off'}
                                                     backgroundActive={'green'}
                                                     backgroundInactive={'gray'}
                                                     circleActiveColor={'#30a566'}
                                                     circleInActiveColor={'#000000'}
-                                                    value={state.checkBoxChecked[singleData.activity_uuid] ? true : false}
+                                                    value={(state.checkBoxChecked[singleData.activity_uuid] || state["selectall"]) ? true : false}
                                                     onValueChange={(switchValue) => { checkBoxChanged(singleData.activity_uuid, switchValue) }}
                                                 />
 
@@ -310,25 +343,33 @@ function SearchHelpGiversSeekers(props) {
                                                 <View style={styles.rect5}><Text style={{ paddingLeft: moderateScale(5), fontSize: 12, marginLeft: moderateScale(5) }}>{Utilities.timeSince(singleData.date_time)} ago  | {((getDistanceBetween({ latitude: state.region.latitude, longitude: state.region.longitude }, { latitude: singleData.geo_location.split(",")[0], longitude: singleData.geo_location.split(",")[1] })) / 1000).toFixed(2)} kms away</Text></View>
                                             </View>
                                             <View style={styles.rect6}><Text style={{ paddingLeft: moderateScale(5), fontSize: 10 }}>Can help with</Text></View>
-                                            <View style={styles.rect7}>
-                                                {(singleData.activity_detail && singleData.activity_detail.length > 0) ?
-                                                    <>
+                                            {(singleData.activity_detail && singleData.activity_detail.length > 0) ?
+                                                    <View style={{width:scale(300),  marginTop:10 , borderWidth:0, flex:1}}>
+                                                        <View style={{borderWidth:0, flex:1, justifyContent:"flex-start"}}>
                                                         {
                                                             singleData.activity_detail.map(singleActivityData => {
                                                                 return (
-                                                                    <Text style={{ paddingLeft: 5 }}>
+                                                                    <>
+                                                                    <Text adjustsFontSizeToFit={true} minimumFontScale={1} numberOfLines={1} style={{ paddingLeft: 5,fontFamily:"roboto-regular", fontWeight:"300" }}>
                                                                         {singleActivityData.detail + "   (" + singleActivityData.quantity + ")"}
-                                                                    </Text>
+                                                                    </Text>     
+                                                                    
+                                                                    </>                                                               
                                                                 )
                                                             })
                                                         }
-                                                    </>
+                                                        </View>
+                                                        <View style={{borderWidth:0, flex:1, justifyContent:"flex-end"}}>
+                                                        <View style={{flex:0, flexDirection:"row", width:scale(300),  marginTop:0 , borderWidth:0,  justifyContent:"flex-start"}}>
+                                                            <Text adjustsFontSizeToFit={true} minimumFontScale={1} numberOfLines={1} style={{fontFamily:"roboto-regular", fontWeight:"900"}}>Note:</Text>
+                                                            <Text adjustsFontSizeToFit={true} minimumFontScale={1} numberOfLines={3}  style={{ paddingLeft: 5, fontFamily:"roboto-regular", fontWeight:"300"}}>{singleData.offer_condition}</Text>
+                                                        </View>
+                                                        </View>
+                                                    </View>
                                                     :
-                                                    <Text style={{ paddingLeft: 5 }}>{singleData.offer_condition}
+                                                    <Text adjustsFontSizeToFit={true} minimumFontScale={1} numberOfLines={2}  style={{ paddingLeft: 5 }}>{singleData.offer_condition}
                                                     </Text>
                                                 }
-
-                                            </View>
                                         </View>
                                     </View>
                                 )

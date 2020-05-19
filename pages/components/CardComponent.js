@@ -10,7 +10,7 @@ import StaticImage from '../../styling/StaticImage';
 import Utilities from '../../misc/Utils';
 import { appLabelKey } from '../../misc/AppStrings';
 import { App } from 'react-native-firebase';
-import { scale, verticalScale } from 'react-native-size-matters';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
 const CardComponent = (props) => {
   if (props.singleRow) {
@@ -152,12 +152,13 @@ const RequesterInfoCardComponent = (props) => {
       borderBottomWidth: 1
     }} >
       <CardItem >
-        <View style={{ width: "100%", flexDirection: "column" }}>
-          <View style={{ marginVertical: 10, justifyContent: "space-between", flexDirection: "row" }}>
+        <View style={{ width: "100%", flexDirection: "column"}}>
+          <View style={{ marginVertical: 0, justifyContent: "space-between", flexDirection: "row" }}>
             <View>
               <Text style={{
                 textAlign: "left",
-                fontFamily: "Roboto-Medium",
+                fontFamily: "Roboto-Regular",
+                fontWeight:"100",
                 fontSize: 14,
                 color: "#000000"
               }}> {Utilities.getDateTime(props.dateTime)}</Text>
@@ -167,14 +168,15 @@ const RequesterInfoCardComponent = (props) => {
                 fontSize: 14,
                 color: "#000000"
               }}> {props.name}</Text>
-              <View style={{ alignItems: "flex-start" }}>
-                <AirbnbRating
+              <View style={{ alignItems: "flex-start", paddingVertical:10 }}>
+                <Rating
                   isDisabled={true}
                   defaultRating={props.primayInfo.rating_avg}
                   reviews={[]}
                   ratingCount={5}
                   fractions={1}
-                  size={20}
+                  size={10}
+                  imageSize={20}
                 />
               </View>
             </View>
@@ -189,23 +191,43 @@ const RequesterInfoCardComponent = (props) => {
             <View style={{ width: "80%" }}>
               <Text style={{
                 fontFamily: "Roboto-Regular",
-                fontSize: 16,
+                fontSize: 14,
                 color: "#4F5065B8"
               }}> {translate.t("request_call_him")}</Text>
               <Text style={{ fontSize: 17 }}>{props.callerInfo}</Text>
             </View>
           </View>
-          <View style={{ marginTop: 10, flexDirection: "row", justifyContent: "space-between" }}>
-            <BasicButton
-              label={translate.t("view_details")}
-              clickHandler={() => { props.clickHandler(props, AppConstant.APP_ACTION.VIEW_DETAILS) }} />
-          </View>
-          <View style={{ marginTop: 10, flexDirection: "row", justifyContent: "space-between" }}>
-            <BasicButton
+          <TouchableOpacity
+              style={{
+                  marginVertical: moderateScale(10), alignItems:"flex-start" 
+              }}
+              onPress={() => { props.clickHandler(props, AppConstant.APP_ACTION.VIEW_DETAILS) }}>
+
+              <View style={{
+                  backgroundColor: "#4F5065",
+                  width: scale(100),
+                  height: verticalScale(20),
+                  justifyContent: "center",
+                  borderRadius: 6,
+                  alignItems: "center"
+              }}>
+                  <Text style={{
+                      fontFamily: "Roboto-Regular",
+                      fontSize: 12,
+                      color: "#ffffff"
+                  }}>{translate.t("view_details")}</Text>
+              </View>
+          </TouchableOpacity>
+          <View style={{ marginTop: 10, flex:1, flexDirection: "row", justifyContent:"space-between", paddingHorizontal:10}}>
+            <View style={{justifyContent:"space-between"}}>
+            <BasicButton 
               label={translate.t("rate_report")}
               clickHandler={() => { props.clickHandler(props, AppConstant.APP_ACTION.RATE_REPORT) }} />
+            </View>
+            <View style={{justifyContent:"space-between"}}>
             <BasicButton label={translate.t("canceled")}
               clickHandler={() => { props.clickHandler(props, AppConstant.APP_ACTION.CANCEL) }} />
+            </View>
           </View>
         </View>
       </CardItem>

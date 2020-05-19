@@ -21,12 +21,12 @@ const HeaderComponent = (props) => {
         </Button>
       </Left>
       <Body>
-        <Title style={{
+        <Title adjustsFontSizeToFit={true}  minimumFontScale={.6} numberOfLines={2} style={{
           color: "#ffffff",
           fontFamily: "Roboto-Medium",
-          width: 200,
+          width: 300,
           borderWidth: 0,
-          fontSize: 18
+          //fontSize: 18
         }}> {(props.title ? props.title : 'Need help with')} </Title>
       </Body>
       <Right />

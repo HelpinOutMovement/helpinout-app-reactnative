@@ -207,6 +207,7 @@ const needHelpWithModalContent = (props) => {
                         activity_type={props.activity_type}
                         activity_category={props.activity_category}
                         activity_uuid={props.activity_uuid}
+                        latlon={props.latlon}
                     />
                     <ButtonComponent
                         containerStyle={{ marginLeft: 10 }}
@@ -218,6 +219,7 @@ const needHelpWithModalContent = (props) => {
                         activity_type={props.activity_type}
                         activity_category={props.activity_category}
                         activity_uuid={props.activity_uuid}
+                        latlon={props.latlon}
                     />
                 </Row>
             </Grid>
@@ -484,7 +486,6 @@ const viewDetailsForRequestAndOfferModalContent = (props) => {
 }
 
 const ModalComponent = (props) => {
-    console.log(JSON.stringify(props))
     const getModalContent = () => {
         let modalContent;
         switch (props.viewName) {

@@ -42,9 +42,9 @@ function Home(props) {
     let mapComponentRef = React.createRef();
     let navigation = props.navigation;
 
-  console.log(JSON.stringify(props))
-
     //let tik = (props.route.params["tik"]) ? props.route.params.tik : 0;
+    const { latlon , setLatLon, setRegion} = useContext(UserContext);
+
     const [state, setState] = useState({ 
       hintIsHidden: false, 
           userDetails: {}, 
@@ -105,33 +105,14 @@ function Home(props) {
       state["region"] = region;
       state["address"] = address;
       state["latlon"] =  region.latitude + "," + region.longitude;
-          setState({ ...state})
-      
-          // Use Geocoding and get address.
-          ////////getLocationSuggestions(mapState);
-      
-        }
+      setLatLon(region.latitude + "," + region.longitude)
+      setRegion(region)
+      setState({ ...state})
+    }
       
       
-    const getLocationSuggestions = (mapState) => {
       
-          setLanLon(mapState.region.latitude, mapState.region.longitude);
-          let restApi = new API();
-          reqObj = restApi.locationSuggestion(mapState.region.latitude, mapState.region.longitude, "10.424", getDistance(mapState.boundries.northEast, mapState.boundries.southWest) / 2);
-          reqObj.then((val) => {
-            setState({ ...state,requestMatchCount:val.data.my_requests_match,offerMatchCount:val.data.my_offers_match})
-            //addMarker(val)
-            //mapComponentRef.current.addMarker(val)
-          }).catch(err => {
-            if (err.response.status === 409) {
-              Toast.show('appid expired : ', { duration: 2000, position: 0, animation: true, shadow: true, animationDuration: 1000 })
-              appStorage.storeAppInfo(AppConstant.APP_STORE_KEY.IS_VEFIRIED, "false");
-              navigation.navigate(AppConstant.APP_PAGE.LOGIN);
-            }
-          })
-        }
-      
-    const setLanLon = (lat, lon) => {
+    const setLanLon1 = (lat, lon) => {
           setState({ ...state, region: { latitude: lat, longitude: lon, latitudeDelta: LATITUDE_DELTA, longitudeDelta: LONGITUDE_DELTA } });
         }
 
@@ -155,7 +136,7 @@ function Home(props) {
                     </View>
                     <View adjustsFontSizeToFit={true}  minimumFontScale={1} style={{width: scale(80), backgroundColor:"white", height: verticalScale(50), borderRadius:6, borderTopLeftRadius:0,borderBottomLeftRadius:0 ,borderTopWidth:1,borderBottomWidth:1,borderRightWidth:1,alignItems:"center", justifyContent: 'center'}} ><Text style={{fontFamily: "roboto-medium",fontSize:14 , color:"rgba(243,103,103,1)"}}>Change</Text></View>
                 </View>
-
+               {/*
                 <GooglePlacesAutocomplete
                     placeholder='Search'
                     minLength={2} 
@@ -164,10 +145,17 @@ function Home(props) {
                     listViewDisplayed='auto'    
                     fetchDetails={true}
                     query={{
-                      key: 'AIzaSyDgaOp_orkTcVpcH6NfNE3XtOH6tdiXlsg',
+                      key: 'AIzaSyCswhMNoMbszea_-hhz6wr3TSBogllMLdw',
                       language: 'en', // language of the results
                       types: '(cities)' // default: 'geocode'
                     }}
+                    onPress={(data, details = null) => console.log(data)}
+                    onFail={error => console.error(error)}
+                    requestUrl={{
+                      url:
+                        'https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api',
+                      useOnPlatform: 'web',
+                    }} 
                     styles={{
                       textInputContainer: {
                         width: '100%'
@@ -180,7 +168,8 @@ function Home(props) {
                       }
                     }}
                 />
-              
+                  */}
+                  
                 <TouchableOpacity
                   onPress={() => {
                     showRequestsAlertView("requestAlert");

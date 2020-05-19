@@ -15,6 +15,7 @@ class Utilities {
     }
     static getDateTime = (datetime, format) => {
         if (!format) {
+            console.log(datetime)
             let dt = new Date(datetime);
             let hours = dt.getHours(); // gives the value in 24 hours format
             let timePeriod = 'am';

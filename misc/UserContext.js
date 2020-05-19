@@ -8,19 +8,42 @@ class UserContextProvider extends React.Component {
     }
   
     // Method to update state
-    setLatLon = latlon => {
-      this.setState({ latlon })
+    setLatLon = (latlon) => {
+      console.log(" Setting Lat Lon : " + latlon)
+      this.setState({ latlon: latlon }, () =>{
+        console.log(this.state.latlon)
+      })
     }
+
+    getLatLon = () => {
+      return this.state.latlon;
+    }
+
+
+    // Method to update state
+    setRegion = (region) => {
+      console.log(" Setting Lat Lon : " + region)
+      this.setState({ region: region }, () =>{
+        console.log(this.state.region)
+      })
+    }
+
+    getRegion = () => {
+      return this.state.region;
+    }
+    
     render() {
       const { children } = this.props;
-      const {latlon} = this.state;
-      const { setLatLon  } = this
+      const {getLatLon, getRegion} = this;
+      const { setLatLon, setRegion  } = this;
   
       return (
         <UserContext.Provider
           value={{
             setLatLon,
-            latlon
+            getLatLon, 
+            setRegion,
+            getRegion
           }}
         >
           {children}

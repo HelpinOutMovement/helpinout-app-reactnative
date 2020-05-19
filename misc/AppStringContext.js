@@ -32,6 +32,13 @@ class AppStringProvider extends React.Component {
       this.setState({ language })
       I18n.locale = language;
     }
+
+
+    setLatLon = latlon => {
+      this.setState({ latlon })
+    }
+
+
     translate = (stringLabelKey, selectedLanguage)  => {
         const currentLang = selectedLanguage ?  selectedLanguage : this.state.language;
         I18n.locale = currentLang;
@@ -43,13 +50,16 @@ class AppStringProvider extends React.Component {
     render() {
       const { children } = this.props
       const { language } = this.state
-      const { setLanguage ,translate } = this
+      const { latlon } = this.state
+      const { setLanguage , setLatLon , translate } = this
   
       return (
         <AppStringContext.Provider
           value={{
             language,
             setLanguage,
+            latlon, 
+            setLatLon,
             translate
           }}
         >

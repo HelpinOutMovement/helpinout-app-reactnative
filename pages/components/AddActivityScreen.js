@@ -140,7 +140,6 @@ export default class AddActivityScreen extends Component {
 
 
   constructor(props) {
-    console.log(JSON.stringify(props))
     super(props);
     this.state = {
       region: this.props.route.params.region, valueArray: [], disabled: false, hideAddMore: true, hideConstrains: false,
@@ -206,7 +205,6 @@ export default class AddActivityScreen extends Component {
 
   submitData = (canPay) => {
     let restApi = new API();
-    console.log("Self Else : " + this.props.route.params.self_else)
     UUIDGenerator.getRandomUUID((uuid) => {
       switch (this.props.route.params.optionCode) {
         case AppConstant.API_REQUEST_CONSTANTS.activity_category.PEOPLE:
@@ -504,6 +502,7 @@ export default class AddActivityScreen extends Component {
           activity_uuid={this.state.activity_uuid}
           activity_type={this.state.activity_type}
           activity_category={this.state.activity_category}
+          latlon={this.state.region.latitude + "," + this.state.region.longitude}
         />
       </View>
 

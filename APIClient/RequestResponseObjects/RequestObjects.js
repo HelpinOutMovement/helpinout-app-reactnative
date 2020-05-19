@@ -3,7 +3,7 @@
     import AppConstant from '../../misc/AppConstant';
 
     const startingDate = new Date()
-    const date = startingDate.getFullYear()+"-"+startingDate.getMonth()+"-"+startingDate.getDate()+"T"+startingDate.getHours()+":"+startingDate.getMinutes()+":"+startingDate.getSeconds()+"."+startingDate.getMilliseconds()+"+"+startingDate.getTimezoneOffset();
+    const date = startingDate.getFullYear()+"-"+(startingDate.getMonth()+1)+"-"+startingDate.getDate()+"T"+startingDate.getHours()+":"+startingDate.getMinutes()+":"+startingDate.getSeconds()+"."+startingDate.getMilliseconds()+"+"+startingDate.getTimezoneOffset();
 
     const appVersion = DeviceInfo.getVersion() +"."+ DeviceInfo.getBuildNumber();
     class RequestObject{
@@ -211,10 +211,11 @@
                 "offerer":"",
                 "requester":""
             }
-            console.log("activityAdd : " + JSON.stringify(data))
             return new Promise((resolve, reject) => {
                 let reqObject = this.stuffHeader(data, true);
                 reqObject.then((val)=> {
+                    console.log("activityAdd : " + JSON.stringify(val))
+
                     resolve(val);
                 })
                 .catch(err => {reject(err)})

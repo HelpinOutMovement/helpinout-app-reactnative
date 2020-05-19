@@ -9,6 +9,7 @@ import { RequesterInfoCardComponent } from './CardComponent';
 import ModalComponent from './ModalComponent';
 import HeaderComponent from './HeaderComponent';
 import SpinnerComponent from './SpinnerComponent';
+import { verticalScale } from 'react-native-size-matters';
 
 
 const RequesterAndOffererListing = (props) => {
@@ -124,13 +125,13 @@ const RequesterAndOffererListing = (props) => {
         // if no items 
         if (mappedRequestView.length <= 0) {
             const textList = [];
-            textList.push(<Text> {props.noDataOnScreenText1} </Text>);
-            textList.push(<Text> {props.noDataOnScreenText2} </Text>);
+            textList.push(<Text style={{textAlign:"center"}}> {props.noDataOnScreenText1} </Text>);
+            textList.push(<Text style={{textAlign:"center"}}> {props.noDataOnScreenText2} </Text>);
             if (props.noDataOnScreenText3) {
                 textList.push(<Text> {props.noDataOnScreenText3} </Text>);
             }
             mappedRequestView.push(
-                <View>
+                <View style={{paddingHorizontal:10, borderWidth:0, height:verticalScale(560), justifyContent:"center", alignItems:"center"}}>
                     {textList}
                 </View>
             )
@@ -216,6 +217,7 @@ const RequesterAndOffererListing = (props) => {
                     showModal={showModal}
                     closePopUp={closePopUp}
                     onActionClick={onActionClick} />
+                 {/*
                 <Footer style={{ height: 100 }}>
                     <View style={{
                         marginTop: 0,
@@ -224,6 +226,7 @@ const RequesterAndOffererListing = (props) => {
                         width: "90%",
 
                     }}>
+                       
                         <BasicFilledButton
                             buttonStyle={{
                                 borderRadius: 10
@@ -231,8 +234,10 @@ const RequesterAndOffererListing = (props) => {
                             clickHandler={() => { cancelRequest() }}
                             label={props.cancelButtonLabel}
                             colorTheme={props.colorTheme} />
+                        
                     </View>
                 </Footer>
+                */}
             </View>
             {showSpinner && (<SpinnerComponent />)}
 
