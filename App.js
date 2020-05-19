@@ -27,7 +27,7 @@ import AppStorage from './storage/AppStorage';
 import AppConstant from './misc/AppConstant';
 import MyDrawer from './pages/SideDrawer';
 import AskForHelpScreen from './pages/AskForHelp';
-import Dashboard from './pages/Dashboard';
+//import Dashboard from './pages/Dashboard';
 import OfferHelpScreen from './pages/OfferHelpScreen';
 import MyOfferScreen from './pages/MyOfferScreen';
 import MyRequestScreen from './pages/MyRequestScreen';
@@ -37,12 +37,15 @@ import VerifyScreen from './pages/VerifyScreen';
 import AddActivityScreen from './pages/components/AddActivityScreen';
 import SearchHelpProvidersRequesters from './pages/SearchHelpProvidersRequesters';
 
+import Home from './pages/Home'
+
 import Toast from 'react-native-tiny-toast'
 //import RNRestart from 'react-native-restart'; // Import package from node modules
 
 
 import firebase from "react-native-firebase";
 import { DevSettings } from 'react-native';
+import SearchHelpGiversSeekers from './pages/SearchHelpGiversSeekers';
 
 console.disableYellowBox = true;
 const Stack = createStackNavigator();
@@ -110,8 +113,10 @@ function App() {
           ////setAppState(AppConstant.APP_STATE.IS_NOT_AUTENTICATED);
           AppStorage.getAppInfo(AppConstant.IS_VEFIRIED)
           .then((resp) => {
+            console.log("resp : " + resp)
             if (resp === "true") {
               AppStorage.getAppInfo(AppConstant.IS_LOGGED_IN).then((resp1) => {        
+                console.log("resp1 : " + resp1)
                 if (resp1 === "true") {
                   setAppState(AppConstant.APP_STATE.IS_AUTHENTICATED);
                 }else{
@@ -182,7 +187,6 @@ function App() {
           <Stack.Navigator key='n_authen' initialRouteName="SplashScreen" screenOptions={{
             headerShown: false
           }} >
-            <Stack.Screen key={`a_${AppConstant.APP_PAGE.DASHBOARD}`} name={AppConstant.APP_PAGE.DASHBOARD}  component={MyDrawer} />
             {/*  
             <Stack.Screen key={`a_${AppConstant.APP_PAGE.DASHBOARD}`} name={AppConstant.APP_PAGE.DASHBOARD}  component={Dashboard} />
             <Stack.Screen key={`a_${AppConstant.APP_PAGE.SEARCH_HELP_PROVIDERS_REQUESTERS}`} name={AppConstant.APP_PAGE.SEARCH_HELP_PROVIDERS_REQUESTERS} component={SearchHelpProvidersRequesters} />
@@ -197,7 +201,7 @@ function App() {
             <Stack.Screen key={`a_${AppConstant.APP_PAGE.ON_BOARDING_INFO}`} name={AppConstant.APP_PAGE.ON_BOARDING_INFO} component={OnBoardingInfoScreen} />
             <Stack.Screen key={`a_${AppConstant.APP_PAGE.REGISTER_MOBILE}`} name={AppConstant.APP_PAGE.REGISTER_MOBILE} component={RegisterMobile} />
 
-
+            <Stack.Screen key={`a_${AppConstant.APP_PAGE.SEARCH_HELP_GIVERS_SEEKERS}`} name={AppConstant.APP_PAGE.SEARCH_HELP_GIVERS_SEEKERS} component={SearchHelpGiversSeekers} />
 
             
             <Stack.Screen key={`a_${AppConstant.APP_PAGE.MY_REQUEST_SENT_REQUEST_SCREEN}`} name={AppConstant.APP_PAGE.MY_REQUEST_SENT_REQUEST_SCREEN} component={MyRequestSentRequestScreen} />
@@ -231,7 +235,7 @@ function App() {
             <Stack.Screen key={`a_${AppConstant.APP_PAGE.REGISTER_MOBILE}`} name={AppConstant.APP_PAGE.REGISTER_MOBILE} component={RegisterMobile} />
             
             <Stack.Screen key={`a_${AppConstant.APP_PAGE.ASK_FOR_HELP}`} name={AppConstant.APP_PAGE.ASK_FOR_HELP} component={AskForHelpScreen} />
-            <Stack.Screen key={`a_${AppConstant.APP_PAGE.DASHBOARD}`} name={AppConstant.APP_PAGE.DASHBOARD} component={MyDrawer} />
+            {/*<Stack.Screen key={`a_${AppConstant.APP_PAGE.DASHBOARD}`} name={AppConstant.APP_PAGE.DASHBOARD} component={MyDrawer} /> */}
             <Stack.Screen key={`a_${AppConstant.APP_PAGE.MAP_COMPONENT}`} name={AppConstant.APP_PAGE.MAP_COMPONENT} component={MapComponent} />
             <Stack.Screen key={`a_${AppConstant.APP_PAGE.OFFER_HELP_SCREEN}`} name={AppConstant.APP_PAGE.OFFER_HELP_SCREEN} component={OfferHelpScreen} />
             <Stack.Screen key={`a_${AppConstant.APP_PAGE.MY_REQUEST_SCREEN}`} name={AppConstant.APP_PAGE.MY_REQUEST_SCREEN} component={MyRequestScreen} />

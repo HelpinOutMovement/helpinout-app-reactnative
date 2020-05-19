@@ -34,7 +34,7 @@ const bottomPanelTop = Utils.isIphoneX() ? height - 190 : height - 180;
 
 
 const dimensions = Dimensions.get('window');
-class Dashboard extends React.Component {
+class Dashboard1 extends React.Component {
   static contextType = UserContext;
   constructor(props) {
     super(props);
@@ -178,6 +178,7 @@ class Dashboard extends React.Component {
   render() {
     return (
       <Container style={{ alignItems: "center" }}>
+        {/*
         <MapComponent mapHeight={verticalScale(590)} callbackOnRegionChange={this.callbackOnRegionChange} mapProps={this.props} ref={this.mapComponentRef}>
         </MapComponent>
 
@@ -296,7 +297,6 @@ class Dashboard extends React.Component {
                     </View>
                       
                     <View style={styles(this.dimensions).buttonContainer}>
-                      {/*<TouchableOpacity style={styles(this.dimensions).AskForHelp} onPress={() => this.navigate(AppConstant.APP_PAGE.ASK_FOR_HELP, { region: this.state.region, address: this.state.address })}> */}
                       <TouchableOpacity style={styles(this.dimensions).AskForHelp} onPress={() => {this.setState({ShowAskForHelpModal:true})}}>
                         <AskForHelpButton />
                       </TouchableOpacity>
@@ -369,7 +369,7 @@ class Dashboard extends React.Component {
                 </View>
              </View>
         </Modal>
-
+        */}
       </Container>
     )
   }
@@ -424,4 +424,4 @@ const styles = (dimensions1) => StyleSheet.create({
 
 });
 
-export default Dashboard;
+export default Dashboard1;

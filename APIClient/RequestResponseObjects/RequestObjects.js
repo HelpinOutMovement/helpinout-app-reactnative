@@ -52,7 +52,6 @@
         }
 
         updateUserObject = (country_code, mobile_no, first_name,last_name, mobile_no_visibility, user_type, org_name, org_type, org_division)=>{
-            console.log(country_code, "  " , mobile_no)
             let data = {
                 "imei_no": DeviceInfo.getUniqueId(),
                 "os_type": DeviceInfo.getSystemName(),
@@ -187,7 +186,6 @@
         }
 
         activityAdd = (activity_uuid, activity_type, geo_location, geo_accuracy, address, activity_category, activity_count, activity_detail, offer_condition, pay, self_else) => {
-            console.log(self_else)
 
             activity_detail = activity_detail.map(function(item) { 
                 delete item.id; 
@@ -214,7 +212,6 @@
             return new Promise((resolve, reject) => {
                 let reqObject = this.stuffHeader(data, true);
                 reqObject.then((val)=> {
-                    console.log("activityAdd : " + JSON.stringify(val))
 
                     resolve(val);
                 })

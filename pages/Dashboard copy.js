@@ -34,7 +34,7 @@ const bottomPanelTop = Utils.isIphoneX() ? height - 190 : height - 180;
 
 
 const dimensions = Dimensions.get('window');
-class Dashboard extends React.Component {
+class Dashboard11 extends React.Component {
   static contextType = UserContext;
   constructor(props) {
     super(props);
@@ -424,4 +424,4 @@ const styles = (dimensions1) => StyleSheet.create({
 
 });
 
-export default Dashboard;
+export default Dashboard11;

@@ -15,9 +15,8 @@ import Home from './Home'
 
 import SearchHelpGiversSeekers from './SearchHelpGiversSeekers'
 
-import Dashboard from './Dashboard';
+//import Dashboard from './Dashboard';
 
-import MyRequestScreen from './MyRequestScreen';
 import LogoComponent from './components/LogoComponent';
 import SearchHelpProvidersRequesters from './SearchHelpProvidersRequesters'
 
@@ -244,8 +243,8 @@ function MyDrawer(props) {
         <Drawer.Navigator 
         permanent={'front'}
         drawerContent={(props) => (<CustomSideBarView  {...props} />)}>
-            <Drawer.Screen name="Home" {...props} component={Home} />
-            <Drawer.Screen name="SearchHelpGiversSeekers" component={SearchHelpGiversSeekers} />
+            <Drawer.Screen name={AppConstant.APP_PAGE.HOME} {...props} component={Home} />
+            {/*<Drawer.Screen name={AppConstant.APP_PAGE.SEARCH_HELP_GIVERS_SEEKERS} component={SearchHelpGiversSeekers} />  */}
             <Drawer.Screen name="My Requests" {...props} component={myRequests} />
             <Drawer.Screen name="My Offers" {...props} component={myOffers} />
         </Drawer.Navigator>

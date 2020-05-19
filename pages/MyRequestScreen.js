@@ -15,6 +15,10 @@ import ModalComponent from './components/ModalComponent';
 import { verticalScale, scale, moderateScale } from 'react-native-size-matters';
 import Utils from "../misc/Utils"
 import { ScrollView } from 'react-native-gesture-handler';
+
+import Toast from 'react-native-tiny-toast'
+
+
 const footerTop = Utils.isIphoneX() ? verticalScale(620) : verticalScale(610);
 
 const { width, height } = Dimensions.get('window');
@@ -347,6 +351,35 @@ function MyRequestScreen(props) {
     }, [])
   );
 
+
+  const cancelActivity = (activity_uuid, activity_type) =>{
+    setShowSpinner(true);
+    setShowModal(false)
+    let apiInstancePromise = apiInstance.activityDelete(activity_uuid, activity_type);
+    apiInstancePromise.then((resp) => {
+        Toast.show(translate.t("toast_delete_success") , {duration:2000, position:0, animation:true, shadow:true, animationDuration:1000} )
+        apiInstance.userPastActivity(activity_type).then(resp => {
+          setShowSpinner(false);
+          setRequestInformation(resp.data.requests);
+        }).catch((e)=>{
+            setShowSpinner(false);
+            setRequestInformation([]);
+        })
+        
+    }).catch((err) => {
+        setShowSpinner(false);
+        Toast.show("Error : "+ JSON.stringify(err) , {duration:2000, position:0, animation:true, shadow:true, animationDuration:2000} )
+    });
+  
+    //Toast.show(translate.t("toast_delete_success") , {duration:2000, position:0, animation:true, shadow:true, animationDuration:1000} )
+      
+      /*
+    props.navigation.navigate(AppConstant.APP_PAGE.MY_REQUEST_SCREEN, {
+      
+    });
+    */
+  }
+
   const primaryActionHandler = (ele, actions) => {
     if (actions === AppConstant.APP_ACTION.SENT_REQUEST) {
       props.navigation.navigate(AppConstant.APP_PAGE.MY_REQUEST_SENT_REQUEST_SCREEN, {
@@ -454,6 +487,7 @@ function MyRequestScreen(props) {
         showModal={showModal}
         closePopUp={closePopUp}
         requestOfferScreen={true}
+        cancelHandeler={cancelActivity}
       />
       {showSpinner && (<SpinnerComponent />)}
     </Container>

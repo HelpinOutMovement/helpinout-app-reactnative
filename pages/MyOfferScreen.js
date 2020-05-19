@@ -24,6 +24,9 @@ const ASPECT_RATIO = width / height;
 const LATITUDE_DELTA = (Platform.OS === global.platformIOS ? 1.5 : 0.5);
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
+import Toast from 'react-native-tiny-toast'
+
+
 const realReq = [
   {
     "activity_type": 1,
@@ -337,6 +340,27 @@ function MyOfferScreen(props) {
     }, [])
   );
 
+
+  const cancelActivity = (activity_uuid, activity_type) =>{
+    setShowSpinner(true);
+    setShowModal(false)
+    let apiInstancePromise = apiInstance.activityDelete(activity_uuid, activity_type);
+    apiInstancePromise.then((resp) => {
+        Toast.show(translate.t("toast_delete_success") , {duration:2000, position:0, animation:true, shadow:true, animationDuration:1000} )
+        apiInstance.userPastActivity(activity_type).then(resp => {
+          setShowSpinner(false);
+          setRequestInformation(resp.data.offers);
+        }).catch((e)=>{
+            setShowSpinner(false);
+            setRequestInformation([]);
+        })
+        
+    }).catch((err) => {
+        setShowSpinner(false);
+        Toast.show("Error : "+ JSON.stringify(err) , {duration:2000, position:0, animation:true, shadow:true, animationDuration:2000} )
+    });
+  }
+
   const primaryActionHandler = (ele, actions) => {
     /////console.log(ele, "$$$$", actions);
     if (actions === AppConstant.APP_ACTION.OFFERER_RCVD_REQUESTS) {
@@ -432,7 +456,13 @@ function MyOfferScreen(props) {
           fontSize: 18
         }}> {translate.t("title_my_offers")} </Title>
       </Body>
-      <Right />
+      <Right >
+      <Button
+          transparent
+          onPress={() => { props.navigation.openDrawer()}}>
+          <Icon name="mail" style={{ color: "#ffffff" }} />
+        </Button>
+      </Right>
     </Header>
 
 
@@ -452,6 +482,7 @@ function MyOfferScreen(props) {
         showModal={showModal}
         closePopUp={closePopUp}
         requestOfferScreen={true}
+        cancelHandeler={cancelActivity}
       />
       {showSpinner && (<SpinnerComponent />)}
     </Container>

@@ -8,6 +8,8 @@ import AppConstant from '../../misc/AppConstant';
 import ButtonComponent, { BasicFilledButton } from './ButtonComponent';
 import Utilities from '../../misc/Utils';
 
+import { apiInstance } from "../../APIClient/API";
+
 
 import translate from 'react-native-i18n';
 import { appLabelKey } from '../../misc/AppStrings';
@@ -50,6 +52,9 @@ const rateAndReviewModalContent = (props) => {
     const ratingCompleted = (val) => {
         setRating(val)
     }
+
+
+
     return (
         <View style={{
             backgroundColor: 'white',
@@ -466,24 +471,26 @@ const viewDetailsForRequestAndOfferModalContent = (props) => {
                           justifyContent:"center",position:"absolute", bottom:verticalScale(0), left:scale(0)}}>
                 <Text adjustsFontSizeToFit={true} minimumFontScale={0.5} numberOfLines={1} style={{fontFamily:"roboto", fontWeight:"900"}}>{(props.pay === 1) ? "Can pay" : "Cannot pay"}</Text>
                 </View>
-                <TouchableOpacity>
-                <View style={{backgroundColor:"#EE6B6B",
+                <TouchableOpacity onPress={() => {props.cancelHandeler(props.activity_uuid, props.activity_type)}}>
+                <View style={{
+                          backgroundColor:((props.activity_type == AppConstant.APP_MAPPING_INDICATOR.REQUESTER) ? "#EE6B6B" : "#4F5065"),
                           borderRadius:4,
                           paddingHorizontal: 5,
                           paddingVertical:0,
-                          borderColor:"#EE6B6B",
+                          borderColor:((props.activity_type == AppConstant.APP_MAPPING_INDICATOR.REQUESTER) ? "#EE6B6B" : "#4F5065"),
                           borderWidth:1,
                           width:scale(130),
                           height:verticalScale(30) ,
                           alignItems:"center",
                           justifyContent:"center",position:"absolute", bottom:verticalScale(0), left:scale(180)}}>
-                <Text adjustsFontSizeToFit={true} minimumFontScale={0.5} numberOfLines={1} style={{fontFamily:"roboto", color:"#FFF"}}>Cancel Request</Text>
+                <Text adjustsFontSizeToFit={true} minimumFontScale={0.5} numberOfLines={1} style={{fontFamily:"roboto", color:"#FFF"}}>{(props.activity_type == AppConstant.APP_MAPPING_INDICATOR.REQUESTER)? translate.t("cancel_this_request"): translate.t("cancel_this_offer")}</Text>
                 </View>
                 </TouchableOpacity>
             </View>
         </View>
     );
 }
+
 
 const ModalComponent = (props) => {
     const getModalContent = () => {

@@ -135,7 +135,7 @@ export default class RegisterMobile extends React.Component {
                     userProfileDetails.user_detail.org_division =  this.state.organisationUnit
     
                     AppStorage.storeAppInfo(AppConstant.APP_STORE_KEY.USER_REG_DETAILS, JSON.stringify(userProfileDetails)).then(() => {
-                        thisclass.navigate(AppConstant.APP_PAGE.HOME, {tik:new Date()})
+                        thisclass.navigate(AppConstant.APP_PAGE.SIDE_DRAWER, {tik:new Date()})
                     })
                 }else{
                     Toast.show('Update Error ' + JSON.stringify(error) , {duration:1000, position:0, animation:true, shadow:true, animationDuration:2000})
