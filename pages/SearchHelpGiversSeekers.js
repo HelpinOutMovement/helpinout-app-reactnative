@@ -20,6 +20,7 @@ import StarRating from 'react-native-star-rating';
 
 import { verticalScale, scale, moderateScale } from 'react-native-size-matters';
 
+import SpinnerComponent from './components/SpinnerComponent';
 
 import { DrawerActions } from 'react-navigation-drawer';
 
@@ -45,15 +46,20 @@ function SearchHelpGiversSeekers(props) {
     const isFocused = useIsFocused();
     const mapComponentRef = useRef(null);
 
+    const [showSpinner, setShowSpinner] = useState(false);
+
+    const [ activityDataFetched, setActivityDataFetched ] = useState(false);
+
     const [latLonRef, setLatLonRef] = useState('');
     const [state, setState] = useState({
         activitySuggestionOfferResponse: [],
         checkBoxChecked: {},
-        activity_data: []
+        activity_data: [], 
     });
 
     useEffect(()=>{
         const lanlonReference = getRouteParams('latlon', props.route);
+        console.log(lanlonReference)
         setLatLonRef(lanlonReference);
         setState({
             region: getRouteParams('region', props.route),
@@ -164,7 +170,7 @@ function SearchHelpGiversSeekers(props) {
 
 
     const getActivitySuggestions = (region, address, distance) => {
-
+        setShowSpinner(true)
         let restApi = new API();
         let reqObj = restApi.activitySuggestions(state.activity_type, state.activity_uuid, region.latitude + "," + region.longitude, "10.424", distance / 2)
         reqObj.then((respObject) => {
@@ -175,7 +181,9 @@ function SearchHelpGiversSeekers(props) {
                     state["activitySuggestionOfferResponse"] = respObject.data.requests 
                 }
                 setState({ ...state });
-            }
+                setActivityDataFetched(true)
+            } 
+            setShowSpinner(false)           
         }).catch((err) => { console.log(err) })
 
     }
@@ -280,130 +288,138 @@ function SearchHelpGiversSeekers(props) {
                         <View style={{ width: scale(70), justifyContent: "center", backgroundColor: "white", height: verticalScale(50), borderRadius: 6, borderTopLeftRadius: 0, borderBottomLeftRadius: 0, borderBottomRightRadius: 0, borderTopWidth: 0, borderRightWidth: 0, alignItems: "center", justifyContent: 'center' }} ><Button transparent style={{ padding: 0 }} onPress={() => { toggleBottomPanel() }}><Icon name={state.bottom_panel_icon} /></Button></View>
                     </View>
                 </View>
-
-                {(state.activitySuggestionOfferResponse.length > 0)
-
-
-                    ?
-                    <HView hide={!state.bottom_panel_visible} style={{ position: "absolute", bottom: 10, height: (height / 2), justifyContent: "center", alignItems: 'center', width: scale(340), borderWidth: 0 }}>
-                        <View style={styles.rect, {height:verticalScale(40) , borderTopWidth:1, borderBottomWidth:1,marginTop:10}}>
-                            <View style={styles.rect2Row}>
-                                <View style={styles.rect2}><Text adjustsFontSizeToFit={true} minimumFontScale={.1} numberOfLines={1} style={{ borderWidth: 0, fontFamily: 'Roboto' }}>Offer to help every one on the mpa area</Text></View>
-                                <Switch
-                                    style={styles.rect3, { borderWidth: 0, marginTop: 0, transform: [{ scaleX: .7 }, { scaleY: .7 }] }}
-                                    disabled={false}
-                                    activeText={'On'}
-                                    inActiveText={'Off'}
-                                    backgroundActive={'green'}
-                                    backgroundInactive={'gray'}
-                                    circleActiveColor={'#30a566'}
-                                    circleInActiveColor={'#000000'}
-                                    value={state["selectall"] ? true : false}
-                                    onValueChange={(switchValue) => { selectAllChanged(switchValue) }}
-                                />
-                            </View>
-                        </View>
-                        <ScrollView style={{ height: verticalScale(250), borderWidth: 0, marginTop: moderateScale(10) }}>
-                            {state.activitySuggestionOfferResponse.map(singleData => {
-                                return (
-                                    <View style={styles.itemContainer}>
-                                        <View style={styles.rect}>
-                                            <View style={styles.rect2Row}>
-                                                <View style={styles.rect2}><Text style={{ paddingLeft: 5, borderWidth: 0, fontFamily: 'Roboto-Medium' }}>{singleData.user_detail.first_name + " " + singleData.user_detail.last_name}</Text></View>
-
-                                                <Switch
-                                                    style={styles.rect3, { borderWidth: 0, marginTop: 0, transform: [{ scaleX: .7 }, { scaleY: .7 }] }}
-                                                    disabled={(state["selectall"]) ? true: false}
-                                                    activeText={'On'}
-                                                    inActiveText={'Off'}
-                                                    backgroundActive={'green'}
-                                                    backgroundInactive={'gray'}
-                                                    circleActiveColor={'#30a566'}
-                                                    circleInActiveColor={'#000000'}
-                                                    value={(state.checkBoxChecked[singleData.activity_uuid] || state["selectall"]) ? true : false}
-                                                    onValueChange={(switchValue) => { checkBoxChanged(singleData.activity_uuid, switchValue) }}
-                                                />
-
-                                            </View>
-                                            <View style={styles.rect4Row}>
-                                                <View style={styles.rect4}>
-                                                    <StarRating
-                                                        disabled={false}
-                                                        maxStars={5}
-                                                        rating={singleData.user_detail.rating_avg}
-                                                        emptyStar={'ios-star-outline'}
-                                                        fullStar={'ios-star'}
-                                                        halfStar={'ios-star-half'}
-                                                        iconSet={'Ionicons'}
-                                                        fullStarColor={'orange'}
-                                                        starSize={18}
-                                                    //selectedStar={(rating) => onStarRatingPress(rating)}
-                                                    />
-                                                </View>
-                                                <View style={styles.rect5}><Text style={{ paddingLeft: moderateScale(5), fontSize: 12, marginLeft: moderateScale(5) }}>{Utilities.timeSince(singleData.date_time)} ago  | {((getDistanceBetween({ latitude: state.region.latitude, longitude: state.region.longitude }, { latitude: singleData.geo_location.split(",")[0], longitude: singleData.geo_location.split(",")[1] })) / 1000).toFixed(2)} kms away</Text></View>
-                                            </View>
-                                            <View style={styles.rect6}><Text style={{ paddingLeft: moderateScale(5), fontSize: 10 }}>Can help with</Text></View>
-                                            {(singleData.activity_detail && singleData.activity_detail.length > 0) ?
-                                                    <View style={{width:scale(300),  marginTop:10 , borderWidth:0, flex:1}}>
-                                                        <View style={{borderWidth:0, flex:1, justifyContent:"flex-start"}}>
-                                                        {
-                                                            singleData.activity_detail.map(singleActivityData => {
-                                                                return (
-                                                                    <>
-                                                                    <Text adjustsFontSizeToFit={true} minimumFontScale={1} numberOfLines={1} style={{ paddingLeft: 5,fontFamily:"roboto-regular", fontWeight:"300" }}>
-                                                                        {singleActivityData.detail + "   (" + singleActivityData.quantity + ")"}
-                                                                    </Text>     
-                                                                    
-                                                                    </>                                                               
-                                                                )
-                                                            })
-                                                        }
-                                                        </View>
-                                                        <View style={{borderWidth:0, flex:1, justifyContent:"flex-end"}}>
-                                                        <View style={{flex:0, flexDirection:"row", width:scale(300),  marginTop:0 , borderWidth:0,  justifyContent:"flex-start"}}>
-                                                            <Text adjustsFontSizeToFit={true} minimumFontScale={1} numberOfLines={1} style={{fontFamily:"roboto-regular", fontWeight:"900"}}>Note:</Text>
-                                                            <Text adjustsFontSizeToFit={true} minimumFontScale={1} numberOfLines={3}  style={{ paddingLeft: 5, fontFamily:"roboto-regular", fontWeight:"300"}}>{singleData.offer_condition}</Text>
-                                                        </View>
-                                                        </View>
-                                                    </View>
-                                                    :
-                                                    <Text adjustsFontSizeToFit={true} minimumFontScale={1} numberOfLines={2}  style={{ paddingLeft: 5 }}>{singleData.offer_condition}
-                                                    </Text>
-                                                }
-                                        </View>
+                {activityDataFetched ? 
+                    (state.activitySuggestionOfferResponse.length > 0)
+                        ?
+                        <HView hide={!state.bottom_panel_visible} style={{ position: "absolute", bottom: 10, height: (height / 2), justifyContent: "center", alignItems: 'center', width: scale(340), borderWidth: 0 }}>                                                            
+                                    {(state.activity_type === 2) ?
+                                    <View style={styles.rect, {height:verticalScale(40) , borderTopWidth:1, borderBottomWidth:1,marginTop:10}}>
+                                    <View style={styles.rect2Row}>
+                                    <View style={styles.rect2}><Text adjustsFontSizeToFit={true} minimumFontScale={.1} numberOfLines={1} style={{ borderWidth: 0, fontFamily: 'Roboto' }}>Offer to help every one on the mpa area</Text></View>
+                                    <Switch
+                                        style={styles.rect3, { borderWidth: 0, marginTop: 0, transform: [{ scaleX: .7 }, { scaleY: .7 }] }}
+                                        disabled={false}
+                                        activeText={'On'}
+                                        inActiveText={'Off'}
+                                        backgroundActive={'green'}
+                                        backgroundInactive={'gray'}
+                                        circleActiveColor={'#30a566'}
+                                        circleInActiveColor={'#000000'}
+                                        value={state["selectall"] ? true : false}
+                                        onValueChange={(switchValue) => { selectAllChanged(switchValue) }}
+                                    />
                                     </View>
-                                )
-                            })}
+                                    </View>
+                                    :
+                                    <></>
+                                    }                                    
+                            
+                            <ScrollView style={{ height: verticalScale(250), borderWidth: 0, marginTop: moderateScale(10) }}>
+                                {state.activitySuggestionOfferResponse.map(singleData => {
+                                    return (
+                                        <View style={styles.itemContainer}>
+                                            <View style={styles.rect}>
+                                                <View style={styles.rect2Row}>
+                                                    <View style={styles.rect2}><Text style={{ paddingLeft: 5, borderWidth: 0, fontFamily: 'Roboto-Medium' }}>{singleData.user_detail.first_name + " " + singleData.user_detail.last_name}</Text></View>
 
-                        </ScrollView>
-                        <Text style={{ height: verticalScale(50), textAlign: "center", paddingLeft: moderateScale(15), paddingRight: moderateScale(15), paddingTop: moderateScale(10), color: "grey" }}>
-                            {(state.activity_type === 1) ? translate.t("phone_number_will_be_send_to_provider") : translate.t("phone_number_will_be_send_to_requester")}
-                        </Text>
-                        <View style={styles.buttonContainer}>
-                            <TouchableOpacity onPress={() => submitActivity()}>
-                                <View style={state.activity_type === 1 ? styles.ContinueButtonContainer_red : styles.ContinueButtonContainer_grey}>
-                                    <Text style={styles.ContinueButtonText}>{state.activity_type === 1 ? translate.t("send_request") : translate.t("send_offer")}</Text>
-                                </View>
-                            </TouchableOpacity>
-                        </View>
-                    </HView>
-                    :
-                    <HView hide={!state.bottom_panel_visible} style={{ position: "absolute", bottom: verticalScale(10), height: verticalScale(340), justifyContent: "center", alignItems: 'center', width: scale(340) }}>
+                                                    <Switch
+                                                        style={styles.rect3, { borderWidth: 0, marginTop: 0, transform: [{ scaleX: .7 }, { scaleY: .7 }] }}
+                                                        disabled={(state["selectall"]) ? true: false}
+                                                        activeText={'On'}
+                                                        inActiveText={'Off'}
+                                                        backgroundActive={'green'}
+                                                        backgroundInactive={'gray'}
+                                                        circleActiveColor={'#30a566'}
+                                                        circleInActiveColor={'#000000'}
+                                                        value={(state.checkBoxChecked[singleData.activity_uuid] || state["selectall"]) ? true : false}
+                                                        onValueChange={(switchValue) => { checkBoxChanged(singleData.activity_uuid, switchValue) }}
+                                                    />
 
-                        <View style={{ height: verticalScale(250), borderWidth: 0, marginTop: moderateScale(30) }}>
-                            <Text>
-                                {translate.t("no_help_requeter")}
+                                                </View>
+                                                <View style={styles.rect4Row}>
+                                                    <View style={styles.rect4}>
+                                                        <StarRating
+                                                            disabled={false}
+                                                            maxStars={5}
+                                                            rating={singleData.user_detail.rating_avg}
+                                                            emptyStar={'ios-star-outline'}
+                                                            fullStar={'ios-star'}
+                                                            halfStar={'ios-star-half'}
+                                                            iconSet={'Ionicons'}
+                                                            fullStarColor={'orange'}
+                                                            starSize={18}
+                                                        //selectedStar={(rating) => onStarRatingPress(rating)}
+                                                        />
+                                                    </View>
+                                                    <View style={styles.rect5}><Text style={{ paddingLeft: moderateScale(5), fontSize: 12, marginLeft: moderateScale(5) }}>{Utilities.timeSince(singleData.date_time)} ago  | {((getDistanceBetween({ latitude: state.region.latitude, longitude: state.region.longitude }, { latitude: singleData.geo_location.split(",")[0], longitude: singleData.geo_location.split(",")[1] })) / 1000).toFixed(2)} kms away</Text></View>
+                                                </View>
+                                                <View style={styles.rect6}><Text style={{ paddingLeft: moderateScale(5), fontSize: 10 }}>Can help with</Text></View>
+                                                {(singleData.activity_detail && singleData.activity_detail.length > 0) ?
+                                                        <View style={{width:scale(300),  marginTop:10 , borderWidth:0, flex:1}}>
+                                                            <View style={{borderWidth:0, flex:1, justifyContent:"flex-start"}}>
+                                                            {
+                                                                singleData.activity_detail.map(singleActivityData => {
+                                                                    return (
+                                                                        <>
+                                                                        <Text adjustsFontSizeToFit={true} minimumFontScale={1} numberOfLines={1} style={{ paddingLeft: 5,fontFamily:"roboto-regular", fontWeight:"300" }}>
+                                                                            {singleActivityData.detail + "   (" + singleActivityData.quantity + ")"}
+                                                                        </Text>     
+                                                                        
+                                                                        </>                                                               
+                                                                    )
+                                                                })
+                                                            }
+                                                            </View>
+                                                            <View style={{borderWidth:0, flex:1, justifyContent:"flex-end"}}>
+                                                            <View style={{flex:0, flexDirection:"row", width:scale(300),  marginTop:0 , borderWidth:0,  justifyContent:"flex-start"}}>
+                                                                <Text adjustsFontSizeToFit={true} minimumFontScale={1} numberOfLines={1} style={{fontFamily:"roboto-regular", fontWeight:"900"}}>Note:</Text>
+                                                                <Text adjustsFontSizeToFit={true} minimumFontScale={1} numberOfLines={3}  style={{ paddingLeft: 5, fontFamily:"roboto-regular", fontWeight:"300"}}>{singleData.offer_condition}</Text>
+                                                            </View>
+                                                            </View>
+                                                        </View>
+                                                        :
+                                                        <Text adjustsFontSizeToFit={true} minimumFontScale={1} numberOfLines={2}  style={{ paddingLeft: 5 }}>{singleData.offer_condition}
+                                                        </Text>
+                                                    }
+                                            </View>
+                                        </View>
+                                    )
+                                })}
+
+                            </ScrollView>
+                            <Text style={{ height: verticalScale(50), textAlign: "center", paddingLeft: moderateScale(15), paddingRight: moderateScale(15), paddingTop: moderateScale(10), color: "grey" }}>
+                                {(state.activity_type === 1) ? translate.t("phone_number_will_be_send_to_provider") : translate.t("phone_number_will_be_send_to_requester")}
                             </Text>
-                        </View>
-                        <View style={styles.buttonContainer}>
-                            <TouchableOpacity onPress={() => { (state.activity_type === 1) ? navigate(AppConstant.APP_PAGE.MY_REQUEST_SENT_REQUEST_SCREEN, { request: {}, created_activity: {} }) : navigate(AppConstant.APP_PAGE.MY_OFFER_SENT_OFFER_SCREEN, { request: {}, created_activity: {} }) }}>
-                                <View style={[styles.ContinueButtonContainer_grey]}>
-                                    <Text style={styles.ContinueButtonText}>{translate.t("btn_continue")}</Text>
-                                </View>
-                            </TouchableOpacity>
-                        </View>
-                    </HView>
+                            <View style={styles.buttonContainer}>
+                                <TouchableOpacity onPress={() => submitActivity()}>
+                                    <View style={state.activity_type === 1 ? styles.ContinueButtonContainer_red : styles.ContinueButtonContainer_grey}>
+                                        <Text style={styles.ContinueButtonText}>{state.activity_type === 1 ? translate.t("send_request") : translate.t("send_offer")}</Text>
+                                    </View>
+                                </TouchableOpacity>
+                            </View>
+                        </HView>
+                        :
+                        <HView hide={!state.bottom_panel_visible} style={{ position: "absolute", bottom: verticalScale(10), height: verticalScale(340), justifyContent: "center", alignItems: 'center', width: scale(340) }}>
+
+                            <View style={{ height: verticalScale(250), borderWidth: 0, marginTop: moderateScale(30) }}>
+                                <Text>
+                                    {translate.t("no_help_requeter")}
+                                </Text>
+                            </View>
+                            <View style={styles.buttonContainer}>
+                                <TouchableOpacity onPress={() => { (state.activity_type === 1) ? navigate(AppConstant.APP_PAGE.MY_REQUEST_SENT_REQUEST_SCREEN, { request: {}, created_activity: {} }) : navigate(AppConstant.APP_PAGE.MY_OFFER_SENT_OFFER_SCREEN, { request: {}, created_activity: {} }) }}>
+                                    <View style={[styles.ContinueButtonContainer_grey]}>
+                                        <Text style={styles.ContinueButtonText}>{translate.t("btn_continue")}</Text>
+                                    </View>
+                                </TouchableOpacity>
+                            </View>
+                        </HView>
+                    
+                    :
+                        <></>
+
                 }
+                {showSpinner && (<SpinnerComponent />)}
             </Container>
 
         )
