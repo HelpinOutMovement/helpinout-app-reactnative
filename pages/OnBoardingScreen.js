@@ -27,7 +27,7 @@ function OnBoardingScreen({ navigation }) {
             AppStorage.getAppInfo(AppConstant.APP_STORE_KEY.IS_VEFIRIED)
                 .then((resp) => {
                     if (resp === "true") {
-                    navigation.navigate(AppConstant.APP_PAGE.DASHBOARD);
+                    navigation.navigate(AppConstant.APP_PAGE.SIDE_DRAWER);
                     } else {
                         navigation.navigate(AppConstant.APP_PAGE.ON_BOARDING_INFO);
                     }

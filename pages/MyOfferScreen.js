@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { View , Dimensions} from 'react-native';
+import { View , Dimensions, TouchableOpacity} from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import { Container, Content, Text, Footer, FooterTab, Header, Left, Button, Icon, Body, Title, Right } from "native-base";
 import translate from 'react-native-i18n';
@@ -12,11 +12,15 @@ import SpinnerComponent from './components/SpinnerComponent';
 import FooterTabComponent from './components/FooterTabComponent';
 import ModalComponent from './components/ModalComponent';
 
-import { ScrollView } from 'react-native-gesture-handler';
+import { ScrollView, TextInput } from 'react-native-gesture-handler';
 
 
 import { verticalScale, scale, moderateScale } from 'react-native-size-matters';
 import Utils from "../misc/Utils"
+
+import Modal from 'react-native-modal';
+
+
 const footerTop = Utils.isIphoneX() ? verticalScale(620) : verticalScale(610);
 
 const { width, height } = Dimensions.get('window');
@@ -326,6 +330,10 @@ function MyOfferScreen(props) {
   const [requestInformation, setRequestInformation] = useState([]);
   const [showSpinner, setShowSpinner] = useState(false);
   const [modalInfo, setModalInfo] = useState({});
+  const [showEmailModal, setShowEmailModal] = useState(false);
+
+  const [emailData, setEmailData] = useState("");
+
 
   useFocusEffect(
     React.useCallback(() => {
@@ -401,6 +409,30 @@ function MyOfferScreen(props) {
     setShowModal(!showModal);
   }
 
+
+  const sendEmail = () =>{
+    
+    if(Utils.isValidEmail(emailData)){
+      setShowEmailModal(false)
+      let apiInstancePromise = apiInstance.emailoffermapping(emailData);
+      apiInstancePromise.then((resp) => {
+        setShowEmailModal(false)
+        if(resp.status === "1"){
+          Toast.show(resp.message , {duration:2000, position:verticalScale(200), animation:true, shadow:true, animationDuration:1000, maskColor:"#FFF"} )
+        }else{
+          Toast.show("There was an error sending email : "+ resp.message , {duration:2000, position:verticalScale(200), animation:true, shadow:true, animationDuration:1000, maskColor:"#FFF"} )
+        }
+      }).catch((e)=>{
+        Toast.show("There was an error sending email : "+ JSON.stringify(e) , {duration:2000, position:verticalScale(200), animation:true, shadow:true, animationDuration:1000, maskColor:"#FFF"} )
+      })
+    }else{
+      Toast.show("please enter a valid email address" , {duration:2000, position:verticalScale(200), animation:true, shadow:true, animationDuration:1000, maskColor:"#FFF"} )
+    }
+    
+
+  }
+
+
   const getRequestList = () => {
     let cardListView = [];
     requestInformation.forEach((singleOption, index) => {
@@ -459,7 +491,7 @@ function MyOfferScreen(props) {
       <Right >
       <Button
           transparent
-          onPress={() => { props.navigation.openDrawer()}}>
+          onPress={() => { setShowEmailModal(true)}}>
           <Icon name="mail" style={{ color: "#ffffff" }} />
         </Button>
       </Right>
@@ -485,6 +517,55 @@ function MyOfferScreen(props) {
         cancelHandeler={cancelActivity}
       />
       {showSpinner && (<SpinnerComponent />)}
+
+      <Modal
+        testID={'modal'}
+        isVisible={showEmailModal}
+        onBackdropPress={() => { setShowEmailModal(false) }}
+        onSwipeComplete={() => { }}
+        style={{
+            justifyContent: 'center',
+            margin: 0,
+            marginBottom: 2,
+            position:"absolute",
+            top:verticalScale(250),
+            left:scale(25), 
+            borderRadius:8,
+            borderColor:"#EE6B6B",
+        }}>
+            <View style={{flex: 1, flexDirection: 'column', justifyContent: "space-evenly", width:scale(300), borderWidth:1, height:verticalScale(100), backgroundColor:"#FFFFFF", borderRadius:4 }}>
+                <View style={{paddingVertical:20, paddingHorizontal:20}}>
+                    <Text>Obtain detailed data of all requests received in tabular format</Text>
+                </View>
+                <View style={{flex: 1, flexDirection: 'row', justifyContent: "space-evenly",}}>
+                <TextInput
+                    placeholderTextColor="grey"
+                    placeholder={"emailaddress"}
+                    style={{ borderWidth: 1, borderRadius: 3, borderColor: "grey", height:verticalScale(30), width:scale(150), marginRight: 10, padding: 10, color: "#000000" }}
+                    onChangeText={(val) => setEmailData(val)}
+                    autoCapitalize = 'none'
+                  >
+                  </TextInput>
+                  <TouchableOpacity  style={{paddingHorizontal:scale(0), paddingVertical:verticalScale(0)}} onPress={() => { sendEmail()}}>
+                        <View style={{
+                          backgroundColor:"#EE6B6B",
+                          borderRadius:4,
+                          paddingHorizontal: 5,
+                          paddingVertical:10,
+                          borderColor:"#EE6B6B",
+                          borderWidth:1,
+                          width:scale(100),
+                          height:verticalScale(30) ,
+                          alignItems:"center",
+                          justifyContent:"center"
+                        }}>
+                          <Text adjustsFontSizeToFit={true} minimumFontScale={0.5} numberOfLines={1} style={{color: "rgba(245,245,245,1)",fontFamily: "roboto-regular", alignItems: 'center',justifyContent:'center',}}>{translate.t("submit")}</Text>
+                        </View>
+                    </TouchableOpacity>
+                </View>
+            </View>
+      </Modal>
+
     </Container>
   );
 }

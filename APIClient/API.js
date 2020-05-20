@@ -236,7 +236,7 @@ class API{
             let  requestObjects = new RequestObjects();
             reqObj = requestObjects.activityAdd(activity_uuid, activity_type, geo_location, geo_accuracy, address, activity_category, activity_count, activity_detail, offer_condition, pay, self_else);
             reqObj.then((val)=> {
-
+                console.log(" Add Activity : " + JSON.stringify(val))
                 let apicall = 'activity/add';
                 this.createEntity(apicall).then((call) => {
                     let data = this.endpoints[call].post(val);        
@@ -382,7 +382,25 @@ class API{
     }
   
 
+    
 
+    emailoffermapping = (emailaddress) =>{
+        return new Promise((resolve, reject) => {
+            let  requestObjects = new RequestObjects();
+            reqObj = requestObjects.emailoffermapping(emailaddress);
+            reqObj.then((val)=> {
+                let apicall = 'user/emailoffermapping';
+                this.createEntity(apicall).then((call) => {
+                    let data = this.endpoints[call].post(val);        
+                    data.then(({data})=> {
+                        resolve(data);
+                    })
+                    .catch(err => {reject(err)})
+                })  
+            })
+            .catch(err => {reject(err)})
+        });     
+    }
 
 }
 

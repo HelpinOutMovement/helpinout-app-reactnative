@@ -88,7 +88,7 @@ const RequesterAndOffererListing = (props) => {
                 let rootActivityUUID = (props.requestParams && props.requestParams.activity_uuid) ?
                     props.requestParams.activity_uuid : (props.createdIdParams &&
                         props.createdIdParams.activity_uuid) ? props.createdIdParams.activity_uuid : '';
-                let mapping_initiator = (ele && ele.mapping_initiator) ? ele.mapping_initiator : '';
+                let mapping_initiator = (ele && ele.mapping_initiator) ? ele.mapping_initiator : 0;
                 let uuid = (ele && ele[props.inputMappingObject] && ele[props.inputMappingObject].activity_uuid) ?
                     ele[props.inputMappingObject].activity_uuid : '';
                 apiInstance.mappingCall(

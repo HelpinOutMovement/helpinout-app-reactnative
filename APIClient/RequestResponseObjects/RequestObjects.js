@@ -305,11 +305,13 @@
             
             if(mapping_initiator === 1) {
                 data['offerer'] =[{
-                    "activity_uuid": uuid
+                    "activity_uuid": uuid,
+                    "mapping_initiator": mapping_initiator
                 }]
             } else if(mapping_initiator === 2) {
                 data['requester'] = [{
-                    "activity_uuid": uuid
+                    "activity_uuid": uuid,
+                    "mapping_initiator": mapping_initiator
                 }]
             }
             return new Promise((resolve, reject) => {
@@ -321,6 +323,19 @@
             });    
         }
 
+
+        emailoffermapping = (emailaddress) =>{
+            let data = {
+                "email_address":emailaddress
+            }
+            return new Promise((resolve, reject) => {
+                let reqObject = this.stuffHeader(data, true);
+                reqObject.then((val)=> {
+                    resolve(val);
+                })
+                .catch(err => {reject(err)})
+            });  
+        }
 
         stuffHeader = (data, withAppId) =>{
             return new Promise((resolve, reject) => {

@@ -81,6 +81,10 @@ class Utilities {
             ((dimen.height === 812 || dimen.width === 812) || (dimen.height === 896 || dimen.width === 896))
         );
     }
+
+    static isValidEmail = (email) => {
+        return  /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email);
+      }
 }
 
 export default Utilities;

@@ -140,6 +140,7 @@ export default class AddActivityScreen extends Component {
 
 
   constructor(props) {
+    
     super(props);
     this.state = {
       region: this.props.route.params.region, valueArray: [], disabled: false, hideAddMore: true, hideConstrains: false,
@@ -148,7 +149,6 @@ export default class AddActivityScreen extends Component {
       title: "Need help with...", headerBgColor: "#4F5065", showModal: false, address: this.props.route.params.address,
       activity_type: this.props.route.params.activity_type, activity_category: this.props.route.params.activity_category
     }
-
     this.addNewElement = false;
     this.index = 0;
 

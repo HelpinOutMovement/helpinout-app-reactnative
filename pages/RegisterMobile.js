@@ -1,5 +1,6 @@
 import React ,{useState, useContext} from 'react';
-import { TextInput, View, Image, Text, TouchableOpacity, StyleSheet, Switch, ScrollView, Dimensions, Keyboard,  TouchableWithoutFeedback } from 'react-native';
+import { TextInput, View, Image,  TouchableOpacity, StyleSheet, Switch, ScrollView, Dimensions, Keyboard,  TouchableWithoutFeedback } from 'react-native';
+import { Container,  Content, Text, Header, Left, Right, Body, Title, Button, Icon } from "native-base";
 import AppStorage from '../storage/AppStorage';
 import AppConstant from '../misc/AppConstant';
 import AppStringContext from '../misc/AppStringContext';
@@ -18,10 +19,13 @@ import Toast from 'react-native-tiny-toast'
 import { KeyboardAwareView } from 'react-native-keyboard-aware-view'
 import { verticalScale, scale, moderateScale } from 'react-native-size-matters';
 
+import HeaderComponent from './components/HeaderComponent'
+
 export default class RegisterMobile extends React.Component {
     
    constructor(props) {
         super(props);
+        console.log("Reg props : "+ JSON.stringify(props))
         ///const { navigate } = this.props.navigation;
         this.navigate = this.props.navigation.navigate;
         this.state = {
@@ -52,7 +56,9 @@ export default class RegisterMobile extends React.Component {
    
     componentDidMount() {
         if(this.props.route.params.action === "update"){
+            console.log("Update");
             AppStorage.getAppInfo(AppConstant.APP_STORE_KEY.USER_REG_DETAILS).then((userDetails) => {
+                console.log("Reg props : "+userDetails);            
                 userDetails = JSON.parse(userDetails)
                 this.setState({
                     firstName: userDetails.user_detail.first_name,
@@ -194,7 +200,7 @@ export default class RegisterMobile extends React.Component {
                             AppStorage.storeAppInfo(AppConstant.IS_LOGGED_IN, "true");
                             AppStorage.storeAppInfo(AppConstant.APP_STORE_KEY.USER_REG_DETAILS, JSON.stringify(result.data)).then(() => {
                                 AppStorage.getAppInfo(AppConstant.APP_STORE_KEY.USER_REG_DETAILS).then((responseObj) => {
-                                    thisclass.navigate(AppConstant.APP_PAGE.DASHBOARD, {loginState: thisclass.state});                                    
+                                    thisclass.navigate(AppConstant.APP_PAGE.SIDE_DRAWER, {loginState: thisclass.state});                                    
                                 })
                             });
                           });                                        
@@ -227,7 +233,27 @@ export default class RegisterMobile extends React.Component {
 
     renderRegistrationScreen = () =>{          
         return (            
-            <View style={{ flexDirection: "column", padding: 10, flex: 1}}>
+            <View style={{ flexDirection: "column", padding: 0, flex: 1}}>
+                <Header style={{ backgroundColor: "#4F5065", height: 60, paddingBottom: 15 }}>
+                    <Left>
+                        <Button
+                        transparent
+                        onPress={() => { this.props.navigation.goBack()}}>
+                        <Icon name="ios-arrow-back" style={{ color: "#ffffff" }} />
+                        </Button>
+                    </Left>
+                    <Body>
+                        <Title style={{
+                        color: "#ffffff",
+                        fontFamily: "Roboto-Medium",
+                        width: 200,
+                        borderWidth: 0,
+                        fontSize: 18
+                        }}> {translate.t("update_profile")} </Title>
+                    </Body>
+                    <Right >                                
+                    </Right>
+                </Header>                          
                 <LogoComponent />
                 <TouchableWithoutFeedback onPress={() => {Keyboard.dismiss()}}>
                     <Text style={commonStyling.appLabelInout}>{translate.t('label_register')}</Text>
@@ -314,7 +340,7 @@ export default class RegisterMobile extends React.Component {
                                         shadowOffset: { height: 3 },
                                         shadowColor: '#2328321F',}} 
                                         onPress={() =>{this.submit()}}>
-                                            <Text style={{borderRadius: 9, textAlign: "center",fontFamily: "Roboto-Medium",fontSize: 20,color: "#FFFFFF"}}>{translate.t("label_start")}</Text>
+                                            <Text style={{borderRadius: 9, textAlign: "center",fontFamily: "Roboto-Medium",fontSize: 20,color: "#FFFFFF"}}>{(this.props.route.params.action === "update") ? translate.t("update_profile") : translate.t("label_start")}</Text>
                             </TouchableOpacity>
                         </View>
                             }

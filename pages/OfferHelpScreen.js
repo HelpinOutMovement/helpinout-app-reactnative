@@ -8,7 +8,7 @@ import AppConstant from '../misc/AppConstant';
 import StaticImage from '../styling/StaticImage';
 import CardComponent from './components/CardComponent';
 import HeaderComponent from './components/HeaderComponent';
-import AddActivityScreen from './components/AddActivityScreen';
+
 
 import API from "../APIClient/API";
 
@@ -91,7 +91,8 @@ function OfferHelpScreen(props) {
             optionImage: optionImage,
             region:props.route.params.region,
             address:props.route.params.address,
-            self_else:props.route.params.self_else 
+            activity_category:optionCode, 
+            self_else:props.route.params.self_else, 
         })
     }
 
@@ -126,8 +127,7 @@ function OfferHelpScreen(props) {
                 <Grid>
                     {getHelpOptionsView()}
                 </Grid>
-
-            </Content>
+            </Content>    
         </Container>
     );
 }
@@ -139,6 +139,7 @@ const onOfferHelpSelection = (optionCode, optionImage, props) => {
         optionCode: optionCode,
         optionImage: optionImage,
         region:props.route.params.region,
+        activity_category:optionCode, 
         address:props.route.params.address
     })
 }
