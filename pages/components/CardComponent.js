@@ -12,6 +12,8 @@ import { appLabelKey } from '../../misc/AppStrings';
 import { App } from 'react-native-firebase';
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
+import call from 'react-native-phone-call'
+
 const CardComponent = (props) => {
   if (props.singleRow) {
     return (
@@ -110,7 +112,7 @@ const CardComponent = (props) => {
 
 
 const RequesterInfoCardComponent = (props) => {
-
+  JSON.stringify("RequesterInfoCardComponent")
   const getCallerView = () => {
     const callerView = [];
     if (props.primayInfo && props.primayInfo.mobile_no_visibility && props.primayInfo.mobile_no_visibility == 1) {
@@ -119,7 +121,8 @@ const RequesterInfoCardComponent = (props) => {
         <TouchableOpacity
           style={{ alignSelf: "center", alignItems: "center" }}
           onPress={() => {
-            dialCall(props.primayInfo.country_code+""+props.primayInfo.mobile_no)
+            //dialCall(props.primayInfo.country_code+""+props.primayInfo.mobile_no)
+            makeCall(props.primayInfo.country_code+""+props.primayInfo.mobile_no)
           }}>
           <MaterialIcon name="call" style={{
             fontSize: 17
@@ -133,6 +136,16 @@ const RequesterInfoCardComponent = (props) => {
     return callerView;
 
   }
+
+  makeCall = (number) => {
+    const args = {
+        number: number, // String value with the number to call
+        prompt: true // Optional boolean property. Determines if the user should be prompt prior to the call 
+    }
+   call(args).catch(console.error)
+}
+
+
   const dialCall = (number) => {
     if( props.clickHandler){
       props.clickHandler(props, AppConstant.APP_ACTION.CALL_THEM); 
@@ -140,13 +153,25 @@ const RequesterInfoCardComponent = (props) => {
     let phoneNumber = '';
     if (Platform.OS === 'android') { phoneNumber = `tel:${number}`; }
     else { phoneNumber = `telprompt:${number}`; }
-    Linking.openURL(phoneNumber);
+    //Linking.openURL(phoneNumber);
+
+      const url = 'tel:+16505555555';
+      console.log("Calling Phone URL " + url)
+      Linking.canOpenURL(url)
+        .then((supported) => {
+          console.log("Calling is Supported " + supported)
+          if (supported) {
+            return Linking.openURL(url)
+              .catch((e) => {console.log(JSON.stringify(e))});
+          }
+        });
   };
 
 
 
 
   return (
+    
     <Card style={{
       alignItems: "center",
       borderBottomWidth: 1
@@ -193,7 +218,8 @@ const RequesterInfoCardComponent = (props) => {
                 fontFamily: "Roboto-Regular",
                 fontSize: 14,
                 color: "#4F5065B8"
-              }}> {translate.t("request_call_him")}</Text>
+              }}> {translate.t("request_call_him") }</Text>
+              {console.log(JSON.stringify(props))}
               <Text style={{ fontSize: 17 }}>{props.callerInfo}</Text>
             </View>
           </View>

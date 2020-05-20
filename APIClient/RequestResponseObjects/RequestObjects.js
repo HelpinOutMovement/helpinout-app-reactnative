@@ -304,12 +304,12 @@
             };
             
             if(mapping_initiator === 1) {
-                data['offerer'] =[{
+                data['requester'] =[{
                     "activity_uuid": uuid,
                     "mapping_initiator": mapping_initiator
                 }]
             } else if(mapping_initiator === 2) {
-                data['requester'] = [{
+                data['offerer'] = [{
                     "activity_uuid": uuid,
                     "mapping_initiator": mapping_initiator
                 }]

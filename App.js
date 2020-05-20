@@ -27,7 +27,6 @@ import AppStorage from './storage/AppStorage';
 import AppConstant from './misc/AppConstant';
 import MyDrawer from './pages/SideDrawer';
 import AskForHelpScreen from './pages/AskForHelp';
-//import Dashboard from './pages/Dashboard';
 import OfferHelpScreen from './pages/OfferHelpScreen';
 import MyOfferScreen from './pages/MyOfferScreen';
 import MyRequestScreen from './pages/MyRequestScreen';
@@ -35,7 +34,6 @@ import MyRequestSentRequestScreen from './pages/MyRequestScreen.SentRequest';
 import MyOfferSentOfferScreen from './pages/MyOfferScreen.SentOffer';
 import VerifyScreen from './pages/VerifyScreen';
 import AddActivityScreen from './pages/components/AddActivityScreen';
-import SearchHelpProvidersRequesters from './pages/SearchHelpProvidersRequesters';
 
 import Home from './pages/Home'
 
@@ -243,7 +241,6 @@ function App() {
             <Stack.Screen key={`a_${AppConstant.APP_PAGE.MY_OFFER_SENT_OFFER_SCREEN}`} name={AppConstant.APP_PAGE.MY_OFFER_SENT_OFFER_SCREEN} component={MyOfferSentOfferScreen} />
             <Stack.Screen key={`a_${AppConstant.APP_PAGE.MY_OFFERS_SCREEN}`} name={AppConstant.APP_PAGE.MY_OFFERS_SCREEN} component={MyOfferScreen} />
             <Stack.Screen key={`a_${AppConstant.APP_PAGE.ADD_ACTIVITY_SCREEN}`} name={AppConstant.APP_PAGE.ADD_ACTIVITY_SCREEN} component={AddActivityScreen} />
-            <Stack.Screen key={`a_${AppConstant.APP_PAGE.SEARCH_HELP_PROVIDERS_REQUESTERS}`} name={AppConstant.APP_PAGE.SEARCH_HELP_PROVIDERS_REQUESTERS} component={SearchHelpProvidersRequesters}/>
             <Stack.Screen key={`a_${AppConstant.APP_PAGE.SIDE_DRAWER}`} name={AppConstant.APP_PAGE.SIDE_DRAWER} component={MyDrawer} />
             <Stack.Screen key={`a_${AppConstant.APP_PAGE.SEARCH_HELP_GIVERS_SEEKERS}`} name={AppConstant.APP_PAGE.SEARCH_HELP_GIVERS_SEEKERS} component={SearchHelpGiversSeekers} />
 

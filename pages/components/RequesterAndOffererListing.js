@@ -13,6 +13,9 @@ import { verticalScale } from 'react-native-size-matters';
 
 
 const RequesterAndOffererListing = (props) => {
+
+    //console.log("RequesterAndOffererListing : "+ JSON.stringify(props))
+
     const [showModal, setShowModal] = useState(false);
     const [modalInfo, setModalInfo] = useState({});
     const [showSpinner, setShowSpinner] = useState(false);
@@ -93,7 +96,8 @@ const RequesterAndOffererListing = (props) => {
                     ele[props.inputMappingObject].activity_uuid : '';
                 apiInstance.mappingCall(
                     rootActivityUUID,
-                    props.mappingIndicator,
+                    //props.mappingIndicator,
+                    props.route.params.request.activity_type,
                     mapping_initiator,
                     uuid);
                 break;

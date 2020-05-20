@@ -13,12 +13,10 @@ import commonStyling from '../styling/commonStyle';
 
 import Home from './Home'
 
-import SearchHelpGiversSeekers from './SearchHelpGiversSeekers'
 
 //import Dashboard from './Dashboard';
 
 import LogoComponent from './components/LogoComponent';
-import SearchHelpProvidersRequesters from './SearchHelpProvidersRequesters'
 
 import myRequests from './MyRequestScreen'
 import myOffers from './MyOfferScreen'

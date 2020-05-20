@@ -54,6 +54,8 @@
 		<string>com.google.gppconsent.2.4.0</string>
 		<string>googlechrome</string>
 		<string>googlechrome-x-callback</string>
+		<string>tel</string>
+		<string>telprompt</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
