@@ -139,7 +139,7 @@ export default class RegisterMobile extends React.Component {
                     userProfileDetails.user_detail.org_name = this.state.organisationName
                     userProfileDetails.user_detail.org_type = this.state.organisationType
                     userProfileDetails.user_detail.org_division =  this.state.organisationUnit
-    
+                    AppStorage.storeAppInfo(AppConstant.IS_LOGGED_IN, "true");
                     AppStorage.storeAppInfo(AppConstant.APP_STORE_KEY.USER_REG_DETAILS, JSON.stringify(userProfileDetails)).then(() => {
                         thisclass.navigate(AppConstant.APP_PAGE.SIDE_DRAWER, {tik:new Date()})
                     })

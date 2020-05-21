@@ -111,10 +111,10 @@ function App() {
           ////setAppState(AppConstant.APP_STATE.IS_NOT_AUTENTICATED);
           AppStorage.getAppInfo(AppConstant.IS_VEFIRIED)
           .then((resp) => {
-            console.log("resp : " + resp)
+            ///console.log("resp : " + resp)
             if (resp === "true") {
               AppStorage.getAppInfo(AppConstant.IS_LOGGED_IN).then((resp1) => {        
-                console.log("resp1 : " + resp1)
+                ///console.log("resp1 : " + resp1)
                 if (resp1 === "true") {
                   setAppState(AppConstant.APP_STATE.IS_AUTHENTICATED);
                 }else{

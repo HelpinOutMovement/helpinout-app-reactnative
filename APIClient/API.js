@@ -279,10 +279,10 @@ class API{
     }
 
 
-    activityMapping = (activity_type, activity_uuid, offerer, requester) =>{
+    activityMapping = (activity_type, activity_uuid, all_requester, geo_location, radius, offerer, requester) =>{
         return new Promise((resolve, reject) => {
             let  requestObjects = new RequestObjects();
-            reqObj = requestObjects.activityMapping(activity_type, activity_uuid, offerer, requester);
+            reqObj = requestObjects.activityMapping(activity_type, activity_uuid, all_requester, geo_location, radius, offerer, requester);
             reqObj.then((val)=> {
 
                 let apicall = 'activity/mapping';

@@ -59,7 +59,6 @@ function SearchHelpGiversSeekers(props) {
 
     useEffect(()=>{
         const lanlonReference = getRouteParams('latlon', props.route);
-        console.log(lanlonReference)
         setLatLonRef(lanlonReference);
         setState({
             region: getRouteParams('region', props.route),
@@ -77,7 +76,8 @@ function SearchHelpGiversSeekers(props) {
             bottom_panel_icon: "ios-arrow-dropdown",
             mapHeight: verticalScale(340),
             bottom_panel_bottom: height / 2,
-            latlon: getRouteParams('latlon', props.route)
+            latlon: getRouteParams('latlon', props.route),
+            selectall:false
         });
     },[props.route.params.latlon])
 
@@ -160,12 +160,11 @@ function SearchHelpGiversSeekers(props) {
 
 
     const callbackOnRegionChange = (region, address, distance) => {
-
         state["region"] = region;
         state["address"] = address;
         state["distance"] = distance;
         setState({ ...state});
-            getActivitySuggestions(region, address, distance)                
+        getActivitySuggestions(region, address, distance)                
     }
 
 
@@ -201,9 +200,8 @@ function SearchHelpGiversSeekers(props) {
             :
             offerer = state.activity_data
 
-
         let restApi = new API();
-        let reqObj = restApi.activityMapping(state.activity_type, state.activity_uuid, offerer, requester)
+        let reqObj = restApi.activityMapping(state.activity_type, state.activity_uuid, state.selectall, state.region.latitude+","+state.region.longitude, state.distance,  offerer, requester)
         reqObj.then((response) => {
             if (response.status === "1") {
                 if (state.activity_type === 1) {
@@ -215,7 +213,7 @@ function SearchHelpGiversSeekers(props) {
 
             }
         }).catch((err) => { console.log(err) })
-
+        
     }
 
 
@@ -236,7 +234,8 @@ function SearchHelpGiversSeekers(props) {
             bottom_panel_icon: "ios-arrow-dropdown",
             mapHeight: verticalScale(340),
             bottom_panel_bottom: height / 2,
-            latlon: getRouteParams('latlon', props.route)
+            latlon: getRouteParams('latlon', props.route),
+            selectall:false
         })
     }, []);
 

@@ -169,12 +169,22 @@
         }
 
 
-        activityMapping = (activity_type, activity_uuid, offerer, requester) =>{
+        activityMapping = (activity_type, activity_uuid, all_requester, geo_location, radius, offerer, requester) =>{
             let data = {
                 "activity_type": activity_type, 
                 "activity_uuid": activity_uuid, 
                 "offerer": offerer, 
                 "requester": requester
+            }
+
+            if(all_requester){
+                data = {
+                    "activity_type": activity_type, 
+                    "activity_uuid": activity_uuid, 
+                    "all_requester":1,
+                    "geo_location": geo_location, 
+                    "radius": radius
+                }
             }
             return new Promise((resolve, reject) => {
                 let reqObject = this.stuffHeader(data, true);

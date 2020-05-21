@@ -10,7 +10,7 @@ class UserContextProvider extends React.Component {
     // Method to update state
     setLatLon = (latlon) => {
       this.setState({ latlon: latlon }, () =>{
-        console.log(this.state.latlon)
+        //console.log(this.state.latlon)
       })
     }
 
@@ -22,7 +22,7 @@ class UserContextProvider extends React.Component {
     // Method to update state
     setRegion = (region) => {
       this.setState({ region: region }, () =>{
-        console.log(this.state.region)
+        //console.log(this.state.region)
       })
     }
 
