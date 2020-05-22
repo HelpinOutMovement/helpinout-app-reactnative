@@ -104,6 +104,7 @@ const getOfferList = (props, compareWith) => {
             }
         })
     }
+    console.log("finalOfferList : " + JSON.stringify(finalOfferList))
     return finalOfferList;
 }
 

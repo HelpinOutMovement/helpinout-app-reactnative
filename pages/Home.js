@@ -26,6 +26,9 @@ import { verticalScale, scale, moderateScale } from 'react-native-size-matters';
 
 import Modal from 'react-native-modal';
 
+import SpinnerComponent from './components/SpinnerComponent';
+
+
 const { width, height } = Dimensions.get('window');
 const ASPECT_RATIO = width / height;
 const LATITUDE_DELTA = (Platform.OS === global.platformIOS ? 1.5 : 0.5);
@@ -46,6 +49,8 @@ function Home(props) {
 
     //let tik = (props.route.params["tik"]) ? props.route.params.tik : 0;
     const { latlon , setLatLon, setRegion} = useContext(UserContext);
+
+    const [showSpinner, setShowSpinner] = useState(false);
 
     const [state, setState] = useState({ 
       hintIsHidden: false, 
@@ -69,19 +74,14 @@ function Home(props) {
 
       useEffect(() => {
         console.log("Home")
-
+        setShowSpinner(true)
         apiInstance.userPastActivity(0).then(resp => {
           if(resp.data.requests.length > 0){
-            console.log("requests")
             resp.data.requests.map((request) =>{
-              console.log(request.activity_uuid)
-              console.log("request mapping")
               if(request.mapping){
-                console.log(request.mapping.length)
                 let max_mapping_time = new Date(Math.max.apply(null, request.mapping.map(function(e) {
                   var mapping_time = e.mapping_time.replaceAll("-", "/")
-                  var mapping_date_time = new Date(Date.parse(mapping_time));
-                  console.log(mapping_date_time)
+                  //var mapping_date_time = new Date(Date.parse(mapping_time));
                   return new Date(mapping_time);
                 })));
                 console.log(max_mapping_time)
@@ -92,16 +92,11 @@ function Home(props) {
           }
 
           if(resp.data.offers.length > 0){
-            console.log("offers")
             resp.data.offers.map((offer) =>{
-              console.log(offer.activity_uuid)
-              console.log("offer mapping")
               if(offer.mapping){
-                console.log(offer.mapping.length)
                 let max_mapping_time = new Date(Math.max.apply(null, offer.mapping.map(function(e) {
                   var mapping_time = e.mapping_time.replaceAll("-", "/")
-                  var mapping_date_time = new Date(Date.parse(mapping_time));
-                  console.log(mapping_date_time)
+                  //var mapping_date_time = new Date(Date.parse(mapping_time));
                   return new Date(mapping_time);
                 })));
                 console.log(max_mapping_time)
@@ -110,8 +105,8 @@ function Home(props) {
               }
             })
           }
-          //setShowSpinner(false);
-          //setRequestInformation(resp.data.offers);
+          setShowSpinner(false);
+          
         }).catch((e) => {
           //setShowSpinner(false);
           //setRequestInformation([]);
@@ -166,9 +161,11 @@ function Home(props) {
       
     const getLocationSuggestions = (region, address, distance) => {    
       console.log("getLocationSuggestions") 
+      setShowSpinner(true)
       reqObj = apiInstance.locationSuggestion(region.latitude, region.longitude, "10.424", distance / 2);
       reqObj.then((val) => {
         setState({ ...state,requestMatchCount:val.data.my_requests_match,offerMatchCount:val.data.my_offers_match})
+        setShowSpinner(false)
       }).catch(err => {
         if (err.response.status === 409) {
           Toast.show('appid expired : ', { duration: 2000, position: 0, animation: true, shadow: true, animationDuration: 1000 })
@@ -408,7 +405,7 @@ function Home(props) {
                 </View>
              </View>
         </Modal>
-
+        {showSpinner && (<SpinnerComponent />)}                      
       </Container>
 
     );
