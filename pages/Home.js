@@ -12,6 +12,8 @@ import AskForHelpButton from "./components/AskForHelpButton";
 import OfferHelpButton from "./components/OfferHelpButton";
 import HView from "./components/HView"
 import API from "../APIClient/API";
+import { apiInstance } from "../APIClient/API";
+
 import Utils from "../misc/Utils"
 import FooterTabComponent from './components/FooterTabComponent';
 
@@ -66,6 +68,55 @@ function Home(props) {
     });
 
       useEffect(() => {
+        console.log("Home")
+
+        apiInstance.userPastActivity(0).then(resp => {
+          if(resp.data.requests.length > 0){
+            console.log("requests")
+            resp.data.requests.map((request) =>{
+              console.log(request.activity_uuid)
+              console.log("request mapping")
+              if(request.mapping){
+                console.log(request.mapping.length)
+                let max_mapping_time = new Date(Math.max.apply(null, request.mapping.map(function(e) {
+                  var mapping_time = e.mapping_time.replaceAll("-", "/")
+                  var mapping_date_time = new Date(Date.parse(mapping_time));
+                  console.log(mapping_date_time)
+                  return new Date(mapping_time);
+                })));
+                console.log(max_mapping_time)
+              }else{
+                console.log(0)
+              }
+            })
+          }
+
+          if(resp.data.offers.length > 0){
+            console.log("offers")
+            resp.data.offers.map((offer) =>{
+              console.log(offer.activity_uuid)
+              console.log("offer mapping")
+              if(offer.mapping){
+                console.log(offer.mapping.length)
+                let max_mapping_time = new Date(Math.max.apply(null, offer.mapping.map(function(e) {
+                  var mapping_time = e.mapping_time.replaceAll("-", "/")
+                  var mapping_date_time = new Date(Date.parse(mapping_time));
+                  console.log(mapping_date_time)
+                  return new Date(mapping_time);
+                })));
+                console.log(max_mapping_time)
+              }else{
+                console.log(0)
+              }
+            })
+          }
+          //setShowSpinner(false);
+          //setRequestInformation(resp.data.offers);
+        }).catch((e) => {
+          //setShowSpinner(false);
+          //setRequestInformation([]);
+        })
+
         setState({
           hintIsHidden: false, 
           userDetails: {}, 
@@ -102,20 +153,31 @@ function Home(props) {
       
       
     const callbackOnRegionChange = (region, address, distance) => {
+      console.log("callbackOnRegionChange")
       state["region"] = region;
       state["address"] = address;
       state["latlon"] =  region.latitude + "," + region.longitude;
       setLatLon(region.latitude + "," + region.longitude)
       setRegion(region)
       setState({ ...state})
+      getLocationSuggestions(region, address, distance)
     }
       
       
-      
-    const setLanLon1 = (lat, lon) => {
-          setState({ ...state, region: { latitude: lat, longitude: lon, latitudeDelta: LATITUDE_DELTA, longitudeDelta: LONGITUDE_DELTA } });
+    const getLocationSuggestions = (region, address, distance) => {    
+      console.log("getLocationSuggestions") 
+      reqObj = apiInstance.locationSuggestion(region.latitude, region.longitude, "10.424", distance / 2);
+      reqObj.then((val) => {
+        setState({ ...state,requestMatchCount:val.data.my_requests_match,offerMatchCount:val.data.my_offers_match})
+      }).catch(err => {
+        if (err.response.status === 409) {
+          Toast.show('appid expired : ', { duration: 2000, position: 0, animation: true, shadow: true, animationDuration: 1000 })
+          appStorage.storeAppInfo(AppConstant.APP_STORE_KEY.IS_VEFIRIED, "false");
+          navigation.navigate(AppConstant.APP_PAGE.LOGIN);
         }
-
+      })
+    }
+  
 
     return (
 

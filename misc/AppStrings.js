@@ -50,6 +50,7 @@ const appLabelKey = {
     medicines:"medicines",
     ambulance:"ambulance",
     medical_Equipment:"medical_equipment",
+    med_equipment:"medical_equipment",
     other:"other_things",
     need_help_with:"toolbar_need_help_with",
     qty:"Qty",
