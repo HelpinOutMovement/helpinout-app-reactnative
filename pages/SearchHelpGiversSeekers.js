@@ -386,7 +386,7 @@ function SearchHelpGiversSeekers(props) {
                                 })}
 
                             </ScrollView>
-                            <Text style={{ height: verticalScale(50), textAlign: "center", paddingLeft: moderateScale(15), paddingRight: moderateScale(15), paddingTop: moderateScale(10), color: "grey" }}>
+                            <Text adjustsFontSizeToFit={true} minimumFontScale={1} numberOfLines={3} style={{ height: verticalScale(50), textAlign: "center", paddingLeft: moderateScale(15), paddingRight: moderateScale(15), paddingTop: moderateScale(10), color: "grey" }}>
                                 {(state.activity_type === 1) ? translate.t("phone_number_will_be_send_to_provider") : translate.t("phone_number_will_be_send_to_requester")}
                             </Text>
                             <View style={styles.buttonContainer}>
@@ -401,7 +401,7 @@ function SearchHelpGiversSeekers(props) {
                         <HView hide={!state.bottom_panel_visible} style={{ position: "absolute", bottom: verticalScale(10), height: verticalScale(340), justifyContent: "center", alignItems: 'center', width: scale(340) }}>
 
                             <View style={{ height: verticalScale(250), borderWidth: 0, marginTop: moderateScale(30) }}>
-                                <Text>
+                                <Text adjustsFontSizeToFit={true} minimumFontScale={1} numberOfLines={5} style={{textAlign:"center"}}>
                                     {translate.t("no_help_requeter")}
                                 </Text>
                             </View>

@@ -248,7 +248,7 @@ function Home(props) {
                     borderTopLeftRadius: 4,
                 }}>
                     <View style={{ color: 'black', overflow:"hidden", width: state.requestAlert.width,  height: verticalScale(15),}}>
-                        <Text adjustsFontSizeToFit={true} minimumFontScale={.01}  style={{ color: 'red', overflow:"hidden", paddingLeft:scale(10)}}>{state.requestMatchCount} help givers match your requests</Text>
+                        <Text adjustsFontSizeToFit={true} minimumFontScale={.01}  numberOfLines={1} style={{ color: 'red', overflow:"hidden", paddingLeft:scale(10)}}>{state.requestMatchCount} help givers match your requests</Text>
                     </View>
                     
                 </TouchableOpacity>
@@ -293,7 +293,7 @@ function Home(props) {
                     borderTopLeftRadius: 4,
                 }}>
                     <View style={{ color: 'black', overflow:"hidden", width: state.offerAlert.width,  height: verticalScale(15),}}>
-                        <Text adjustsFontSizeToFit={true} minimumFontScale={.05}  style={{ color: 'black', overflow:"hidden", paddingLeft:scale(10)}}>{state.offerMatchCount} help seekers match your offers</Text>
+                        <Text adjustsFontSizeToFit={true} minimumFontScale={.05}  numberOfLines={1} style={{ color: 'black', overflow:"hidden", paddingLeft:scale(10)}}>{state.offerMatchCount} help seekers match your offers</Text>
                     </View>
                     
                 </TouchableOpacity>
@@ -326,7 +326,7 @@ function Home(props) {
                   <View style={{ position: "absolute", left: 0, top: 0, width: scale(350), alignItems: "center", marginVertical:10, backgroundColor: "#FFFFFF" }}>
                     <View style={{backgroundColor: "#FFFFFF", height:verticalScale(20),width: scale(330)}}>
                         <View style={{backgroundColor: "#FFFFFF", height:verticalScale(20),}}>
-                          <Text adjustsFontSizeToFit={true} minimumFontScale={.01} style={{textAlign:"center", color:"grey"}}>
+                          <Text adjustsFontSizeToFit={true} minimumFontScale={.01} numberOfLines={2} style={{textAlign:"center", color:"grey", fontSize:12, paddingTop:5}}>
                             {translate.t("identify_location")}
                           </Text>
                         </View>
