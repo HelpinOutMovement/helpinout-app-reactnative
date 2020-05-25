@@ -23,6 +23,8 @@ function MyOfferSentOfferScreen(props) {
         screenTitle = translate.t("offer_send_to");
         mappingIndicator = AppConstant.APP_MAPPING_INDICATOR.OFFERER;
     }
+    console.log("requestParams" + JSON.stringify(requestParams))
+    console.log("createdIdParams" + JSON.stringify(createdIdParams))
     return (
         <RequesterAndOffererListing {...props} 
                     requestParams={requestParams}

@@ -166,8 +166,9 @@ function Home(props) {
             ShowSearchModal:false, 
             mapLatLon:props.route.params.latlon
           })
-
-          mapComponentRef.current.setLanLon(props.route.params.latlon.split(",")[0], props.route.params.latlon.split(",")[1])
+          if(props.route && props.route.params && props.route.params.latlon){
+            mapComponentRef.current.setLanLon(props.route.params.latlon.split(",")[0], props.route.params.latlon.split(",")[1])
+          }          
         }        
       }, [props.route.params]);
 
@@ -342,7 +343,7 @@ function Home(props) {
                       <TouchableOpacity style={styles(dimensions).AskForHelp} onPress={() => {setState({ ...state,ShowAskForHelpModal:true})}}>
                         <AskForHelpButton />
                       </TouchableOpacity>
-                      <TouchableOpacity style={styles(dimensions).OfferHelp} onPress={() => navigation.navigate(AppConstant.APP_PAGE.OFFER_HELP_SCREEN, { region: state.region, address: state.address, self_else:0, latlon:state.latlon })}>
+                      <TouchableOpacity style={styles(dimensions).OfferHelp} onPress={() => navigation.navigate(AppConstant.APP_PAGE.OFFER_HELP_SCREEN, { region: state.region, address: state.address, self_else:0, latlon:state.region.latitude+","+state.region.longitude })}>
                         <OfferHelpButton />
                       </TouchableOpacity>
                     </View>

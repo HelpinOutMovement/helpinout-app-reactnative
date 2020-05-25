@@ -23,7 +23,11 @@ const RequesterAndOffererListing = (props) => {
     
     // set the content
     useEffect(() => {
-       if (props.createdIdParams && props.createdIdParams.activity_uuid) {
+        if (props.requestParams && props.requestParams.mapping && props.requestParams.mapping.length) {
+            console.log("in 1")
+            setMappedRequestEntity(props.requestParams.mapping);
+        }else  {
+            console.log("in 2")
             // work-around for now
             apiInstance.userPastActivity(props.createdIdParams.activity_type).then(resp => {
                 setShowSpinner(false);
@@ -42,9 +46,7 @@ const RequesterAndOffererListing = (props) => {
                 setShowSpinner(false);
                 setMappedRequestEntity([]);
             })
-        } else if (props.requestParams && props.requestParams.mapping && props.requestParams.mapping.length) {
-            setMappedRequestEntity(props.requestParams.mapping);
-        }  
+        }
 
     }, [])
     const closePopUp = () => {
@@ -112,7 +114,7 @@ const RequesterAndOffererListing = (props) => {
         const mappedRequestView = [];
         if (mappedRequestEntity.length > 0) {
             mappedRequestEntity.forEach((singleMapping) => {
-                if (singleMapping.mapping_initiator === props.mappingIndicator) {
+                //if (singleMapping.mapping_initiator === props.mappingIndicator) {
                     mappedRequestView.push(
                         <RequesterInfoCardComponent
                             name={singleMapping[props.inputMappingObject].user_detail.first_name + " " + singleMapping[props.inputMappingObject].user_detail.last_name}
@@ -120,7 +122,7 @@ const RequesterAndOffererListing = (props) => {
                             dateTime={singleMapping[props.inputMappingObject].date_time}
                             clickHandler={primaryActionHandler}
                             {...singleMapping} />)
-                }
+                //}
             });
         }
 

@@ -5,7 +5,6 @@ import AppConstant from '../../misc/AppConstant';
 
 
 const HeaderComponent = (props) => {
-  console.log(" HeaderComponent props  " + JSON.stringify(props))
   // backgroundColor:props.bgColor? props.bgColor: ""
   return (
     <Header style={{ backgroundColor: props.bgColor ? props.bgColor : "#EE6B6B", height: 60, paddingBottom: 15 }}>
@@ -14,12 +13,14 @@ const HeaderComponent = (props) => {
           transparent
           onPress={() => { 
             if (!props.navigationHandler) { 
-              if(props.route.params.request.activity_type === 1){
+              if(props.route && props.route.params && props.route.params.request && props.route.params.request.activity_type && props.route.params.request.activity_type === 1){
                 props.navigation.navigate(AppConstant.APP_PAGE.MY_REQUEST_SCREEN)
-              }else{
+              }else if(props.route && props.route.params && props.route.params.request && props.route.params.request.activity_type && props.route.params.request.activity_type === 2){
                 props.navigation.navigate(AppConstant.APP_PAGE.MY_OFFERS_SCREEN)
+              }else{
+                props.navigation.goBack() 
               }
-              //props.navigation.goBack() 
+              
             }else {
               props.navigationHandler() 
             } }}>

@@ -22,6 +22,8 @@ function MyRequestSentRequestScreen(props) {
         screenTitle = translate.t("help_offers_received_from");
         mappingIndicator = AppConstant.APP_MAPPING_INDICATOR.OFFERER;
     }
+   console.log("requestParams" + JSON.stringify(requestParams))
+   console.log("createdIdParams" + JSON.stringify(createdIdParams))
     return (
         <RequesterAndOffererListing {...props} 
                     requestParams={requestParams}
