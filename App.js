@@ -37,6 +37,8 @@ import AddActivityScreen from './pages/components/AddActivityScreen';
 
 import Home from './pages/Home'
 
+import router from './pages/router'
+
 import Toast from 'react-native-tiny-toast'
 //import RNRestart from 'react-native-restart'; // Import package from node modules
 
@@ -191,6 +193,7 @@ function App() {
             <Stack.Screen key={`a_${AppConstant.APP_PAGE.MY_REQUEST_SCREEN}`} name={AppConstant.APP_PAGE.MY_REQUEST_SCREEN} component={MyRequestScreen} />
             <Stack.Screen key={`a_${AppConstant.APP_PAGE.MY_OFFERS_SCREEN}`} name={AppConstant.APP_PAGE.MY_OFFERS_SCREEN} component={MyOfferScreen} />
             */}
+
             <Stack.Screen key={`a_${AppConstant.APP_PAGE.SIDE_DRAWER}`} name={AppConstant.APP_PAGE.SIDE_DRAWER} component={MyDrawer} />
 
             <Stack.Screen key={`a_${AppConstant.APP_PAGE.LOGIN}`} name={AppConstant.APP_PAGE.LOGIN} component={LoginScreen} />
@@ -213,6 +216,7 @@ function App() {
 
             <Stack.Screen key={`a_${AppConstant.APP_PAGE.ADD_ACTIVITY_SCREEN}`} name={AppConstant.APP_PAGE.ADD_ACTIVITY_SCREEN} component={AddActivityScreen} />
             
+            <Stack.Screen key={`a_${AppConstant.APP_PAGE.ROUTER}`} name={AppConstant.APP_PAGE.ROUTER} component={router} />
 
 
             {/*          <Stack.Screen key= 'n_login' name="Login" component={LoginScreen} />

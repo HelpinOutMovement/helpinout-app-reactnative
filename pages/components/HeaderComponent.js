@@ -1,9 +1,11 @@
 import React from 'react';
 import { Header, Left, Body, Right, Icon, Button, Title } from 'native-base';
 import commonStyling from '../../styling/commonStyle';
+import AppConstant from '../../misc/AppConstant';
 
 
 const HeaderComponent = (props) => {
+  console.log(" HeaderComponent props  " + JSON.stringify(props))
   // backgroundColor:props.bgColor? props.bgColor: ""
   return (
     <Header style={{ backgroundColor: props.bgColor ? props.bgColor : "#EE6B6B", height: 60, paddingBottom: 15 }}>
@@ -12,7 +14,12 @@ const HeaderComponent = (props) => {
           transparent
           onPress={() => { 
             if (!props.navigationHandler) { 
-              props.navigation.goBack() 
+              if(props.route.params.request.activity_type === 1){
+                props.navigation.navigate(AppConstant.APP_PAGE.MY_REQUEST_SCREEN)
+              }else{
+                props.navigation.navigate(AppConstant.APP_PAGE.MY_OFFERS_SCREEN)
+              }
+              //props.navigation.goBack() 
             }else {
               props.navigationHandler() 
             } }}>

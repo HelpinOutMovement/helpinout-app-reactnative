@@ -47,7 +47,9 @@ import Geocoder from 'react-native-geocoder';
 Geocoder.fallbackToGoogle("AIzaSyDgaOp_orkTcVpcH6NfNE3XtOH6tdiXlsg");
 
 class MapComponent extends React.Component {
+
   constructor(props) {
+   // console.log(props)
     super(props);
     //Geocoder.init("AIzaSyDgaOp_orkTcVpcH6NfNE3XtOH6tdiXlsg");
     this.navigate = this.props.mapProps.navigation.navigate;
@@ -72,6 +74,13 @@ class MapComponent extends React.Component {
 
   }
 
+  /*
+
+  componentWillReceiveProps = (nextProps) => {
+    console.log(" In componentWillReceiveProps")
+    this.setState({ region:{latitude: nextProps.mapLatLon.split(",")[0], longitude:nextProps.mapLatLon.split(",")[1], latitudeDelta: LATITUDE_DELTA, longitudeDelta: LONGITUDE_DELTA} });  
+  }
+*/
 
 
 

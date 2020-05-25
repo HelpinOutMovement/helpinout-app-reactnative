@@ -252,6 +252,8 @@ function SearchHelpGiversSeekers(props) {
             </MapComponent>)
         }
     }
+
+    
     const renderScreen = () => {
         var latlonval = "";
         if (state.region) {

@@ -1,5 +1,5 @@
 
-import React, { useContext, useState,  useEffect } from 'react';
+import React, { useContext, useState,  useEffect, useRef } from 'react';
 import { StatusBar, StyleSheet, View, Dimensions, TouchableOpacity, SafeAreaView } from "react-native";
 import { Container, Header, Footer, FooterTab, Title, Left, Icon, Right, Button, Body, Content, Text, Card, CardItem } from "native-base";
 import UserContext from '../misc/UserContext';
@@ -44,7 +44,10 @@ import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplet
 
 
 function Home(props) {
-    let mapComponentRef = React.createRef();
+
+
+    console.log(JSON.stringify(props))
+    let mapComponentRef = useRef();
     let navigation = props.navigation;
 
     //let tik = (props.route.params["tik"]) ? props.route.params.tik : 0;
@@ -69,7 +72,9 @@ function Home(props) {
             left: scale(330),
             expanded: false,
             },
-          ShowAskForHelpModal:false
+          ShowAskForHelpModal:false, 
+          ShowSearchModal:false, 
+          mapLatLon:""
     });
 
       useEffect(() => {
@@ -129,10 +134,42 @@ function Home(props) {
             left: scale(330),
             expanded: false,
             },
-          ShowAskForHelpModal:false
+          ShowAskForHelpModal:false,
+          ShowSearchModal:false, 
+          mapLatLon:""
         })
       }, []);
 
+      
+      useEffect(() => {
+        console.log("with params " + props.route.params)
+        if(props.route.params != undefined){
+          console.log("with params not null " + props.route.params)
+          setState({
+            hintIsHidden: false, 
+            userDetails: {}, 
+            region: {}, 
+            address: state.address, 
+            requestMatchCount:3,
+            offerMatchCount:3, 
+            requestAlert:{
+              width: scale(20),
+              left: scale(330),
+              expanded: false,
+              },         
+            offerAlert:{
+              width: scale(20),
+              left: scale(330),
+              expanded: false,
+              },
+            ShowAskForHelpModal:false,
+            ShowSearchModal:false, 
+            mapLatLon:props.route.params.latlon
+          })
+
+          mapComponentRef.current.setLanLon(props.route.params.latlon.split(",")[0], props.route.params.latlon.split(",")[1])
+        }        
+      }, [props.route.params]);
 
      const showRequestsAlertView = (type) => {    
             if (state[type].expanded) {
@@ -158,7 +195,7 @@ function Home(props) {
       getLocationSuggestions(region, address, distance)
     }
       
-      
+
     const getLocationSuggestions = (region, address, distance) => {    
       console.log("getLocationSuggestions") 
       setShowSpinner(true)
@@ -175,11 +212,12 @@ function Home(props) {
       })
     }
   
+    const renderScreen = (latlon) =>{
 
-    return (
+      return(
 
-        <Container style={{ alignItems: "center" }}>
-        <MapComponent mapLatLon={""} mapHeight={verticalScale(590)} callbackOnRegionChange={callbackOnRegionChange} mapProps={props} ref={mapComponentRef}>
+<Container style={{ alignItems: "center" }}>
+        <MapComponent mapLatLon={latlon} mapHeight={verticalScale(590)} callbackOnRegionChange={callbackOnRegionChange} mapProps={props} ref={mapComponentRef}>
         </MapComponent>
 
 
@@ -193,42 +231,9 @@ function Home(props) {
                         <Text adjustsFontSizeToFit={true}  minimumFontScale={.5} style={{ overflow:"hidden", height:verticalScale(10), textAlign:"left", width:  scale(200) , color:"grey", paddingTop:0, paddingBottom:0}}>You are here</Text>
                         <Text adjustsFontSizeToFit={true}  minimumFontScale={.6} numberOfLines={2} style={{ overflow:"hidden", height:verticalScale(30),textAlign:"left", width:  scale(200), paddingTop:0}}>{state.address}</Text>
                     </View>
-                    <View adjustsFontSizeToFit={true}  minimumFontScale={1} style={{width: scale(80), backgroundColor:"white", height: verticalScale(50), borderRadius:6, borderTopLeftRadius:0,borderBottomLeftRadius:0 ,borderTopWidth:1,borderBottomWidth:1,borderRightWidth:1,alignItems:"center", justifyContent: 'center'}} ><Text style={{fontFamily: "roboto-medium",fontSize:14 , color:"rgba(243,103,103,1)"}}>Change</Text></View>
+                    <View adjustsFontSizeToFit={true}  minimumFontScale={1} style={{width: scale(80), backgroundColor:"white", height: verticalScale(50), borderRadius:6, borderTopLeftRadius:0,borderBottomLeftRadius:0 ,borderTopWidth:1,borderBottomWidth:1,borderRightWidth:1,alignItems:"center", justifyContent: 'center'}} ><Button transparent style={{padding:0}} onPress={() => { state["ShowSearchModal"] = true; setState({...state}) }}><Text style={{fontFamily: "roboto-medium",fontSize:14 , color:"rgba(243,103,103,1)"}}>Change</Text></Button></View>
                 </View>
-               {/*
-                <GooglePlacesAutocomplete
-                    placeholder='Search'
-                    minLength={2} 
-                    autoFocus={false}
-                    returnKeyType={'search'} 
-                    listViewDisplayed='auto'    
-                    fetchDetails={true}
-                    query={{
-                      key: 'AIzaSyCswhMNoMbszea_-hhz6wr3TSBogllMLdw',
-                      language: 'en', // language of the results
-                      types: '(cities)' // default: 'geocode'
-                    }}
-                    onPress={(data, details = null) => console.log(data)}
-                    onFail={error => console.error(error)}
-                    requestUrl={{
-                      url:
-                        'https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api',
-                      useOnPlatform: 'web',
-                    }} 
-                    styles={{
-                      textInputContainer: {
-                        width: '100%'
-                      },
-                      description: {
-                        fontWeight: 'bold'
-                      },
-                      predefinedPlacesDescription: {
-                        color: '#1faadb'
-                      }
-                    }}
-                />
-                  */}
-                  
+
                 <TouchableOpacity
                   onPress={() => {
                     showRequestsAlertView("requestAlert");
@@ -405,8 +410,78 @@ function Home(props) {
                 </View>
              </View>
         </Modal>
+
+        <Modal
+            testID={'modal'}
+            isVisible={state.ShowSearchModal}
+            onBackdropPress={() => { setState({ ...state,ShowSearchModal:false}) }}
+            onSwipeComplete={() => { }}
+            style={{
+                justifyContent: 'center',
+                margin: 0,
+                marginBottom: 2,
+                position:"absolute",
+                top:verticalScale(100),
+                left:scale(1), 
+                borderRadius:8,
+                //borderColor:"#EE6B6B",
+                backgroundColor:"#FFFFFF",
+                width:scale(350)
+
+            }}>
+               <GooglePlacesAutocomplete
+                    GooglePlacesDetailsQuery={{ fields: 'geometry', }}
+                    placeholder='Search'
+                    minLength={2} 
+                    autoFocus={false}
+                    returnKeyType={'search'} 
+                    listViewDisplayed='auto'    
+                    fetchDetails={true}
+                    query={{
+                      key: 'AIzaSyDgaOp_orkTcVpcH6NfNE3XtOH6tdiXlsg',
+                      language: 'en', // language of the results                      
+                    }}
+                    onPress={
+                      (data, details) => {
+                        console.log(JSON.stringify(details)); 
+                        state["mapLatLon"] = details.geometry.location.lat +"," + details.geometry.location.lng; 
+                        setState({...state})
+                        state["ShowSearchModal"] = false;
+                        setState({...state})
+                        mapComponentRef.current.setLanLon(details.geometry.location.lat, details.geometry.location.lng)
+                        //props.navigation.navigate(AppConstant.APP_PAGE.ROUTER, {latlon:details.geometry.location.lat +"," + details.geometry.location.lng})
+                        
+                      } 
+                    }
+                    onFail={error => console.error(error)}                    
+                    styles={{
+                      textInputContainer: {
+                        width: '100%',
+                        backgroundColor: 'rgba(0,0,0,0)',
+                        borderTopWidth: 0,
+                        borderBottomWidth: 0,
+                      },
+                      description: {
+                        fontWeight: 'bold'
+                      },
+                      predefinedPlacesDescription: {
+                        color: '#1faadb'
+                      }
+                    }}
+                />
+
+    </Modal>
         {showSpinner && (<SpinnerComponent />)}                      
       </Container>
+
+
+      );
+
+    }
+
+    return (
+
+      renderScreen(state.mapLatLon)
 
     );
 
@@ -417,7 +492,11 @@ function Home(props) {
 const styles = (dimensions1) => StyleSheet.create({
 
     container: {
-      flex: 1
+      justifyContent: 'center',
+    //paddingTop: Constants.statusBarHeight,
+    backgroundColor: '#FFFFFF',
+    padding: 8,
+    borderWidth:1
     },
   
     bottomPanelGroup: {

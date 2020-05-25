@@ -236,7 +236,6 @@ const CustomSideBarView = (props) => {
     )
 }
 function MyDrawer(props) {
-
     return (
         <Drawer.Navigator 
         permanent={'front'}

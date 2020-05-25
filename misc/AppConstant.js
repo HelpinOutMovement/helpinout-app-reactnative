@@ -71,7 +71,7 @@ const AppConstant = {
         REGISTER_MOBILE:'RegisterMobile',
         MAP_COMPONENT:'MapComponent',
         DASHBOARD:'Dashboard',
-
+        ROUTER:'router',
         HOME:'Home',
         SEARCH_HELP_GIVERS_SEEKERS:'SearchHelpGiversSeekers',
 
