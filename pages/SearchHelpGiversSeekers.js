@@ -252,7 +252,6 @@ function SearchHelpGiversSeekers(props) {
             </MapComponent>)
         }
     }
-
     
     const renderScreen = () => {
         var latlonval = "";
