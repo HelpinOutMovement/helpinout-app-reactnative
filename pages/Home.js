@@ -48,8 +48,8 @@ function Home(props) {
           userDetails: {}, 
           region: {}, 
           address: "Default Address", 
-          requestMatchCount:3,
-          offerMatchCount:3, 
+          requestMatchCount:0,
+          offerMatchCount:0, 
           requestAlert:{
             width: scale(20),
             left: scale(330),
@@ -110,8 +110,8 @@ function Home(props) {
           userDetails: {}, 
           region: {}, 
           address: "Default Address", 
-          requestMatchCount:3,
-          offerMatchCount:3, 
+          requestMatchCount:0,
+          offerMatchCount:0, 
           requestAlert:{
             width: scale(20),
             left: scale(330),
@@ -138,8 +138,8 @@ function Home(props) {
             userDetails: {}, 
             region: {}, 
             address: state.address, 
-            requestMatchCount:3,
-            offerMatchCount:3, 
+            requestMatchCount:0,
+            offerMatchCount:0, 
             requestAlert:{
               width: scale(20),
               left: scale(330),

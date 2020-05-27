@@ -35,7 +35,9 @@ const SideMenuOptions = {
             tik: new Date()
         }
 
-    }, {
+    }, 
+    /*
+    {
         label: appLabelKey.ask_for_Help,
         pageName: AppConstant.APP_PAGE.ASK_FOR_HELP,
         pageProps: {
@@ -47,7 +49,9 @@ const SideMenuOptions = {
         pageProps: {
             addRegionInfo: true
         }
-    }, {
+    }, 
+    */
+    {
         label: appLabelKey.my_Requests,
         pageName: AppConstant.APP_PAGE.MY_REQUEST_SCREEN
     }, {

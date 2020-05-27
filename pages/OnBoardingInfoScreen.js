@@ -53,7 +53,7 @@ function OnBoardingInfoScreen({ navigation }) {
                                     marginLeft: 0,
                                     color: "#4F5065"
                                 }}
-                            >{translate.t('website_name')}</Text>
+                            >{"www.helpinout.org"}</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
