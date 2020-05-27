@@ -270,11 +270,11 @@ function SearchHelpGiversSeekers(props) {
 
                 <View style={{ width: scale(330), flex: 0, flexDirection: 'row', top: topBarPos, borderRadius: 6, height: verticalScale(50), borderWidth: 0, borderColor: "#000000" }}>
                     <View style={{ width: scale(50), backgroundColor: "white", height: verticalScale(50), borderRadius: 6, borderTopRightRadius: 0, borderBottomRightRadius: 0, borderLeftWidth: 1, borderTopWidth: 1, borderBottomWidth: 1, justifyContent: "center" }} ><Button transparent style={{ padding: 0 }} onPress={() => { /*props.navigation.toggleDrawer()props.navigation.goBack()*/ (state.activity_type === 1) ? navigate(AppConstant.APP_PAGE.MY_REQUEST_SCREEN) :  navigate(AppConstant.APP_PAGE.MY_OFFERS_SCREEN)}}><Icon name="ios-arrow-back" /></Button></View>
-                    <View style={{ width: scale(200), backgroundColor: "white", height: verticalScale(50), borderRightWidth: 0, borderRadius: 0, borderTopLeftRadius: 0, borderBottomLeftRadius: 0, borderTopWidth: 1, borderBottomWidth: 1, alignItems: "center", justifyContent: 'center' }} >
-                        <Text adjustsFontSizeToFit={true} minimumFontScale={.4} numberOfLines={1} style={{ fontSize: 10, overflow: "hidden", height: verticalScale(10), textAlign: "left", width: scale(200), color: "grey", paddingTop: 0, paddingBottom: 0 }}>You are here</Text>
-                        <Text adjustsFontSizeToFit={true} minimumFontScale={.6} numberOfLines={2} style={{ fontSize: 12, overflow: "hidden", height: verticalScale(30), textAlign: "left", width: scale(200), paddingTop: 0 }}>{state.address}</Text>
+                    <View style={{ width: scale(250), backgroundColor: "white", height: verticalScale(50), borderRightWidth: 0, borderRadius: 0, borderTopLeftRadius: 0, borderBottomLeftRadius: 0, borderTopWidth: 1, borderBottomWidth: 1, alignItems: "flex-start", justifyContent: 'center' }} >
+                    <Text adjustsFontSizeToFit={true}  minimumFontScale={.01} numberOfLines={1}  style={{  height:verticalScale(15), textAlign:"left", width:  scale(200) , color:"grey"}}>{translate.t("you_are_here")}</Text>
+                        <Text adjustsFontSizeToFit={true}  minimumFontScale={.6} numberOfLines={2} style={{ overflow:"hidden", height:verticalScale(30),textAlign:"left", width:  scale(200), paddingTop:0}}>{state.address}</Text>
                     </View>
-                    <View style={{ width: scale(80), backgroundColor: "white", height: verticalScale(50), borderRadius: 6, borderTopLeftRadius: 0, borderBottomLeftRadius: 0, borderTopWidth: 1, borderBottomWidth: 1, borderRightWidth: 1, alignItems: "center", justifyContent: 'center' }} ><Text style={{ fontFamily: "roboto-medium", fontSize: 14, color: "rgba(243,103,103,1)" }}>Change</Text></View>
+                    <View style={{ width: scale(30), backgroundColor: "white", height: verticalScale(50), borderRadius: 6, borderTopLeftRadius: 0, borderBottomLeftRadius: 0, borderTopWidth: 1, borderBottomWidth: 1, borderRightWidth: 1, alignItems: "center", justifyContent: 'center' }} ><Text style={{ fontFamily: "roboto-medium", fontSize: 14, color: "rgba(243,103,103,1)" }}></Text></View>
                 </View>
 
                 <View style={{ position: "absolute", bottom: state.bottom_panel_bottom, height: verticalScale(50), justifyContent: "center" }}>
@@ -284,7 +284,6 @@ function SearchHelpGiversSeekers(props) {
                                 style={{ alignSelf: "center", width: scale(30), height: verticalScale(30) }}
                                 source={StaticImage[Utilities.getCategoryFromCode(state.activity_category)]}
                                 resizeMode='contain' />
-
                         </View>
                         <View style={{ width: scale(220), justifyContent: "center", backgroundColor: "white", height: verticalScale(50), borderWidth: 0, borderRadius: 0, borderTopWidth: 0, alignItems: "center", justifyContent: "center" }} ><Text style={{ fontSize: 18, overflow: "hidden", justifyContent: "center", fontFamily: "roboto-medium" }}>{(state.activity_type === 1) ? translate.t("select_help_provider") : translate.t("select_help_requester")}</Text></View>
                         <View style={{ width: scale(70), justifyContent: "center", backgroundColor: "white", height: verticalScale(50), borderRadius: 6, borderTopLeftRadius: 0, borderBottomLeftRadius: 0, borderBottomRightRadius: 0, borderTopWidth: 0, borderRightWidth: 0, alignItems: "center", justifyContent: 'center' }} ><Button transparent style={{ padding: 0 }} onPress={() => { toggleBottomPanel() }}><Icon name={state.bottom_panel_icon} /></Button></View>
@@ -297,7 +296,7 @@ function SearchHelpGiversSeekers(props) {
                                     {(state.activity_type === 2) ?
                                     <View style={styles.rect, {height:verticalScale(40) , borderTopWidth:1, borderBottomWidth:1,marginTop:10}}>
                                     <View style={styles.rect2Row}>
-                                    <View style={styles.rect2}><Text adjustsFontSizeToFit={true} minimumFontScale={.1} numberOfLines={1} style={{ borderWidth: 0, fontFamily: 'Roboto' }}>Offer to help every one on the mpa area</Text></View>
+                                    <View style={styles.rect2}><Text adjustsFontSizeToFit={true} minimumFontScale={.1} numberOfLines={1} style={{ borderWidth: 0, fontFamily: 'Roboto' }}>{translate.t("offer_help_to_every_one")}</Text></View>
                                     <Switch
                                         style={styles.rect3, { borderWidth: 0, marginTop: 0, transform: [{ scaleX: .7 }, { scaleY: .7 }] }}
                                         disabled={false}
@@ -322,7 +321,7 @@ function SearchHelpGiversSeekers(props) {
                                         <View style={styles.itemContainer}>
                                             <View style={styles.rect}>
                                                 <View style={styles.rect2Row}>
-                                                    <View style={styles.rect2}><Text style={{ paddingLeft: 5, borderWidth: 0, fontFamily: 'Roboto-Medium' }}>{singleData.user_detail.first_name + " " + singleData.user_detail.last_name}</Text></View>
+                                                    <View style={styles.rect2}><Text adjustsFontSizeToFit={true} minimumFontScale={1} numberOfLines={1} style={{ paddingLeft: 5, borderWidth: 0, fontFamily: 'Roboto-Medium' }}>{singleData.user_detail.first_name + " " + singleData.user_detail.last_name}</Text></View>
 
                                                     <Switch
                                                         style={styles.rect3, { borderWidth: 0, marginTop: 0, transform: [{ scaleX: .7 }, { scaleY: .7 }] }}
@@ -355,7 +354,11 @@ function SearchHelpGiversSeekers(props) {
                                                     </View>
                                                     <View style={styles.rect5}><Text style={{ paddingLeft: moderateScale(5), fontSize: 12, marginLeft: moderateScale(5) }}>{Utilities.timeSince(singleData.date_time)} ago  | {((getDistanceBetween({ latitude: state.region.latitude, longitude: state.region.longitude }, { latitude: singleData.geo_location.split(",")[0], longitude: singleData.geo_location.split(",")[1] })) / 1000).toFixed(2)} kms away</Text></View>
                                                 </View>
-                                                <View style={styles.rect6}><Text style={{ paddingLeft: moderateScale(5), fontSize: 10 }}>Can help with</Text></View>
+                                                <View style={{flex:0, flexDirection:"row", justifyContent:"space-between", paddingRight:scale(10)}}>
+                                                <View style={styles.rect6}><Text adjustsFontSizeToFit={true} minimumFontScale={.01} numberOfLines={1} style={{ paddingLeft: moderateScale(5) }}>{(state.activity_type === 1) ? translate.t("can_help_with") : translate.t("need_help_with")}</Text></View>
+                                                <View ><Text>{(state.activity_type === 1) ? (singleData.pay === 0) ? translate.t("for_free") : translate.t("we_charge") : (singleData.pay === 0) ? translate.t("can_not_pay") : translate.t("can_pay")} </Text></View>
+                                                </View>
+                                                
                                                 {(singleData.activity_detail && singleData.activity_detail.length > 0) ?
                                                         <View style={{width:scale(300),  marginTop:10 , borderWidth:0, flex:1}}>
                                                             <View style={{borderWidth:0, flex:1, justifyContent:"flex-start"}}>
@@ -365,16 +368,15 @@ function SearchHelpGiversSeekers(props) {
                                                                         <>
                                                                         <Text adjustsFontSizeToFit={true} minimumFontScale={1} numberOfLines={1} style={{ paddingLeft: 5,fontFamily:"roboto-regular", fontWeight:"300" }}>
                                                                             {singleActivityData.detail + "   (" + singleActivityData.quantity + ")"}
-                                                                        </Text>     
-                                                                        
+                                                                        </Text>                                                                             
                                                                         </>                                                               
                                                                     )
                                                                 })
                                                             }
                                                             </View>
                                                             <View style={{borderWidth:0, flex:1, justifyContent:"flex-end"}}>
-                                                            <View style={{flex:0, flexDirection:"row", width:scale(300),  marginTop:0 , borderWidth:0,  justifyContent:"flex-start"}}>
-                                                                <Text adjustsFontSizeToFit={true} minimumFontScale={1} numberOfLines={1} style={{fontFamily:"roboto-regular", fontWeight:"900"}}>Note:</Text>
+                                                            <View style={{flex:0, flexDirection:"column", width:scale(300),  marginTop:0 , borderWidth:0,  justifyContent:"flex-start"}}>
+                                                                <Text adjustsFontSizeToFit={true} minimumFontScale={1} numberOfLines={1} style={{fontFamily:"roboto-regular", fontWeight:"900"}}>{translate.t("note")}</Text>
                                                                 <Text adjustsFontSizeToFit={true} minimumFontScale={1} numberOfLines={3}  style={{ paddingLeft: 5, fontFamily:"roboto-regular", fontWeight:"300"}}>{singleData.offer_condition}</Text>
                                                             </View>
                                                             </View>
@@ -533,7 +535,7 @@ const styles = StyleSheet.create({
     },
     rect6: {
         width: scale(175),
-        height: 15,
+        height: verticalScale(15),
         backgroundColor: "#FFFFFF",//"rgba(230, 230, 230,1)",
         marginLeft: 0,
         borderWidth: 0,
