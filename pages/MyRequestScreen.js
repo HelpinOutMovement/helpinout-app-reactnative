@@ -428,8 +428,10 @@ function MyRequestScreen(props) {
           count_suffix={translate.t("total_offers")}
           colorTheme={colorTheme}
           {...singleOption}
-          primayActionLabel={translate.t("search_for_help_provider")}
-          secondaryActionLabel={translate.t("sent_requests")}
+          primayActionLabel={translate.t("search_for_help_givers")}
+          secondaryActionLabel={translate.t("requests_sent")}
+          tertiaryActionLabel={translate.t("offers_received")}
+          tertiaryCompareWith={AppConstant.APP_MAPPING_INDICATOR.OFFERER}
           clickHandler={primaryActionHandler}
         />
       ));

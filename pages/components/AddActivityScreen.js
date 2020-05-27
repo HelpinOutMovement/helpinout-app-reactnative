@@ -440,7 +440,7 @@ export default class AddActivityScreen extends Component {
 
             <HView style={styles.hintTextContainer} hide={this.state.hideAddMore}>
               <HView style={{ textAlign: "left", borderWidth: 0, width: "100%", alignItems: "center", marginBottom: 20 }} hide={this.state.hideConstrains}>
-                <Text  adjustsFontSizeToFit={true}  minimumFontScale={1}  style={{ textAlign: "left", borderWidth: 0, width: "90%" }}>{translate.t("availability_condition")}</Text>
+                <Text  adjustsFontSizeToFit={true}  minimumFontScale={1}  style={{ textAlign: "left", borderWidth: 0, width: "90%" , fontWeight:"bold"}}>{translate.t("note")}</Text>
                 <Textarea style={{ borderWidth: 1, borderRadius: 3, width: "90%" }}
                   rowSpan={5}
                   onChangeText={(val) => this.constrainsDataOnChange(val)}

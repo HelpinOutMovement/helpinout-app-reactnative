@@ -74,7 +74,7 @@ const rateAndReviewModalContent = (props) => {
                         color: "#232832",
                         fontFamily: "Roboto-Regular",
                         fontSize: 16
-                    }}>{translate.t("rate_report")}   </Text>
+                    }}>{translate.t("report_block")}   </Text>
                     <TouchableOpacity
                         onPress={() => { onClosePopUp() }}>
                         <EvilIcon name="close" style={{
@@ -336,7 +336,7 @@ const viewDetailsModalContent = (props) => {
     const getNoteView = () => {
         if (mainDetails.offer_condition) {
             return (<View style={{ marginVertical: 10 }}>
-                <Text>{translate.t("availability_condition")}</Text>
+                <Text style={{fontWeight:"bold"}} >{translate.t("note")}</Text>
                 <Text>{mainDetails.offer_condition}</Text>
             </View>);
         }
@@ -406,7 +406,7 @@ const viewDetailsForRequestAndOfferModalContent = (props) => {
     const getNoteView = () => {
         if (props.offer_condition) {
             return (<View style={{ marginVertical: 10 }}>
-                <Text>{translate.t("availability_condition")}</Text>
+                <Text style={{fontWeight:"bold"}} >{translate.t("note")}</Text>
                 <Text>{props.offer_condition}</Text>
             </View>);
         }
@@ -469,7 +469,7 @@ const viewDetailsForRequestAndOfferModalContent = (props) => {
                           height:verticalScale(30) ,
                           alignItems:"center",
                           justifyContent:"center",position:"absolute", bottom:verticalScale(0), left:scale(0)}}>
-                <Text adjustsFontSizeToFit={true} minimumFontScale={0.5} numberOfLines={1} style={{fontFamily:"roboto", fontWeight:"900"}}>{(props.pay === 1) ? "Can pay" : "Cannot pay"}</Text>
+                <Text adjustsFontSizeToFit={true} minimumFontScale={0.5} numberOfLines={1} style={{fontFamily:"roboto", fontWeight:"900"}}>{(props.pay === 1) ? translate.t("can_pay") : translate.t("can_not_pay") }</Text>
                 </View>
                 <TouchableOpacity onPress={() => {props.cancelHandeler(props.activity_uuid, props.activity_type)}}>
                 <View style={{

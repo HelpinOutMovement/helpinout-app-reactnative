@@ -413,7 +413,7 @@ function MyOfferScreen(props) {
   const sendEmail = () =>{
     
     if(Utils.isValidEmail(emailData)){
-      setShowEmailModal(false)
+      setShowEmailModal(true)
       let apiInstancePromise = apiInstance.emailoffermapping(emailData);
       apiInstancePromise.then((resp) => {
         setShowEmailModal(false)
@@ -440,15 +440,15 @@ function MyOfferScreen(props) {
       cardListView.push((
         <PastOfferRequestComponent
           key={singleOption.activity_uuid}
-          count_suffix={translate.t("total_requests")}
+          count_suffix={translate.t("request_total")}
           colorTheme={colorTheme}
           {...singleOption}
-          primayActionLabel={translate.t("search_for_help_requester")}
-          secondaryActionLabel={translate.t("sent_offers")}
+          primayActionLabel={translate.t("search_for_help_seeker")}
+          secondaryActionLabel={translate.t("offer_sent")}
           secondaryCompareWith={AppConstant.APP_MAPPING_INDICATOR.OFFERER}
           secondaryAction={AppConstant.APP_ACTION.OFFERER_SENT_OFFERS}
           
-          tertiaryActionLabel={translate.t("request_received")}
+          tertiaryActionLabel={translate.t("requests_received")}
           tertiaryCompareWith={AppConstant.APP_MAPPING_INDICATOR.REQUESTER}
           tertiaryAction={AppConstant.APP_ACTION.OFFERER_RCVD_REQUESTS}
           clickHandler={primaryActionHandler}
@@ -535,7 +535,7 @@ function MyOfferScreen(props) {
         }}>
             <View style={{flex: 1, flexDirection: 'column', justifyContent: "space-evenly", width:scale(300), borderWidth:1, height:verticalScale(100), backgroundColor:"#FFFFFF", borderRadius:4 }}>
                 <View style={{paddingVertical:20, paddingHorizontal:20}}>
-                    <Text>Obtain detailed data of all requests received in tabular format</Text>
+                  <Text>{translate.t("email_title")}</Text>
                 </View>
                 <View style={{flex: 1, flexDirection: 'row', justifyContent: "space-evenly",}}>
                 <TextInput

@@ -27,7 +27,16 @@ function OnBoardingScreen({ navigation }) {
             AppStorage.getAppInfo(AppConstant.APP_STORE_KEY.IS_VEFIRIED)
                 .then((resp) => {
                     if (resp === "true") {
-                    navigation.navigate(AppConstant.APP_PAGE.SIDE_DRAWER);
+                        AppStorage.getAppInfo(AppConstant.IS_LOGGED_IN).then((resp1) => {        
+                            ///console.log("resp1 : " + resp1)
+                            if (resp1 === "true") {
+                                navigation.navigate(AppConstant.APP_PAGE.SIDE_DRAWER);
+                            }else{
+                                navigation.navigate(AppConstant.APP_PAGE.ON_BOARDING_INFO);
+                            }            
+                          }).catch(error1 => {
+                            navigation.navigate(AppConstant.APP_PAGE.ON_BOARDING_INFO);
+                          });                    
                     } else {
                         navigation.navigate(AppConstant.APP_PAGE.ON_BOARDING_INFO);
                     }

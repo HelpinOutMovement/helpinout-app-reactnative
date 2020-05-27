@@ -14,7 +14,7 @@ import { verticalScale } from 'react-native-size-matters';
 
 const RequesterAndOffererListing = (props) => {
 
-    //console.log("RequesterAndOffererListing : "+ JSON.stringify(props))
+    ///console.log("RequesterAndOffererListing : "+ JSON.stringify(props))
 
     const [showModal, setShowModal] = useState(false);
     const [modalInfo, setModalInfo] = useState({});
@@ -25,10 +25,12 @@ const RequesterAndOffererListing = (props) => {
     useEffect(() => {
         if (props.requestParams && props.requestParams.mapping && props.requestParams.mapping.length) {
             console.log("in 1")
+            //console.log("props.requestParams.mapping : " + JSON.stringify(props.requestParams.mapping))
             setMappedRequestEntity(props.requestParams.mapping);
         }else  {
             console.log("in 2")
             // work-around for now
+            setShowSpinner(true)
             apiInstance.userPastActivity(props.createdIdParams.activity_type).then(resp => {
                 setShowSpinner(false);
                 let localRequestParam = {};
@@ -111,10 +113,14 @@ const RequesterAndOffererListing = (props) => {
     }
 
     const getMappedRequestView = () => {
+        
         const mappedRequestView = [];
+        //console.log("getMappedRequestView : " + mappedRequestEntity.length)
         if (mappedRequestEntity.length > 0) {
+            
             mappedRequestEntity.forEach((singleMapping) => {
-                //if (singleMapping.mapping_initiator === props.mappingIndicator) {
+                //console.log(singleMapping)
+                if (singleMapping.mapping_initiator === props.mappingIndicator) {
                     mappedRequestView.push(
                         <RequesterInfoCardComponent
                             name={singleMapping[props.inputMappingObject].user_detail.first_name + " " + singleMapping[props.inputMappingObject].user_detail.last_name}
@@ -122,8 +128,9 @@ const RequesterAndOffererListing = (props) => {
                             dateTime={singleMapping[props.inputMappingObject].date_time}
                             clickHandler={primaryActionHandler}
                             {...singleMapping} />)
-                //}
+                }
             });
+            
         }
 
 
@@ -142,6 +149,7 @@ const RequesterAndOffererListing = (props) => {
                 </View>
             )
         }
+        
 
         return mappedRequestView;
     }
@@ -208,7 +216,9 @@ const RequesterAndOffererListing = (props) => {
             })
     }
     return (
+        
         <Container>
+            
             <View style={{ height: "100%" }}>
                 <HeaderComponent {...props}
                     title={props.screenTitle}

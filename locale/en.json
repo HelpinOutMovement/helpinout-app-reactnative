@@ -127,7 +127,7 @@
     "new_matches": "New matches",
     "label_no_request_send": "You have not requested for any help.",
     "help_offers_received_from": "Help offers received from",
-    "call_them": "Call\\nthem",
+    "call_them": "Call\nthem",
     "label_send_mail": "Send email",
     "invalid_email_id": "Please enter valid email id",
     "email_send_success": "Email sent successfully",
@@ -178,7 +178,7 @@
     "transport": "Transport",
     "animal_care": "Animal Care",
     "used_goods": "Used Goods (Second-hand goods)",
-    "paid_work": "Paid Work"
+    "paid_work": "Paid Work",
 
 
     "TODO_SANDEEP":"TODO_SANDEEP",

@@ -129,7 +129,7 @@ const RequesterInfoCardComponent = (props) => {
           }} />
           <Text style={{
             fontSize: 12
-          }}> Call them </Text>
+          }}> {translate.t("call_them")} </Text>
         </TouchableOpacity>
       );
     }
@@ -247,7 +247,7 @@ const RequesterInfoCardComponent = (props) => {
           <View style={{ marginTop: 10, flex:1, flexDirection: "row", justifyContent:"space-between", paddingHorizontal:10}}>
             <View style={{justifyContent:"space-between"}}>
             <BasicButton 
-              label={translate.t("rate_report")}
+              label={translate.t("report_block")}
               clickHandler={() => { props.clickHandler(props, AppConstant.APP_ACTION.RATE_REPORT) }} />
             </View>
             <View style={{justifyContent:"space-between"}}>

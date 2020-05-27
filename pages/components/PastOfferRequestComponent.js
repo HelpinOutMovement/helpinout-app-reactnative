@@ -108,7 +108,7 @@ const getOfferList = (props, compareWith) => {
     return finalOfferList;
 }
 
-const getOfferListingView = (props, compareWith) => {
+const getOfferListingCountView = (props, compareWith) => {
     const offerListLength = getOfferList(props, (compareWith ? compareWith : AppConstant.APP_MAPPING_INDICATOR.OFFERER)).length;
 
     return (
@@ -123,7 +123,6 @@ const getOfferListingView = (props, compareWith) => {
 }
 const PastOfferRequestComponent = (props) => {
     const helpOption = Utilities.getCategoryFromCode(props.activity_category);
-    console.log(helpOption.toLowerCase())
     const categoryName = translate.t(appLabelKey[helpOption.toLowerCase()]);
     return (
         <Card style={{
@@ -212,9 +211,9 @@ const PastOfferRequestComponent = (props) => {
                             fontFamily: "Roboto-Medium",
                             fontSize: 14,
                             color: "#4F5065"
-                        }}>{(props.tertiaryActionLabel) ? props.tertiaryActionLabel : translate.t("niu_offfer_received")}</Text>
+                        }}>{(props.tertiaryActionLabel) ? props.tertiaryActionLabel : translate.t("offers_received")}</Text>
 
-                        {getOfferListingView(props, (props.tertiaryCompareWith) ? props.tertiaryCompareWith : AppConstant.APP_MAPPING_INDICATOR.OFFERER)}
+                        {getOfferListingCountView(props, (props.tertiaryCompareWith) ? props.tertiaryCompareWith : AppConstant.APP_MAPPING_INDICATOR.OFFERER)}
                     </TouchableOpacity>
 
 
@@ -232,7 +231,7 @@ const PastOfferRequestComponent = (props) => {
                             fontSize: 14,
                             color: "#4F5065"
                         }}>{props.secondaryActionLabel}</Text>
-                        {getOfferListingView(props, (props.secondaryCompareWith) ? props.secondaryCompareWith : AppConstant.APP_MAPPING_INDICATOR.REQUESTER)}
+                        {getOfferListingCountView(props, (props.secondaryCompareWith) ? props.secondaryCompareWith : AppConstant.APP_MAPPING_INDICATOR.REQUESTER)}
                     </TouchableOpacity>
 
 

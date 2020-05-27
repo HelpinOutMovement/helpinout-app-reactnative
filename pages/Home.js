@@ -1,52 +1,40 @@
 
 import React, { useContext, useState,  useEffect, useRef } from 'react';
-import { StatusBar, StyleSheet, View, Dimensions, TouchableOpacity, SafeAreaView } from "react-native";
-import { Container, Header, Footer, FooterTab, Title, Left, Icon, Right, Button, Body, Content, Text, Card, CardItem } from "native-base";
-import UserContext from '../misc/UserContext';
-import AppStringContext from '../misc/AppStringContext';
+import { StyleSheet, View, Dimensions, TouchableOpacity, SafeAreaView } from "react-native";
+import { Container,FooterTab,  Icon, Button, Text, } from "native-base";
 
-import ModalComponent from './components/ModalComponent';
+import UserContext from '../misc/UserContext';
 import MapComponent from './MapComponent';
 import AppConstant from '../misc/AppConstant';
 import AskForHelpButton from "./components/AskForHelpButton";
 import OfferHelpButton from "./components/OfferHelpButton";
-import HView from "./components/HView"
-import API from "../APIClient/API";
 import { apiInstance } from "../APIClient/API";
-
 import Utils from "../misc/Utils"
 import FooterTabComponent from './components/FooterTabComponent';
+import SpinnerComponent from './components/SpinnerComponent';
+import appStorage from '../storage/AppStorage';
 
 import translate from 'react-native-i18n';
-import appStorage from '../storage/AppStorage';
-import Geolocation from '@react-native-community/geolocation';
-import { getDistance, getPreciseDistance } from 'geolib';
 import Toast from 'react-native-tiny-toast'
 import { verticalScale, scale, moderateScale } from 'react-native-size-matters';
-
 import Modal from 'react-native-modal';
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 
-import SpinnerComponent from './components/SpinnerComponent';
 
 
 const { width, height } = Dimensions.get('window');
 const ASPECT_RATIO = width / height;
 const LATITUDE_DELTA = (Platform.OS === global.platformIOS ? 1.5 : 0.5);
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
-
 const footerTop = Utils.isIphoneX() ? verticalScale(620) : verticalScale(610);
 const bottomPanelTop = Utils.isIphoneX() ? height - 190 : height - 180;
-
 const dimensions = Dimensions.get('window');
-
-import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
-
 
 
 function Home(props) {
 
 
-    console.log(JSON.stringify(props))
+    //console.log(JSON.stringify(props))
     let mapComponentRef = useRef();
     let navigation = props.navigation;
 
@@ -89,7 +77,7 @@ function Home(props) {
                   //var mapping_date_time = new Date(Date.parse(mapping_time));
                   return new Date(mapping_time);
                 })));
-                console.log(max_mapping_time)
+                //console.log(max_mapping_time)
               }else{
                 console.log(0)
               }
@@ -104,7 +92,7 @@ function Home(props) {
                   //var mapping_date_time = new Date(Date.parse(mapping_time));
                   return new Date(mapping_time);
                 })));
-                console.log(max_mapping_time)
+                //console.log(max_mapping_time)
               }else{
                 console.log(0)
               }
@@ -142,9 +130,9 @@ function Home(props) {
 
       
       useEffect(() => {
-        console.log("with params " + props.route.params)
+        //console.log("with params " + props.route.params)
         if(props.route.params != undefined){
-          console.log("with params not null " + props.route.params)
+          //console.log("with params not null " + props.route.params)
           setState({
             hintIsHidden: false, 
             userDetails: {}, 
@@ -229,10 +217,10 @@ function Home(props) {
                 <View style={{ width:scale(330), flex: 0, flexDirection: 'row' , borderRadius:6 ,height: verticalScale(50), borderWidth:0, borderColor:"#000000" }}>                
                     <View style={{width: scale(50), backgroundColor:"white", height: verticalScale(50), borderRadius:6, borderTopRightRadius:0,borderBottomRightRadius:0 ,borderLeftWidth:1,borderTopWidth:1,borderBottomWidth:1, justifyContent:"center"}} ><Button transparent style={{padding:0}} onPress={() => { navigation.openDrawer() }}><Icon name="menu"/></Button></View>
                     <View style={{width: scale(200), backgroundColor:"white", height: verticalScale(50), borderRightWidth:0,  borderRadius:0, borderTopLeftRadius:0,borderBottomLeftRadius:0 ,borderTopWidth:1,borderBottomWidth:1,alignItems:"center", justifyContent: 'center'}} >
-                        <Text adjustsFontSizeToFit={true}  minimumFontScale={.5} style={{ overflow:"hidden", height:verticalScale(10), textAlign:"left", width:  scale(200) , color:"grey", paddingTop:0, paddingBottom:0}}>You are here</Text>
+                        <Text adjustsFontSizeToFit={true}  minimumFontScale={.01} numberOfLines={1}  style={{  height:verticalScale(15), textAlign:"left", width:  scale(200) , color:"grey"}}>{translate.t("you_are_here")}</Text>
                         <Text adjustsFontSizeToFit={true}  minimumFontScale={.6} numberOfLines={2} style={{ overflow:"hidden", height:verticalScale(30),textAlign:"left", width:  scale(200), paddingTop:0}}>{state.address}</Text>
                     </View>
-                    <View adjustsFontSizeToFit={true}  minimumFontScale={1} style={{width: scale(80), backgroundColor:"white", height: verticalScale(50), borderRadius:6, borderTopLeftRadius:0,borderBottomLeftRadius:0 ,borderTopWidth:1,borderBottomWidth:1,borderRightWidth:1,alignItems:"center", justifyContent: 'center'}} ><Button transparent style={{padding:0}} onPress={() => { state["ShowSearchModal"] = true; setState({...state}) }}><Text style={{fontFamily: "roboto-medium",fontSize:14 , color:"rgba(243,103,103,1)"}}>Change</Text></Button></View>
+                      <View adjustsFontSizeToFit={true}  minimumFontScale={1} style={{width: scale(80), backgroundColor:"white", height: verticalScale(50), borderRadius:6, borderTopLeftRadius:0,borderBottomLeftRadius:0 ,borderTopWidth:1,borderBottomWidth:1,borderRightWidth:1,alignItems:"center", justifyContent: 'center'}} ><Button transparent style={{padding:0}} onPress={() => { state["ShowSearchModal"] = true; setState({...state}) }}><Text style={{fontFamily: "roboto-medium",fontSize:14 , color:"rgba(243,103,103,1)"}}>{translate.t("change")}</Text></Button></View> 
                 </View>
 
                 <TouchableOpacity
@@ -254,7 +242,7 @@ function Home(props) {
                     borderTopLeftRadius: 4,
                 }}>
                     <View style={{ color: 'black', overflow:"hidden", width: state.requestAlert.width,  height: verticalScale(15),}}>
-                        <Text adjustsFontSizeToFit={true} minimumFontScale={.01}  numberOfLines={1} style={{ color: 'red', overflow:"hidden", paddingLeft:scale(10)}}>{state.requestMatchCount} help givers match your requests</Text>
+                        <Text adjustsFontSizeToFit={true} minimumFontScale={.01}  numberOfLines={1} style={{ color: 'red', overflow:"hidden", paddingLeft:scale(10)}}>{state.requestMatchCount} {translate.t("request_near_me_home")}</Text>
                     </View>
                     
                 </TouchableOpacity>
@@ -299,7 +287,7 @@ function Home(props) {
                     borderTopLeftRadius: 4,
                 }}>
                     <View style={{ color: 'black', overflow:"hidden", width: state.offerAlert.width,  height: verticalScale(15),}}>
-                        <Text adjustsFontSizeToFit={true} minimumFontScale={.05}  numberOfLines={1} style={{ color: 'black', overflow:"hidden", paddingLeft:scale(10)}}>{state.offerMatchCount} help seekers match your offers</Text>
+                      <Text adjustsFontSizeToFit={true} minimumFontScale={.05}  numberOfLines={1} style={{ color: 'black', overflow:"hidden", paddingLeft:scale(10)}}>{state.offerMatchCount} {translate.t("offer_near_me_home")}</Text>
                     </View>
                     
                 </TouchableOpacity>
@@ -372,7 +360,7 @@ function Home(props) {
             }}>
               <View style={{flex:1, flexDirection:"column",  borderRadius:8, borderColor:"#EE6B6B", width:scale(300), height:verticalScale(100) , backgroundColor:"#FFF" ,  justifyContent:"center", alignItems:"center" }}>
                 <View style={{width:scale(300), height:verticalScale(40) ,alignItems:"flex-start", paddingHorizontal:scale(10), justifyContent:"center", borderWidth:0}}>
-                  <Text > Who neds help?</Text>
+                  <Text > {translate.t("who_need_helps")}</Text>
                 </View>
               
                 <View style={{flex:1, flexDirection:"row",  width:scale(280), height:verticalScale(60)  , justifyContent:"center", alignItems:"center", borderWidth:0}}>
@@ -389,7 +377,7 @@ function Home(props) {
                           alignItems:"center",
                           justifyContent:"center"
                         }}>
-                          <Text adjustsFontSizeToFit={true} minimumFontScale={0.5} numberOfLines={1} style={{color: "rgba(245,245,245,1)",fontFamily: "roboto-regular", alignItems: 'center',justifyContent:'center',}}>Myself</Text>
+                          <Text adjustsFontSizeToFit={true} minimumFontScale={0.5} numberOfLines={1} style={{color: "rgba(245,245,245,1)",fontFamily: "roboto-regular", alignItems: 'center',justifyContent:'center',}}>{translate.t("my_self")}</Text>
                         </View>
                         </TouchableOpacity>
                         <TouchableOpacity  style={{paddingHorizontal:scale(10), paddingVertical:verticalScale(20)}} onPress={() => { setState({ ...state,ShowAskForHelpModal:false}); navigation.navigate(AppConstant.APP_PAGE.ASK_FOR_HELP, { region: state.region, address: state.address, self_else:1 })}}>
@@ -405,7 +393,7 @@ function Home(props) {
                             alignItems:"center",
                             justifyContent:"center"
                           }}>
-                            <Text adjustsFontSizeToFit={true} minimumFontScale={0.5} numberOfLines={1} style={{color: "#EE6B6B",fontFamily: "roboto-regular", alignItems: 'center',justifyContent:'center',}}>Someone else</Text>
+                            <Text adjustsFontSizeToFit={true} minimumFontScale={0.5} numberOfLines={1} style={{color: "#EE6B6B",fontFamily: "roboto-regular", alignItems: 'center',justifyContent:'center',}}>{translate.t("someone_else")}</Text>
                           </View>
                         </TouchableOpacity>
                 </View>
