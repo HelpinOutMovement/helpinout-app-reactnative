@@ -58,9 +58,10 @@ const AppConstant = {
         ENGLISH: 'en',
         HINDI: 'hi',
         MARATHI : 'mr',
-        KANNADA:'ka',
+        KANNADA:'kn',
         GUJARATHI:'gu',
-        TAMIL:'ta'
+        TAMIL:'ta',
+        TELUGU:'te'
     },
     APP_PAGE:{
         SPLASH:'Splash',
@@ -99,9 +100,10 @@ const AppConstant = {
         ENGLISH: 'en',
         HINDI: 'hi',
         MARATHI : 'mr',
-        KANNADA:'ka',
+        KANNADA:'kn',
         GUJARATHI:'gu',
-        TAMIL:'ta'       
+        TAMIL:'ta',
+        TELUGU:'te'       
     },
     APP_OPTIONS : {
         FOOD: "FOOD",

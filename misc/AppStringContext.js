@@ -18,6 +18,8 @@ I18n.translations = {
   'ta': require('../locale/ta'),  
   'hi': require('../locale/hi'),
   'gu': require('../locale/gu'),
+  'te': require('../locale/te'),
+  'kn': require('../locale/kn'),
 };
 
 class AppStringProvider extends React.Component {

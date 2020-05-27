@@ -17,10 +17,7 @@ function About(props) {
         <Content padder  >
           <View>
                 <Text>Version : {DeviceInfo.getVersion()}</Text>
-                <Text>Build : {DeviceInfo.getBuildNumber()}</Text>
-                <Text>Memory user : {DeviceInfo.getReadableVersion()}</Text>
-                
-                
+                <Text>Build : {DeviceInfo.getBuildNumber()}</Text>              
           </View>
         </Content>
       </Container>

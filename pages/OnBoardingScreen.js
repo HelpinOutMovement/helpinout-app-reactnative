@@ -14,7 +14,7 @@ const LanguageOptions = [
     { label: appLabelKey.lang_tamil_label, code: AppConstant.APP_LANGUAGE.TAMIL },
     { label: appLabelKey.lang_marathi_label, code: AppConstant.APP_LANGUAGE.MARATHI },
     { label: appLabelKey.lang_kanada_label, code: AppConstant.APP_LANGUAGE.KANNADA },
-    { label: appLabelKey.lang_gujarathi_label, code: AppConstant.APP_LANGUAGE.GUJARATHI }
+    { label: appLabelKey.lang_telugu_label, code: AppConstant.APP_LANGUAGE.TELUGU }
 ];
 function OnBoardingScreen({ navigation }) {
     const { translate } = useContext(AppStringContext);

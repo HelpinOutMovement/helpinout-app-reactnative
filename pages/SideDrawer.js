@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { Button, View, Text, FlatList, TouchableOpacity } from 'react-native';
 import { default as MaterialCommunityIcon } from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -25,43 +25,45 @@ import { ScrollView } from 'react-native-gesture-handler';
 
 const Drawer = createDrawerNavigator();
 
+
+
 const SideMenuOptions = {
     primay: [{
-        label: translate.t(appLabelKey.home),
+        label: appLabelKey.home,
         pageName: AppConstant.APP_PAGE.HOME, 
         pageProps: {
             tik: new Date()
         }
 
     }, {
-        label: translate.t(appLabelKey.ask_for_Help),
+        label: appLabelKey.ask_for_Help,
         pageName: AppConstant.APP_PAGE.ASK_FOR_HELP,
         pageProps: {
             addRegionInfo: true
         }
     }, {
-        label: translate.t(appLabelKey.offer_Help),
+        label: (appLabelKey.offer_Help),
         pageName: AppConstant.APP_PAGE.OFFER_HELP_SCREEN,
         pageProps: {
             addRegionInfo: true
         }
     }, {
-        label: translate.t(appLabelKey.my_Requests),
+        label: appLabelKey.my_Requests,
         pageName: AppConstant.APP_PAGE.MY_REQUEST_SCREEN
     }, {
-        label: translate.t(appLabelKey.my_Offers),
+        label: appLabelKey.my_Offers,
         pageName: AppConstant.APP_PAGE.MY_OFFERS_SCREEN
     }, {
-        label: translate.t(appLabelKey.profile),
+        label: appLabelKey.profile,
         pageName: AppConstant.APP_PAGE.REGISTER_MOBILE,
         pageProps: {
             showBack: true, action:"update"
         }
     }, {
-        label: translate.t(appLabelKey.about_Us),
+        label: appLabelKey.about_Us,
         pageName: AppConstant.APP_PAGE.ABOUT
     },{
-        label: translate.t("logout"),
+        label: "logout",
         pageName: AppConstant.APP_PAGE.LOGOUT_ACTION
     }],
     secondary: [
@@ -81,8 +83,8 @@ const SideMenuOptions = {
         localeCode: AppConstant.APP_LANGUAGE.KANNADA
     },
     {
-        label: appLabelKey.lang_gujarathi_label,
-        localeCode: AppConstant.APP_LANGUAGE.GUJARATHI
+        label: appLabelKey.lang_telugu_label,
+        localeCode: AppConstant.APP_LANGUAGE.TELUGU
     },
     {
         label: appLabelKey.lang_tamil_label,
@@ -94,16 +96,17 @@ const SideMenuOptions = {
 
 
 const CustomSideBarView = (props) => {
+
+
     const {navigation} = props
     const {getLatLon, getRegion} = useContext(UserContext);
     const { setLanguage , language} = useContext(AppStringContext);
-    const { translate } = useContext(AppStringContext);
+   // const { translate } = useContext(AppStringContext);
     const onLanguageClicked = (lang) => {
         AppStorage.storeAppInfo("locale", lang).then(function (value) {
             setLanguage(lang);
             navigation.closeDrawer();
-            navigation.navigate(AppConstant.APP_PAGE.HOME, {tik:new Date()});
-            
+            navigation.navigate(AppConstant.APP_PAGE.HOME, {tik:new Date(), language:lang});            
         });
     }
 
@@ -138,8 +141,6 @@ const CustomSideBarView = (props) => {
                                         }} />
                                 )
                             }
-
-
                         </View>
                     </TouchableOpacity>
                 </View>
@@ -181,7 +182,7 @@ const CustomSideBarView = (props) => {
                     >
                         <Text
                             style={commonStyling.sideDrawerText}
-                        >{singleMenu.label}</Text>
+                        >{ translate.t(singleMenu.label)}</Text>
                     </TouchableOpacity>
                 </View>
             ))
@@ -236,6 +237,7 @@ const CustomSideBarView = (props) => {
     )
 }
 function MyDrawer(props) {
+    
     return (
         <Drawer.Navigator 
         permanent={'front'}

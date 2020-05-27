@@ -95,6 +95,9 @@
 		8137295E378A4E8AB77C66D8 /* Roboto-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Black.ttf"; path = "../assets/fonts/Roboto-Black.ttf"; sourceTree = "<group>"; };
 		82761FC127FA406496E9AE2A /* Roboto-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-BoldItalic.ttf"; path = "../assets/fonts/Roboto-BoldItalic.ttf"; sourceTree = "<group>"; };
 		8A1C3938246482D100F6365D /* helpinout_icons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = helpinout_icons.ttf; path = ../assets/fonts/helpinout_icons.ttf; sourceTree = "<group>"; };
+		8A670EA8247EA35900E30D0E /* te */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = te; path = te.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		8A670EA9247EA36500E30D0E /* mr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = mr; path = mr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		8A670EAA247EA37900E30D0E /* kn */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = kn; path = kn.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		8A75C2FB243DBACE00ACCB50 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		8A75C358243DD5B900ACCB50 /* libRNDeviceInfo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRNDeviceInfo.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A98B548243C8349007FC0B1 /* ta */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ta; path = ta.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
@@ -407,6 +410,9 @@
 				Base,
 				ta,
 				hi,
+				te,
+				mr,
+				kn,
 			);
 			mainGroup = 83CBB9F61A601CBA00E9B192;
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
@@ -760,6 +766,9 @@
 				13B07FB21A68108700A75B9A /* Base */,
 				8A98B548243C8349007FC0B1 /* ta */,
 				8AC72C5D244A1FC500BFBEAB /* hi */,
+				8A670EA8247EA35900E30D0E /* te */,
+				8A670EA9247EA36500E30D0E /* mr */,
+				8A670EAA247EA37900E30D0E /* kn */,
 			);
 			name = LaunchScreen.xib;
 			path = helpinout;
@@ -828,7 +837,7 @@
 				CODE_SIGN_ENTITLEMENTS = helpinout/helpinout.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 36;
+				CURRENT_PROJECT_VERSION = 40;
 				DEVELOPMENT_TEAM = JDLPTBKAVL;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -865,7 +874,7 @@
 				CODE_SIGN_ENTITLEMENTS = helpinout/helpinout.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 36;
+				CURRENT_PROJECT_VERSION = 40;
 				DEVELOPMENT_TEAM = JDLPTBKAVL;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = helpinout/Info.plist;
