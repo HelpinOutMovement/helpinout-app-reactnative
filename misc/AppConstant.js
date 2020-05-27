@@ -72,6 +72,8 @@ const AppConstant = {
         MAP_COMPONENT:'MapComponent',
         DASHBOARD:'Dashboard',
         ROUTER:'router',
+        ABOUT:'About',
+
         HOME:'Home',
         SEARCH_HELP_GIVERS_SEEKERS:'SearchHelpGiversSeekers',
 
@@ -110,7 +112,15 @@ const AppConstant = {
         OTHER: "OTHER",
         PEOPLE: "PEOPLE",
         SHELTER: "SHELTER",
-        TESTING: "TESTING"
+        TESTING: "TESTING",
+
+        VOLUNTEERS:"VOLUNTEERS",
+        FRUTS_VEGS:"FRUTS_VEGS",
+        TRANSPORT:"TRANSPORT",
+        ANIMAL_SUPPORT:"ANIMAL_SUPPORT", 
+        GIVEAWAYS:"GIVEAWAYS",
+        PAID_WORK:"PAID_WORK", 
+
     },
 
     API_SERVER: {
@@ -142,8 +152,18 @@ const AppConstant = {
             6:'MEDICINES',
             7:'AMBULANCE',
             8:'MED_EQUIPMENT',
+
+            9:'VOLUNTEERS',
+            10:'FRUTS_VEGS',
+            11:'TRANSPORT',
+            12:'ANIMAL_SUPPORT',
+            13:'GIVEAWAYS',
+            14:'PAID_WORK',
+
             0:'OTHER'
         },
+
+
         activity_category:{
             FOOD:1,
             PEOPLE:2,
@@ -153,8 +173,39 @@ const AppConstant = {
             MEDICINES:6,
             AMBULANCE:7,
             MED_EQUIPMENT:8,
+
+            VOLUNTEERS:9,
+            FRUTS_VEGS:10,
+            TRANSPORT:11,
+            ANIMAL_SUPPORT:12, 
+            GIVEAWAYS:13,
+            PAID_WORK:14, 
+
             OTHER:0
         },
+
+
+        activity_category_label:{
+            FOOD:"Food",
+            PEOPLE:"People",
+            SHELTER:"Shelter",
+            MED_PPE:"Medical PPE",
+            TESTING:"Testing",
+            MEDICINES:"Medicines",
+            AMBULANCE:"Ambulance",
+            MED_EQUIPMENT:"Medical Equipment",
+
+            VOLUNTEERS:"Volunteers",
+            FRUTS_VEGS:"Fruts/Vegitables",
+            TRANSPORT:"Transport",
+            ANIMAL_SUPPORT:"Animal Care", 
+            GIVEAWAYS:"Giveaways",
+            PAID_WORK:"Paid Work", 
+
+            OTHER:0
+        },
+
+
         pay:{
             Willing_To_Pay:1,
             Not_Willing_To_Pay:0

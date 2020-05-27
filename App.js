@@ -35,7 +35,7 @@ import MyOfferSentOfferScreen from './pages/MyOfferScreen.SentOffer';
 import VerifyScreen from './pages/VerifyScreen';
 import AddActivityScreen from './pages/components/AddActivityScreen';
 
-import Home from './pages/Home'
+import About from './pages/About'
 
 import router from './pages/router'
 
@@ -217,6 +217,7 @@ function App() {
             <Stack.Screen key={`a_${AppConstant.APP_PAGE.ADD_ACTIVITY_SCREEN}`} name={AppConstant.APP_PAGE.ADD_ACTIVITY_SCREEN} component={AddActivityScreen} />
             
             <Stack.Screen key={`a_${AppConstant.APP_PAGE.ROUTER}`} name={AppConstant.APP_PAGE.ROUTER} component={router} />
+            <Stack.Screen key={`a_${AppConstant.APP_PAGE.ABOUT}`} name={AppConstant.APP_PAGE.ABOUT} component={About} />
 
 
             {/*          <Stack.Screen key= 'n_login' name="Login" component={LoginScreen} />
@@ -233,9 +234,7 @@ function App() {
             <Stack.Screen key={`a_${AppConstant.APP_PAGE.ON_BOARDING_INFO}`} name={AppConstant.APP_PAGE.ON_BOARDING_INFO} component={OnBoardingInfoScreen} />
             <Stack.Screen key={`a_${AppConstant.APP_PAGE.LOGIN}`} name={AppConstant.APP_PAGE.LOGIN} component={LoginScreen} />
             <Stack.Screen key={`a_${AppConstant.APP_PAGE.VERIFY}`} name={AppConstant.APP_PAGE.VERIFY} component={VerifyScreen} />
-
-            <Stack.Screen key={`a_${AppConstant.APP_PAGE.REGISTER_MOBILE}`} name={AppConstant.APP_PAGE.REGISTER_MOBILE} component={RegisterMobile} />
-            
+            <Stack.Screen key={`a_${AppConstant.APP_PAGE.REGISTER_MOBILE}`} name={AppConstant.APP_PAGE.REGISTER_MOBILE} component={RegisterMobile} />            
             <Stack.Screen key={`a_${AppConstant.APP_PAGE.ASK_FOR_HELP}`} name={AppConstant.APP_PAGE.ASK_FOR_HELP} component={AskForHelpScreen} />
             {/*<Stack.Screen key={`a_${AppConstant.APP_PAGE.DASHBOARD}`} name={AppConstant.APP_PAGE.DASHBOARD} component={MyDrawer} /> */}
             <Stack.Screen key={`a_${AppConstant.APP_PAGE.MAP_COMPONENT}`} name={AppConstant.APP_PAGE.MAP_COMPONENT} component={MapComponent} />
@@ -247,7 +246,7 @@ function App() {
             <Stack.Screen key={`a_${AppConstant.APP_PAGE.ADD_ACTIVITY_SCREEN}`} name={AppConstant.APP_PAGE.ADD_ACTIVITY_SCREEN} component={AddActivityScreen} />
             <Stack.Screen key={`a_${AppConstant.APP_PAGE.SIDE_DRAWER}`} name={AppConstant.APP_PAGE.SIDE_DRAWER} component={MyDrawer} />
             <Stack.Screen key={`a_${AppConstant.APP_PAGE.SEARCH_HELP_GIVERS_SEEKERS}`} name={AppConstant.APP_PAGE.SEARCH_HELP_GIVERS_SEEKERS} component={SearchHelpGiversSeekers} />
-
+            <Stack.Screen key={`a_${AppConstant.APP_PAGE.ABOUT}`} name={AppConstant.APP_PAGE.ABOUT} component={About} />
 
           </Stack.Navigator>
         ));
