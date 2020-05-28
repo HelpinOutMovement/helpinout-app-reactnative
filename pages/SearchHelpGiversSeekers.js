@@ -203,7 +203,7 @@ function SearchHelpGiversSeekers(props) {
         let restApi = new API();
         let reqObj = restApi.activityMapping(state.activity_type, state.activity_uuid, state.selectall, state.region.latitude+","+state.region.longitude, state.distance,  offerer, requester)
         reqObj.then((response) => {
-            console.log("restApi.activityMapping : " + JSON.stringify(response))
+            //console.log("restApi.activityMapping : " + JSON.stringify(response))
             if (response.status === "1") {
 
                 if (state.activity_type === 1) {

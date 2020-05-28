@@ -14,8 +14,11 @@ import { verticalScale } from 'react-native-size-matters';
 
 const RequesterAndOffererListing = (props) => {
 
-    ///console.log("RequesterAndOffererListing : "+ JSON.stringify(props))
-
+    /*
+    console.log("RequesterAndOffererListing : "+ JSON.stringify(props))
+    console.log("requestParams" + JSON.stringify(props.requestParams))
+    console.log("createdIdParams" + JSON.stringify(props.createdIdParams))
+*/
     const [showModal, setShowModal] = useState(false);
     const [modalInfo, setModalInfo] = useState({});
     const [showSpinner, setShowSpinner] = useState(false);
@@ -116,10 +119,12 @@ const RequesterAndOffererListing = (props) => {
         
         const mappedRequestView = [];
         //console.log("getMappedRequestView : " + mappedRequestEntity.length)
+        
         if (mappedRequestEntity.length > 0) {
             
             mappedRequestEntity.forEach((singleMapping) => {
                 //console.log(singleMapping)
+                //console.log(singleMapping.mapping_initiator , "    " ,  props.mappingIndicator)
                 if (singleMapping.mapping_initiator === props.mappingIndicator) {
                     mappedRequestView.push(
                         <RequesterInfoCardComponent

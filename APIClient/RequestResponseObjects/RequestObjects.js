@@ -9,7 +9,7 @@
     class RequestObject{
 
         constructor(){
-            console.log("date - " + startingDate + "     " + startingDate.getTimezoneOffset())   
+            //console.log("date - " + startingDate + "     " + startingDate.getTimezoneOffset())   
             this.APIData = {"app_id": 0, "imei_no": DeviceInfo.getUniqueId(), "app_version": appVersion, 'date_time':  date  };       
 
         }

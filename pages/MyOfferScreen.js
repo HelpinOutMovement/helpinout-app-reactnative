@@ -446,11 +446,11 @@ function MyOfferScreen(props) {
           primayActionLabel={translate.t("search_for_help_seeker")}
           secondaryActionLabel={translate.t("offer_sent")}
           secondaryCompareWith={AppConstant.APP_MAPPING_INDICATOR.OFFERER}
-          secondaryAction={AppConstant.APP_ACTION.OFFERER_SENT_OFFERS}
+          secondaryAction={AppConstant.APP_ACTION.OFFERER_RCVD_REQUESTS}
           
           tertiaryActionLabel={translate.t("requests_received")}
           tertiaryCompareWith={AppConstant.APP_MAPPING_INDICATOR.REQUESTER}
-          tertiaryAction={AppConstant.APP_ACTION.OFFERER_RCVD_REQUESTS}
+          tertiaryAction={AppConstant.APP_ACTION.OFFERER_SENT_OFFERS}
           clickHandler={primaryActionHandler}
         />
       ));

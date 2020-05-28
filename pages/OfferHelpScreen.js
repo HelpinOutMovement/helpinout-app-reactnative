@@ -89,7 +89,7 @@ function OfferHelpScreen(props) {
 
 
     const getOptionsData = (props) => {
-        console.log("getOptionsData  : " + JSON.stringify(props))
+        //console.log("getOptionsData  : " + JSON.stringify(props))
         let restApi = new API();
         let reqObj =  restApi.locationRequesterSummary(props.route.params.region.latitude, props.route.params.region.longitude, 50);
         reqObj.then((response) => {
@@ -190,7 +190,7 @@ const getHelpOptionsView = (optionsOnScreen,props) => {
 }
  
 const getOptionsData = (props) => {
-    console.log("getOptionsData  : " + JSON.stringify(props))
+    //console.log("getOptionsData  : " + JSON.stringify(props))
     let restApi = new API();
     let reqObj =  restApi.locationRequesterSummary(props.route.params.region.latitude, props.route.params.region.longitude, 50);
     reqObj.then((response) => {

@@ -18,7 +18,7 @@ const FooterTabComponent = (props) => {
             }}>
             <Button vertical 
                 active={props.activeTab === AppConstant.APP_FOOTER_TABS.HOME}
-                onPress={() => props.navigation.navigate(AppConstant.APP_PAGE.HOME)}
+                onPress={() => props.navigation.navigate(AppConstant.APP_PAGE.HOME, {tik:new Date(), resetHistory:true})}
                 style={{
                     color: "#FFFFFF",
                     height: 70
@@ -33,7 +33,7 @@ const FooterTabComponent = (props) => {
             </Button>
             <Button vertical
                 active={props.activeTab === AppConstant.APP_FOOTER_TABS.MY_REQUEST}
-                onPress={() => props.navigation.navigate(AppConstant.APP_PAGE.MY_REQUEST_SCREEN)}
+                onPress={() => props.navigation.navigate(AppConstant.APP_PAGE.MY_REQUEST_SCREEN, {tik:new Date(), resetHistory:true})}
                 style={{
                     height: 70
                 }}
@@ -47,7 +47,7 @@ const FooterTabComponent = (props) => {
             </Button>
             <Button vertical
                 active={props.activeTab === AppConstant.APP_FOOTER_TABS.MY_OFFER}
-                onPress={() => props.navigation.navigate(AppConstant.APP_PAGE.MY_OFFERS_SCREEN)}
+                onPress={() => props.navigation.navigate(AppConstant.APP_PAGE.MY_OFFERS_SCREEN, {tik:new Date(), resetHistory:true})}
                 style={{
                     height: 70
                 }}

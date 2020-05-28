@@ -21,6 +21,7 @@ import Toast from 'react-native-tiny-toast'
 import { verticalScale, scale, moderateScale } from 'react-native-size-matters';
 import Modal from 'react-native-modal';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
+import { CommonActions } from '@react-navigation/native';
 
 
 
@@ -34,7 +35,7 @@ const dimensions = Dimensions.get('window');
 
 
 function Home(props) {
-  console.log("Home")
+    console.log("Home")
 
     //console.log(JSON.stringify(props))
     let mapComponentRef = useRef();
@@ -134,6 +135,10 @@ function Home(props) {
 
       
       useEffect(() => {
+        if(props.route.params && props.route.params.resetHistory){
+          resetStackNavigation();
+        }
+        
         //console.log("with params " + JSON.stringify(props))
         if(props.route.params != undefined){
           //console.log("with params not null " + props.route.params)
@@ -163,6 +168,23 @@ function Home(props) {
           }    
         }        
       }, [props.route.params]);
+
+
+
+
+
+      const resetStackNavigation = () =>{
+        navigation.dispatch(
+          CommonActions.reset({
+            index: 0,
+            routes: [
+              { name: AppConstant.APP_PAGE.HOME }              
+            ],
+          })
+        );
+      }
+
+
 
      const showRequestsAlertView = (type) => {    
             if (state[type].expanded) {

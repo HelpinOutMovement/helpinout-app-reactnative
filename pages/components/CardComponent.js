@@ -218,8 +218,7 @@ const RequesterInfoCardComponent = (props) => {
                 fontFamily: "Roboto-Regular",
                 fontSize: 14,
                 color: "#4F5065B8"
-              }}> {translate.t("request_call_him") }</Text>
-              {console.log(JSON.stringify(props))}
+              }}> {translate.t("request_call_him") }</Text>              
               <Text style={{ fontSize: 17 }}>{props.callerInfo}</Text>
             </View>
           </View>

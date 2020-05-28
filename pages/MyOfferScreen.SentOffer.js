@@ -3,12 +3,12 @@ import translate from 'react-native-i18n';
 import AppConstant from '../misc/AppConstant';
 import RequesterAndOffererListing from './components/RequesterAndOffererListing';
 
-
 function MyOfferSentOfferScreen(props) {
+    //console.log(" MyOfferSentOfferScreen :  " + JSON.stringify(props))
     const colorTheme = "#4F5065";
     const typeRestriction = 'offers';
     const inputMappingObject = 'request_detail';
-    let mappingIndicator = AppConstant.APP_MAPPING_INDICATOR.REQUESTER;
+    let mappingIndicator = AppConstant.APP_MAPPING_INDICATOR.OFFERER;
     let screenTitle = translate.t("help_request_received_from");
     let cancelButtonLabel = translate.t("cancel_this_offer");
 
@@ -21,10 +21,8 @@ function MyOfferSentOfferScreen(props) {
     let screenType = (props.route && props.route.params && props.route.params.screenType) ? props.route.params.screenType : '';
     if(screenType === AppConstant.APP_ACTION.OFFERS_RCVD) {
         screenTitle = translate.t("offer_send_to");
-        mappingIndicator = AppConstant.APP_MAPPING_INDICATOR.OFFERER;
+        mappingIndicator = AppConstant.APP_MAPPING_INDICATOR.REQUESTER;
     }
-    console.log("requestParams" + JSON.stringify(requestParams))
-    console.log("createdIdParams" + JSON.stringify(createdIdParams))
     return (
         <RequesterAndOffererListing {...props} 
                     requestParams={requestParams}
