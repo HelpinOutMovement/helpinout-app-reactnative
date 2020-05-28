@@ -6,7 +6,7 @@
  * @flow strict-local
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { NavigationContainer, } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
@@ -19,10 +19,9 @@ import RegisterMobile from './pages/RegisterMobile';
 import OnBoardingInfoScreen from './pages/OnBoardingInfoScreen';
 import MapComponent from './pages/MapComponent';
 
-
 import AppTheme from './styling/AppTheme';
 import { UserProvider } from './misc/UserContext';
-import { AppStringProvider } from './misc/AppStringContext';
+import AppStringContext, { AppStringProvider } from './misc/AppStringContext';
 import AppStorage from './storage/AppStorage';
 import AppConstant from './misc/AppConstant';
 import MyDrawer from './pages/SideDrawer';
@@ -179,6 +178,8 @@ function App() {
 
 
   const getStackedScreen = () => {
+
+    
     const stackedScreen = [];
     switch (appState) {
       case AppConstant.APP_STATE.IS_AUTHENTICATED:
