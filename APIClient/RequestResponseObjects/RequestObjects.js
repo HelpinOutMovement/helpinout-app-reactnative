@@ -1,21 +1,20 @@
     import DeviceInfo from 'react-native-device-info';
     import AppStorage from '../../storage/AppStorage';
     import AppConstant from '../../misc/AppConstant';
-
+    import Utils from '../../misc/Utils';
     const startingDate = new Date()
-    const date = startingDate.getFullYear()+"-"+(startingDate.getMonth()+1)+"-"+startingDate.getDate()+"T"+startingDate.getHours()+":"+startingDate.getMinutes()+":"+startingDate.getSeconds()+"."+startingDate.getMilliseconds()+"+"+startingDate.getTimezoneOffset();
+    const date = startingDate.getFullYear()+"-"+(startingDate.getMonth()+1)+"-"+startingDate.getDate()+"T"+startingDate.getHours()+":"+startingDate.getMinutes()+":"+startingDate.getSeconds()+"."+startingDate.getMilliseconds()+""+Utils.getTimeZoneOffset();
 
     const appVersion = DeviceInfo.getVersion() +"."+ DeviceInfo.getBuildNumber();
     class RequestObject{
 
         constructor(){
-
+            console.log("date - " + startingDate + "     " + startingDate.getTimezoneOffset())   
             this.APIData = {"app_id": 0, "imei_no": DeviceInfo.getUniqueId(), "app_version": appVersion, 'date_time':  date  };       
-            
 
-            //this.APIData = {"app_id": 137, "imei_no": DeviceInfo.getUniqueId(), "app_version": "0.1", 'date_time':  date  };
-            //this.setAppId();
         }
+
+
 
 
         //Struct = (...keys) => ((...v) => keys.reduce((o, k, i) => {o[k] = v[i]; return o} , {}))

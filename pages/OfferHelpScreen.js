@@ -1,5 +1,5 @@
 
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { TouchableOpacity } from 'react-native';
 import { Container, Header, Grid, Row, Col, Title, Left, Icon, Right, Button, Body, Content, Text, Card, CardItem } from "native-base";
 import translate from 'react-native-i18n';
@@ -14,63 +14,63 @@ import API from "../APIClient/API";
 
 const optionsOnScreen = [
     {
-        label: translate.t("food"),
+        label: appLabelKey.food,
         path: StaticImage.FOOD,
         code: AppConstant.API_REQUEST_CONSTANTS.activity_category.FOOD,
         total:0,
         nearMe:0
     },
     {
-        label: translate.t(appLabelKey.people),
+        label: appLabelKey.people,
         path: StaticImage.PEOPLE,
         code: AppConstant.API_REQUEST_CONSTANTS.activity_category.PEOPLE,
         total:0,
         nearMe:0
     },
     {
-        label: translate.t(appLabelKey.shelter),
+        label: appLabelKey.shelter,
         path: StaticImage.SHELTER,
         code: AppConstant.API_REQUEST_CONSTANTS.activity_category.SHELTER,
         total:0,
         nearMe:0
     },
     {
-        label: translate.t(appLabelKey.med_ppe),
+        label: appLabelKey.med_ppe,
         path: StaticImage.MED_PPE,
         code: AppConstant.API_REQUEST_CONSTANTS.activity_category.MED_PPE,
         total:0,
         nearMe:0
     },
     {
-        label: translate.t(appLabelKey.testing),
+        label: appLabelKey.testing,
         path: StaticImage.TESTING,
         code: AppConstant.API_REQUEST_CONSTANTS.activity_category.TESTING,
         total:0,
         nearMe:0
     },
     {
-        label: translate.t(appLabelKey.medicines),
+        label: appLabelKey.medicines,
         path: StaticImage.MEDICINE,
         code: AppConstant.API_REQUEST_CONSTANTS.activity_category.MEDICINES,
         total:0,
         nearMe:0
     },
     {
-        label: translate.t(appLabelKey.ambulance),
+        label: appLabelKey.ambulance,
         path: StaticImage.AMBULANCE,
         code: AppConstant.API_REQUEST_CONSTANTS.activity_category.AMBULANCE,
         total:0,
         nearMe:0
     },
     {
-        label: translate.t(appLabelKey.medical_Equipment),
+        label: appLabelKey.medical_Equipment,
         path: StaticImage.MED_EQUIPMENT,
         code: AppConstant.API_REQUEST_CONSTANTS.activity_category.MED_EQUIPMENT,
         total:0,
         nearMe:0
     },
     {
-        label: translate.t(appLabelKey.other),
+        label: appLabelKey.other,
         path: StaticImage.OTHER,
         code: AppConstant.API_REQUEST_CONSTANTS.activity_category.OTHER,
         total:0,
@@ -81,6 +81,28 @@ const optionsOnScreen = [
 
 function OfferHelpScreen(props) {
 
+
+    const [dataFectched, setDataFectched] = useState(false);
+
+    useEffect(() => {
+    }, [props.route.params]);
+
+
+    const getOptionsData = (props) => {
+        console.log("getOptionsData  : " + JSON.stringify(props))
+        let restApi = new API();
+        let reqObj =  restApi.locationRequesterSummary(props.route.params.region.latitude, props.route.params.region.longitude, 50);
+        reqObj.then((response) => {
+            for(var i=0;i<response.data.length;i++){
+                var index =  optionsOnScreen.findIndex((item, idx) => {
+                    return (item.code === response.data[i].activity_category)
+                });
+                optionsOnScreen[index]["total"] = response.data[i].total;
+                optionsOnScreen[index]["nearMe"] = response.data[i].near;
+            }
+            setDataFectched(true)
+        })
+    }
 
     getOptionsData(props)
 
@@ -147,6 +169,7 @@ const onOfferHelpSelection = (optionCode, optionImage, props) => {
 const getHelpOptionsView = (optionsOnScreen,props) => {
     const cardListView = [];
     optionsOnScreen.forEach((singleOption, index) => {
+        singleOption.label = translate.t(singleOption.label)
         cardListView.push((
             <Row key={singleOption.code}>
                 <Col>
@@ -165,10 +188,11 @@ const getHelpOptionsView = (optionsOnScreen,props) => {
     return cardListView;
 
 }
- const getOptionsData = (props) => {
-     ////console.log("getOptionsData  : " + JSON.stringify(props))
+ 
+const getOptionsData = (props) => {
+    console.log("getOptionsData  : " + JSON.stringify(props))
     let restApi = new API();
-    let reqObj =  restApi.locationRequesterSummary(props.route.params.latlon.split(",")[0], props.route.params.latlon.split(",")[1], 50);
+    let reqObj =  restApi.locationRequesterSummary(props.route.params.region.latitude, props.route.params.region.longitude, 50);
     reqObj.then((response) => {
         for(var i=0;i<response.data.length;i++){
             var index =  optionsOnScreen.findIndex((item, idx) => {

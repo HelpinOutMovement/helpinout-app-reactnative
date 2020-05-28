@@ -132,7 +132,7 @@ fetchCompletionHandler:(nonnull void (^)(UIBackgroundFetchResult))completionHand
   return [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
 #endif
 
-  ////return [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
+//  return [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
 }
 
 @end

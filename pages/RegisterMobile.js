@@ -40,7 +40,7 @@ export default class RegisterMobile extends React.Component {
 
         }//this.props.route.params.loginState;
 
-        AppStorage.storeAppInfo(AppConstant.IS_LOGGED_IN, "false");
+        //AppStorage.storeAppInfo(AppConstant.IS_LOGGED_IN, "false");
         //this.state = {}//this.props.route.params.loginState;
 
 

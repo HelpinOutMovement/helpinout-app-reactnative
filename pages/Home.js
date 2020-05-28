@@ -8,7 +8,9 @@ import MapComponent from './MapComponent';
 import AppConstant from '../misc/AppConstant';
 import AskForHelpButton from "./components/AskForHelpButton";
 import OfferHelpButton from "./components/OfferHelpButton";
+
 import { apiInstance } from "../APIClient/API";
+
 import Utils from "../misc/Utils"
 import FooterTabComponent from './components/FooterTabComponent';
 import SpinnerComponent from './components/SpinnerComponent';
@@ -32,21 +34,21 @@ const dimensions = Dimensions.get('window');
 
 
 function Home(props) {
-
+  console.log("Home")
 
     //console.log(JSON.stringify(props))
     let mapComponentRef = useRef();
     let navigation = props.navigation;
 
     //let tik = (props.route.params["tik"]) ? props.route.params.tik : 0;
-    const { latlon , setLatLon, setRegion} = useContext(UserContext);
+    const { getLatLon , setLatLon, setRegion} = useContext(UserContext);
 
     const [showSpinner, setShowSpinner] = useState(false);
 
     const [state, setState] = useState({ 
       hintIsHidden: false, 
           userDetails: {}, 
-          region: {}, 
+          region: (props.route && props.route.params && props.route.params.region) ? props.route.params.region : {},
           address: "Default Address", 
           requestMatchCount:0,
           offerMatchCount:0, 
@@ -62,11 +64,13 @@ function Home(props) {
             },
           ShowAskForHelpModal:false, 
           ShowSearchModal:false, 
-          mapLatLon:""
+          mapLatLon:(props.route && props.route.params && props.route.params.latlon) ? props.route.params.latlon : ""
     });
 
       useEffect(() => {
-        console.log("Home")
+        
+        //console.log("without params " + JSON.stringify(props))
+
         setShowSpinner(true)
         apiInstance.userPastActivity(0).then(resp => {
           if(resp.data.requests.length > 0){
@@ -108,7 +112,7 @@ function Home(props) {
         setState({
           hintIsHidden: false, 
           userDetails: {}, 
-          region: {}, 
+          region: (props.route && props.route.params && props.route.params.region) ? props.route.params.region : {},
           address: "Default Address", 
           requestMatchCount:0,
           offerMatchCount:0, 
@@ -124,19 +128,19 @@ function Home(props) {
             },
           ShowAskForHelpModal:false,
           ShowSearchModal:false, 
-          mapLatLon:""
+          mapLatLon:(props.route && props.route.params && props.route.params.latlon) ? props.route.params.latlon : ""
         })
       }, []);
 
       
       useEffect(() => {
-        //console.log("with params " + props.route.params)
+        //console.log("with params " + JSON.stringify(props))
         if(props.route.params != undefined){
           //console.log("with params not null " + props.route.params)
           setState({
             hintIsHidden: false, 
             userDetails: {}, 
-            region: {}, 
+            region: (props.route && props.route.params && props.route.params.region) ? props.route.params.region : {},
             address: state.address, 
             requestMatchCount:0,
             offerMatchCount:0, 
@@ -152,11 +156,11 @@ function Home(props) {
               },
             ShowAskForHelpModal:false,
             ShowSearchModal:false, 
-            mapLatLon:props.route.params.latlon
+            mapLatLon:(props.route && props.route.params && props.route.params.latlon) ? props.route.params.latlon : ""
           })
           if(props.route && props.route.params && props.route.params.latlon){
             mapComponentRef.current.setLanLon(props.route.params.latlon.split(",")[0], props.route.params.latlon.split(",")[1])
-          }          
+          }    
         }        
       }, [props.route.params]);
 
@@ -178,6 +182,7 @@ function Home(props) {
       state["region"] = region;
       state["address"] = address;
       state["latlon"] =  region.latitude + "," + region.longitude;
+      state["mapLatLon"] =  region.latitude + "," + region.longitude;
       setLatLon(region.latitude + "," + region.longitude)
       setRegion(region)
       setState({ ...state})
@@ -201,12 +206,12 @@ function Home(props) {
       })
     }
   
-    const renderScreen = (latlon) =>{
+    const renderScreen = () =>{
 
       return(
 
 <Container style={{ alignItems: "center" }}>
-        <MapComponent mapLatLon={latlon} mapHeight={verticalScale(590)} callbackOnRegionChange={callbackOnRegionChange} mapProps={props} ref={mapComponentRef}>
+        <MapComponent mapLatLon={state.mapLatLon} mapHeight={verticalScale(590)} callbackOnRegionChange={callbackOnRegionChange} mapProps={props} ref={mapComponentRef}>
         </MapComponent>
 
 
@@ -470,7 +475,7 @@ function Home(props) {
 
     return (
 
-      renderScreen(state.mapLatLon)
+      renderScreen()
 
     );
 

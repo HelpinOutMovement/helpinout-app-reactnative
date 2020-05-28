@@ -12,47 +12,47 @@ import AddActivityScreen from './components/AddActivityScreen';
 
 const optionsOnScreen = [
   {
-    label: translate.t("food"),
+    label: appLabelKey.food,
     path: StaticImage.FOOD,
     code: AppConstant.API_REQUEST_CONSTANTS.activity_category.FOOD
   },
   {
-    label: translate.t(appLabelKey.people),
+    label: appLabelKey.people,
     path: StaticImage.PEOPLE,
     code: AppConstant.API_REQUEST_CONSTANTS.activity_category.PEOPLE
   },
   {
-    label: translate.t(appLabelKey.shelter),
+    label: appLabelKey.shelter,
     path: StaticImage.SHELTER,
     code: AppConstant.API_REQUEST_CONSTANTS.activity_category.SHELTER
   },
   {
-    label: translate.t(appLabelKey.med_ppe),
+    label: appLabelKey.med_ppe,
     path: StaticImage.MED_PPE,
     code: AppConstant.API_REQUEST_CONSTANTS.activity_category.MED_PPE
   },
   {
-    label: translate.t(appLabelKey.testing),
+    label: appLabelKey.testing,
     path: StaticImage.TESTING,
     code: AppConstant.API_REQUEST_CONSTANTS.activity_category.TESTING
   },
   {
-    label: translate.t(appLabelKey.medicines),
+    label: appLabelKey.medicines,
     path: StaticImage.MEDICINE,
     code: AppConstant.API_REQUEST_CONSTANTS.activity_category.MEDICINE
   },
   {
-    label: translate.t(appLabelKey.ambulance),
+    label: appLabelKey.ambulance,
     path: StaticImage.AMBULANCE,
     code: AppConstant.API_REQUEST_CONSTANTS.activity_category.AMBULANCE
   },
   {
-    label: translate.t(appLabelKey.medical_Equipment),
+    label: appLabelKey.medical_Equipment,
     path: StaticImage.MED_EQUIPMENT,
     code: AppConstant.API_REQUEST_CONSTANTS.activity_category.MED_EQUIPMENT
   },
   {
-    label: translate.t(appLabelKey.other),
+    label: appLabelKey.other,
     path: StaticImage.OTHER,
     code: AppConstant.API_REQUEST_CONSTANTS.activity_category.OTHER
   }
@@ -61,7 +61,7 @@ const optionsOnScreen = [
 
 function AskForHelpScreen(props) {
 
-
+    console.log("AskForHelpScreen : " + JSON.stringify(props))
     const onAskForHelpSelection = (optionCode, optionImage) => {
       /*
       props.navigation.navigate(AppConstant.APP_PAGE.ASK_FOR_HELP_DETAILS, {
@@ -89,11 +89,13 @@ function AskForHelpScreen(props) {
     const cardListView = [];
     let twoColGrid = [];
     optionsOnScreen.forEach((singleOption, index) => {
+      singleOption.label = translate.t(singleOption.label)
       twoColGrid.push((
             <Col key={singleOption.code}>
               <TouchableOpacity onPress={() => {
                   onAskForHelpSelection(singleOption.code, singleOption.path);
               }} >
+                
                 <CardComponent {...singleOption} />
               </TouchableOpacity>
             </Col>

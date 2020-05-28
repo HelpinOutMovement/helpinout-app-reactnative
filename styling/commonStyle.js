@@ -27,7 +27,7 @@ const commonStyling = StyleSheet.create({
    },		
     sideDrawerText: {		
       textAlign: "center",		
-      fontFamily: "Roboto-Medium",		
+      fontFamily: "Roboto-Regular",		
       fontSize: 18,		
       color: "#4F5065"		
     },		

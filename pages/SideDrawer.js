@@ -22,6 +22,7 @@ import myRequests from './MyRequestScreen'
 import myOffers from './MyOfferScreen'
 
 import { ScrollView } from 'react-native-gesture-handler';
+import { verticalScale } from 'react-native-size-matters';
 
 const Drawer = createDrawerNavigator();
 
@@ -32,7 +33,8 @@ const SideMenuOptions = {
         label: appLabelKey.home,
         pageName: AppConstant.APP_PAGE.HOME, 
         pageProps: {
-            tik: new Date()
+            tik: new Date(),
+            addRegionInfo: true
         }
 
     }, 
@@ -110,7 +112,7 @@ const CustomSideBarView = (props) => {
         AppStorage.storeAppInfo("locale", lang).then(function (value) {
             setLanguage(lang);
             navigation.closeDrawer();
-            navigation.navigate(AppConstant.APP_PAGE.HOME, {tik:new Date(), language:lang});            
+            navigation.navigate(AppConstant.APP_PAGE.HOME, {tik:new Date(), region:getRegion(), mapLatLon:getLatLon(), latlon:getLatLon(), language:lang});            
         });
     }
 
@@ -169,6 +171,7 @@ const CustomSideBarView = (props) => {
                                 if(pageProps.addRegionInfo) {
                                     pageProps = {
                                         ...pageProps,
+                                        mapLatLon:getLatLon,
                                         latlon:getLatLon(), 
                                         region:getRegion()
                                     }
@@ -195,10 +198,9 @@ const CustomSideBarView = (props) => {
         return primaryMenu;
     }
     return (
-        <View>
+        <View style={{height:verticalScale(600), borderWidth:0}}>
             <LogoComponent marginVertical={10} hideName={true} />
             <View>
-
                 {getPrimaryMenu()}
             </View>
 
@@ -207,36 +209,7 @@ const CustomSideBarView = (props) => {
                 {getSecondaryMenu()}
                 </ScrollView>
             </View>
-            {/*
-            <View
-                style={{
-                    borderBottomColor: '#bfbfbf',
-                    borderBottomWidth: 1,
-                    marginVertical: 15
-                }}
-            />
-            <View>
-                <View style={{ alignItems: "center", marginVertical: 15 }} >
-                    <TouchableOpacity
-                            style={[{
-                                flexDirection: 'row'
-                            }]}
-                            onPress={() =>{
-                                    navigation.closeDrawer();
-                                    navigation.navigate(AppConstant.APP_PAGE.ON_BOARDING, {date: new Date(),languagedChanged:true})
-                                }
-                            }>
-                        <Text
-                            style={commonStyling.sideDrawerText}
-                        >Select Language</Text>
-                        <View style={{
-                            marginLeft: 10
-                        }}>
-                        </View>
-                    </TouchableOpacity>               
-                </View>
-            </View>
-            */}
+            
         </View>
     )
 }

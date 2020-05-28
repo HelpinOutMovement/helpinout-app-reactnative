@@ -52,7 +52,7 @@ class Utilities {
 
     static getDuration(seconds) {
         var epoch, interval;
-      
+        //console.log(seconds)
         for (var i = 0; i < this.DURATION_IN_SECONDS.epochs.length; i++) {
           epoch = this.DURATION_IN_SECONDS.epochs[i];
           interval = Math.floor(seconds / this.DURATION_IN_SECONDS[epoch]);
@@ -66,11 +66,41 @@ class Utilities {
      };
     
     static timeSince(date) {
-        var seconds = Math.floor((new Date() - new Date(date)) / 1000);
+        let activityDate = new Date(date);
+        let currentDate = new Date()
+        var seconds = Math.floor((currentDate - activityDate) / 1000);
         var duration = this.getDuration(seconds);
         var suffix = (duration.interval > 1 || duration.interval === 0) ? 's' : '';
         return duration.interval + ' ' + duration.epoch + suffix;
     };
+
+
+    static getTimeZoneOffset(){
+
+        var timezone_offset_min = new Date().getTimezoneOffset(),
+            offset_hrs = parseInt(Math.abs(timezone_offset_min/60)),
+            offset_min = Math.abs(timezone_offset_min%60),
+            timezone_standard;
+
+            if(offset_hrs < 10)
+                offset_hrs = '0' + offset_hrs;
+
+            if(offset_min < 10)
+                offset_min = '0' + offset_min;
+
+            // Add an opposite sign to the offset
+            // If offset is 0, it means timezone is UTC
+            if(timezone_offset_min < 0)
+                timezone_standard = '+' + offset_hrs + ':' + offset_min;
+            else if(timezone_offset_min > 0)
+                timezone_standard = '-' + offset_hrs + ':' + offset_min;
+            else if(timezone_offset_min == 0)
+                timezone_standard = 'Z';
+
+        return timezone_standard;        
+
+    }
+
 
     static  isIphoneX = () => {
         const dimen = Dimensions.get('window');
