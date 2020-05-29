@@ -334,7 +334,7 @@ function MyOfferScreen(props) {
 
   const [emailData, setEmailData] = useState("");
 
-
+  console.log("MyOfferScreen " + JSON.stringify(props))
   useFocusEffect(
     React.useCallback(() => {
       setShowSpinner(true);
@@ -505,7 +505,7 @@ function MyOfferScreen(props) {
       </ScrollView>
       </Content>
       <FooterTab style={{ position: "absolute", left: 0, top: footerTop, width: scale(350), backgroundColor: "#FFFFFF" }}>
-            <FooterTabComponent {...props} activeTab={AppConstant.APP_FOOTER_TABS.MY_OFFER}/>
+            <FooterTabComponent {...props} activeTab={AppConstant.APP_FOOTER_TABS.MY_OFFER} region={props.route.params.region}/>
       </FooterTab>
      
       <ModalComponent

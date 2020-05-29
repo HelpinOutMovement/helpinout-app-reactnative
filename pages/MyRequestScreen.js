@@ -338,6 +338,7 @@ function MyRequestScreen(props) {
   }, [])
 
   */
+ console.log("MyRequestScreen " + JSON.stringify(props))
   useFocusEffect(
     React.useCallback(() => {
       setShowSpinner(true);
@@ -481,7 +482,7 @@ function MyRequestScreen(props) {
         </ScrollView>
       </Content>
       <FooterTab style={{ position: "absolute", left: 0, top: footerTop, width: scale(350), backgroundColor: "#FFFFFF" }}>
-            <FooterTabComponent {...props} activeTab={AppConstant.APP_FOOTER_TABS.MY_REQUEST}/>
+            <FooterTabComponent {...props} activeTab={AppConstant.APP_FOOTER_TABS.MY_REQUEST} region={props.route.params.region}/>
       </FooterTab>
       <ModalComponent
         {...modalInfo}

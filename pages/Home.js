@@ -136,10 +136,10 @@ function Home(props) {
       
       useEffect(() => {
         if(props.route.params && props.route.params.resetHistory){
-          resetStackNavigation();
+          //resetStackNavigation();
         }
         
-        //console.log("with params " + JSON.stringify(props))
+        console.log("with params " + JSON.stringify(props))
         if(props.route.params != undefined){
           //console.log("with params not null " + props.route.params)
           setState({
@@ -365,7 +365,7 @@ function Home(props) {
                   </View>
                 </View>
                 <FooterTab style={{ position: "absolute", left: 0, top: footerTop, width: scale(350), backgroundColor: "#FFFFFF" }}>
-                  <FooterTabComponent {...props} activeTab={AppConstant.APP_FOOTER_TABS.HOME} latlon={state.latlon} />
+                  <FooterTabComponent {...props} activeTab={AppConstant.APP_FOOTER_TABS.HOME} latlon={state.latlon} region={state.region} />
                 </FooterTab>
         </SafeAreaView>
 
