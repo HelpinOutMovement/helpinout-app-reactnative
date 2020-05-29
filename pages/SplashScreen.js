@@ -12,7 +12,7 @@ function SplashScreen({ navigation }) {
 
     const { setLanguage , language} = useContext(AppStringContext);
     AppStorage.getAppInfo("locale").then(function (lang) {
-      setLanguage(lang);
+        (lang) ? setLanguage(lang) : setLanguage('en');      
     });
     return (
         <View style={commonStyling.splashScreenContainer}>

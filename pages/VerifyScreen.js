@@ -104,6 +104,7 @@ export default class VerifyScreen extends React.Component {
               this.setState({ confirmResult: confirmResult });       
             })
             .catch(error => {
+                console.log(' handleSendCode Error ' + JSON.stringify(error))
                 Toast.show('Error : ' + JSON.stringify(error) , {duration:1000, position:0, animation:true, shadow:true, animationDuration:1000})
             })
         } else {
@@ -134,6 +135,7 @@ export default class VerifyScreen extends React.Component {
                         if (result.status === "0") {                            
                             this.navigate(AppConstant.APP_PAGE.REGISTER_MOBILE, { countryCode: this.state.selectedCountryDialCode, phoneNumber:this.state.phoneNumber, action:"register" });
                         }else if (result.status === "-1") {
+                            console.log('Login Error -1 ' + JSON.stringify(error))
                             Toast.show('Login Error ' + result.message , {duration:1000, position:0, animation:true, shadow:true, animationDuration:2000})
                         }else if (result.status === "1") {                            
                             AppStorage.storeAppInfo(AppConstant.APP_STORE_KEY.USER_REG_DETAILS, JSON.stringify(result.data));
@@ -153,6 +155,7 @@ export default class VerifyScreen extends React.Component {
                         this.setState({resendVerificationCodeEnabled:true, verificationCodeEditable:true, contdownValue:0})
                         AppStorage.storeAppInfo(AppConstant.APP_STORE_KEY.IS_VEFIRIED, "false");
                         AppStorage.storeAppInfo(AppConstant.APP_STORE_KEY.USER_REG_DETAILS, "");
+                        console.log('Login Error ' + JSON.stringify(error))
                         Toast.show('Login Error ' + JSON.stringify(error) , {duration:1000, position:0, animation:true, shadow:true, animationDuration:2000})
                     }
                 );
@@ -179,9 +182,11 @@ export default class VerifyScreen extends React.Component {
                 })
                 .catch(error => {
                     AppStorage.storeAppInfo(AppConstant.APP_STORE_KEY.IS_VEFIRIED, "false")
+                    console.log('Verification Error ' + JSON.stringify(error))
                     Toast.show('Verification Error ' + JSON.stringify(error) , {duration:1000, position:0, animation:true, shadow:true, animationDuration:1000})
                 })
         } else {
+            console.log(translate.t('toast_error_please_enter_otp'))
             Toast.show(translate.t('toast_error_please_enter_otp') , {duration:1000, position:0, animation:true, shadow:true, animationDuration:1000})
         }
     }
