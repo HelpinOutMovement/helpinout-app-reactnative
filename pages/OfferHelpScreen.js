@@ -121,6 +121,7 @@ function OfferHelpScreen(props) {
     const getHelpOptionsView = () => {
         const cardListView = [];
         optionsOnScreen.forEach((singleOption, index) => {
+            singleOption.label = translate.t(singleOption.label)
             cardListView.push((
                 <Row key={singleOption.code}>
                     <Col>
