@@ -88,14 +88,14 @@ function AskForHelpScreen(props) {
     const cardListView = [];
     let twoColGrid = [];
     optionsOnScreen.forEach((singleOption, index) => {
-      singleOption.label = translate.t(singleOption.label)
+      //singleOption.label = translate.t(singleOption.label)
       twoColGrid.push((
             <Col key={singleOption.code}>
               <TouchableOpacity onPress={() => {
                   onAskForHelpSelection(singleOption.code, singleOption.path);
               }} >
                 
-                <CardComponent {...singleOption} />
+                <CardComponent {...singleOption} translateLabel={true} />
               </TouchableOpacity>
             </Col>
           ));

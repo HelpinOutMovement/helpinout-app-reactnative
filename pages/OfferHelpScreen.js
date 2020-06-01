@@ -81,7 +81,7 @@ const optionsOnScreen = [
 
 function OfferHelpScreen(props) {
 
-
+ 
     const [dataFectched, setDataFectched] = useState(false);
 
     useEffect(() => {
@@ -93,6 +93,7 @@ function OfferHelpScreen(props) {
         let restApi = new API();
         let reqObj =  restApi.locationRequesterSummary(props.route.params.region.latitude, props.route.params.region.longitude, 50);
         reqObj.then((response) => {
+            console.log(JSON.stringify(response))
             for(var i=0;i<response.data.length;i++){
                 var index =  optionsOnScreen.findIndex((item, idx) => {
                     return (item.code === response.data[i].activity_category)
@@ -118,10 +119,9 @@ function OfferHelpScreen(props) {
         })
     }
 
-    const getHelpOptionsView = () => {
+    const getHelpOptionsView = (optsOnScreen) => {
         const cardListView = [];
-        optionsOnScreen.forEach((singleOption, index) => {
-            singleOption.label = translate.t(singleOption.label)
+        optsOnScreen.forEach((singleOption, index) => {
             cardListView.push((
                 <Row key={singleOption.code}>
                     <Col>
@@ -129,7 +129,7 @@ function OfferHelpScreen(props) {
                             onOfferHelpSelection(singleOption.code, singleOption.path);
                         }} >
                             
-                            <CardComponent {...singleOption} singleRow={true} />
+                            <CardComponent {...singleOption} singleRow={true} translateLabel={true} />
                         </TouchableOpacity>
                     </Col>
                 </Row>
@@ -148,62 +148,11 @@ function OfferHelpScreen(props) {
             <HeaderComponent {...props} title={translate.t("toolbar_offer_help_with")} bgColor="#4F5065" />
             <Content padder  >
                 <Grid>
-                    {getHelpOptionsView()}
+                    {getHelpOptionsView(optionsOnScreen)}
                 </Grid>
             </Content>    
         </Container>
     );
-}
-
-
-const onOfferHelpSelection = (optionCode, optionImage, props) => {
-    props.navigation.navigate(AppConstant.APP_PAGE.OFFER_HELP_SCREEN_DETAILS, {
-        activity_type: AppConstant.API_REQUEST_CONSTANTS.activity_type.Offer,
-        optionCode: optionCode,
-        optionImage: optionImage,
-        region:props.route.params.region,
-        activity_category:optionCode, 
-        address:props.route.params.address
-    })
-}
-
-const getHelpOptionsView = (optionsOnScreen,props) => {
-    const cardListView = [];
-    optionsOnScreen.forEach((singleOption, index) => {
-        singleOption.label = translate.t(singleOption.label)
-        cardListView.push((
-            <Row key={singleOption.code}>
-                <Col>
-                    <TouchableOpacity onPress={() => {
-                        onOfferHelpSelection(singleOption.code, singleOption.path, props);
-                    }} >
-                        
-                        <CardComponent {...singleOption} singleRow={true} />
-                    </TouchableOpacity>
-                </Col>
-            </Row>
-        ));
-    });
-
-
-    return cardListView;
-
-}
- 
-const getOptionsData = (props) => {
-    //console.log("getOptionsData  : " + JSON.stringify(props))
-    let restApi = new API();
-    let reqObj =  restApi.locationRequesterSummary(props.route.params.region.latitude, props.route.params.region.longitude, 50);
-    reqObj.then((response) => {
-        for(var i=0;i<response.data.length;i++){
-            var index =  optionsOnScreen.findIndex((item, idx) => {
-                return (item.code === response.data[i].activity_category)
-            });
-            optionsOnScreen[index]["total"] = response.data[i].total;
-            optionsOnScreen[index]["nearMe"] = response.data[i].near;
-        }
-        props.navigation.navigate(AppConstant.APP_PAGE.OFFER_HELP_SCREEN)
-    })
 }
 
 export default OfferHelpScreen;

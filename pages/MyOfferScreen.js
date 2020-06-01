@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { View , Dimensions, TouchableOpacity} from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import { Container, Content, Text, Footer, FooterTab, Header, Left, Button, Icon, Body, Title, Right } from "native-base";
@@ -11,6 +11,8 @@ import HeaderComponent from './components/HeaderComponent';
 import SpinnerComponent from './components/SpinnerComponent';
 import FooterTabComponent from './components/FooterTabComponent';
 import ModalComponent from './components/ModalComponent';
+import UserContext from '../misc/UserContext'
+
 
 import { ScrollView, TextInput } from 'react-native-gesture-handler';
 
@@ -332,6 +334,8 @@ function MyOfferScreen(props) {
   const [modalInfo, setModalInfo] = useState({});
   const [showEmailModal, setShowEmailModal] = useState(false);
 
+  const { getRegion } = useContext(UserContext);
+
   const [emailData, setEmailData] = useState("");
 
   console.log("MyOfferScreen " + JSON.stringify(props))
@@ -505,7 +509,7 @@ function MyOfferScreen(props) {
       </ScrollView>
       </Content>
       <FooterTab style={{ position: "absolute", left: 0, top: footerTop, width: scale(350), backgroundColor: "#FFFFFF" }}>
-            <FooterTabComponent {...props} activeTab={AppConstant.APP_FOOTER_TABS.MY_OFFER} region={props.route.params.region}/>
+            <FooterTabComponent {...props} activeTab={AppConstant.APP_FOOTER_TABS.MY_OFFER} region={(props.route && props.route.params && props.route.params.region) ? props.route.params.region : getRegion() }/>
       </FooterTab>
      
       <ModalComponent
@@ -550,8 +554,8 @@ function MyOfferScreen(props) {
                         <View style={{
                           backgroundColor:"#EE6B6B",
                           borderRadius:4,
-                          paddingHorizontal: 5,
-                          paddingVertical:10,
+                          //paddingHorizontal: 5,
+                          //paddingVertical:10,
                           borderColor:"#EE6B6B",
                           borderWidth:1,
                           width:scale(100),
@@ -559,7 +563,7 @@ function MyOfferScreen(props) {
                           alignItems:"center",
                           justifyContent:"center"
                         }}>
-                          <Text adjustsFontSizeToFit={true} minimumFontScale={0.5} numberOfLines={1} style={{color: "rgba(245,245,245,1)",fontFamily: "roboto-regular", alignItems: 'center',justifyContent:'center',}}>{translate.t("submit")}</Text>
+                          <Text adjustsFontSizeToFit={true} minimumFontScale={0.5} numberOfLines={1} style={{color: "rgba(245,245,245,1)",fontFamily: "roboto-regular",}}>{translate.t("submit")}</Text>
                         </View>
                     </TouchableOpacity>
                 </View>

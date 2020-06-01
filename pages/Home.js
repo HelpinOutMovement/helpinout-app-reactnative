@@ -47,8 +47,6 @@ function Home(props) {
     const [showSpinner, setShowSpinner] = useState(false);
 
     const [state, setState] = useState({ 
-      hintIsHidden: false, 
-          userDetails: {}, 
           region: (props.route && props.route.params && props.route.params.region) ? props.route.params.region : {},
           address: "Default Address", 
           requestMatchCount:0,
@@ -111,8 +109,6 @@ function Home(props) {
         })
 
         setState({
-          hintIsHidden: false, 
-          userDetails: {}, 
           region: (props.route && props.route.params && props.route.params.region) ? props.route.params.region : {},
           address: "Default Address", 
           requestMatchCount:0,
@@ -143,8 +139,6 @@ function Home(props) {
         if(props.route.params != undefined){
           //console.log("with params not null " + props.route.params)
           setState({
-            hintIsHidden: false, 
-            userDetails: {}, 
             region: (props.route && props.route.params && props.route.params.region) ? props.route.params.region : {},
             address: state.address, 
             requestMatchCount:0,

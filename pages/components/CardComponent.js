@@ -52,7 +52,7 @@ const CardComponent = (props) => {
                       //fontSize: 16,
                       //lineHeight: 18,
                       color: "#4F5065"
-                    }}> {props.label} </Text>
+                    }}> {(props.translateLabel) ?  translate.t(props.label) : props.label} </Text>
                   <Text adjustsFontSizeToFit={true}  minimumFontScale={1} style={{
                     fontFamily: "Roboto-Regular",
                     //fontSize: 14,
@@ -103,7 +103,7 @@ const CardComponent = (props) => {
           fontFamily: "Roboto-Regular",
           fontSize: 14,
           color: "#4F5065CC"
-        }}> {props.label}</Text>
+        }}>  {(props.translateLabel) ?  translate.t(props.label) : props.label} </Text>
       </CardItem>
     </Card>
 

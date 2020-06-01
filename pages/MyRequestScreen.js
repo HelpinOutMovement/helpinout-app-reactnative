@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { View , Dimensions} from 'react-native';
 import { Container, Content, Text, Footer , FooterTab, Header, Left, Button, Icon, Body, Title, Right} from "native-base";
 import translate from 'react-native-i18n';
@@ -11,13 +11,12 @@ import HeaderComponent from './components/HeaderComponent';
 import SpinnerComponent from './components/SpinnerComponent';
 import FooterTabComponent from './components/FooterTabComponent';
 import ModalComponent from './components/ModalComponent';
+import UserContext from '../misc/UserContext';
+import Utils from "../misc/Utils"
 
 import { verticalScale, scale, moderateScale } from 'react-native-size-matters';
-import Utils from "../misc/Utils"
 import { ScrollView } from 'react-native-gesture-handler';
-
 import Toast from 'react-native-tiny-toast'
-
 
 const footerTop = Utils.isIphoneX() ? verticalScale(620) : verticalScale(610);
 
@@ -325,6 +324,7 @@ function MyRequestScreen(props) {
   const [requestInformation, setRequestInformation] = useState([]);
   const [showSpinner, setShowSpinner] = useState(false);
   const [modalInfo, setModalInfo] = useState({});
+  const { getRegion } = useContext(UserContext);
 /*
   useEffect(() => {
     setShowSpinner(true);
@@ -482,7 +482,7 @@ function MyRequestScreen(props) {
         </ScrollView>
       </Content>
       <FooterTab style={{ position: "absolute", left: 0, top: footerTop, width: scale(350), backgroundColor: "#FFFFFF" }}>
-            <FooterTabComponent {...props} activeTab={AppConstant.APP_FOOTER_TABS.MY_REQUEST} region={props.route.params.region}/>
+            <FooterTabComponent {...props} activeTab={AppConstant.APP_FOOTER_TABS.MY_REQUEST} region={(props.route && props.route.params && props.route.params.region) ? props.route.params.region : getRegion() }/>
       </FooterTab>
       <ModalComponent
         {...modalInfo}
