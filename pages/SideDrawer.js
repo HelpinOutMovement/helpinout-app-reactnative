@@ -171,7 +171,7 @@ const CustomSideBarView = (props) => {
                                 if(pageProps.addRegionInfo) {
                                     pageProps = {
                                         ...pageProps,
-                                        mapLatLon:getLatLon,
+                                        mapLatLon:getLatLon(),
                                         latlon:getLatLon(), 
                                         region:getRegion()
                                     }

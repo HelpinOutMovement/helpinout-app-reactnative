@@ -42,12 +42,13 @@ function Home(props) {
     let navigation = props.navigation;
 
     //let tik = (props.route.params["tik"]) ? props.route.params.tik : 0;
-    const { getLatLon , setLatLon, setRegion} = useContext(UserContext);
+    const { getLatLon , setLatLon, setRegion, getRegion} = useContext(UserContext);
 
     const [showSpinner, setShowSpinner] = useState(false);
 
     const [state, setState] = useState({ 
-          region: (props.route && props.route.params && props.route.params.region) ? props.route.params.region : {},
+          //region: (props.route && props.route.params && props.route.params.region) ? props.route.params.region : {},
+          region: getRegion(),
           address: "Default Address", 
           requestMatchCount:0,
           offerMatchCount:0, 
@@ -109,7 +110,8 @@ function Home(props) {
         })
 
         setState({
-          region: (props.route && props.route.params && props.route.params.region) ? props.route.params.region : {},
+          //region: (props.route && props.route.params && props.route.params.region) ? props.route.params.region : {},
+          region: getRegion(),
           address: "Default Address", 
           requestMatchCount:0,
           offerMatchCount:0, 
@@ -139,7 +141,8 @@ function Home(props) {
         if(props.route.params != undefined){
           //console.log("with params not null " + props.route.params)
           setState({
-            region: (props.route && props.route.params && props.route.params.region) ? props.route.params.region : {},
+            //region: (props.route && props.route.params && props.route.params.region) ? props.route.params.region : {},
+            region: getRegion(),
             address: state.address, 
             requestMatchCount:0,
             offerMatchCount:0, 

@@ -421,31 +421,34 @@ function MyRequestScreen(props) {
 
   const getRequestList = () => {
     let cardListView = [];
-    requestInformation.forEach((singleOption, index) => {
-      // realReq.forEach((singleOption, index) => {
-      cardListView.push((
-        <PastOfferRequestComponent
-          key={singleOption.activity_uuid}
-          count_suffix={translate.t("total_offers")}
-          colorTheme={colorTheme}
-          {...singleOption}
-          primayActionLabel={translate.t("search_for_help_givers")}
-          secondaryActionLabel={translate.t("requests_sent")}
-          tertiaryActionLabel={translate.t("offers_received")}
-          tertiaryCompareWith={AppConstant.APP_MAPPING_INDICATOR.OFFERER}
-          clickHandler={primaryActionHandler}
-        />
-      ));
-    });
+    try{
+      requestInformation.forEach((singleOption, index) => {
+        // realReq.forEach((singleOption, index) => {
+        cardListView.push((
+          <PastOfferRequestComponent
+            key={singleOption.activity_uuid}
+            count_suffix={translate.t("total_offers")}
+            colorTheme={colorTheme}
+            {...singleOption}
+            primayActionLabel={translate.t("search_for_help_givers")}
+            secondaryActionLabel={translate.t("requests_sent")}
+            tertiaryActionLabel={translate.t("offers_received")}
+            tertiaryCompareWith={AppConstant.APP_MAPPING_INDICATOR.OFFERER}
+            clickHandler={primaryActionHandler}
+          />
+        ));
+      });
+      if (cardListView.length <= 0) {
+        cardListView.push(<View>
+          <Text>
+            {translate.t("label_no_request_send")}
+          </Text>
+        </View>)
+      }
+    }catch(e){
 
-
-    if (cardListView.length <= 0) {
-      cardListView.push(<View>
-        <Text>
-          {translate.t("label_no_request_send")}
-        </Text>
-      </View>)
     }
+    
     return cardListView;
 
   }
@@ -482,7 +485,7 @@ function MyRequestScreen(props) {
         </ScrollView>
       </Content>
       <FooterTab style={{ position: "absolute", left: 0, top: footerTop, width: scale(350), backgroundColor: "#FFFFFF" }}>
-            <FooterTabComponent {...props} activeTab={AppConstant.APP_FOOTER_TABS.MY_REQUEST} region={(props.route && props.route.params && props.route.params.region) ? props.route.params.region : getRegion() }/>
+            <FooterTabComponent {...props} activeTab={AppConstant.APP_FOOTER_TABS.MY_REQUEST} region={getRegion()}/>
       </FooterTab>
       <ModalComponent
         {...modalInfo}

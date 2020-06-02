@@ -5,6 +5,8 @@ const UserContext = React.createContext()
 class UserContextProvider extends React.Component {
     // Context state
     state = {
+      latlon:"", 
+      region:{}
     }
   
     // Method to update state
