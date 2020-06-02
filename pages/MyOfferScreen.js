@@ -509,7 +509,7 @@ function MyOfferScreen(props) {
       </ScrollView>
       </Content>
       <FooterTab style={{ position: "absolute", left: 0, top: footerTop, width: scale(350), backgroundColor: "#FFFFFF" }}>
-            <FooterTabComponent {...props} activeTab={AppConstant.APP_FOOTER_TABS.MY_OFFER} region={(props.route && props.route.params && props.route.params.region) ? props.route.params.region : getRegion() }/>
+            <FooterTabComponent {...props} activeTab={AppConstant.APP_FOOTER_TABS.MY_OFFER} region={getRegion()}/>
       </FooterTab>
      
       <ModalComponent
