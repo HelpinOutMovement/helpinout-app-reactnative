@@ -91,11 +91,3 @@ target 'helpinout' do
   end
 end
 
-target 'helpinout-tvOS' do
-  # Pods for helpinout-tvOS
-
-  target 'helpinout-tvOSTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
-end
