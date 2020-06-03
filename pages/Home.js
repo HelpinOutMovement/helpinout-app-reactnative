@@ -473,9 +473,14 @@ function Home(props) {
                         backgroundColor: 'rgba(0,0,0,0)',
                         borderTopWidth: 0,
                         borderBottomWidth: 0,
+                        color:'grey',
+                      },
+                      textInput:{
+                        color:'#000000',
                       },
                       description: {
-                        fontWeight: 'bold'
+                        fontWeight: 'bold',
+                        color:'grey',
                       },
                       predefinedPlacesDescription: {
                         color: '#1faadb'

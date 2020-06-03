@@ -3,23 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>593823042702-7t4hrpkr55viegulfp8a789l0d08qgc9.apps.googleusercontent.com</string>
+	<string>517803779913-thqti90u1sn9pjofsgr3ian64frpcca1.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.593823042702-7t4hrpkr55viegulfp8a789l0d08qgc9</string>
-	<key>ANDROID_CLIENT_ID</key>
-	<string>593823042702-32qioic8fqhbfmcvi83tiu5gt0i3k0ae.apps.googleusercontent.com</string>
+	<string>com.googleusercontent.apps.517803779913-thqti90u1sn9pjofsgr3ian64frpcca1</string>
 	<key>API_KEY</key>
-	<string>AIzaSyAYnmP3irjhpRfpY2ZySb0_WvcwK8pLlos</string>
+	<string>AIzaSyAfct3wQWfE5r914mqbw8bLTrtovql6XtU</string>
 	<key>GCM_SENDER_ID</key>
-	<string>593823042702</string>
+	<string>517803779913</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>org.helpinout.billionlights</string>
 	<key>PROJECT_ID</key>
-	<string>helpinout-b515a</string>
+	<string>helpinout-app-raga</string>
 	<key>STORAGE_BUCKET</key>
-	<string>helpinout-b515a.appspot.com</string>
+	<string>helpinout-app-raga.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -31,8 +29,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:593823042702:ios:fc1f5e1886b107895ecddf</string>
+	<string>1:517803779913:ios:dda4e31d39137512479c98</string>
 	<key>DATABASE_URL</key>
-	<string>https://helpinout-b515a.firebaseio.com</string>
+	<string>https://helpinout-app-raga.firebaseio.com</string>
 </dict>
 </plist>

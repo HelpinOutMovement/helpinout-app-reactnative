@@ -33,7 +33,9 @@
 			<string>Firebase</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.593823042702-7t4hrpkr55viegulfp8a789l0d08qgc9</string>
+				<string>com.googleusercontent.apps.517803779913-thqti90u1sn9pjofsgr3ian64frpcca1</string>
+				<string>helpinout-app-raga.appspot.com</string>
+				<string>helpinout-app-raga.firebaseio.com</string>
 			</array>
 		</dict>
 		<dict>
@@ -46,7 +48,7 @@
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>org.helpinout.billionlights</string>
-		<string>com.googleusercontent.apps.593823042702-7t4hrpkr55viegulfp8a789l0d08qgc9</string>
+		<string>com.googleusercontent.apps.517803779913-thqti90u1sn9pjofsgr3ian64frpcca1</string>
 		<string>com-google-gidconsent-google</string>
 		<string>com-google-gidconsent-youtube</string>
 		<string>com-google-gidconsent</string>

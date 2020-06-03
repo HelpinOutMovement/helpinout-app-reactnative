@@ -1,6 +1,6 @@
 {
-  "name": "helpinoutapp",
-  "version": "1.0.40",
+  "name": "helpinout",
+  "version": "1.0.3",
   "private": true,
   "rnpm": {
     "assets": [
