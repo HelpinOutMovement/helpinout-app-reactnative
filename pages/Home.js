@@ -70,80 +70,49 @@ function Home(props) {
       useEffect(() => {
         
         //console.log("without params " + JSON.stringify(props))
+        try{
+          setShowSpinner(true)
+          apiInstance.userPastActivity(0).then(resp => {
+            if(resp.data.requests.length > 0){
+              resp.data.requests.map((request) =>{
+                if(request.mapping){
+                  let max_mapping_time = new Date(Math.max.apply(null, request.mapping.map(function(e) {
+                    var mapping_time = e.mapping_time.replaceAll("-", "/")
+                    //var mapping_date_time = new Date(Date.parse(mapping_time));
+                    return new Date(mapping_time);
+                  })));
+                  //console.log(max_mapping_time)
+                }else{
+                  console.log(0)
+                }
+              })
+            }
 
-        setShowSpinner(true)
-        apiInstance.userPastActivity(0).then(resp => {
-          if(resp.data.requests.length > 0){
-            resp.data.requests.map((request) =>{
-              if(request.mapping){
-                let max_mapping_time = new Date(Math.max.apply(null, request.mapping.map(function(e) {
-                  var mapping_time = e.mapping_time.replaceAll("-", "/")
-                  //var mapping_date_time = new Date(Date.parse(mapping_time));
-                  return new Date(mapping_time);
-                })));
-                //console.log(max_mapping_time)
-              }else{
-                console.log(0)
-              }
-            })
-          }
+            if(resp.data.offers.length > 0){
+              resp.data.offers.map((offer) =>{
+                if(offer.mapping){
+                  let max_mapping_time = new Date(Math.max.apply(null, offer.mapping.map(function(e) {
+                    var mapping_time = e.mapping_time.replaceAll("-", "/")
+                    //var mapping_date_time = new Date(Date.parse(mapping_time));
+                    return new Date(mapping_time);
+                  })));
+                  //console.log(max_mapping_time)
+                }else{
+                  console.log(0)
+                }
+              })
+            }
+            setShowSpinner(false);
+            
+          }).catch((e) => {
+            //setShowSpinner(false);
+            //setRequestInformation([]);
+          })
 
-          if(resp.data.offers.length > 0){
-            resp.data.offers.map((offer) =>{
-              if(offer.mapping){
-                let max_mapping_time = new Date(Math.max.apply(null, offer.mapping.map(function(e) {
-                  var mapping_time = e.mapping_time.replaceAll("-", "/")
-                  //var mapping_date_time = new Date(Date.parse(mapping_time));
-                  return new Date(mapping_time);
-                })));
-                //console.log(max_mapping_time)
-              }else{
-                console.log(0)
-              }
-            })
-          }
-          setShowSpinner(false);
-          
-        }).catch((e) => {
-          //setShowSpinner(false);
-          //setRequestInformation([]);
-        })
-
-        setState({
-          //region: (props.route && props.route.params && props.route.params.region) ? props.route.params.region : {},
-          region: getRegion(),
-          address: "Default Address", 
-          requestMatchCount:0,
-          offerMatchCount:0, 
-          requestAlert:{
-            width: scale(20),
-            left: scale(330),
-            expanded: false,
-            },         
-          offerAlert:{
-            width: scale(20),
-            left: scale(330),
-            expanded: false,
-            },
-          ShowAskForHelpModal:false,
-          ShowSearchModal:false, 
-          mapLatLon:(props.route && props.route.params && props.route.params.latlon) ? props.route.params.latlon : ""
-        })
-      }, []);
-
-      
-      useEffect(() => {
-        if(props.route.params && props.route.params.resetHistory){
-          //resetStackNavigation();
-        }
-        
-        console.log("with params " + JSON.stringify(props))
-        if(props.route.params != undefined){
-          //console.log("with params not null " + props.route.params)
           setState({
             //region: (props.route && props.route.params && props.route.params.region) ? props.route.params.region : {},
             region: getRegion(),
-            address: state.address, 
+            address: "Default Address", 
             requestMatchCount:0,
             offerMatchCount:0, 
             requestAlert:{
@@ -160,10 +129,47 @@ function Home(props) {
             ShowSearchModal:false, 
             mapLatLon:(props.route && props.route.params && props.route.params.latlon) ? props.route.params.latlon : ""
           })
-          if(props.route && props.route.params && props.route.params.latlon){
-            mapComponentRef.current.setLanLon(props.route.params.latlon.split(",")[0], props.route.params.latlon.split(",")[1])
-          }    
-        }        
+        }catch(err){
+          console.log(err);
+        } 
+      }, []);
+
+      
+      useEffect(() => {
+        if(props.route.params && props.route.params.resetHistory){
+          //resetStackNavigation();
+        }
+        try{
+          console.log("with params " + JSON.stringify(props))
+          if(props.route.params != undefined){
+            //console.log("with params not null " + props.route.params)
+            setState({
+              //region: (props.route && props.route.params && props.route.params.region) ? props.route.params.region : {},
+              region: getRegion(),
+              address: state.address, 
+              requestMatchCount:0,
+              offerMatchCount:0, 
+              requestAlert:{
+                width: scale(20),
+                left: scale(330),
+                expanded: false,
+                },         
+              offerAlert:{
+                width: scale(20),
+                left: scale(330),
+                expanded: false,
+                },
+              ShowAskForHelpModal:false,
+              ShowSearchModal:false, 
+              mapLatLon:(props.route && props.route.params && props.route.params.latlon) ? props.route.params.latlon : ""
+            })
+            if(props.route && props.route.params && props.route.params.latlon){
+              mapComponentRef.current.setLanLon(props.route.params.latlon.split(",")[0], props.route.params.latlon.split(",")[1])
+            }    
+          }      
+        }catch(err){
+          console.log(err);
+        }     
       }, [props.route.params]);
 
 
@@ -209,20 +215,24 @@ function Home(props) {
     }
       
 
-    const getLocationSuggestions = (region, address, distance) => {    
-      console.log("getLocationSuggestions") 
-      setShowSpinner(true)
-      reqObj = apiInstance.locationSuggestion(region.latitude, region.longitude, "10.424", distance / 2);
-      reqObj.then((val) => {
-        setState({ ...state,requestMatchCount:val.data.my_requests_match,offerMatchCount:val.data.my_offers_match})
-        setShowSpinner(false)
-      }).catch(err => {
-        if (err.response.status === 409) {
-          Toast.show('appid expired : ', { duration: 2000, position: 0, animation: true, shadow: true, animationDuration: 1000 })
-          appStorage.storeAppInfo(AppConstant.APP_STORE_KEY.IS_VEFIRIED, "false");
-          navigation.navigate(AppConstant.APP_PAGE.LOGIN);
-        }
-      })
+    const getLocationSuggestions = (region, address, distance) => {   
+      try{
+        console.log("getLocationSuggestions") 
+        setShowSpinner(true)
+        reqObj = apiInstance.locationSuggestion(region.latitude, region.longitude, "10.424", distance / 2);
+        reqObj.then((val) => {
+          setState({ ...state,requestMatchCount:val.data.my_requests_match,offerMatchCount:val.data.my_offers_match})
+          setShowSpinner(false)
+        }).catch(err => {
+          if (err.response.status === 409) {
+            Toast.show('appid expired : ', { duration: 2000, position: 0, animation: true, shadow: true, animationDuration: 1000 })
+            appStorage.storeAppInfo(AppConstant.APP_STORE_KEY.IS_VEFIRIED, "false");
+            navigation.navigate(AppConstant.APP_PAGE.LOGIN);
+          }
+        })
+      }catch(err){
+        console.log(err);
+      }      
     }
   
     const renderScreen = () =>{

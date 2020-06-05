@@ -58,27 +58,31 @@ function SearchHelpGiversSeekers(props) {
     });
 
     useEffect(()=>{
-        const lanlonReference = getRouteParams('latlon', props.route);
-        setLatLonRef(lanlonReference);
-        setState({
-            region: getRouteParams('region', props.route),
-            address: getRouteParams('address', props.route),
-            activity_category: getRouteParams('activity_category', props.route),
-            activity_type: getRouteParams('activity_type', props.route),
-            activity_uuid: getRouteParams('activity_uuid', props.route),
-            mapHeight: verticalScale(340),
-            bottom_panel_icon: "ios-arrow-dropdown",
-            bottom_panel_visible: true,
-            bottom_panel_bottom: height / 2,
-            activitySuggestionOfferResponse: [],
-            checkBoxChecked: {},
-            activity_data: [],
-            bottom_panel_icon: "ios-arrow-dropdown",
-            mapHeight: verticalScale(340),
-            bottom_panel_bottom: height / 2,
-            latlon: getRouteParams('latlon', props.route),
-            selectall:false
-        });
+        try{
+            const lanlonReference = getRouteParams('latlon', props.route);
+            setLatLonRef(lanlonReference);
+            setState({
+                region: getRouteParams('region', props.route),
+                address: getRouteParams('address', props.route),
+                activity_category: getRouteParams('activity_category', props.route),
+                activity_type: getRouteParams('activity_type', props.route),
+                activity_uuid: getRouteParams('activity_uuid', props.route),
+                mapHeight: verticalScale(340),
+                bottom_panel_icon: "ios-arrow-dropdown",
+                bottom_panel_visible: true,
+                bottom_panel_bottom: height / 2,
+                activitySuggestionOfferResponse: [],
+                checkBoxChecked: {},
+                activity_data: [],
+                bottom_panel_icon: "ios-arrow-dropdown",
+                mapHeight: verticalScale(340),
+                bottom_panel_bottom: height / 2,
+                latlon: getRouteParams('latlon', props.route),
+                selectall:false
+            });
+        }catch(err){
+            console.log(err);
+        } 
     },[props.route.params.latlon])
 
     /*
@@ -169,21 +173,25 @@ function SearchHelpGiversSeekers(props) {
 
 
     const getActivitySuggestions = (region, address, distance) => {
-        setShowSpinner(true)
-        let restApi = new API();
-        let reqObj = restApi.activitySuggestions(state.activity_type, state.activity_uuid, region.latitude + "," + region.longitude, "10.424", distance / 2)
-        reqObj.then((respObject) => {
-            if (respObject.status === "1") {
-                if (state.activity_type === 1) {
-                    state["activitySuggestionOfferResponse"] = respObject.data.offers
-                } else {
-                    state["activitySuggestionOfferResponse"] = respObject.data.requests 
-                }
-                setState({ ...state });
-                setActivityDataFetched(true)
-            } 
-            setShowSpinner(false)           
-        }).catch((err) => { console.log(err) })
+        try{
+            setShowSpinner(true)
+            let restApi = new API();
+            let reqObj = restApi.activitySuggestions(state.activity_type, state.activity_uuid, region.latitude + "," + region.longitude, "10.424", distance / 2)
+            reqObj.then((respObject) => {
+                if (respObject.status === "1") {
+                    if (state.activity_type === 1) {
+                        state["activitySuggestionOfferResponse"] = respObject.data.offers
+                    } else {
+                        state["activitySuggestionOfferResponse"] = respObject.data.requests 
+                    }
+                    setState({ ...state });
+                    setActivityDataFetched(true)
+                } 
+                setShowSpinner(false)           
+            }).catch((err) => { console.log(err) })
+        }catch(err){
+            console.log(err);
+        } 
 
     }
 
@@ -193,52 +201,60 @@ function SearchHelpGiversSeekers(props) {
     }
 
     const submitActivity = () => {
-        let offerer = [];
-        let requester = [];
-        (state.activity_type === 2) ?
-            requester = state.activity_data
-            :
-            offerer = state.activity_data
+        try{
+            let offerer = [];
+            let requester = [];
+            (state.activity_type === 2) ?
+                requester = state.activity_data
+                :
+                offerer = state.activity_data
 
-        let restApi = new API();
-        let reqObj = restApi.activityMapping(state.activity_type, state.activity_uuid, state.selectall, state.region.latitude+","+state.region.longitude, state.distance,  offerer, requester)
-        reqObj.then((response) => {
-            //console.log("restApi.activityMapping : " + JSON.stringify(response))
-            if (response.status === "1") {
+            let restApi = new API();
+            let reqObj = restApi.activityMapping(state.activity_type, state.activity_uuid, state.selectall, state.region.latitude+","+state.region.longitude, state.distance,  offerer, requester)
+            reqObj.then((response) => {
+                //console.log("restApi.activityMapping : " + JSON.stringify(response))
+                if (response.status === "1") {
 
-                if (state.activity_type === 1) {
-                    navigate(AppConstant.APP_PAGE.MY_REQUEST_SENT_REQUEST_SCREEN, { request: response.data, created_activity: response.data })
+                    if (state.activity_type === 1) {
+                        navigate(AppConstant.APP_PAGE.MY_REQUEST_SENT_REQUEST_SCREEN, { request: response.data, created_activity: response.data })
+                    } else {
+                        navigate(AppConstant.APP_PAGE.MY_OFFER_SENT_OFFER_SCREEN, { request: response.data, created_activity: response.data })
+                    }
                 } else {
-                    navigate(AppConstant.APP_PAGE.MY_OFFER_SENT_OFFER_SCREEN, { request: response.data, created_activity: response.data })
-                }
-            } else {
 
-            }
-        }).catch((err) => { console.log(err) })
+                }
+            }).catch((err) => { console.log(err) })
+        }catch(err){
+            console.log(err);
+        } 
         
     }
 
 
     useEffect(() => {
-        setState({
-            region: getRouteParams('region', props.route),
-            address: getRouteParams('address', props.route),
-            activity_category: getRouteParams('activity_category', props.route),
-            activity_type: getRouteParams('activity_type', props.route),
-            activity_uuid: getRouteParams('activity_uuid', props.route),
-            mapHeight: verticalScale(340),
-            bottom_panel_icon: "ios-arrow-dropdown",
-            bottom_panel_visible: true,
-            bottom_panel_bottom: height / 2,
-            activitySuggestionOfferResponse: [],
-            checkBoxChecked: {},
-            activity_data: [],
-            bottom_panel_icon: "ios-arrow-dropdown",
-            mapHeight: verticalScale(340),
-            bottom_panel_bottom: height / 2,
-            latlon: getRouteParams('latlon', props.route),
-            selectall:false
-        })
+        try{
+            setState({
+                region: getRouteParams('region', props.route),
+                address: getRouteParams('address', props.route),
+                activity_category: getRouteParams('activity_category', props.route),
+                activity_type: getRouteParams('activity_type', props.route),
+                activity_uuid: getRouteParams('activity_uuid', props.route),
+                mapHeight: verticalScale(340),
+                bottom_panel_icon: "ios-arrow-dropdown",
+                bottom_panel_visible: true,
+                bottom_panel_bottom: height / 2,
+                activitySuggestionOfferResponse: [],
+                checkBoxChecked: {},
+                activity_data: [],
+                bottom_panel_icon: "ios-arrow-dropdown",
+                mapHeight: verticalScale(340),
+                bottom_panel_bottom: height / 2,
+                latlon: getRouteParams('latlon', props.route),
+                selectall:false
+            })
+        }catch(err){
+            console.log(err);
+        } 
     }, []);
 
 
@@ -445,8 +461,6 @@ const styles = StyleSheet.create({
 
     itemContainer: {
 
-
-
     },
 
 
@@ -459,12 +473,6 @@ const styles = StyleSheet.create({
         height: verticalScale(60),
         borderWidth: 0
     },
-
-
-
-
-
-
 
     rect: {
         width: scale(330),

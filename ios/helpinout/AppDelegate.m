@@ -12,7 +12,6 @@
 #import "RNFirebaseNotifications.h"
 #import "RNFirebaseMessaging.h"
 
-/*
 #if DEBUG
 #import <FlipperKit/FlipperClient.h>
 #import <FlipperKitLayoutPlugin/FlipperKitLayoutPlugin.h>
@@ -33,7 +32,7 @@ static void InitializeFlipper(UIApplication *application) {
   [client start];
 }
 #endif
-*/
+
 
 @implementation AppDelegate
 
@@ -82,11 +81,11 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
   //}
   
   //return YES;
-/*
+
 #if DEBUG
   InitializeFlipper(application);
 #endif
-*/
+
   
   RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
   RCTRootView *rootView = [[RCTRootView alloc] initWithBridge:bridge
@@ -125,14 +124,14 @@ fetchCompletionHandler:(nonnull void (^)(UIBackgroundFetchResult))completionHand
 
 - (NSURL *)sourceURLForBridge:(RCTBridge *)bridge
 {
-/*
+
 #if DEBUG
   return [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
 #else
   return [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
 #endif
-*/
-  return [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
+
+ // return [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
 }
 
 @end
