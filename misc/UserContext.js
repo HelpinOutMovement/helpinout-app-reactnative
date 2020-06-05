@@ -31,11 +31,22 @@ class UserContextProvider extends React.Component {
     getRegion = () => {
       return this.state.region;
     }
+
+    // Method to update state
+    setAPIServer = (apiserver) => {
+      this.setState({ apiserver: apiserver }, () =>{
+        //console.log(this.state.region)
+      })
+    }
+
+    getAPIServer = () => {
+      return this.state.apiserver;
+    }
     
     render() {
       const { children } = this.props;
-      const {getLatLon, getRegion} = this;
-      const { setLatLon, setRegion  } = this;
+      const {getLatLon, getRegion, getAPIServer} = this;
+      const { setLatLon, setRegion, setAPIServer  } = this;
   
       return (
         <UserContext.Provider
@@ -43,7 +54,9 @@ class UserContextProvider extends React.Component {
             setLatLon,
             getLatLon, 
             setRegion,
-            getRegion
+            getRegion,
+            setAPIServer,
+            getAPIServer
           }}
         >
           {children}

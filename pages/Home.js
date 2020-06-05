@@ -22,7 +22,7 @@ import { verticalScale, scale, moderateScale } from 'react-native-size-matters';
 import Modal from 'react-native-modal';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import { CommonActions } from '@react-navigation/native';
-
+import Geolocation from '@react-native-community/geolocation';
 
 
 const { width, height } = Dimensions.get('window');
@@ -46,6 +46,7 @@ function Home(props) {
 
     const [showSpinner, setShowSpinner] = useState(false);
 
+   
     const [state, setState] = useState({ 
           //region: (props.route && props.route.params && props.route.params.region) ? props.route.params.region : {},
           region: getRegion(),
@@ -66,6 +67,16 @@ function Home(props) {
           ShowSearchModal:false, 
           mapLatLon:(props.route && props.route.params && props.route.params.latlon) ? props.route.params.latlon : ""
     });
+
+    if(!(props.route && props.route.params && props.route.params.latlon) &&  state["latlon"] === undefined ){
+      console.log(state["latlon"])
+      console.log("Not = (props.route && props.route.params && props.route.params.latlon)    ") 
+      Geolocation.getCurrentPosition((info) => {
+        state["latlon"] = info.coords.latitude+","+info.coords.longitude;
+        state["mapLatLon"] = info.coords.latitude+","+info.coords.longitude;
+        setState({ ...state})
+      })      
+    }
 
       useEffect(() => {
         

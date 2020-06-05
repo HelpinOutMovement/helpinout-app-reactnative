@@ -426,6 +426,7 @@ function SearchHelpGiversSeekers(props) {
                                     {translate.t("no_help_requeter")}
                                 </Text>
                             </View>
+                            {/*
                             <View style={styles.buttonContainer}>
                                 <TouchableOpacity onPress={() => { (state.activity_type === 1) ? navigate(AppConstant.APP_PAGE.MY_REQUEST_SENT_REQUEST_SCREEN, { request: {}, created_activity: {} }) : navigate(AppConstant.APP_PAGE.MY_OFFER_SENT_OFFER_SCREEN, { request: {}, created_activity: {} }) }}>
                                     <View style={[styles.ContinueButtonContainer_grey]}>
@@ -433,6 +434,7 @@ function SearchHelpGiversSeekers(props) {
                                     </View>
                                 </TouchableOpacity>
                             </View>
+                            */}
                         </HView>
                     
                     :
