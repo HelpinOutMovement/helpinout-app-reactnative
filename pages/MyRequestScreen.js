@@ -324,7 +324,7 @@ function MyRequestScreen(props) {
   const [requestInformation, setRequestInformation] = useState([]);
   const [showSpinner, setShowSpinner] = useState(false);
   const [modalInfo, setModalInfo] = useState({});
-  const { getRegion } = useContext(UserContext);
+  const { getRegion, getDrawerNavigationOptions } = useContext(UserContext);
 /*
   useEffect(() => {
     setShowSpinner(true);
@@ -462,7 +462,7 @@ function MyRequestScreen(props) {
         <Left>
           <Button
             transparent
-            onPress={() => { props.navigation.openDrawer()}}>
+            onPress={() => { getDrawerNavigationOptions().openDrawer();}}>
             <Icon name="menu" style={{ color: "#ffffff" }} />
            
           </Button>

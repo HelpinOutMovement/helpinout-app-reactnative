@@ -334,7 +334,7 @@ function MyOfferScreen(props) {
   const [modalInfo, setModalInfo] = useState({});
   const [showEmailModal, setShowEmailModal] = useState(false);
 
-  const { getRegion } = useContext(UserContext);
+  const { getRegion, getDrawerNavigationOptions } = useContext(UserContext);
 
   const [emailData, setEmailData] = useState("");
 
@@ -479,7 +479,7 @@ function MyOfferScreen(props) {
       <Left>
         <Button
           transparent
-          onPress={() => { props.navigation.openDrawer()}}>
+          onPress={() => { getDrawerNavigationOptions().openDrawer()}}>
           <Icon name="menu" style={{ color: "#ffffff" }} />
         </Button>
       </Left>

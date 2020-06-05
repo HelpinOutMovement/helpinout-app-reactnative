@@ -116,8 +116,6 @@ const CustomSideBarView = (props) => {
         });
     }
 
-
-
    // const { setLanguage, language } = useContext(AppStringContext);
     const getSecondaryMenu = () => {
         const primaryMenu = []
@@ -213,8 +211,7 @@ const CustomSideBarView = (props) => {
         </View>
     )
 }
-function MyDrawer(props) {
-    
+function MyDrawer(props) { 
     return (
         <Drawer.Navigator 
         permanent={'front'}

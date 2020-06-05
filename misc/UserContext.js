@@ -42,11 +42,22 @@ class UserContextProvider extends React.Component {
     getAPIServer = () => {
       return this.state.apiserver;
     }
+
+    // Method to update state
+    setDrawerNavigationOptions = (drawerNavigationOptions) => {
+      this.setState({ drawerNavigationOptions: drawerNavigationOptions }, () =>{
+        //console.log(this.state.region)
+      })
+    }
+
+    getDrawerNavigationOptions = () => {
+      return this.state.drawerNavigationOptions;
+    }
     
     render() {
       const { children } = this.props;
-      const {getLatLon, getRegion, getAPIServer} = this;
-      const { setLatLon, setRegion, setAPIServer  } = this;
+      const {getLatLon, getRegion, getAPIServer, getDrawerNavigationOptions} = this;
+      const { setLatLon, setRegion, setAPIServer, setDrawerNavigationOptions } = this;
   
       return (
         <UserContext.Provider
@@ -56,7 +67,9 @@ class UserContextProvider extends React.Component {
             setRegion,
             getRegion,
             setAPIServer,
-            getAPIServer
+            getAPIServer,
+            setDrawerNavigationOptions,
+            getDrawerNavigationOptions
           }}
         >
           {children}

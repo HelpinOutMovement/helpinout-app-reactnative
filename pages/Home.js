@@ -42,11 +42,12 @@ function Home(props) {
     let navigation = props.navigation;
 
     //let tik = (props.route.params["tik"]) ? props.route.params.tik : 0;
-    const { getLatLon , setLatLon, setRegion, getRegion} = useContext(UserContext);
+    const { getLatLon , setLatLon, setRegion, getRegion, setDrawerNavigationOptions, getDrawerNavigationOptions} = useContext(UserContext);
 
     const [showSpinner, setShowSpinner] = useState(false);
 
-   
+    
+
     const [state, setState] = useState({ 
           //region: (props.route && props.route.params && props.route.params.region) ? props.route.params.region : {},
           region: getRegion(),
@@ -79,9 +80,10 @@ function Home(props) {
     }
 
       useEffect(() => {
-        
+        setDrawerNavigationOptions(props.navigation);
         //console.log("without params " + JSON.stringify(props))
         try{
+          
           setShowSpinner(true)
           apiInstance.userPastActivity(0).then(resp => {
             if(resp.data.requests.length > 0){
@@ -119,6 +121,7 @@ function Home(props) {
             //setShowSpinner(false);
             //setRequestInformation([]);
           })
+          
 
           setState({
             //region: (props.route && props.route.params && props.route.params.region) ? props.route.params.region : {},
@@ -150,6 +153,7 @@ function Home(props) {
         if(props.route.params && props.route.params.resetHistory){
           //resetStackNavigation();
         }
+        setDrawerNavigationOptions(props.navigation);
         try{
           console.log("with params " + JSON.stringify(props))
           if(props.route.params != undefined){
@@ -182,9 +186,6 @@ function Home(props) {
           console.log(err);
         }     
       }, [props.route.params]);
-
-
-
 
 
       const resetStackNavigation = () =>{
@@ -222,7 +223,7 @@ function Home(props) {
       setLatLon(region.latitude + "," + region.longitude)
       setRegion(region)
       setState({ ...state})
-      getLocationSuggestions(region, address, distance)
+      //getLocationSuggestions(region, address, distance)
     }
       
 
@@ -260,7 +261,7 @@ function Home(props) {
         <SafeAreaView style={{ width: scale(350), alignItems: "center" }}>
 
                 <View style={{ width:scale(330), flex: 0, flexDirection: 'row' , borderRadius:6 ,height: verticalScale(50), borderWidth:0, borderColor:"#000000" }}>                
-                    <View style={{width: scale(50), backgroundColor:"white", height: verticalScale(50), borderRadius:6, borderTopRightRadius:0,borderBottomRightRadius:0 ,borderLeftWidth:1,borderTopWidth:1,borderBottomWidth:1, justifyContent:"center"}} ><Button transparent style={{padding:0}} onPress={() => { navigation.openDrawer() }}><Icon name="menu"/></Button></View>
+                    <View style={{width: scale(50), backgroundColor:"white", height: verticalScale(50), borderRadius:6, borderTopRightRadius:0,borderBottomRightRadius:0 ,borderLeftWidth:1,borderTopWidth:1,borderBottomWidth:1, justifyContent:"center"}} ><Button transparent style={{padding:0}} onPress={() => { getDrawerNavigationOptions().openDrawer() }}><Icon name="menu"/></Button></View>
                     <View style={{width: scale(200), backgroundColor:"white", height: verticalScale(50), borderRightWidth:0,  borderRadius:0, borderTopLeftRadius:0,borderBottomLeftRadius:0 ,borderTopWidth:1,borderBottomWidth:1,alignItems:"center", justifyContent: 'center'}} >
                         <Text adjustsFontSizeToFit={true}  minimumFontScale={.01} numberOfLines={1}  style={{  height:verticalScale(15), textAlign:"left", width:  scale(200) , color:"grey"}}>{translate.t("you_are_here")}</Text>
                         <Text adjustsFontSizeToFit={true}  minimumFontScale={.6} numberOfLines={2} style={{ overflow:"hidden", height:verticalScale(30),textAlign:"left", width:  scale(200), paddingTop:0}}>{state.address}</Text>
