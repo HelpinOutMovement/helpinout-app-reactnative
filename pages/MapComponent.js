@@ -63,7 +63,7 @@ class MapComponent extends React.Component {
       boundries: {},
       deviceInfo:[],
       markerList: [],
-      radius:50,
+      radius:5,
     };  
 
     Geolocation.requestAuthorization();

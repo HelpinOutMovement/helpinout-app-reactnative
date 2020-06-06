@@ -205,6 +205,7 @@ export default class AddActivityScreen extends Component {
 
   submitData = (canPay) => {
     let restApi = new API();
+    console.log("this.props.route.params.optionCode : " + this.props.route.params.optionCode)
     UUIDGenerator.getRandomUUID((uuid) => {
       switch (this.props.route.params.optionCode) {
         case AppConstant.API_REQUEST_CONSTANTS.activity_category.PEOPLE:
@@ -227,7 +228,7 @@ export default class AddActivityScreen extends Component {
 
           break;
         case AppConstant.API_REQUEST_CONSTANTS.activity_category.AMBULANCE:
-          reqObj = restApi.activityAdd(uuid, this.props.route.params.activity_type, this.state.region.latitude + "," + this.state.region.longitude, "100", this.state.address, this.props.route.params.optionCode, 1, { qty: 0 }, this.state.constrainsData, canPay, this.props.route.params.self_else)
+          reqObj = restApi.activityAdd(uuid, this.props.route.params.activity_type, this.state.region.latitude + "," + this.state.region.longitude, "100", this.state.address, this.props.route.params.optionCode, 1, {qty:1}, this.state.constrainsData, canPay, this.props.route.params.self_else)
           reqObj.then((response) => {
             if (response.status === "1") {
               this.setState({ activity_category: response.data.activity_category, activity_uuid: response.data.activity_uuid, activity_type: response.data.activity_type }, () => {

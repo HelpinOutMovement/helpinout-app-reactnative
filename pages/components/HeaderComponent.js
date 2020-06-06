@@ -4,26 +4,58 @@ import commonStyling from '../../styling/commonStyle';
 import AppConstant from '../../misc/AppConstant';
 
 
+
 const HeaderComponent = (props) => {
   // backgroundColor:props.bgColor? props.bgColor: ""
+
   return (
     <Header style={{ backgroundColor: props.bgColor ? props.bgColor : "#EE6B6B", height: 60, paddingBottom: 15 }}>
       <Left>
         <Button
           transparent
           onPress={() => { 
-            if (!props.navigationHandler) { 
+            console.log(JSON.stringify(props))
+            if (!props.navigationHandler) {
+               /*              
               if(props.route && props.route.params && props.route.params.request && props.route.params.request.activity_type && props.route.params.request.activity_type === 1){
-                props.navigation.navigate(AppConstant.APP_PAGE.MY_REQUEST_SCREEN)
+                //props.navigation.navigate(AppConstant.APP_PAGE.MY_REQUEST_SCREEN)
+                
+                props.navigation.reset({
+                  index: 0,
+                  routes: [{ name: AppConstant.APP_PAGE.MY_OFFERS_SCREEN }],
+                });
+                
+                props.navigation.goBack()
+                //props.navigation.popToTop()
+                //props.navigation.reset(AppConstant.APP_PAGE.MY_REQUEST_SCREEN)
               }else if(props.route && props.route.params && props.route.params.request && props.route.params.request.activity_type && props.route.params.request.activity_type === 2){
-                props.navigation.navigate(AppConstant.APP_PAGE.MY_OFFERS_SCREEN)
+                //props.navigation.navigate(AppConstant.APP_PAGE.MY_OFFERS_SCREEN)
+               
+                props.navigation.reset({
+                  index: 0,
+                  routes: [{ name: AppConstant.APP_PAGE.MY_OFFERS_SCREEN }],
+                });
+              
+                
+                props.navigation.goBack()
+                //props.navigation.popToTop()
+                //props.navigation.reset(AppConstant.APP_PAGE.MY_OFFERS_SCREEN)
               }else{
                 props.navigation.goBack() 
+              }
+              */
+              if(props.route.name === "MyRequestSentRequestScreen" || props.route.name === "MyOfferSentOfferScreen"){
+                props.navigation.pop(2)
+              }else{
+                props.navigation.goBack()
               }
               
             }else {
               props.navigationHandler() 
-            } }}>
+            } 
+            
+            
+            }}>
           {props.hamburgerMenu && (<Icon name="menu" style={{ color: "#ffffff" }} />)}
           {!props.hamburgerMenu && (<Icon name="ios-arrow-back" style={{ color: "#ffffff" }} />)}
         </Button>

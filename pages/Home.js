@@ -153,6 +153,7 @@ function Home(props) {
         if(props.route.params && props.route.params.resetHistory){
           //resetStackNavigation();
         }
+        
         setDrawerNavigationOptions(props.navigation);
         try{
           console.log("with params " + JSON.stringify(props))

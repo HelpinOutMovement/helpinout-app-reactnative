@@ -80,21 +80,22 @@ const SideMenuOptions = {
         label: appLabelKey.lang_hindi_label,
         localeCode: AppConstant.APP_LANGUAGE.HINDI
     }
-        , {
+    /*
+    , {
         label: appLabelKey.lang_marathi_label,
         localeCode: AppConstant.APP_LANGUAGE.MARATHI
     },
     {
         label: appLabelKey.lang_kanada_label,
         localeCode: AppConstant.APP_LANGUAGE.KANNADA
+    }*/,
+    {
+        label: appLabelKey.lang_tamil_label,
+        localeCode: AppConstant.APP_LANGUAGE.TAMIL
     },
     {
         label: appLabelKey.lang_telugu_label,
         localeCode: AppConstant.APP_LANGUAGE.TELUGU
-    },
-    {
-        label: appLabelKey.lang_tamil_label,
-        localeCode: AppConstant.APP_LANGUAGE.TAMIL
     }]
 }
 

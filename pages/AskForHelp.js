@@ -39,7 +39,7 @@ const optionsOnScreen = [
   {
     label: appLabelKey.medicines,
     path: StaticImage.MEDICINE,
-    code: AppConstant.API_REQUEST_CONSTANTS.activity_category.MEDICINE
+    code: AppConstant.API_REQUEST_CONSTANTS.activity_category.MEDICINES
   },
   {
     label: appLabelKey.ambulance,

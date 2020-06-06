@@ -195,12 +195,15 @@
         }
 
         activityAdd = (activity_uuid, activity_type, geo_location, geo_accuracy, address, activity_category, activity_count, activity_detail, offer_condition, pay, self_else) => {
-
-            activity_detail = activity_detail.map(function(item) { 
-                delete item.id; 
-                delete item.text; 
-                return item; 
-              });
+            console.log("activity_category : " + activity_category)
+            if(activity_category !== AppConstant.API_REQUEST_CONSTANTS.activity_category.PEOPLE && activity_category !== AppConstant.API_REQUEST_CONSTANTS.activity_category.AMBULANCE){
+                activity_detail = activity_detail.map(function(item) { 
+                    delete item.id; 
+                    delete item.text; 
+                    return item; 
+                  });
+            }
+            
 
             let data = {
                 "activity_uuid": activity_uuid, 

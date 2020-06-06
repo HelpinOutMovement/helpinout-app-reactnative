@@ -12,8 +12,8 @@ const LanguageOptions = [
     { label: appLabelKey.lang_eng_label, code: AppConstant.APP_LANGUAGE.ENGLISH },
     { label: appLabelKey.lang_hindi_label, code: AppConstant.APP_LANGUAGE.HINDI },
     { label: appLabelKey.lang_tamil_label, code: AppConstant.APP_LANGUAGE.TAMIL },
-    { label: appLabelKey.lang_marathi_label, code: AppConstant.APP_LANGUAGE.MARATHI },
-    { label: appLabelKey.lang_kanada_label, code: AppConstant.APP_LANGUAGE.KANNADA },
+    //{ label: appLabelKey.lang_marathi_label, code: AppConstant.APP_LANGUAGE.MARATHI },
+    //{ label: appLabelKey.lang_kanada_label, code: AppConstant.APP_LANGUAGE.KANNADA },
     { label: appLabelKey.lang_telugu_label, code: AppConstant.APP_LANGUAGE.TELUGU }
 ];
 function OnBoardingScreen({ navigation }) {

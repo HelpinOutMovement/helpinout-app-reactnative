@@ -14,7 +14,7 @@ import MapComponent from './MapComponent';
 import { ScrollView } from 'react-native-gesture-handler';
 import StaticImage from '../styling/StaticImage';
 import { withNavigation } from 'react-navigation';
-
+import { NavigationActions, StackActions } from 'react-navigation';
 
 import StarRating from 'react-native-star-rating';
 
@@ -26,7 +26,6 @@ import { DrawerActions } from 'react-navigation-drawer';
 
 //import { ifIphoneX } from 'react-native-iphone-x-helper'
 
-import { StackActions, NavigationActions } from 'react-navigation'
 
 var { width, height } = Dimensions.get('window')
 var dimensions = Dimensions.get('window')
@@ -59,6 +58,7 @@ function SearchHelpGiversSeekers(props) {
 
     useEffect(()=>{
         try{
+            console.log("Search Screen : " + JSON.stringify(props.route))
             const lanlonReference = getRouteParams('latlon', props.route);
             setLatLonRef(lanlonReference);
             setState({
@@ -285,7 +285,7 @@ function SearchHelpGiversSeekers(props) {
                 
 
                 <View style={{ width: scale(330), flex: 0, flexDirection: 'row', top: topBarPos, borderRadius: 6, height: verticalScale(50), borderWidth: 0, borderColor: "#000000" }}>
-                    <View style={{ width: scale(50), backgroundColor: "white", height: verticalScale(50), borderRadius: 6, borderTopRightRadius: 0, borderBottomRightRadius: 0, borderLeftWidth: 1, borderTopWidth: 1, borderBottomWidth: 1, justifyContent: "center" }} ><Button transparent style={{ padding: 0 }} onPress={() => { /*props.navigation.toggleDrawer()props.navigation.goBack()*/ (state.activity_type === 1) ? navigate(AppConstant.APP_PAGE.MY_REQUEST_SCREEN) :  navigate(AppConstant.APP_PAGE.MY_OFFERS_SCREEN)}}><Icon name="ios-arrow-back" /></Button></View>
+                    <View style={{ width: scale(50), backgroundColor: "white", height: verticalScale(50), borderRadius: 6, borderTopRightRadius: 0, borderBottomRightRadius: 0, borderLeftWidth: 1, borderTopWidth: 1, borderBottomWidth: 1, justifyContent: "center" }} ><Button transparent style={{ padding: 0 }} onPress={() => { /*props.navigation.toggleDrawer()props.navigation.goBack() (state.activity_type === 1) ? navigate(AppConstant.APP_PAGE.MY_REQUEST_SCREEN) :  navigate(AppConstant.APP_PAGE.MY_OFFERS_SCREEN)*/ props.navigation.goBack()}}><Icon name="ios-arrow-back" /></Button></View>
                     <View style={{ width: scale(250), backgroundColor: "white", height: verticalScale(50), borderRightWidth: 0, borderRadius: 0, borderTopLeftRadius: 0, borderBottomLeftRadius: 0, borderTopWidth: 1, borderBottomWidth: 1, alignItems: "flex-start", justifyContent: 'center' }} >
                     <Text adjustsFontSizeToFit={true}  minimumFontScale={.01} numberOfLines={1}  style={{  height:verticalScale(15), textAlign:"left", width:  scale(200) , color:"grey"}}>{translate.t("you_are_here")}</Text>
                         <Text adjustsFontSizeToFit={true}  minimumFontScale={.6} numberOfLines={2} style={{ overflow:"hidden", height:verticalScale(30),textAlign:"left", width:  scale(200), paddingTop:0}}>{state.address}</Text>
