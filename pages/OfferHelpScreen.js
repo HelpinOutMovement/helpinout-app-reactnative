@@ -50,7 +50,7 @@ const optionsOnScreen = [
     },
     {
         label: appLabelKey.medicines,
-        path: StaticImage.MEDICINE,
+        path: StaticImage.MEDICINES,
         code: AppConstant.API_REQUEST_CONSTANTS.activity_category.MEDICINES,
         total:0,
         nearMe:0

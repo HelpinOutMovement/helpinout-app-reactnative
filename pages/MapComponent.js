@@ -213,29 +213,34 @@ class MapComponent extends React.Component {
   addMarker= (markers)  => {
     
     let markerDataList = [];
-    markers.data.requests.map((data) => {
-      var markerData = {
-        lat: data.geo_location.split(",")[0],      
-        lon: data.geo_location.split(",")[1],
-        type: "requests",
-        title: "requests   : ",// + data.user_detail.first_name + " " + data.user_detail.last_name,
-        description: "Description: " , // data.user_detail.first_name,
-        icon:requesterIcon
-      }         
-      markerDataList.push(markerData);
-    })
-
-    markers.data.offers.map((data) => {
-      var markerData = {
-        lat: data.geo_location.split(",")[0],      
-        lon: data.geo_location.split(",")[1],
-        type: "Offers",
-        title: "Offers  :  ", // + data.user_detail.first_name + " " + data.user_detail.last_name,
-        description: "Description: " , //data.user_detail.first_name,
-        icon:offererIcon
-      }         
-      markerDataList.push(markerData);
-    })
+    if(markers.data.requests){
+      markers.data.requests.map((data) => {
+        var markerData = {
+          lat: data.geo_location.split(",")[0],      
+          lon: data.geo_location.split(",")[1],
+          type: "requests",
+          title: "requests  from : " + data.user_detail.first_name + " " + data.user_detail.last_name,
+          description: "Description: " , // data.user_detail.first_name,
+          icon:requesterIcon
+        }         
+        markerDataList.push(markerData);
+      })
+    }
+    
+    if(markers.data.offers){
+      markers.data.offers.map((data) => {
+        var markerData = {
+          lat: data.geo_location.split(",")[0],      
+          lon: data.geo_location.split(",")[1],
+          type: "Offers",
+          title: "Offers from :  " + data.user_detail.first_name + " " + data.user_detail.last_name,
+          description: "Description: " , //data.user_detail.first_name,
+          icon:offererIcon
+        }         
+        markerDataList.push(markerData);
+      })
+    }
+    
 
 
 

@@ -1,7 +1,7 @@
 const FOOD = require("../images/food.png");
 const AMBULANCE = require("../images/ambulance.png");
 const MED_EQUIPMENT = require("../images/med-equipment.png");
-const MEDICINE = require("../images/medicine.png");
+const MEDICINES = require("../images/medicine.png");
 const MED_PPE = require("../images/medppe.png");
 const OTHER = require("../images/other.png");
 const PEOPLE = require("../images/ppl.png");
@@ -12,7 +12,7 @@ class StaticImage {
     static FOOD = FOOD;
     static AMBULANCE = AMBULANCE;
     static MED_EQUIPMENT = MED_EQUIPMENT;
-    static MEDICINE = MEDICINE;
+    static MEDICINES = MEDICINES;
     static MED_PPE = MED_PPE;
     static OTHER = OTHER;
     static PEOPLE = PEOPLE;
