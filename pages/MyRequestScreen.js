@@ -424,6 +424,7 @@ function MyRequestScreen(props) {
     try{
       requestInformation.forEach((singleOption, index) => {
         // realReq.forEach((singleOption, index) => {
+          console.log(" singleOption  : " + JSON.stringify(singleOption))
         cardListView.push((
           <PastOfferRequestComponent
             key={singleOption.activity_uuid}

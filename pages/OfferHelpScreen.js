@@ -21,13 +21,6 @@ const optionsOnScreen = [
         nearMe:0
     },
     {
-        label: appLabelKey.people,
-        path: StaticImage.PEOPLE,
-        code: AppConstant.API_REQUEST_CONSTANTS.activity_category.PEOPLE,
-        total:0,
-        nearMe:0
-    },
-    {
         label: appLabelKey.shelter,
         path: StaticImage.SHELTER,
         code: AppConstant.API_REQUEST_CONSTANTS.activity_category.SHELTER,
@@ -42,23 +35,16 @@ const optionsOnScreen = [
         nearMe:0
     },
     {
-        label: appLabelKey.testing,
-        path: StaticImage.TESTING,
-        code: AppConstant.API_REQUEST_CONSTANTS.activity_category.TESTING,
+        label: appLabelKey.transport,
+        path: StaticImage.TRANSPORT,
+        code: AppConstant.API_REQUEST_CONSTANTS.activity_category.TRANSPORT,
         total:0,
         nearMe:0
     },
     {
-        label: appLabelKey.medicines,
-        path: StaticImage.MEDICINES,
-        code: AppConstant.API_REQUEST_CONSTANTS.activity_category.MEDICINES,
-        total:0,
-        nearMe:0
-    },
-    {
-        label: appLabelKey.ambulance,
-        path: StaticImage.AMBULANCE,
-        code: AppConstant.API_REQUEST_CONSTANTS.activity_category.AMBULANCE,
+        label: appLabelKey.volunteers,
+        path: StaticImage.VOLUNTEERS,
+        code: AppConstant.API_REQUEST_CONSTANTS.activity_category.VOLUNTEERS,
         total:0,
         nearMe:0
     },
@@ -70,9 +56,65 @@ const optionsOnScreen = [
         nearMe:0
     },
     {
+        label: appLabelKey.giveaways,
+        path: StaticImage.GIVEAWAYS,
+        code: AppConstant.API_REQUEST_CONSTANTS.activity_category.GIVEAWAYS,
+        total:0,
+        nearMe:0
+    },
+    {
+        label: appLabelKey.medicines,
+        path: StaticImage.MEDICINES,
+        code: AppConstant.API_REQUEST_CONSTANTS.activity_category.MEDICINES,
+        total:0,
+        nearMe:0
+    },
+    {
+        label: appLabelKey.paid_work,
+        path: StaticImage.PAID_WORK,
+        code: AppConstant.API_REQUEST_CONSTANTS.activity_category.PAID_WORK,
+        total:0,
+        nearMe:0
+    },
+    {
+        label: appLabelKey.testing,
+        path: StaticImage.TESTING,
+        code: AppConstant.API_REQUEST_CONSTANTS.activity_category.TESTING,
+        total:0,
+        nearMe:0
+    },
+    {
+        label: appLabelKey.animal_care,
+        path: StaticImage.ANIMAL_SUPPORT,
+        code: AppConstant.API_REQUEST_CONSTANTS.activity_category.ANIMAL_SUPPORT,
+        total:0,
+        nearMe:0
+    },
+    {
+        label: appLabelKey.fruits_vegetables,
+        path: StaticImage.FRUTS_VEGS,
+        code: AppConstant.API_REQUEST_CONSTANTS.activity_category.FRUTS_VEGS,
+        total:0,
+        nearMe:0
+    },
+    {
+        label: appLabelKey.ambulance,
+        path: StaticImage.AMBULANCE,
+        code: AppConstant.API_REQUEST_CONSTANTS.activity_category.AMBULANCE,
+        total:0,
+        nearMe:0
+    },
+    {
         label: appLabelKey.other,
         path: StaticImage.OTHER,
         code: AppConstant.API_REQUEST_CONSTANTS.activity_category.OTHER,
+        total:0,
+        nearMe:0
+    },
+    {
+        label: appLabelKey.people,
+        path: StaticImage.PEOPLE,
+        code: AppConstant.API_REQUEST_CONSTANTS.activity_category.PEOPLE,
         total:0,
         nearMe:0
     }

@@ -7,6 +7,15 @@ const OTHER = require("../images/other.png");
 const PEOPLE = require("../images/ppl.png");
 const SHELTER = require("../images/shelter.png");
 const TESTING = require("../images/testing.png");
+
+const VOLUNTEERS = require("../images/volunteers.png");
+const FRUTS_VEGS = require("../images/fruits_vegetables.png");
+const TRANSPORT = require("../images/transport.png");
+const ANIMAL_SUPPORT = require("../images/animal_support.png");
+const GIVEAWAYS = require("../images/giveaways.png");
+const PAID_WORK = require("../images/paid_work.png");
+
+
 const STAR = require('../images/star.png')
 class StaticImage {
     static FOOD = FOOD;
@@ -18,6 +27,14 @@ class StaticImage {
     static PEOPLE = PEOPLE;
     static SHELTER = SHELTER;
     static TESTING = TESTING;
+
+    static VOLUNTEERS = VOLUNTEERS;
+    static FRUTS_VEGS = FRUTS_VEGS;
+    static TRANSPORT = TRANSPORT;
+    static ANIMAL_SUPPORT = ANIMAL_SUPPORT;
+    static GIVEAWAYS = GIVEAWAYS;
+    static PAID_WORK = PAID_WORK;
+
     static STAR = STAR;
 }
 

@@ -17,34 +17,24 @@ const optionsOnScreen = [
     code: AppConstant.API_REQUEST_CONSTANTS.activity_category.FOOD
   },
   {
-    label: appLabelKey.people,
-    path: StaticImage.PEOPLE,
-    code: AppConstant.API_REQUEST_CONSTANTS.activity_category.PEOPLE
-  },
-  {
     label: appLabelKey.shelter,
     path: StaticImage.SHELTER,
     code: AppConstant.API_REQUEST_CONSTANTS.activity_category.SHELTER
-  },
+  },  
   {
     label: appLabelKey.med_ppe,
     path: StaticImage.MED_PPE,
     code: AppConstant.API_REQUEST_CONSTANTS.activity_category.MED_PPE
   },
   {
-    label: appLabelKey.testing,
-    path: StaticImage.TESTING,
-    code: AppConstant.API_REQUEST_CONSTANTS.activity_category.TESTING
+    label: appLabelKey.transport,
+    path: StaticImage.TRANSPORT,
+    code: AppConstant.API_REQUEST_CONSTANTS.activity_category.TRANSPORT
   },
   {
-    label: appLabelKey.medicines,
-    path: StaticImage.MEDICINE,
-    code: AppConstant.API_REQUEST_CONSTANTS.activity_category.MEDICINES
-  },
-  {
-    label: appLabelKey.ambulance,
-    path: StaticImage.AMBULANCE,
-    code: AppConstant.API_REQUEST_CONSTANTS.activity_category.AMBULANCE
+    label: appLabelKey.volunteers,
+    path: StaticImage.VOLUNTEERS,
+    code: AppConstant.API_REQUEST_CONSTANTS.activity_category.VOLUNTEERS
   },
   {
     label: appLabelKey.medical_Equipment,
@@ -52,10 +42,50 @@ const optionsOnScreen = [
     code: AppConstant.API_REQUEST_CONSTANTS.activity_category.MED_EQUIPMENT
   },
   {
+    label: appLabelKey.giveaways,
+    path: StaticImage.GIVEAWAYS,
+    code: AppConstant.API_REQUEST_CONSTANTS.activity_category.GIVEAWAYS
+  },
+  {
+    label: appLabelKey.medicines,
+    path: StaticImage.MEDICINES,
+    code: AppConstant.API_REQUEST_CONSTANTS.activity_category.MEDICINES
+  },
+  {
+    label: appLabelKey.paid_work,
+    path: StaticImage.PAID_WORK,
+    code: AppConstant.API_REQUEST_CONSTANTS.activity_category.PAID_WORK
+  },
+  {
+    label: appLabelKey.testing,
+    path: StaticImage.TESTING,
+    code: AppConstant.API_REQUEST_CONSTANTS.activity_category.TESTING
+  },
+  {
+    label: appLabelKey.animal_care,
+    path: StaticImage.ANIMAL_SUPPORT,
+    code: AppConstant.API_REQUEST_CONSTANTS.activity_category.ANIMAL_SUPPORT
+  },
+  {
+    label: appLabelKey.fruits_vegetables,
+    path: StaticImage.FRUTS_VEGS,
+    code: AppConstant.API_REQUEST_CONSTANTS.activity_category.FRUTS_VEGS
+  },
+  {
+    label: appLabelKey.ambulance,
+    path: StaticImage.AMBULANCE,
+    code: AppConstant.API_REQUEST_CONSTANTS.activity_category.AMBULANCE
+  },
+  {
     label: appLabelKey.other,
     path: StaticImage.OTHER,
     code: AppConstant.API_REQUEST_CONSTANTS.activity_category.OTHER
-  }
+  },
+  {
+    label: appLabelKey.people,
+    path: StaticImage.PEOPLE,
+    code: AppConstant.API_REQUEST_CONSTANTS.activity_category.PEOPLE
+  },
 ]
 
 

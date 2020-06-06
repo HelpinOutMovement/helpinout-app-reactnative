@@ -394,7 +394,6 @@ const viewDetailsModalContent = (props) => {
 
 
 const viewDetailsForRequestAndOfferModalContent = (props) => {
-
     const helpOption = Utilities.getCategoryFromCode(props.activity_category);
     const categoryName = translate.t(appLabelKey[helpOption.toLowerCase()]);
     const onClosePopUp = () => {
@@ -404,10 +403,15 @@ const viewDetailsForRequestAndOfferModalContent = (props) => {
     }
 
     const getNoteView = () => {
-        if (props.offer_condition) {
+        if (props.offer_note) {
             return (<View style={{ marginVertical: 10 }}>
-                <Text style={{fontWeight:"bold"}} >{translate.t("note")}</Text>
-                <Text>{props.offer_condition}</Text>
+                <Text style={{fontWeight:"bold"}} >{translate.t("note_to_requester")}</Text>
+                <Text>{props.offer_note}</Text>
+            </View>);
+        }else if (props.request_note) {
+            return (<View style={{ marginVertical: 10 }}>
+                <Text style={{fontWeight:"bold"}} >{translate.t("note_to_provider")}</Text>
+                <Text>{props.request_note}</Text>
             </View>);
         }
 

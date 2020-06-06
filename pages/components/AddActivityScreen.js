@@ -262,19 +262,37 @@ export default class AddActivityScreen extends Component {
 
     if (this.props.route.params.activity_type === 1) {
       this.setState({ title:  translate.t("toolbar_need_help_with"), headerBgColor: "#EE6B6B" })
-      if (this.props.route.params.optionCode === AppConstant.API_REQUEST_CONSTANTS.activity_category.PEOPLE || this.props.route.params.optionCode === AppConstant.API_REQUEST_CONSTANTS.activity_category.AMBULANCE) {
+      if (this.props.route.params.optionCode === AppConstant.API_REQUEST_CONSTANTS.activity_category.PEOPLE) {
         this.setState({ hideAddMore: true })
         this.setState({ hideConstrains: true })
-      } else {
+      } else if(this.props.route.params.optionCode === AppConstant.API_REQUEST_CONSTANTS.activity_category.AMBULANCE
+        || this.props.route.params.optionCode === AppConstant.API_REQUEST_CONSTANTS.activity_category.VOLUNTEERS 
+        || this.props.route.params.optionCode === AppConstant.API_REQUEST_CONSTANTS.activity_category.TRANSPORT 
+        || this.props.route.params.optionCode === AppConstant.API_REQUEST_CONSTANTS.activity_category.GIVEAWAYS 
+        || this.props.route.params.optionCode === AppConstant.API_REQUEST_CONSTANTS.activity_category.PAID_WORK 
+        || this.props.route.params.optionCode === AppConstant.API_REQUEST_CONSTANTS.activity_category.ANIMAL_SUPPORT 
+        || this.props.route.params.optionCode === AppConstant.API_REQUEST_CONSTANTS.activity_category.FRUTS_VEGS ){
+        this.setState({ hideAddMore: true })
+        this.setState({ hideConstrains: false })
+      }else {
         this.setState({ hideAddMore: false })
         this.setState({ hideConstrains: true })
         this.add_New_View();
       }
     } else {
       this.setState({ title: translate.t("toolbar_offer_help_with"), headerBgColor: "#4F5065" })
-      if (this.props.route.params.optionCode === AppConstant.API_REQUEST_CONSTANTS.activity_category.PEOPLE || this.props.route.params.optionCode === AppConstant.API_REQUEST_CONSTANTS.activity_category.AMBULANCE) {
+      if (this.props.route.params.optionCode === AppConstant.API_REQUEST_CONSTANTS.activity_category.PEOPLE) {
         this.setState({ hideAddMore: true })
         this.setState({ hideConstrains: true })
+      } else if(this.props.route.params.optionCode === AppConstant.API_REQUEST_CONSTANTS.activity_category.AMBULANCE
+        || this.props.route.params.optionCode === AppConstant.API_REQUEST_CONSTANTS.activity_category.VOLUNTEERS 
+        || this.props.route.params.optionCode === AppConstant.API_REQUEST_CONSTANTS.activity_category.TRANSPORT 
+        || this.props.route.params.optionCode === AppConstant.API_REQUEST_CONSTANTS.activity_category.GIVEAWAYS 
+        || this.props.route.params.optionCode === AppConstant.API_REQUEST_CONSTANTS.activity_category.PAID_WORK 
+        || this.props.route.params.optionCode === AppConstant.API_REQUEST_CONSTANTS.activity_category.ANIMAL_SUPPORT 
+        || this.props.route.params.optionCode === AppConstant.API_REQUEST_CONSTANTS.activity_category.FRUTS_VEGS ){
+        this.setState({ hideAddMore: true })
+        this.setState({ hideConstrains: false })
       } else {
         this.setState({ hideAddMore: false })
         this.setState({ hideConstrains: false })
@@ -438,42 +456,43 @@ export default class AddActivityScreen extends Component {
 
             }
 
-
-            <HView style={styles.hintTextContainer} hide={this.state.hideAddMore}>
+            <HView style={styles.hintBottomPanel} hide={false}>            
               <HView style={{ textAlign: "left", borderWidth: 0, width: "100%", alignItems: "center", marginBottom: 20 }} hide={this.state.hideConstrains}>
-                <Text  adjustsFontSizeToFit={true}  minimumFontScale={1}  style={{ textAlign: "left", borderWidth: 0, width: "90%" , fontWeight:"bold"}}>{translate.t("note")}</Text>
+                <Text  adjustsFontSizeToFit={true}  minimumFontScale={1}  style={{ textAlign: "left", borderWidth: 0, width: "90%" , fontWeight:"bold"}}>{(this.props.route.params.activity_type === 1) ? translate.t("note_to_provider") : translate.t("note_to_requester")}</Text>
                 <Textarea style={{ borderWidth: 1, borderRadius: 3, width: "90%" }}
                   rowSpan={5}
                   onChangeText={(val) => this.constrainsDataOnChange(val)}
                   placeholder={translate.t("hint_conditions")}></Textarea>
               </HView>
-              <TouchableOpacity
-                style={{
-                  alignItems: "center",
-                  borderColor: "#CACBCE",
-                  height: 40,
-                  borderStyle: "dashed",
-                  borderWidth: 2,
-                  borderRadius: 5,
-                  flexDirection: 'row',
-                  flexWrap: 'wrap',
-                  alignItems: "center",
-                  justifyContent: "center",
-                  alignContent: "center",
-                  width: "90%"
-                }}
-                onPress={this.add_New_View}>
-                <EntypoIcon name="plus" style={{ fontSize: 18, color: "#4F5065" }} />
-                <Text
-                 adjustsFontSizeToFit={true}  minimumFontScale={1} 
+              <HView style={styles.hintTextContainer} hide={this.state.hideAddMore}>
+                <TouchableOpacity
                   style={{
-                    textAlign: "center",
-                    fontFamily: "Roboto-Regular",
-                    //fontSize: 17,
-                    color: "#4F5065",
+                    alignItems: "center",
+                    borderColor: "#CACBCE",
+                    height: 40,
+                    borderStyle: "dashed",
+                    borderWidth: 2,
+                    borderRadius: 5,
+                    flexDirection: 'row',
+                    flexWrap: 'wrap',
+                    alignItems: "center",
+                    justifyContent: "center",
+                    alignContent: "center",
+                    width: "90%"
                   }}
-                >{translate.t("only_add_more_items")} </Text>
-              </TouchableOpacity>
+                  onPress={this.add_New_View}>
+                  <EntypoIcon name="plus" style={{ fontSize: 18, color: "#4F5065" }} />
+                  <Text
+                  adjustsFontSizeToFit={true}  minimumFontScale={1} 
+                    style={{
+                      textAlign: "center",
+                      fontFamily: "Roboto-Regular",
+                      //fontSize: 17,
+                      color: "#4F5065",
+                    }}
+                  >{translate.t("only_add_more_items")} </Text>
+                </TouchableOpacity>
+              </HView>
             </HView>
           </Content>
           <View style={{ alignItems: "center", marginTop: 10, marginBottom: 10 }}>
@@ -580,12 +599,17 @@ const styles = StyleSheet.create({
     flex: 1
   },
 
-  hintTextContainer: {
+  hintBottomPanel: {
     width: scale(350),
     alignItems: 'center',
     justifyContent: 'center',
     position: "absolute",
-    bottom: 0
+    bottom: 0,    
+  },
+  hintTextContainer: {
+    width: scale(350),
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   buttonContainer: {
     padding: 10,

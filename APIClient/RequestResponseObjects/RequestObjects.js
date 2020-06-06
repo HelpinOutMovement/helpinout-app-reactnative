@@ -214,12 +214,17 @@
                 "activity_category": activity_category,
                 "activity_count": activity_count,                
                 "activity_detail": activity_detail,
-                ////"offer_condition": offer_condition,
-                "offer_note": offer_condition,
+                ////"offer_condition": offer_condition,                
                 "pay": pay,
                 "self_else":self_else,
                 "offerer":"",
                 "requester":""
+            }
+
+            if(activity_type === AppConstant.API_REQUEST_CONSTANTS.activity_type.Request){
+                data["request_note"] =  offer_condition;
+            }else if(activity_type === AppConstant.API_REQUEST_CONSTANTS.activity_type.Offer){
+                data["offer_note"] =  offer_condition;
             }
             return new Promise((resolve, reject) => {
                 let reqObject = this.stuffHeader(data, true);

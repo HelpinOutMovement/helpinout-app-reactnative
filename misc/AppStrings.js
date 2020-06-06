@@ -39,7 +39,6 @@ const appLabelKey = {
     we_can_pay:"We_can_pay",
     we_cannot_pay:"We_cannot_pay",
     add_more:"Add_more",
-    volunteers:"Volunteers",
     technical_Personnel:"Technical_Personnel",
     how_many_people:"How_many_people",
     enter_items_optional:"Enter_items_optional",
@@ -53,6 +52,14 @@ const appLabelKey = {
     medical_Equipment:"medical_equipment",
     med_equipment:"medical_equipment",
     other:"other_things",
+
+    volunteers:"volunteers",
+    transport:"transport",
+    giveaways:"giveaways",
+    paid_work:"paid_work",
+    animal_care:"animal_care",
+    fruits_vegetables:"fruits_vegetables",
+
     need_help_with:"toolbar_need_help_with",
     qty:"Qty",
     details_optional:"Details_optional",
