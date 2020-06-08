@@ -110,13 +110,6 @@ const optionsOnScreen = [
         code: AppConstant.API_REQUEST_CONSTANTS.activity_category.OTHER,
         total:0,
         nearMe:0
-    },
-    {
-        label: appLabelKey.people,
-        path: StaticImage.PEOPLE,
-        code: AppConstant.API_REQUEST_CONSTANTS.activity_category.PEOPLE,
-        total:0,
-        nearMe:0
     }
 ]
 
@@ -135,7 +128,7 @@ function OfferHelpScreen(props) {
         let restApi = new API();
         let reqObj =  restApi.locationRequesterSummary(props.route.params.region.latitude, props.route.params.region.longitude, 50);
         reqObj.then((response) => {
-            console.log(JSON.stringify(response))
+            //console.log(JSON.stringify(response))
             for(var i=0;i<response.data.length;i++){
                 var index =  optionsOnScreen.findIndex((item, idx) => {
                     return (item.code === response.data[i].activity_category)

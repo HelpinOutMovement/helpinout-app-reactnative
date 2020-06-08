@@ -338,7 +338,7 @@ function MyOfferScreen(props) {
 
   const [emailData, setEmailData] = useState("");
 
-  console.log("MyOfferScreen " + JSON.stringify(props))
+  //console.log("MyOfferScreen " + JSON.stringify(props))
   useFocusEffect(
     React.useCallback(() => {
       setShowSpinner(true);

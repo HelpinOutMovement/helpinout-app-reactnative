@@ -58,7 +58,7 @@ function SearchHelpGiversSeekers(props) {
 
     useEffect(()=>{
         try{
-            console.log("Search Screen : " + JSON.stringify(props.route))
+            //console.log("Search Screen : " + JSON.stringify(props.route))
             const lanlonReference = getRouteParams('latlon', props.route);
             setLatLonRef(lanlonReference);
             setState({
@@ -164,7 +164,7 @@ function SearchHelpGiversSeekers(props) {
 
 
     const callbackOnRegionChange = (region, address, distance) => {
-        console.log("ON callbackOnRegionChange")
+        //console.log("ON callbackOnRegionChange")
         state["region"] = region;
         state["address"] = address;
         state["distance"] = distance;
@@ -187,7 +187,7 @@ function SearchHelpGiversSeekers(props) {
                     }
                     setState({ ...state });
                     setActivityDataFetched(true)
-                    console.log(JSON.stringify(respObject))
+                    //console.log(JSON.stringify(respObject))
                     mapComponentRef.current.addMarker(respObject);
                 } 
                 setShowSpinner(false)           

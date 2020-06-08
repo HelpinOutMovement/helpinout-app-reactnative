@@ -35,7 +35,7 @@ const dimensions = Dimensions.get('window');
 
 
 function Home(props) {
-    console.log("Home")
+    //console.log("Home")
 
     //console.log(JSON.stringify(props))
     let mapComponentRef = useRef();
@@ -70,8 +70,8 @@ function Home(props) {
     });
 
     if(!(props.route && props.route.params && props.route.params.latlon) &&  state["latlon"] === undefined ){
-      console.log(state["latlon"])
-      console.log("Not = (props.route && props.route.params && props.route.params.latlon)    ") 
+      //console.log(state["latlon"])
+      //console.log("Not = (props.route && props.route.params && props.route.params.latlon)    ") 
       Geolocation.getCurrentPosition((info) => {
         state["latlon"] = info.coords.latitude+","+info.coords.longitude;
         state["mapLatLon"] = info.coords.latitude+","+info.coords.longitude;
@@ -96,7 +96,7 @@ function Home(props) {
                   })));
                   //console.log(max_mapping_time)
                 }else{
-                  console.log(0)
+                  //console.log(0)
                 }
               })
             }
@@ -111,7 +111,7 @@ function Home(props) {
                   })));
                   //console.log(max_mapping_time)
                 }else{
-                  console.log(0)
+                  //console.log(0)
                 }
               })
             }
@@ -144,7 +144,7 @@ function Home(props) {
             mapLatLon:(props.route && props.route.params && props.route.params.latlon) ? props.route.params.latlon : ""
           })
         }catch(err){
-          console.log(err);
+          //console.log(err);
         } 
       }, []);
 
@@ -156,7 +156,7 @@ function Home(props) {
         
         setDrawerNavigationOptions(props.navigation);
         try{
-          console.log("with params " + JSON.stringify(props))
+          //console.log("with params " + JSON.stringify(props))
           if(props.route.params != undefined){
             //console.log("with params not null " + props.route.params)
             setState({
@@ -216,7 +216,7 @@ function Home(props) {
       
       
     const callbackOnRegionChange = (region, address, distance) => {
-      console.log("callbackOnRegionChange")
+      //console.log("callbackOnRegionChange")
       state["region"] = region;
       state["address"] = address;
       state["latlon"] =  region.latitude + "," + region.longitude;
@@ -230,7 +230,7 @@ function Home(props) {
 
     const getLocationSuggestions = (region, address, distance) => {   
       try{
-        console.log("getLocationSuggestions") 
+        //console.log("getLocationSuggestions") 
         setShowSpinner(true)
         reqObj = apiInstance.locationSuggestion(region.latitude, region.longitude, "10.424", distance / 2);
         reqObj.then((val) => {
@@ -244,7 +244,7 @@ function Home(props) {
           }
         })
       }catch(err){
-        console.log(err);
+        //console.log(err);
       }      
     }
   
@@ -479,7 +479,7 @@ function Home(props) {
                     }}
                     onPress={
                       (data, details) => {
-                        console.log(JSON.stringify(details)); 
+                        //console.log(JSON.stringify(details)); 
                         state["mapLatLon"] = details.geometry.location.lat +"," + details.geometry.location.lng; 
                         setState({...state})
                         state["ShowSearchModal"] = false;

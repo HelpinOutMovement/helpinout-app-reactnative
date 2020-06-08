@@ -338,7 +338,7 @@ function MyRequestScreen(props) {
   }, [])
 
   */
- console.log("MyRequestScreen " + JSON.stringify(props))
+ //console.log("MyRequestScreen " + JSON.stringify(props))
   useFocusEffect(
     React.useCallback(() => {
       setShowSpinner(true);
@@ -424,7 +424,7 @@ function MyRequestScreen(props) {
     try{
       requestInformation.forEach((singleOption, index) => {
         // realReq.forEach((singleOption, index) => {
-          console.log(" singleOption  : " + JSON.stringify(singleOption))
+          //console.log(" singleOption  : " + JSON.stringify(singleOption))
         cardListView.push((
           <PastOfferRequestComponent
             key={singleOption.activity_uuid}

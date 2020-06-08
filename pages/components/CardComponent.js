@@ -156,10 +156,10 @@ const RequesterInfoCardComponent = (props) => {
     //Linking.openURL(phoneNumber);
 
       const url = 'tel:+16505555555';
-      console.log("Calling Phone URL " + url)
+      //console.log("Calling Phone URL " + url)
       Linking.canOpenURL(url)
         .then((supported) => {
-          console.log("Calling is Supported " + supported)
+          //console.log("Calling is Supported " + supported)
           if (supported) {
             return Linking.openURL(url)
               .catch((e) => {console.log(JSON.stringify(e))});

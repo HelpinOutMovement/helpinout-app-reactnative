@@ -80,12 +80,7 @@ const optionsOnScreen = [
     label: appLabelKey.other,
     path: StaticImage.OTHER,
     code: AppConstant.API_REQUEST_CONSTANTS.activity_category.OTHER
-  },
-  {
-    label: appLabelKey.people,
-    path: StaticImage.PEOPLE,
-    code: AppConstant.API_REQUEST_CONSTANTS.activity_category.PEOPLE
-  },
+  }
 ]
 
 

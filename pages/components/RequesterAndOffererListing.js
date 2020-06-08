@@ -27,11 +27,11 @@ const RequesterAndOffererListing = (props) => {
     // set the content
     useEffect(() => {
         if (props.requestParams && props.requestParams.mapping && props.requestParams.mapping.length) {
-            console.log("in 1")
+            //console.log("in 1")
             //console.log("props.requestParams.mapping : " + JSON.stringify(props.requestParams.mapping))
             setMappedRequestEntity(props.requestParams.mapping);
         }else  {
-            console.log("in 2")
+            //console.log("in 2")
             // work-around for now
             setShowSpinner(true)
             apiInstance.userPastActivity(props.createdIdParams.activity_type).then(resp => {

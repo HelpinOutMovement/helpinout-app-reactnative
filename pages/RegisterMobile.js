@@ -25,7 +25,7 @@ export default class RegisterMobile extends React.Component {
     
    constructor(props) {
         super(props);
-        console.log("Reg props : "+ JSON.stringify(props))
+        //console.log("Reg props : "+ JSON.stringify(props))
         ///const { navigate } = this.props.navigation;
         this.navigate = this.props.navigation.navigate;
         this.state = {

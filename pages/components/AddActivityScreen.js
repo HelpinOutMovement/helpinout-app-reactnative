@@ -205,7 +205,7 @@ export default class AddActivityScreen extends Component {
 
   submitData = (canPay) => {
     let restApi = new API();
-    console.log("this.props.route.params.optionCode : " + this.props.route.params.optionCode)
+    //console.log("this.props.route.params.optionCode : " + this.props.route.params.optionCode)
     UUIDGenerator.getRandomUUID((uuid) => {
       switch (this.props.route.params.optionCode) {
         case AppConstant.API_REQUEST_CONSTANTS.activity_category.PEOPLE:

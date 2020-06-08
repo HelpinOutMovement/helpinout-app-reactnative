@@ -13,7 +13,7 @@ import UserContext from '../misc/UserContext'
 function About(props) {
     const appVersion = DeviceInfo.getVersion() +"."+ DeviceInfo.getBuildNumber();
     DeviceInfo.getLastUpdateTime().then((time) => {console.log(time)})
-    console.log(appVersion)
+    //console.log(appVersion)
     const { getAPIServer, setAPIServer } = useContext(UserContext);
     const [showServerModal, setShowServerModal] = useState(false);
     const [APIServerData, setAPIServerData] = useState("");

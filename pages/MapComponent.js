@@ -88,7 +88,7 @@ class MapComponent extends React.Component {
 
   setLanLon(lat, lon){
     this.setState({region:{latitude: lat, longitude:lon, latitudeDelta: LATITUDE_DELTA, longitudeDelta: LONGITUDE_DELTA}}, () => {
-      console.log("calling force update")
+      //console.log("calling force update")
     });
     
     this.map.animateToRegion({ latitude: this.props.mapLatLon.split(",")[0], longitude: this.props.mapLatLon.split(",")[1], latitudeDelta: LATITUDE_DELTA * Number(this.state.radius/15), longitudeDelta: LONGITUDE_DELTA * Number(this.state.radius/15) }, 2000); 

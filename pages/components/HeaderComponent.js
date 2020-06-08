@@ -14,42 +14,15 @@ const HeaderComponent = (props) => {
         <Button
           transparent
           onPress={() => { 
-            console.log(JSON.stringify(props))
-            if (!props.navigationHandler) {
-               /*              
-              if(props.route && props.route.params && props.route.params.request && props.route.params.request.activity_type && props.route.params.request.activity_type === 1){
-                //props.navigation.navigate(AppConstant.APP_PAGE.MY_REQUEST_SCREEN)
-                
-                props.navigation.reset({
-                  index: 0,
-                  routes: [{ name: AppConstant.APP_PAGE.MY_OFFERS_SCREEN }],
-                });
-                
-                props.navigation.goBack()
-                //props.navigation.popToTop()
-                //props.navigation.reset(AppConstant.APP_PAGE.MY_REQUEST_SCREEN)
-              }else if(props.route && props.route.params && props.route.params.request && props.route.params.request.activity_type && props.route.params.request.activity_type === 2){
-                //props.navigation.navigate(AppConstant.APP_PAGE.MY_OFFERS_SCREEN)
-               
-                props.navigation.reset({
-                  index: 0,
-                  routes: [{ name: AppConstant.APP_PAGE.MY_OFFERS_SCREEN }],
-                });
-              
-                
-                props.navigation.goBack()
-                //props.navigation.popToTop()
-                //props.navigation.reset(AppConstant.APP_PAGE.MY_OFFERS_SCREEN)
-              }else{
-                props.navigation.goBack() 
-              }
-              */
-              if(props.route.name === "MyRequestSentRequestScreen" || props.route.name === "MyOfferSentOfferScreen"){
-                props.navigation.pop(2)
-              }else{
-                props.navigation.goBack()
-              }
-              
+            //console.log(JSON.stringify(props))
+            if (!props.navigationHandler) {              
+                if(props.route && props.route.params && props.route.params.request && props.route.params.request.activity_type && props.route.params.request.activity_type === 1){
+                    props.navigation.navigate(AppConstant.APP_PAGE.MY_REQUEST_SCREEN)
+                }else if(props.route && props.route.params && props.route.params.request && props.route.params.request.activity_type && props.route.params.request.activity_type === 2){
+                    props.navigation.navigate(AppConstant.APP_PAGE.MY_OFFERS_SCREEN)
+                }else{
+                    props.navigation.goBack()
+                }
             }else {
               props.navigationHandler() 
             } 
