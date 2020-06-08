@@ -74,11 +74,14 @@ function App() {
   } else {
     this.requestPermission();
   }
+  
+ //setFBCMTokenAndAppState()
  }
 
 
  getFcmToken = async () => {
   const fcmToken = await firebase.messaging().getToken();
+  console.log("fcmToken : "+fcmToken)
   return fcmToken;
  }
 
@@ -90,7 +93,8 @@ function App() {
    })   
    // User has authorised
   } catch (error) {
-    Toast.show("Error : User Has rejected notification permissions \n you need notification permissions for the application to work \n Go to settings and grant permissions. \n Please close the app and reatsrt after granting permissions" , {duration:0, position:0, animation:true, shadow:true} )
+    //Toast.show("Error : User Has rejected notification permissions \n you need notification permissions for the application to work \n Go to settings and grant permissions. \n Please close the app and reatsrt after granting permissions" , {duration:0, position:0, animation:true, shadow:true} )
+    setFBCMTokenAndAppState()
   }
  }
 
@@ -103,7 +107,6 @@ function App() {
  }
 
  setFBCMTokenAndAppState = async () =>{
-
   let fcmToken = await this.getFcmToken();
   if (fcmToken && fcmToken.length > 0) {
     AppStorage.storeAppInfo(AppConstant.FIREBASE_CLOUD_MESSAGING_TOKEN, fcmToken).then((storedResponse) => {
