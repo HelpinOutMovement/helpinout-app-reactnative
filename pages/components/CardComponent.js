@@ -115,7 +115,7 @@ const RequesterInfoCardComponent = (props) => {
   JSON.stringify("RequesterInfoCardComponent")
   const getCallerView = () => {
     const callerView = [];
-    if (props.primayInfo && props.primayInfo.mobile_no_visibility && props.primayInfo.mobile_no_visibility == 1) {
+    //if (props.primayInfo && props.primayInfo.mobile_no_visibility && props.primayInfo.mobile_no_visibility == 1) {
       callerView.push(
 
         <TouchableOpacity
@@ -132,7 +132,7 @@ const RequesterInfoCardComponent = (props) => {
           }}> {translate.t("call_them")} </Text>
         </TouchableOpacity>
       );
-    }
+    //}
     return callerView;
 
   }

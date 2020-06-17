@@ -74,18 +74,6 @@ class MapComponent extends React.Component {
 
   }
 
-  /*
-
-  componentWillReceiveProps = (nextProps) => {
-    console.log(" In componentWillReceiveProps")
-    this.setState({ region:{latitude: nextProps.mapLatLon.split(",")[0], longitude:nextProps.mapLatLon.split(",")[1], latitudeDelta: LATITUDE_DELTA, longitudeDelta: LONGITUDE_DELTA} });  
-  }
-*/
-
-
-
-
-
   setLanLon(lat, lon){
     this.setState({region:{latitude: lat, longitude:lon, latitudeDelta: LATITUDE_DELTA, longitudeDelta: LONGITUDE_DELTA}}, () => {
       //console.log("calling force update")
@@ -109,38 +97,16 @@ class MapComponent extends React.Component {
               this.setLanLon(info.coords.latitude, info.coords.longitude);
               this.setState({latitude: lat, longitude:lon});
               // Use the below code to zoom to particular location with radius.
-    
               this.map.animateToRegion({ latitude: this.state.region.latitude, longitude: this.state.region.longitude, latitudeDelta: LATITUDE_DELTA * Number(this.state.radius/15), longitudeDelta: LONGITUDE_DELTA * Number(this.state.radius/15) }, 2000); 
-              /*
-              let restApi = new API();
-              let address = restApi.geocode(this.state.region.latitude, this.state.region.longitude)
-                address.then((addr) => {
-                this.setState({address:addr})   
-                this.props.callbackOnRegionChange(this.state.region, this.state);
-              }).catch(err => {
-                this.props.callbackOnRegionChange(this.state.region, this.state);
-              })
-              */
               Geocoder.geocodePosition({lat:info.coords.latitude, lon:info.coords.longitude}).then((retval) => {
                 this.setState({address:retval[0].formattedAddress},() => { 
                   this.props.callbackOnRegionChange(this.state.region, this.state);
                 })  
               }).catch(error => {      
-                
-                Toast.show('Network error : Please check ir you have network connectivity ', { duration: 3000, position: 0, animation: true, shadow: true, animationDuration: 1000 })    
-                //this.props.callbackOnRegionChange(this.state.region, this.state);
+                if(Object.keys(error).length !== 0){
+                  Toast.show('Network error : Please check ir you have network connectivity ' + JSON.stringify(error), { duration: 3000, position: 0, animation: true, shadow: true, animationDuration: 1000 })
+                }
               });
-            /*
-            Geocoder.from(this.state.region.latitude, this.state.region.longitude)
-            .then(json => {
-                var addressComponent = json.results[0].address_components[0];
-                this.setState({address:JSON.stringify(addressComponent)},() => { 
-                  this.props.callbackOnRegionChange(this.state.region, this.state);
-                })  
-            })
-            .catch(error => {          
-            });
-            */
           })
 
 
@@ -157,9 +123,9 @@ class MapComponent extends React.Component {
             this.props.callbackOnRegionChange(this.state.region, this.state);
           })  
         }).catch(error => {    
-          
-            Toast.show('Network error : Please check ir you have network connectivity ', { duration: 3000, position: 0, animation: true, shadow: true, animationDuration: 1000 })      
-          //this.props.callbackOnRegionChange(this.state.region, this.state);
+          if(Object.keys(error).length !== 0){
+            Toast.show('Network error : Please check ir you have network connectivity ' + JSON.stringify(error), { duration: 3000, position: 0, animation: true, shadow: true, animationDuration: 1000 })
+          }          
         });
 
       })
@@ -268,45 +234,17 @@ class MapComponent extends React.Component {
                 boundries.northEast,
                 boundries.southWest
               );
-              
-              /*
-              let restApi = new API();
-
-              let address = restApi.geocode(region.latitude, region.longitude)
-                address.then((addr) => {
-                  this.setState({address:addr},() => { 
-                    this.props.callbackOnRegionChange(region, this.state);
-                  })              
-                }).catch(err => {
-                  this.props.callbackOnRegionChange(this.state.region, this.state);
-                })    
-
-              */  
+             
               Geocoder.geocodePosition({lat:region.latitude, lng:region.longitude}).then((retval) => {
                 const address = retval[0].formattedAddress;
                 this.setState({address:retval[0].formattedAddress},() => { 
                   this.props.callbackOnRegionChange(region, address, distance);
                 })  
               }).catch(error => {    
-                
-                Toast.show('Network error : Please check ir you have network connectivity ', { duration: 3000, position: 0, animation: true, shadow: true, animationDuration: 1000 })      
-                //this.props.callbackOnRegionChange(this.state.region, this.state);
+                if(Object.keys(error).length !== 0){
+                  Toast.show('Network error : Please check ir you have network connectivity ' + JSON.stringify(error), { duration: 3000, position: 0, animation: true, shadow: true, animationDuration: 1000 })
+                }                
               });
-
-              /*
-                Geocoder.from(region.latitude, region.longitude)
-                .then(json => {
-                var addressComponent = json.results[0].address_components[0];
-                  this.setState({address:JSON.stringify(addressComponent)},() => { 
-                    this.props.callbackOnRegionChange(region, this.state);
-                  })  
-                })
-                .catch(error => {          
-                });
-            */
-            //this.getLocationSuggestions();
-
-
           })
           
         })

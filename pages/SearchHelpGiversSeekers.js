@@ -192,7 +192,7 @@ function SearchHelpGiversSeekers(props) {
                 } 
                 setShowSpinner(false)           
             }).catch((e) => {
-                Toast.show('Network error : Please check ir you have network connectivity ', { duration: 3000, position: 0, animation: true, shadow: true, animationDuration: 1000 })
+                Toast.show('Network error : Please check ir you have network connectivity ' + JSON.stringify(e), { duration: 3000, position: 0, animation: true, shadow: true, animationDuration: 1000 })
             })
         }catch(err){
             console.log(err);
@@ -226,10 +226,10 @@ function SearchHelpGiversSeekers(props) {
                         navigate(AppConstant.APP_PAGE.MY_OFFER_SENT_OFFER_SCREEN, { request: response.data, created_activity: response.data })
                     }
                 } else {
-
+                    Toast.show('Error Submitting your request', { duration: 3000, position: 0, animation: true, shadow: true, animationDuration: 1000 })
                 }
             }).catch((e) => {
-                Toast.show('Network error : Please check ir you have network connectivity ', { duration: 3000, position: 0, animation: true, shadow: true, animationDuration: 1000 })
+                Toast.show('Network error : Please check ir you have network connectivity ' + JSON.stringify(e), { duration: 3000, position: 0, animation: true, shadow: true, animationDuration: 1000 })
             })
         }catch(err){
             console.log(err);
