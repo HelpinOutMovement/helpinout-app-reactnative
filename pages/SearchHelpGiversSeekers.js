@@ -191,7 +191,9 @@ function SearchHelpGiversSeekers(props) {
                     mapComponentRef.current.addMarker(respObject);
                 } 
                 setShowSpinner(false)           
-            }).catch((err) => { console.log(err) })
+            }).catch((e) => {
+                Toast.show('Network error : Please check ir you have network connectivity ', { duration: 3000, position: 0, animation: true, shadow: true, animationDuration: 1000 })
+            })
         }catch(err){
             console.log(err);
         } 
@@ -226,7 +228,9 @@ function SearchHelpGiversSeekers(props) {
                 } else {
 
                 }
-            }).catch((err) => { console.log(err) })
+            }).catch((e) => {
+                Toast.show('Network error : Please check ir you have network connectivity ', { duration: 3000, position: 0, animation: true, shadow: true, animationDuration: 1000 })
+            })
         }catch(err){
             console.log(err);
         } 
@@ -288,8 +292,8 @@ function SearchHelpGiversSeekers(props) {
                 
 
                 <View style={{ width: scale(330), flex: 0, flexDirection: 'row', top: topBarPos, borderRadius: 6, height: verticalScale(50), borderWidth: 0, borderColor: "#000000" }}>
-                    <View style={{ width: scale(50), backgroundColor: "white", height: verticalScale(50), borderRadius: 6, borderTopRightRadius: 0, borderBottomRightRadius: 0, borderLeftWidth: 1, borderTopWidth: 1, borderBottomWidth: 1, justifyContent: "center" }} ><Button transparent style={{ padding: 0 }} onPress={() => { /*props.navigation.toggleDrawer()props.navigation.goBack()*/ (state.activity_type === 1) ? navigate(AppConstant.APP_PAGE.MY_REQUEST_SCREEN) :  navigate(AppConstant.APP_PAGE.MY_OFFERS_SCREEN) /* props.navigation.goBack() */}}><Icon name="ios-arrow-back" /></Button></View>
-                    <View style={{ width: scale(250), backgroundColor: "white", height: verticalScale(50), borderRightWidth: 0, borderRadius: 0, borderTopLeftRadius: 0, borderBottomLeftRadius: 0, borderTopWidth: 1, borderBottomWidth: 1, alignItems: "flex-start", justifyContent: 'center' }} >
+                    <View style={{ width: scale(50), backgroundColor: "white", height: verticalScale(50), borderRadius: 6, borderTopRightRadius: 0, borderBottomRightRadius: 0, borderLeftWidth: 1, borderTopWidth: 1, borderBottomWidth: 1, justifyContent: "center" }} ><Button transparent style={{ padding: 0 }} onPress={() => { /*props.navigation.toggleDrawer()props.navigation.goBack()*/ (state.activity_type === 1) ? navigate(AppConstant.APP_PAGE.SIDE_DRAWER) :  navigate(AppConstant.APP_PAGE.SIDE_DRAWER) /* props.navigation.goBack() */}}><Icon name="ios-arrow-back" /></Button></View>
+                    <View style={{ width: scale(251), backgroundColor: "white", height: verticalScale(50), borderRightWidth: 0, borderRadius: 0, borderTopLeftRadius: 0, borderBottomLeftRadius: 0, borderTopWidth: 1, borderBottomWidth: 1, alignItems: "flex-start", justifyContent: 'center' }} >
                     <Text adjustsFontSizeToFit={true}  minimumFontScale={.01} numberOfLines={1}  style={{  height:verticalScale(15), textAlign:"left", width:  scale(200) , color:"grey"}}>{translate.t("you_are_here")}</Text>
                         <Text adjustsFontSizeToFit={true}  minimumFontScale={.6} numberOfLines={2} style={{ overflow:"hidden", height:verticalScale(30),textAlign:"left", width:  scale(200), paddingTop:0}}>{state.address}</Text>
                     </View>

@@ -224,7 +224,9 @@ export default class AddActivityScreen extends Component {
               })
 
             }
-          }).catch((err) => { console.log(err) })
+          }).catch((e) => {
+            Toast.show('Network error : Please check ir you have network connectivity ', { duration: 3000, position: 0, animation: true, shadow: true, animationDuration: 1000 })
+          })
 
           break;
         case AppConstant.API_REQUEST_CONSTANTS.activity_category.AMBULANCE:
@@ -235,7 +237,9 @@ export default class AddActivityScreen extends Component {
                 this.showPopUp();
               })
             }
-          }).catch((err) => { console.log(err) })
+          }).catch((e) => {
+            Toast.show('Network error : Please check ir you have network connectivity ', { duration: 3000, position: 0, animation: true, shadow: true, animationDuration: 1000 })
+          })
 
           break;
         default:
@@ -248,7 +252,9 @@ export default class AddActivityScreen extends Component {
                 this.showPopUp();
               })
             }
-          }).catch((err) => { console.log(err) })
+          }).catch((e) => {
+            Toast.show('Network error : Please check ir you have network connectivity ', { duration: 3000, position: 0, animation: true, shadow: true, animationDuration: 1000 })
+          })
 
 
       }

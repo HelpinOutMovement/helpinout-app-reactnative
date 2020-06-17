@@ -537,7 +537,7 @@ function MyOfferScreen(props) {
             borderRadius:8,
             borderColor:"#EE6B6B",
         }}>
-            <View style={{flex: 1, flexDirection: 'column', justifyContent: "space-evenly", width:scale(300), borderWidth:1, height:verticalScale(100), backgroundColor:"#FFFFFF", borderRadius:4 }}>
+            <View style={{flex: 1, flexDirection: 'column', justifyContent: "space-evenly", width:scale(300), borderWidth:1, height:verticalScale(130), backgroundColor:"#FFFFFF", borderRadius:4 }}>
                 <View style={{paddingVertical:20, paddingHorizontal:20}}>
                   <Text>{translate.t("email_title")}</Text>
                 </View>
@@ -550,7 +550,7 @@ function MyOfferScreen(props) {
                     autoCapitalize = 'none'
                   >
                   </TextInput>
-                  <TouchableOpacity  style={{paddingHorizontal:scale(0), paddingVertical:verticalScale(0)}} onPress={() => { sendEmail()}}>
+                  <TouchableOpacity  style={{paddingHorizontal:scale(0), height:verticalScale(30)}} onPress={() => { sendEmail()}}>
                         <View style={{
                           backgroundColor:"#EE6B6B",
                           borderRadius:4,

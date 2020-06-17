@@ -17,9 +17,9 @@ const HeaderComponent = (props) => {
             //console.log(JSON.stringify(props))
             if (!props.navigationHandler) {              
                 if(props.route && props.route.params && props.route.params.request && props.route.params.request.activity_type && props.route.params.request.activity_type === 1){
-                    props.navigation.navigate(AppConstant.APP_PAGE.MY_REQUEST_SCREEN)
+                    props.navigation.navigate(AppConstant.APP_PAGE.SIDE_DRAWER)
                 }else if(props.route && props.route.params && props.route.params.request && props.route.params.request.activity_type && props.route.params.request.activity_type === 2){
-                    props.navigation.navigate(AppConstant.APP_PAGE.MY_OFFERS_SCREEN)
+                    props.navigation.navigate(AppConstant.APP_PAGE.SIDE_DRAWER)
                 }else{
                     props.navigation.goBack()
                 }

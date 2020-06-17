@@ -28,13 +28,6 @@ const optionsOnScreen = [
         nearMe:0
     },
     {
-        label: appLabelKey.med_ppe,
-        path: StaticImage.MED_PPE,
-        code: AppConstant.API_REQUEST_CONSTANTS.activity_category.MED_PPE,
-        total:0,
-        nearMe:0
-    },
-    {
         label: appLabelKey.transport,
         path: StaticImage.TRANSPORT,
         code: AppConstant.API_REQUEST_CONSTANTS.activity_category.TRANSPORT,
@@ -49,13 +42,6 @@ const optionsOnScreen = [
         nearMe:0
     },
     {
-        label: appLabelKey.medical_Equipment,
-        path: StaticImage.MED_EQUIPMENT,
-        code: AppConstant.API_REQUEST_CONSTANTS.activity_category.MED_EQUIPMENT,
-        total:0,
-        nearMe:0
-    },
-    {
         label: appLabelKey.giveaways,
         path: StaticImage.GIVEAWAYS,
         code: AppConstant.API_REQUEST_CONSTANTS.activity_category.GIVEAWAYS,
@@ -63,23 +49,9 @@ const optionsOnScreen = [
         nearMe:0
     },
     {
-        label: appLabelKey.medicines,
-        path: StaticImage.MEDICINES,
-        code: AppConstant.API_REQUEST_CONSTANTS.activity_category.MEDICINES,
-        total:0,
-        nearMe:0
-    },
-    {
         label: appLabelKey.paid_work,
         path: StaticImage.PAID_WORK,
         code: AppConstant.API_REQUEST_CONSTANTS.activity_category.PAID_WORK,
-        total:0,
-        nearMe:0
-    },
-    {
-        label: appLabelKey.testing,
-        path: StaticImage.TESTING,
-        code: AppConstant.API_REQUEST_CONSTANTS.activity_category.TESTING,
         total:0,
         nearMe:0
     },
@@ -94,13 +66,6 @@ const optionsOnScreen = [
         label: appLabelKey.fruits_vegetables,
         path: StaticImage.FRUTS_VEGS,
         code: AppConstant.API_REQUEST_CONSTANTS.activity_category.FRUTS_VEGS,
-        total:0,
-        nearMe:0
-    },
-    {
-        label: appLabelKey.ambulance,
-        path: StaticImage.AMBULANCE,
-        code: AppConstant.API_REQUEST_CONSTANTS.activity_category.AMBULANCE,
         total:0,
         nearMe:0
     },
@@ -137,6 +102,8 @@ function OfferHelpScreen(props) {
                 optionsOnScreen[index]["nearMe"] = response.data[i].near;
             }
             setDataFectched(true)
+        }).catch((e) => {
+            Toast.show('Network error : Please check ir you have network connectivity ', { duration: 3000, position: 0, animation: true, shadow: true, animationDuration: 1000 })
         })
     }
 

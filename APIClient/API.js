@@ -51,7 +51,7 @@ class API{
     const resourceURL = this.url + "/" + apiEndpoint;
     endpoints.getAll = ({ params={}}, config={} ) => axios.get(resourceURL, { params }, config)
     endpoints.getOne = ({ id }, config={}) =>  axios.get(`${resourceURL}/${id}`, config)
-    endpoints.post = (toCreate, config={}) =>  {
+    endpoints.post = (toCreate, config={timeout: 5000}) =>  {
         return new Promise((resolve, reject) => {
             let response =  axios.post(resourceURL, toCreate, config)
             response.then((resp) => {
@@ -167,8 +167,7 @@ class API{
                             resolve(JSON.parse(data));
                         })
                     }
-                })
-                                
+                }).catch(err => {reject(err)})                               
             })
             .catch(err => {reject(err)})
         });
@@ -196,7 +195,7 @@ class API{
                             resolve(JSON.parse(data));
                         })
                     }
-                }) 
+                }).catch(err => {reject(err)})  
             })
              .catch(err => {reject(err)})
         });
@@ -225,7 +224,7 @@ class API{
                             resolve(JSON.parse(data));
                         })
                     }
-                })
+                }).catch(err => {reject(err)}) 
             })
             .catch(err => {reject(err)})
         });    
@@ -272,7 +271,7 @@ class API{
                             resolve(JSON.parse(data));
                         })
                     }
-                }) 
+                }).catch(err => {reject(err)})  
             })
             .catch(err => {reject(err)})
         });    

@@ -148,6 +148,8 @@ export default class RegisterMobile extends React.Component {
 
                 }
                 
+            }).catch((e) => {
+                Toast.show('Network error : Please check ir you have network connectivity ', { duration: 3000, position: 0, animation: true, shadow: true, animationDuration: 1000 })
             });
         })
             
@@ -211,7 +213,9 @@ export default class RegisterMobile extends React.Component {
                     Toast.show('Registration Error ' + JSON.stringify(error) , {duration:1000, position:0, animation:true, shadow:true, animationDuration:2000})
     
                 } 
-            );   
+            ).catch((e) => {
+                Toast.show('Network error : Please check ir you have network connectivity ', { duration: 3000, position: 0, animation: true, shadow: true, animationDuration: 1000 })
+            });   
 
         });
 
@@ -280,10 +284,10 @@ export default class RegisterMobile extends React.Component {
                                 style={commonStyles.registerSwitch} 
                                 onValueChange ={(switchValue)=>{this.setState({contactVisible: switchValue})}}
                             ></Switch>
-                            <Text adjustsFontSizeToFit={true}  minimumFontScale={.5}  style={commonStyles.registerSwitchText}>{translate.t("label_visible_text")}</Text>
+                            <Text adjustsFontSizeToFit={true}  minimumFontScale={.01} numberOfLines={2} style={commonStyles.registerSwitchText}>{translate.t("label_visible_text")}</Text>
                         </View> 
                         <View style={commonStyles.registerSwitchRow}>
-                            <Switch
+                            <Switch 
                                         disabled={false}
                                         activeText={'On'}
                                         inActiveText={'Off'}
@@ -294,10 +298,10 @@ export default class RegisterMobile extends React.Component {
                                             
                                 value={this.state.representOrg ? true : false}                            
                                 style={commonStyles.registerSwitch} 
-                                onValueChange ={(switchValue)=>{this.setState({representOrg: switchValue})}}                                
+                                onValueChange ={(switchValue)=>{this.setState({representOrg: switchValue})}}
                             ></Switch>
-                            <Text adjustsFontSizeToFit={true}  minimumFontScale={1} style={commonStyles.registerSwitchText}>{translate.t("label_representing_as_org")} </Text>
-                        </View>    
+                            <Text adjustsFontSizeToFit={true}  minimumFontScale={.01} numberOfLines={2} style={commonStyles.registerSwitchText}>{translate.t("label_representing_as_org")}</Text>
+                        </View>                            
                         {this.state.representOrg ?  
                         <View style={{width:scale(310) }}>                                
                         <TextInput onChangeText={text => this.setState({organisationName: text})} style={commonStyles.RegistrationInput} placeholderTextColor="grey"  placeholder={translate.t('label_org_name')}/>                                                                           
@@ -311,21 +315,21 @@ export default class RegisterMobile extends React.Component {
                                 value={this.state.organisationType}
                         />
                         <TextInput onChangeText={text => this.setState({organisationUnit: text})} style={commonStyles.RegistrationInput} placeholderTextColor="grey"  placeholder={translate.t('label_unit_division')}/> 
-                        <View style={{width:scale(310), marginTop:20}}>  
-                            <TouchableOpacity style={{backgroundColor: "#4F5065",height: 56,
-                                        marginTop: 10,                                     
-                                        paddingHorizontal: 1,   
-                                        justifyContent:"center" ,           
-                                        width:scale(310),
-                                        borderWidth: 1,
-                                        shadowOpacity: 0.9,
-                                        borderRadius: 9,
-                                        shadowOffset: { height: 3 },
-                                        shadowColor: '#2328321F',}} 
-                                        onPress={() =>{this.register()}}>
-                                            <Text style={{borderRadius: 9, textAlign: "center",fontFamily: "Roboto-Medium",fontSize: 20,color: "#FFFFFF"}}>{translate.t("label_start")}</Text>
-                            </TouchableOpacity>
-                        </View>
+                            <View style={{width:scale(310), marginTop:20}}>  
+                                <TouchableOpacity style={{backgroundColor: "#4F5065",height: 56,
+                                            marginTop: 10,                                     
+                                            paddingHorizontal: 1,   
+                                            justifyContent:"center" ,           
+                                            width:scale(310),
+                                            borderWidth: 1,
+                                            shadowOpacity: 0.9,
+                                            borderRadius: 9,
+                                            shadowOffset: { height: 3 },
+                                            shadowColor: '#2328321F',}} 
+                                            onPress={() =>{this.register()}}>
+                                                <Text style={{borderRadius: 9, textAlign: "center",fontFamily: "Roboto-Medium",fontSize: 20,color: "#FFFFFF"}}>{translate.t("label_start")}</Text>
+                                </TouchableOpacity>
+                            </View>
                         </View>
                         :  
                         <View style={{width:scale(310), marginTop:20}}>  

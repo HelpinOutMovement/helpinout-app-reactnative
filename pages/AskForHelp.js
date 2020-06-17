@@ -20,11 +20,6 @@ const optionsOnScreen = [
     label: appLabelKey.shelter,
     path: StaticImage.SHELTER,
     code: AppConstant.API_REQUEST_CONSTANTS.activity_category.SHELTER
-  },  
-  {
-    label: appLabelKey.med_ppe,
-    path: StaticImage.MED_PPE,
-    code: AppConstant.API_REQUEST_CONSTANTS.activity_category.MED_PPE
   },
   {
     label: appLabelKey.transport,
@@ -37,29 +32,14 @@ const optionsOnScreen = [
     code: AppConstant.API_REQUEST_CONSTANTS.activity_category.VOLUNTEERS
   },
   {
-    label: appLabelKey.medical_Equipment,
-    path: StaticImage.MED_EQUIPMENT,
-    code: AppConstant.API_REQUEST_CONSTANTS.activity_category.MED_EQUIPMENT
-  },
-  {
     label: appLabelKey.giveaways,
     path: StaticImage.GIVEAWAYS,
     code: AppConstant.API_REQUEST_CONSTANTS.activity_category.GIVEAWAYS
   },
   {
-    label: appLabelKey.medicines,
-    path: StaticImage.MEDICINES,
-    code: AppConstant.API_REQUEST_CONSTANTS.activity_category.MEDICINES
-  },
-  {
     label: appLabelKey.paid_work,
     path: StaticImage.PAID_WORK,
     code: AppConstant.API_REQUEST_CONSTANTS.activity_category.PAID_WORK
-  },
-  {
-    label: appLabelKey.testing,
-    path: StaticImage.TESTING,
-    code: AppConstant.API_REQUEST_CONSTANTS.activity_category.TESTING
   },
   {
     label: appLabelKey.animal_care,
@@ -70,11 +50,6 @@ const optionsOnScreen = [
     label: appLabelKey.fruits_vegetables,
     path: StaticImage.FRUTS_VEGS,
     code: AppConstant.API_REQUEST_CONSTANTS.activity_category.FRUTS_VEGS
-  },
-  {
-    label: appLabelKey.ambulance,
-    path: StaticImage.AMBULANCE,
-    code: AppConstant.API_REQUEST_CONSTANTS.activity_category.AMBULANCE
   },
   {
     label: appLabelKey.other,

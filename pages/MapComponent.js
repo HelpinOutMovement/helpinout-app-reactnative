@@ -125,7 +125,9 @@ class MapComponent extends React.Component {
                 this.setState({address:retval[0].formattedAddress},() => { 
                   this.props.callbackOnRegionChange(this.state.region, this.state);
                 })  
-              }).catch(error => {          
+              }).catch(error => {      
+                
+                Toast.show('Network error : Please check ir you have network connectivity ', { duration: 3000, position: 0, animation: true, shadow: true, animationDuration: 1000 })    
                 //this.props.callbackOnRegionChange(this.state.region, this.state);
               });
             /*
@@ -154,7 +156,9 @@ class MapComponent extends React.Component {
           this.setState({address:retval[0].formattedAddress},() => { 
             this.props.callbackOnRegionChange(this.state.region, this.state);
           })  
-        }).catch(error => {          
+        }).catch(error => {    
+          
+            Toast.show('Network error : Please check ir you have network connectivity ', { duration: 3000, position: 0, animation: true, shadow: true, animationDuration: 1000 })      
           //this.props.callbackOnRegionChange(this.state.region, this.state);
         });
 
@@ -283,7 +287,9 @@ class MapComponent extends React.Component {
                 this.setState({address:retval[0].formattedAddress},() => { 
                   this.props.callbackOnRegionChange(region, address, distance);
                 })  
-              }).catch(error => {          
+              }).catch(error => {    
+                
+                Toast.show('Network error : Please check ir you have network connectivity ', { duration: 3000, position: 0, animation: true, shadow: true, animationDuration: 1000 })      
                 //this.props.callbackOnRegionChange(this.state.region, this.state);
               });
 
@@ -332,6 +338,8 @@ class MapComponent extends React.Component {
             Toast.show('appid expired : ', {duration:2000, position:0, animation:true, shadow:true, animationDuration:1000})
             AppStorage.storeAppInfo(AppConstant.APP_STORE_KEY.IS_VEFIRIED, "false");
             this.navigate(AppConstant.APP_PAGE.LOGIN);
+          }else{            
+            Toast.show('Network error : Please check ir you have network connectivity ', { duration: 3000, position: 0, animation: true, shadow: true, animationDuration: 1000 })
           }
         })
   }
