@@ -277,7 +277,7 @@ export default class AddActivityScreen extends Component {
         || this.props.route.params.optionCode === AppConstant.API_REQUEST_CONSTANTS.activity_category.GIVEAWAYS 
         || this.props.route.params.optionCode === AppConstant.API_REQUEST_CONSTANTS.activity_category.PAID_WORK 
         || this.props.route.params.optionCode === AppConstant.API_REQUEST_CONSTANTS.activity_category.ANIMAL_SUPPORT 
-        || this.props.route.params.optionCode === AppConstant.API_REQUEST_CONSTANTS.activity_category.FRUTS_VEGS ){
+        || this.props.route.params.optionCode === AppConstant.API_REQUEST_CONSTANTS.activity_category.FRUITS_VEGS ){
         this.setState({ hideAddMore: true })
         this.setState({ hideConstrains: false })
       }else {
@@ -296,7 +296,7 @@ export default class AddActivityScreen extends Component {
         || this.props.route.params.optionCode === AppConstant.API_REQUEST_CONSTANTS.activity_category.GIVEAWAYS 
         || this.props.route.params.optionCode === AppConstant.API_REQUEST_CONSTANTS.activity_category.PAID_WORK 
         || this.props.route.params.optionCode === AppConstant.API_REQUEST_CONSTANTS.activity_category.ANIMAL_SUPPORT 
-        || this.props.route.params.optionCode === AppConstant.API_REQUEST_CONSTANTS.activity_category.FRUTS_VEGS ){
+        || this.props.route.params.optionCode === AppConstant.API_REQUEST_CONSTANTS.activity_category.FRUITS_VEGS ){
         this.setState({ hideAddMore: true })
         this.setState({ hideConstrains: false })
       } else {

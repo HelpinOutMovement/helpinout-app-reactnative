@@ -117,7 +117,7 @@ const AppConstant = {
         TESTING: "TESTING",
 
         VOLUNTEERS:"VOLUNTEERS",
-        FRUTS_VEGS:"FRUTS_VEGS",
+        FRUITS_VEGS:"FRUITS_VEGS",
         TRANSPORT:"TRANSPORT",
         ANIMAL_SUPPORT:"ANIMAL_SUPPORT", 
         GIVEAWAYS:"GIVEAWAYS",
@@ -156,7 +156,7 @@ const AppConstant = {
             8:'MED_EQUIPMENT',
 
             9:'VOLUNTEERS',
-            10:'FRUTS_VEGS',
+            10:'FRUITS_VEGS',
             11:'TRANSPORT',
             12:'ANIMAL_SUPPORT',
             13:'GIVEAWAYS',
@@ -177,7 +177,7 @@ const AppConstant = {
             MED_EQUIPMENT:8,
 
             VOLUNTEERS:9,
-            FRUTS_VEGS:10,
+            FRUITS_VEGS:10,
             TRANSPORT:11,
             ANIMAL_SUPPORT:12, 
             GIVEAWAYS:13,
@@ -198,7 +198,7 @@ const AppConstant = {
             MED_EQUIPMENT:"Medical Equipment",
 
             VOLUNTEERS:"Volunteers",
-            FRUTS_VEGS:"Fruts/Vegitables",
+            FRUITS_VEGS:"Fruts/Vegitables",
             TRANSPORT:"Transport",
             ANIMAL_SUPPORT:"Animal Care", 
             GIVEAWAYS:"Giveaways",

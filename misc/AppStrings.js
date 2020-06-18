@@ -58,7 +58,9 @@ const appLabelKey = {
     giveaways:"giveaways",
     paid_work:"paid_work",
     animal_care:"animal_care",
+    animal_support:"animal_care",
     fruits_vegetables:"fruits_vegetables",
+    fruits_vegs:"fruits_vegetables",
 
     need_help_with:"toolbar_need_help_with",
     qty:"Qty",

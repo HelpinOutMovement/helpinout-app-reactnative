@@ -64,8 +64,8 @@ const optionsOnScreen = [
     },
     {
         label: appLabelKey.fruits_vegetables,
-        path: StaticImage.FRUTS_VEGS,
-        code: AppConstant.API_REQUEST_CONSTANTS.activity_category.FRUTS_VEGS,
+        path: StaticImage.FRUITS_VEGS,
+        code: AppConstant.API_REQUEST_CONSTANTS.activity_category.FRUITS_VEGS,
         total:0,
         nearMe:0
     },

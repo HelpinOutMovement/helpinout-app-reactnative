@@ -9,7 +9,7 @@ const SHELTER = require("../images/shelter.png");
 const TESTING = require("../images/testing.png");
 
 const VOLUNTEERS = require("../images/volunteers.png");
-const FRUTS_VEGS = require("../images/fruits_vegetables.png");
+const FRUITS_VEGS = require("../images/fruits_vegetables.png");
 const TRANSPORT = require("../images/transport.png");
 const ANIMAL_SUPPORT = require("../images/animal_support.png");
 const GIVEAWAYS = require("../images/giveaways.png");
@@ -29,7 +29,7 @@ class StaticImage {
     static TESTING = TESTING;
 
     static VOLUNTEERS = VOLUNTEERS;
-    static FRUTS_VEGS = FRUTS_VEGS;
+    static FRUITS_VEGS = FRUITS_VEGS;
     static TRANSPORT = TRANSPORT;
     static ANIMAL_SUPPORT = ANIMAL_SUPPORT;
     static GIVEAWAYS = GIVEAWAYS;

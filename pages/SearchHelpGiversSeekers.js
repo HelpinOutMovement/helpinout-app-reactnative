@@ -384,24 +384,24 @@ function SearchHelpGiversSeekers(props) {
                                                 
                                                 {(singleData.activity_detail && singleData.activity_detail.length > 0) ?
                                                         <View style={{width:scale(300),  marginTop:10 , borderWidth:0, flex:1}}>
-                                                            <View style={{borderWidth:0, flex:1, justifyContent:"flex-start"}}>
+                                                            <ScrollView style={{borderWidth:0, flex:1,  maxHeight:verticalScale(80)}}>
                                                             {
                                                                 singleData.activity_detail.map(singleActivityData => {
                                                                     return (
                                                                         <>
-                                                                        <Text adjustsFontSizeToFit={true} minimumFontScale={1} numberOfLines={1} style={{ paddingLeft: 5,fontFamily:"roboto-regular", fontWeight:"300" }}>
+                                                                        <Text adjustsFontSizeToFit={true} minimumFontScale={.01} numberOfLines={1} style={{ paddingLeft: 5,fontFamily:"roboto-regular", fontWeight:"100" }}>
                                                                             {singleActivityData.detail + "   (" + singleActivityData.quantity + ")"}
-                                                                        </Text>                                                                             
+                                                                        </Text>                                                                                                                                                 
                                                                         </>                                                               
                                                                     )
                                                                 })
                                                             }
-                                                            </View>
+                                                            </ScrollView>
                                                             <View style={{borderWidth:0, flex:1, justifyContent:"flex-end"}}>
-                                                            <View style={{flex:0, flexDirection:"column", width:scale(300),  marginTop:0 , borderWidth:0,  justifyContent:"flex-start"}}>
-                                                                <Text adjustsFontSizeToFit={true} minimumFontScale={1} numberOfLines={1} style={{fontFamily:"roboto-regular", fontWeight:"900"}}>{translate.t("note")}</Text>
-                                                                <Text adjustsFontSizeToFit={true} minimumFontScale={1} numberOfLines={3}  style={{ paddingLeft: 5, fontFamily:"roboto-regular", fontWeight:"300"}}>{singleData.offer_condition}</Text>
-                                                            </View>
+                                                                <View style={{flex:0, flexDirection:"column", width:scale(300),  marginTop:0 , borderWidth:0,  justifyContent:"flex-start"}}>
+                                                                    <Text adjustsFontSizeToFit={true} minimumFontScale={.01} numberOfLines={1} style={{fontFamily:"roboto-regular", fontWeight:"900"}}>{translate.t("note")}</Text>
+                                                                    <Text adjustsFontSizeToFit={true} minimumFontScale={.01} numberOfLines={3}  style={{ paddingLeft: 5, fontFamily:"roboto-regular", fontWeight:"100"}}>{singleData.offer_condition}</Text>
+                                                                </View>
                                                             </View>
                                                         </View>
                                                         :
