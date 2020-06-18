@@ -104,7 +104,7 @@ class MapComponent extends React.Component {
                 })  
               }).catch(error => {      
                 if(Object.keys(error).length !== 0){
-                  Toast.show('Network error : Please check ir you have network connectivity ' + JSON.stringify(error), { duration: 3000, position: 0, animation: true, shadow: true, animationDuration: 1000 })
+                  Toast.show(translate.t('toast_error_internet_issue') + JSON.stringify(error), { duration: 3000, position: 0, animation: true, shadow: true, animationDuration: 1000 })
                 }
               });
           })
@@ -124,7 +124,7 @@ class MapComponent extends React.Component {
           })  
         }).catch(error => {    
           if(Object.keys(error).length !== 0){
-            Toast.show('Network error : Please check ir you have network connectivity ' + JSON.stringify(error), { duration: 3000, position: 0, animation: true, shadow: true, animationDuration: 1000 })
+            Toast.show(translate.t('toast_error_internet_issue') + JSON.stringify(error), { duration: 3000, position: 0, animation: true, shadow: true, animationDuration: 1000 })
           }          
         });
 
@@ -242,7 +242,7 @@ class MapComponent extends React.Component {
                 })  
               }).catch(error => {    
                 if(Object.keys(error).length !== 0){
-                  Toast.show('Network error : Please check ir you have network connectivity ' + JSON.stringify(error), { duration: 3000, position: 0, animation: true, shadow: true, animationDuration: 1000 })
+                  Toast.show(translate.t('toast_error_internet_issue') + JSON.stringify(error), { duration: 3000, position: 0, animation: true, shadow: true, animationDuration: 1000 })
                 }                
               });
           })
@@ -277,7 +277,7 @@ class MapComponent extends React.Component {
             AppStorage.storeAppInfo(AppConstant.APP_STORE_KEY.IS_VEFIRIED, "false");
             this.navigate(AppConstant.APP_PAGE.LOGIN);
           }else{            
-            Toast.show('Network error : Please check ir you have network connectivity ', { duration: 3000, position: 0, animation: true, shadow: true, animationDuration: 1000 })
+            Toast.show(translate.t('toast_error_internet_issue'), { duration: 3000, position: 0, animation: true, shadow: true, animationDuration: 1000 })
           }
         })
   }

@@ -149,7 +149,7 @@ export default class RegisterMobile extends React.Component {
                 }
                 
             }).catch((e) => {
-                Toast.show('Network error : Please check ir you have network connectivity ', { duration: 3000, position: 0, animation: true, shadow: true, animationDuration: 1000 })
+                Toast.show(translate.t('toast_error_internet_issue'), { duration: 3000, position: 0, animation: true, shadow: true, animationDuration: 1000 })
             });
         })
             
@@ -214,7 +214,7 @@ export default class RegisterMobile extends React.Component {
     
                 } 
             ).catch((e) => {
-                Toast.show('Network error : Please check ir you have network connectivity ', { duration: 3000, position: 0, animation: true, shadow: true, animationDuration: 1000 })
+                Toast.show(translate.t('toast_error_internet_issue'), { duration: 3000, position: 0, animation: true, shadow: true, animationDuration: 1000 })
             });   
 
         });

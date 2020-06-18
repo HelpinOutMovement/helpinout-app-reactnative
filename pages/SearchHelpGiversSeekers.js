@@ -192,7 +192,7 @@ function SearchHelpGiversSeekers(props) {
                 } 
                 setShowSpinner(false)           
             }).catch((e) => {
-                Toast.show('Network error : Please check ir you have network connectivity ' + JSON.stringify(e), { duration: 3000, position: 0, animation: true, shadow: true, animationDuration: 1000 })
+                Toast.show(translate.t('toast_error_internet_issue') + JSON.stringify(e), { duration: 3000, position: 0, animation: true, shadow: true, animationDuration: 1000 })
             })
         }catch(err){
             console.log(err);
@@ -229,7 +229,7 @@ function SearchHelpGiversSeekers(props) {
                     Toast.show('Error Submitting your request', { duration: 3000, position: 0, animation: true, shadow: true, animationDuration: 1000 })
                 }
             }).catch((e) => {
-                Toast.show('Network error : Please check ir you have network connectivity ' + JSON.stringify(e), { duration: 3000, position: 0, animation: true, shadow: true, animationDuration: 1000 })
+                Toast.show(translate.t('toast_error_internet_issue') + JSON.stringify(e), { duration: 3000, position: 0, animation: true, shadow: true, animationDuration: 1000 })
             })
         }catch(err){
             console.log(err);

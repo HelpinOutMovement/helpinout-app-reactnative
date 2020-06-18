@@ -119,7 +119,7 @@ function Home(props) {
             
           }).catch((e) => {
             setShowSpinner(false);
-            Toast.show('Network error : Please check ir you have network connectivity ', { duration: 3000, position: 0, animation: true, shadow: true, animationDuration: 1000 })
+            Toast.show(translate.t('toast_error_internet_issue'), { duration: 3000, position: 0, animation: true, shadow: true, animationDuration: 1000 })
             //setShowSpinner(false);
             //setRequestInformation([]);
           })
@@ -244,7 +244,7 @@ function Home(props) {
             appStorage.storeAppInfo(AppConstant.APP_STORE_KEY.IS_VEFIRIED, "false");
             navigation.navigate(AppConstant.APP_PAGE.LOGIN);
           }else{
-            Toast.show('Network error : Please check ir you have network connectivity ', { duration: 3000, position: 0, animation: true, shadow: true, animationDuration: 1000 })
+            Toast.show(translate.t('toast_error_internet_issue'), { duration: 3000, position: 0, animation: true, shadow: true, animationDuration: 1000 })
           }
         })
       }catch(err){
