@@ -123,7 +123,7 @@ const getOfferListingCountView = (props, compareWith) => {
 }
 const PastOfferRequestComponent = (props) => {
     const helpOption = Utilities.getCategoryFromCode(props.activity_category);
-    console.log(helpOption)
+    //console.log(helpOption)
     const categoryName = translate.t(appLabelKey[helpOption.toLowerCase()]);
     return (
         <Card style={{

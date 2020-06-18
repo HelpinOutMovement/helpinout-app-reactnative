@@ -235,7 +235,7 @@ class API{
             let  requestObjects = new RequestObjects();
             reqObj = requestObjects.activityAdd(activity_uuid, activity_type, geo_location, geo_accuracy, address, activity_category, activity_count, activity_detail, offer_condition, pay, self_else);
             reqObj.then((val)=> {
-                console.log(" Add Activity : " + JSON.stringify(val))
+                //console.log(" Add Activity : " + JSON.stringify(val))
                 let apicall = 'activity/add';
                 this.createEntity(apicall).then((call) => {
                     let data = this.endpoints[call].post(val);        

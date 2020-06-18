@@ -83,7 +83,7 @@ function Home(props) {
         setDrawerNavigationOptions(props.navigation);
         //console.log("without params " + JSON.stringify(props))
         try{
-          
+          /*
           setShowSpinner(true)
           apiInstance.userPastActivity(0).then(resp => {
             if(resp.data.requests.length > 0){
@@ -123,6 +123,7 @@ function Home(props) {
             //setShowSpinner(false);
             //setRequestInformation([]);
           })
+          */
           
 
           setState({
@@ -218,7 +219,7 @@ function Home(props) {
       
       
     const callbackOnRegionChange = (region, address, distance) => {
-      //console.log("callbackOnRegionChange")
+      console.log("callbackOnRegionChange")
       state["region"] = region;
       state["address"] = address;
       state["latlon"] =  region.latitude + "," + region.longitude;
@@ -226,13 +227,13 @@ function Home(props) {
       setLatLon(region.latitude + "," + region.longitude)
       setRegion(region)
       setState({ ...state})
-      //getLocationSuggestions(region, address, distance)
+      getLocationSuggestions(region, address, distance)
     }
       
 
     const getLocationSuggestions = (region, address, distance) => {   
       try{
-        //console.log("getLocationSuggestions") 
+        console.log("getLocationSuggestions") 
         setShowSpinner(true)
         reqObj = apiInstance.locationSuggestion(region.latitude, region.longitude, "10.424", distance / 2);
         reqObj.then((val) => {

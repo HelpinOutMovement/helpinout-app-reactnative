@@ -126,7 +126,7 @@ const AppConstant = {
     },
 
     API_SERVER: {
-        baseURL:"https://app.helpinout.org/api/v1",
+        baseURL:"https://test.helpinout.org/api/v1",
     },
 
     API_REQUEST_CONSTANTS:{
